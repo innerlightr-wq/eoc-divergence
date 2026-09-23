@@ -426,6 +426,21 @@ auxiliary places, **not the place of the value**. Our coefficients `2^{⌊jα⌋
 So the question Phase 0 answers is not a special case of any of these: **they are about a value
 that, at our point, does not exist.** This is a hypothesis-level exclusion, not an impression.
 
+### The four candidates, checked against their own abstracts
+
+Fetched from the arXiv API, not paraphrased from (B):
+
+| paper | what it proves | the hypothesis that excludes `Ξ_α` |
+|---|---|---|
+| **Bugeaud–Laurent**, `2203.12901` (2022) | `F_{θ,ρ}(z₁,z₂)` transcendental at algebraic `(β,α)` with `0 < \|β\|, \|βα^θ\| < 1`; plus the continued fraction and irrationality exponent of `F_{θ,ρ}(1/b, 1/a)` | the domain is **strict**. In (B)'s coordinates our point is `(x,y) = (1/3, 2)` and `\|x y^{α}\| = (1/3)·2^{log₂3} = 1` — **exactly on the boundary**; also `\|y\| = 2 > 1`, while their rational evaluations use `(1/b, 1/a)` with both coordinates `< 1` |
+| **Luca–Ouaknine–Worrell**, `2412.07908` (2024) | `Σ_n f(⌊nθ+α⌋)β^{−n}` transcendental for `f ∈ ℤ[x]` **non-constant polynomial** and algebraic `\|β\| > 1` | our coefficient is `2^{⌊jα⌋}` — **exponential in `⌊jα⌋`, not polynomial** |
+| **Luca–Ouaknine–Worrell**, `2204.08268` (2022) | `Σ a_n/b^n` transcendental for `a_n` in a **finite** set of algebraic numbers, Sturmian-coded, `\|b\| > 1` | our `a_j = 2^{⌊jα⌋}` is **unbounded**; equivalently the effective ratio `2^{α}/3 = 3/3 = 1`, so there is no `\|b\| > 1` |
+| **Pellarin**, `math/0407378` (2004) | algebraic dependence relations of **complex** values of Hecke–Mahler series on `𝔾_m²(ℂ)`; contains Mahler, Loxton–van der Poorten, Masser | complex values; ours has none |
+
+The same number `1` appears in three of the four rows — `\|x y^α\| = 1`, effective ratio `2^α/3 = 1`,
+terms `Θ(1)`. That is one fact wearing three costumes: **`2^{log₂3} = 3` is exactly the resonance
+that puts the Collatz point on every boundary at once.**
+
 ## Independent cross-check
 
 Note (B) §9 performs the same audit hypothesis by hypothesis — Mahler 1929, Loxton–van der
