@@ -528,7 +528,7 @@ unrelated.
 
 | work | class | reason |
 |---|---|---|
-| **Winkler (2026)** — admissible `qx+1` words, cycle lemma, rational Catalan numbers | RELATED | word-level/cycle-lemma combinatorics; no 2-adic value, no `Φ` |
+| **Winkler (2026)**, *Admissible `qx+1` Sequences, Semiconvergents, and Rational Catalan Numbers*, preprint, 14 Sept 2026, Ruhr University Bochum (ResearchGate 414300439) | RELATED | word-level and cycle-lemma combinatorics of admissible sequences; semiconvergents appear on the continued-fraction side, as in note (A) §9. No 2-adic value and no `Φ`. |
 | **Stephan (2026)**, *Ceiling orbits … not P-recursive* | RELATED | orbit combinatorics |
 | **Stephan (2026)**, *Confinement schemas … powers of rational numbers modulo one* | RELATED | confinement of `(3/2)^n` mod 1; the distribution side, not the 2-adic value |
 | **Stephan (2026)**, *Transcendence criteria for the minimal word of the rational base 3/2*, `arXiv:2609.19007` | RELATED | closest of the three: transcendence criteria for a rational-base minimal word — **and the irrationality of its constant `K` is left open there** |
