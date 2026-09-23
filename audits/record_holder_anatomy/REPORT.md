@@ -7,7 +7,28 @@ conjecture. The repository's headline theorem is an equivalence, not an exclusio
 Labels: **PROVED** (proved here, with the proof written out) · **VERIFIED** (exact computation,
 stated range) · **CITED** (source given) · **HEURISTIC** · **OPEN**.
 
-**Status: Phase 1 complete (P1–P3). No computation has been run.** Phases 2–4 await approval.
+**Status: Phase 1 complete and accepted (P1–P3). Phase 2 in progress.**
+
+## Standing corrections, recorded at the author's instruction
+
+1. **The sign-flip correction (P1.c).** "`T` preserves the sign of nonzero rationals" is **false**:
+   `T(−1/5) = 1/5`. Only the one-sided form holds — **positivity is forward-invariant** — and it
+   is all the eventually-periodic case needs. **CITED**: Monks–Yazinski, *Discrete Math.* **275**
+   (2004), **Lemma 3.4**; part (a) is the forward-invariance, part (b) is the failure on `(−1,0]`.
+2. **The M1 ceiling (§P3 → M1).** For an initial square with block `W` of length `ℓ`, `k` ones,
+   put `θ_W = (k/ℓ)·log₂3`. The ceiling is
+   ```
+   ℓ ≤ (log₂ m_k + O(log ℓ)) / (2 − θ_W) ,
+   ```
+   **computed per block from that block's own `θ_W`**, never from a fixed constant, and **valid
+   only when `W` is balanced**. The necessary condition it expresses is therefore *"poor in
+   **balanced** squares"* — an unbalanced square of any exponent violates nothing.
+3. **P3's corollary (§P3).** *No argument using only the aggregate identity, the confinement
+   condition and the sign of the denominator can separate the positive integers from the dust.*
+   The `3x+1` and `3x−1` systems agree on all three and disagree on the answer.
+4. **(PosPC) belongs in `docs/PROGRAMME_ENDPOINT.md`**, as a strictly stronger signed conjecture
+   sitting between (DE) and (LPC) — **not** in `EQUIVALENT_FORMS_OF_DE.md`, which lists
+   statements equivalent to (DE).
 
 ---
 
@@ -249,7 +270,12 @@ not, since that claim is false. Any argument for the `3x+1` positive side that w
 transplanting to `3x−1` is thereby invalid, and P1 does not survive that transplant: the
 transplanted P1 yields positivity, not a contradiction with it.
 
-**A consequence worth recording, because it bounds what P1 can ever do.** P1 is a statement
+### P3 Corollary — the limit of the whole method. **PROVED**
+
+> **No argument that uses only (i) the aggregate identity, (ii) the confinement condition and
+> (iii) the sign of the denominator can separate the positive integers from the rest of `K`.**
+
+P1 is a statement
 about *eventually periodic* points only. The `3x−1` control shows that no strengthening of P1
 that keeps using only the aggregate identity and the sign of the denominator can reach the
 non-eventually-periodic points: the two systems have identical aggregate identities up to the
@@ -314,7 +340,9 @@ and with `θ := (k/ℓ)·log₂3`, `max(2^ℓ,3^k) ≤ 2^{max(1,θ)·ℓ + log�
 
 > **`(2 − max(1,θ))·ℓ ≤ log₂ m + log₂(1+3ℓ) + log₂3`.**
 
-**Correction 1 — the constant is `1`, not `2.41`, in the regime that matters.** For a
+**Correction 1 — the constant is per block, and it is `1`, not `2.41`, in the regime that
+matters.** Write `θ_W = (k/ℓ)·log₂3` for the block `W` of the square actually found, so the
+ceiling reads `ℓ ≤ (log₂m_k + O(log ℓ))/(2 − θ_W)`. For a
 *zero-confined* prefix, `2^{S_k} ≤ 3^k` says exactly `k/ℓ ≥ β`, hence
 ```
 θ = (k/ℓ)·log₂3 ≥ β·log₂3 = 1 ,
@@ -342,3 +370,175 @@ therefore record, for every square it finds, the block's **discrepancy**
 discrepancy is bounded.
 
 Both corrections are pre-registered here, before any data.
+
+---
+
+# Phase 2 — record-holder data
+
+**Status: data only. No Phase-3 interpretation is offered here.** Q1–Q4 are answered in Phase 3.
+
+## 2.0 The exact method
+
+`scripts/scan.c` (and `scan_pm.c`, the `3x±1` variant). For odd `m` it iterates
+`x ↦ (3x+1)/2^{v₂(3x+1)}`, accumulating `S_k`, and stops at the first `k` with `S_k > A[k]`,
+where **`A[k] = floor(k·log₂3) = bit_length(3^k) − 1`** is precomputed exactly in
+`alpha_table.h`. Confinement `2^{S_k} ≤ 3^k` is exactly `S_k ≤ A[k]`, because `2^{S} = 3^k` is
+impossible for `k ≥ 1`. **No floating-point value enters any decision**, and no big-integer
+arithmetic enters the inner loop: orbit values are carried in `unsigned __int128` behind an
+overflow guard at `2^100` (never triggered; the largest orbit value seen over the whole scan has
+42 bits).
+
+Two exact prunings:
+
+* **Only `m ≡ 3 (mod 4)` can be 1-confined.** `S_1 = v₂(3m+1)` and `2^{S_1} ≤ 3` force
+  `S_1 = 1`, i.e. `3m+1 ≡ 2 (mod 4)`, i.e. `m ≡ 3 (mod 4)`. The scan steps by 4. (For `3x−1`
+  the same computation gives `m ≡ 1 (mod 4)`.)
+* Since the scan runs in increasing `m`, the first three `m` it meets with depth `≥ N` **are**
+  `r₁(N) < r₂(N) < r₃(N)`. No post-processing is needed beyond merging disjoint ranges.
+
+**Speed.** `audits/descent/rmin_scan.py` took **79.7 s** to reach `10⁸`; `scan.c` takes
+**0.74 s** — a factor **108**. The work is linear in the bound, so this is what makes the
+extension below feasible at all.
+
+**A second, independent exact method** is used as a cross-check on the *words* rather than the
+integers: `anatomy.minrep(word)` reconstructs the least positive odd `m` realizing a given
+valuation word, from the fact that the odd `m` with a given word of total `S` form exactly one
+residue class mod `2^{S+1}` (Terras/Everett; the repository's `modEq_of_parity_prefix`). The
+class is refined one letter at a time by solving `A′ + 3^{k+1}t ≡ 2^{d−1} (mod 2^d)` for `t`.
+**VERIFIED:** `minrep` applied to each record holder's own valuation word returns that record
+holder, and the same total `S`, for all of them.
+
+## 2.1 Cross-check against the published `N ≤ 200` table
+
+**VERIFIED. PASS — all 200 values agree** with the record-holder table of
+`audits/descent/DESCENT_AUDIT.md`, recomputed from scratch by the new method.
+
+**One immediate correction, from the same `10⁸` range.** The published table stops at `N = 200`
+because *the scan* stopped there, not because the number did: `r₁ = 63728127` has confinement
+depth **236**, so it is `r₁(N)` for **`N = 194 … 236`**, not merely `194 … 200`.
+
+## 2.3 M1 — the square-poorness profile, exact
+
+`scripts/m1.py`. For an integer `m` whose parity word begins with a repetition of block `W`
+(`|W| = ℓ`, `k` ones, agreement length `R`, exponent `e = R/ℓ`), with
+`δ_W = 2^ℓ − 3^k`, `c_W` as in paper eq. (4.1) and `M = m·δ_W − c_W`:
+
+```
+v₂(M) = R                      exactly, by the isometry (paper Prop. 2.2)
+|M| ≤ |m|·(|δ_W| + c_W)
+ ⟹  R ≤ log₂|m| + log₂(|δ_W| + c_W)
+ ⟹  Q := ℓ·(e − max(1, θ_W)) ≤ log₂|m| + O(log ℓ),     θ_W = (k/ℓ)·log₂3,
+```
+the last step using the **balanced** height bound `c_W ≤ 3ℓ·max(2^ℓ,3^k)`. At `e = 2` this is
+the brief's ceiling, `ℓ ≤ (log₂m + O(log ℓ))/(2 − θ_W)`, computed per block from that block's
+own `θ_W`. Every test is an exact integer test; `Q` is evaluated as the integer
+`R − max(ℓ, bit_length(3^k) − 1)`.
+
+**Two exact checks are run on every row, at every step of every orbit.**
+
+* the **isometry** `v₂(M) = R` — this is the derivation's load-bearing identity;
+* the **upper bound** `|M| ≤ |m|(|δ_W| + c_W)` and hence `slack = bitlen(rhs) − R ≥ 0`.
+
+> **Result. VERIFIED, and the stop rule did not fire.**
+> Over every record holder, every control, and every step of every confined run —
+> **several thousand rows** —
+> * **isometry check `v₂(M) = R`: 0 failures**;
+> * **balanced blocks with negative slack: 0**;
+> * **other flagged rows: 0**.
+>
+> No violation by a balanced block was found, so there is nothing to stop and report under the
+> M1 stop rule. The derivation of Phase 1's Correction 2 is confirmed on data: the rows with
+> the largest `Q` relative to `log₂|m_k|` are always balanced or near-balanced, and unbalanced
+> blocks never come near the ceiling.
+
+## 2.4 Controls
+
+### C1 — the negative zero-confined cycles
+
+| point | conf. depth (cap 240) | note |
+|---|---|---|
+| `−1` | 240 (i.e. forever) | fixed point, valuation word `(1)^∞`; parity word `1^∞`, so `M = 0` at every period — correctly flagged *periodic*, ceiling vacuous |
+| `−5` | 240 (forever) | the `{−5,−7}` cycle, valuation word `(1,2)^∞` |
+| `−7` | **0** | **same cycle, other rotation.** `v₂(3(−7)+1) = v₂(−20) = 2` and `2² > 3`, so `−7` fails confinement at the *first* step |
+| `−17` | 240 (forever) | the 11-element cycle; `ℓ = 11`, `k = 7`, `2¹¹ = 2048 ≤ 2187 = 3⁷` |
+| `−25` | 5 | another rotation of the same cycle |
+| `−91` | 0 | another rotation |
+| `−3, −11, −43` | 0 | the `d ≥ 3` preimages of `−1`; **L3** — only `d = 1` preserves confinement backward |
+
+**Recorded observation (VERIFIED, and it is the cycle lemma).** Zero-confinement is **not** a
+property of a cycle but of a *starting point on it*: `−5` is confined forever and `−7`, on the
+same cycle, fails at step one. `Occupation.exists_rot_confined` is exactly the statement that
+*some* rotation is confined.
+
+### C2 — the critical Sturmian point
+
+Valuation word `d_i = ⌊(i+1)α⌋ − ⌊iα⌋ ∈ {1,2}` (exact: `⌊iα⌋ = bit_length(3^i) − 1`), so
+`S_N = ⌊Nα⌋ = A[N]` — the word sits exactly on the confinement boundary at every index. Its
+least realizers, by the class construction:
+
+| `N` | `S_N` | class modulus | `r(D_N)` | `log₂ r(D_N) − S_N` |
+|---|---|---|---|---|
+| 10 | 15 | `2^16` | 23 547 | −1 |
+| 20 | 31 | `2^32` | 3 384 695 803 | 0 |
+| 30 | 47 | `2^48` | 71 106 568 281 083 | −1 |
+| 40 | 63 | `2^64` | 12 466 316 350 106 524 667 | 0 |
+| 50 | 79 | `2^80` | 552 492 451 323 951 177 423 867 | −1 |
+| 60 | 95 | `2^96` | 5 149 367 558 190 029 606 251 027 451 | −3 |
+
+**`r(D_N) ≈ 2^{S_N}`: the Sturmian edge realizer is essentially the whole class modulus.** The
+extremal *word* is not the extremal *realizer*.
+
+### C3 — random confined words, and shuffled surrogates
+
+*Random.* Draw `d_k` uniformly from `{1,…,A[k] − S_{k−1}}` at each step (uniform over the
+allowed letter, **not** uniform over words — stated because it matters), then take the least
+realizer. Median over 12 draws:
+
+| `N` | median `log₂ r` | range | `S_N = A[N]` |
+|---|---|---|---|
+| 40 | 62 | 57 – 63 | 63 |
+| 80 | 125 | 121 – 126 | 126 |
+| 160 | 253 | 250 – 253 | 253 |
+
+*Shuffled surrogates.* Permute a record holder's **own** valuation word — same multiset of
+valuations, hence the **same ones-density and the same total drift** — and keep the permutations
+that are still zero-confined. Six draws each:
+
+| record holder `r₁` | `log₂ r₁` | depth | `log₂` of the surrogate's least realizer |
+|---|---|---|---|
+| 1 126 015 | 20 | 140 | 215, 215, 216, 217, 217, 217 |
+| 8 088 063 | 22 | 154 | 241, 241, 242, 242, 243, 243 |
+| 13 421 671 | 23 | 180 | 280, 281, 283, 283, 283, 283 |
+| 26 716 671 | 24 | 187 | 292, 292, 295, 295, 295, 295 |
+| 56 924 955 | 25 | 193 | 301, 304, 305, 305, 305, 305 |
+| 63 728 127 | 25 | **236** | 368, 368, 373, 373, 373, 373 |
+
+> **The single sharpest number in Phase 2.** A permutation of a record holder's own valuation
+> word — preserving density and total drift exactly — has a least realizer around `2^{370}`
+> where the record holder itself is `2^{25}`. The spread across draws is at most **5 bits**, so
+> the surrogates are not a distribution with the record holder in its tail; they sit at the
+> class modulus, which is where a generic word's least realizer sits. **Whatever makes a record
+> holder small is destroyed by re-ordering its valuations, and is therefore not a property of
+> the density or of the drift endpoint.**
+
+### C4 — the `3x−1` sign control
+
+> **PROVED, and VERIFIED.** `m ↦ −m` is an **exact conjugacy** from `3x−1` on the positive
+> integers to `3x+1` on the negative integers: `v₂(3(−m)+1) = v₂(1−3m) = v₂(3m−1)` and
+> `T(−m) = −T′(m)`, so the two systems have **identical valuation words, identical `S_k`, and
+> identical confinement**. VERIFIED on every odd `m < 4000` to depth 300: identical words and
+> identical depths, no exception.
+
+So C4 and C1 are the *same data* under a sign flip, which is exactly what P3 predicted. The
+record-holder ladder makes the contrast visible:
+
+| system | `r₁(N)` | `r₂(N)` | `r₃(N)` |
+|---|---|---|---|
+| `3x+1`, `N = 1 … 236` | 3 → 63 728 127, **18 distinct values, strictly increasing** | 7 → … | 11 → … |
+| **`3x−1`, `N = 1 … 1000`** | **1, for every `N`** | **5, for every `N ≥ 1`** | **17, for every `N ≥ 3`** |
+
+For `3x−1` the ladder is **degenerate**: `r₁(N)` does not grow at all, because `1`, `5` and `17`
+lie on positive zero-confined cycles and are confined forever. By the conjugacy these are
+`−1`, `−5`, `−17`. Note also `r₁ ≡ 1 (mod 12)` there, so **L4's residue law is sign-specific
+too**.
+
