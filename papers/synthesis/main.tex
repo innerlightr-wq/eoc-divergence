@@ -1,0 +1,977 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{criterion}[theorem]{Criterion}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{formulation}[theorem]{Formulation}
+
+\newcommand{\Zt}{\mathbb{Z}_2}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\vt}{\nu_2}
+\newcommand{\vth}{\nu_3}
+\DeclareMathOperator{\Ph}{\Phi}
+\newcommand{\lab}[1]{\textnormal{\textsc{\small #1}}}
+
+\begin{document}
+
+\title[After the reduction]
+{After the reduction: proved statistics, excluded structure,\\
+and the missing pointwise tool in the accelerated $3x+1$ problem}
+
+\author{Elias De Jes\'us}
+\address{Independent Researcher}
+\email{dejesuselias10@gmail.com}
+\urladdr{https://orcid.org/0009-0007-0190-9143}
+\date{September 2026}
+
+\subjclass[2020]{Primary 11B83; Secondary 11J72, 11K31, 37P05, 68R15, 03B35}
+\keywords{$3x+1$ problem, accelerated Collatz map, 2-adic integers, confinement,
+Sturmian words, formalized mathematics}
+
+\begin{abstract}
+For the accelerated $3x+1$ map $T(m)=(3m+1)/2^{\vt(3m+1)}$ on odd integers, the
+existence of a divergent orbit is \emph{equivalent} to the existence of a single
+positive odd seed whose cumulative valuation satisfies $2^{S_n}\le 3^n$ at every
+depth --- a statement that is machine-checked and carries no hypotheses. This note
+reports what the resulting programme has established and, more usefully, what it
+has excluded. At the population level the statistics are complete: the confined
+words have a proved exponential rate, a proved two-sided polynomial correction,
+and the record-holding integers sit where random placement at that rate predicts,
+to within a bounded and measured residual. At the structured level the natural
+candidates are gone: periodic confined points are negative rationals, the critical
+Sturmian word has an irrational conjugacy value, words of non-critical density are
+excluded by density alone, and descent at the $3$-adic place cannot accumulate a
+budget. What remains is a \emph{placement} problem about specific integers inside
+a population whose size is known, and we argue that no tool currently in the
+programme can address it: we give a proved obstruction showing that the aggregate
+identity, the confinement condition and the sign of a denominator cannot together
+separate the positive integers from the rest, because the $3x-1$ system agrees on
+all three and disagrees on the answer. We state the three conditions any candidate
+tool must satisfy, the controls it must fail, and seven open problems.
+\textbf{Nothing here bears on the Collatz conjecture, and no claim of progress
+toward it is made or implied.}
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+Write $T$ for the \emph{accelerated} $3x+1$ map on the odd positive integers,
+\[
+T(m)=\frac{3m+1}{2^{\,a(m)}},\qquad a(m)=\vt(3m+1)\ge 1,
+\]
+and put $m_k=T^k(m_0)$, $a_k=a(m_k)$, $S_n=\sum_{k<n}a_k$, and
+\[
+\alpha=\log_2 3=1.58496\ldots,\qquad R_n=S_n-n\alpha .
+\]
+$R_n$ is the \emph{drift}: by the aggregate identity of Section~\ref{sec:boundary},
+$m_n$ is comparable to $m_0\,2^{-R_n}$, so an orbit grows exactly when its drift
+falls. The whole subject sits on the line $R_n=0$.
+
+\medskip
+\noindent\textbf{The thesis, in one paragraph.} The divergence question reduces,
+exactly and unconditionally, to the existence of one positive odd integer whose
+drift never rises above zero (Theorem~\ref{thm:reduction}). After that reduction
+the \emph{statistics} of such confinement are settled --- an exact exponential
+rate, an exact polynomial correction, and record-holding integers that sit where
+random placement at that rate predicts --- and the \emph{structured} candidates
+are excluded one family at a time: periodic, algebraic, Sturmian, bounded-drift,
+and descent-accessible. What is left is neither a counting problem nor a
+structural one. It is a question about where particular integers lie inside a
+population whose size is already known, and the tools that decided every other
+part of the programme are provably unable to see it. Section~\ref{sec:needed} is
+an attempt to say precisely what a tool that could see it would have to do.
+
+\medskip
+\noindent\textbf{Explicit non-claims.} This note does not prove, and does not
+claim progress toward, the Collatz conjecture; nor does it exclude divergent
+orbits, nor nontrivial cycles. The central reduction is an \emph{equivalence},
+and Section~\ref{sec:closed} records a list of reformulations that were mistaken
+for progress until they were proved equivalent to the problem itself. Where a
+statement rests on an unrefereed source this is said at every occurrence, not
+once.
+
+\medskip
+\noindent\textbf{Labels.} Every substantive claim carries one of:
+\lab{proved (lean)}, machine-checked in the accompanying repository with no
+hypotheses and no axioms beyond Lean's three standard ones;
+\lab{proved (paper)}, proved by the author on paper and audited, not formalized;
+\lab{cited}, an external result, with reference;
+\lab{verified}, an exact computation over a stated finite range;
+\lab{heuristic}; \lab{conjecture}; \lab{open}. Section~\ref{sec:resources} says
+where each machine-checked statement lives and how each computation is
+reproduced.
+
+\section{The valuation boundary}\label{sec:boundary}
+
+Everything below rests on one identity, which we display once because it is used
+at every later step. Since $2^{a_k}m_{k+1}=3m_k+1$ for each $k$, induction gives
+the \emph{aggregate identity}
+\begin{equation}\label{eq:aggregate}
+2^{\,S_n}\,m_n\;=\;3^{\,n}m_0+C_n,\qquad
+C_n=\sum_{i<n}3^{\,n-1-i}\,2^{\,S_i}\;\ge\;3^{\,n-1}>0\quad(n\ge1).
+\end{equation}
+\lab{proved (lean)} over $\N$, \texttt{Divergence.aggregate\_identity}; the same
+induction over $\Zt^{\times}$, which is what Theorem~\ref{thm:marker} needs, is
+\lab{proved (paper)}. Two consequences are used repeatedly. Dividing by $2^{S_n}$
+and taking logarithms gives Proposition~\ref{prop:drift}. And evaluated at a
+period, \eqref{eq:aggregate} becomes a formula for the periodic point, which is
+Theorem~\ref{thm:marker}; the positivity of $C_n$, visible in
+\eqref{eq:aggregate}, is what fixes its sign.
+
+\begin{proposition}[drift identity]\label{prop:drift}
+For odd $m_0>1$, with $E_N=\sum_{k<N}\log_2\!\bigl(1+1/(3m_k)\bigr)$,
+\[
+\log_2\frac{m_N}{m_0}=N\log_2 3+E_N-S_N,
+\qquad 0<E_N\le N\log_2\tfrac43 .
+\]
+\end{proposition}
+\lab{proved (paper)} \cite{DeJesusVM}. The error term $E_N$ is positive and
+$O(N)$ with a small constant; for a divergent orbit it is in fact
+$O(1)$, since $\sum 1/m_k<\infty$ (Theorem~\ref{thm:summable}). So the sign of
+$\log_2(m_N/m_0)$ is decided by $-R_N$ up to a bounded error.
+
+\begin{theorem}[valuation-mean classification]\label{thm:vm}
+Let $M$ be a bound below which the $3x+1$ conjecture has been verified and put
+$\tau_M=\log_2(3+1/M)$. Every orbit of an odd $m_0>1$ falls into exactly one of
+three cases, with disjoint asymptotic valuation means
+$\overline D_N=S_N/N$:
+\[
+\text{terminating: }\lim \overline D_N=2;\qquad
+\text{cyclic: }\lim \overline D_N=S/L\in(\log_2 3,\tau_M];
+\]
+\[
+\text{injective: }\limsup \overline D_N\le\log_2 3 .
+\]
+Equivalently, $\limsup_N \overline D_N>\tau_M$ if and only if the orbit reaches $1$.
+\end{theorem}
+\lab{proved (paper)} \cite{DeJesusVM}. The ranges are disjoint because
+$\log_2 3<\tau_M<2$. The statement is conditional only through $M$, and only in
+the placement of $\tau_M$: the boundary $\log_2 3$ separating injective from
+cyclic behaviour is exact and unconditional.
+
+\begin{remark}[why one argument cannot serve both halves]\label{rem:twohalves}
+The two open halves of the $3x+1$ problem lie on \emph{opposite sides} of a single
+line. A nontrivial cycle would have valuation mean strictly \emph{above}
+$\log_2 3$; a divergent orbit has $\limsup$ at or \emph{below} it. Any argument
+phrased purely as a bound on the time-average of $a_k$ therefore pushes the two
+cases in opposite directions, and cannot exclude both. This is why the programme
+splits at the outset into a divergence side and a cycle side, and why the two have
+required different machinery throughout.
+\end{remark}
+
+\section{The exact reduction}\label{sec:reduction}
+
+\begin{definition}\label{def:confined}
+An odd $m$ is \emph{zero-confined} if $2^{S_n(m)}\le 3^n$ for every $n\ge 1$;
+equivalently $R_n\le 0$ for every $n$. We write $K$ for the set of zero-confined
+elements of $\Zt^{\times}$ --- the \emph{confined dust} --- and $r_{\min}(N,0)$
+for the least positive odd integer that is zero-confined for $N$ steps.
+\end{definition}
+
+\begin{theorem}[exact reduction]\label{thm:reduction}
+There is an odd $M\in\N$ whose accelerated orbit diverges if and only if there is
+an odd $m\in\N$ that is zero-confined.
+\end{theorem}
+\lab{proved (lean)}, \texttt{Divergence.divergent\_iff\_zeroConfined}
+\cite{EOCDivergenceRepo}: no hypotheses, axioms \texttt{propext},
+\texttt{Classical.choice}, \texttt{Quot.sound}. The forward direction is the
+last-maximum argument; the converse is the observation that a zero-confined seed
+cannot repeat a value (Theorem~\ref{thm:cycledrift}) and so has an injective,
+hence divergent, orbit. The reduction is unconditional because the one external
+input it needs --- the windowed collision bound of
+Theorem~\ref{thm:sparsity} --- is proved in the same development rather than
+assumed.
+
+\begin{definition}[(DE)]\label{def:de}
+\emph{Universal drift exit} is the assertion that the right-hand side of
+Theorem~\ref{thm:reduction} is false: no positive odd integer is zero-confined.
+\lab{open}.
+\end{definition}
+
+\begin{proposition}[equivalent forms]\label{prop:equivalent}
+The following are equivalent to \textup{(DE)}:
+\textup{(a)} the statement of Definition~\ref{def:de};
+\textup{(b)} $r_{\min}(N,0)\to\infty$;
+\textup{(c)} for some, equivalently every, fixed corridor width $c\ge 0$, no
+positive odd integer satisfies $2^{S_n}\le 2^{c}3^{n}$ at every $n$;
+\textup{(d)} no zero-confined $2$-adic integer has an expansion ending in
+$0^{\infty}$.
+\end{proposition}
+\lab{proved (lean)} for (a); \lab{proved (paper)} for the equivalence of (b),
+(c), (d) \cite{DeJesusEOC,EOCDivergenceRepo}. These are recorded precisely so that
+a reformulation into one of them is not mistaken for progress; the repository
+keeps the list for that purpose.
+
+\begin{theorem}[the signed marker]\label{thm:marker}
+Every eventually periodic point of $K$ is a \emph{negative} rational. Explicitly,
+a purely periodic zero-confined point of period $L$ and total $S=S_L$ satisfies
+\[
+m=\frac{C_L}{2^{S}-3^{L}},\qquad
+C_L=\sum_{i<L}3^{\,L-1-i}2^{\,S_i}\ \ge\ 3^{\,L-1}>0,\qquad 2^{S}-3^{L}<0 .
+\]
+\end{theorem}
+\lab{proved (paper)}. Periodicity turns the aggregate identity into
+$m(2^{S}-3^{L})=C_L$; confinement at the single index $L$ gives $2^{S}\le 3^{L}$,
+strictly by unique factorisation. \lab{verified} on all $1\,717$ zero-confined
+purely periodic points of period $\le 10$: every one is negative, without
+exception. The marker classifies the rational points of $K$ that can be
+enumerated, and says nothing about the rest; its real use is in
+Section~\ref{sec:needed}, where the same computation run on $3x-1$ yields the
+opposite sign.
+
+\section{The statistics}\label{sec:statistics}
+
+This section is the part of the programme that is finished. Its conclusion is
+that at the population level, and at the extreme order statistic, the integers
+behave like random placement at the proved rate.
+
+\begin{theorem}[windowed sparsity]\label{thm:sparsity}
+There is $\theta$ with $1\le\theta<2$ such that every collision-free
+$A\subseteq\N$ satisfies
+$\#\bigl(A\cap[a,a+2^{N})\bigr)\le 4(N+1)\theta^{N}$ for all $N$ and all $a\ge1$.
+\end{theorem}
+\lab{proved (lean)}, \texttt{Divergence.exists\_window\_sparsity}, with
+$\theta\approx1.9762$. This is the Fundamental Lemma of Garc\'ia and Tal
+\cite{GarciaTal1999} in the explicit, Heppner-free form of Curry
+\cite{Curry2026} (\lab{cited} for the originals). Formalizing it is what makes
+Theorem~\ref{thm:reduction} unconditional.
+
+\begin{theorem}[reciprocal summability]\label{thm:summable}
+A divergent accelerated orbit satisfies $\sum_n 1/m_n<\infty$.
+\end{theorem}
+\lab{proved (lean)}, \texttt{Divergence.summable\_inv\_orbit}; after
+\cite{Curry2026}. It is this that makes $E_N$ in Proposition~\ref{prop:drift}
+bounded along a divergent orbit.
+
+\begin{theorem}[cycle drift]\label{thm:cycledrift}
+If $m_i=m_j$ with $i<j$ then $3^{\,j-i}<2^{\,S(m_i,\,j-i)}$. In particular no
+periodic orbit is zero-confined.
+\end{theorem}
+\lab{proved (lean)}, \texttt{Divergence.cycle\_drift}. Compare
+Theorem~\ref{thm:vm}: a cycle must have valuation mean strictly above $\log_2 3$,
+which is the same fact in the other coordinate.
+
+\begin{theorem}[confined-mass rate]\label{thm:rate}
+Let $p_N(c)=\sum 2^{-S_N(d)}$, summed over the $c$-confined valuation words $d$ of
+length $N$. Then
+\[
+-\frac1N\log_2 p_N(c)\ \longrightarrow\ I_0=\alpha\bigl(1-H_2(1/\alpha)\bigr)
+=0.0793186\ldots
+\]
+\end{theorem}
+\lab{proved (lean)}, \texttt{Occupation.confined\_mass\_rate}. The proof is purely
+combinatorial: the upper bound organises words by total valuation and uses
+unimodality of $\binom{s-1}{N-1}2^{-s}$; the lower bound is the cycle lemma of
+Dvoretzky and Motzkin \cite{DvoretzkyMotzkin1947} (\lab{cited}) applied at the
+integral anchor $s_N=\lfloor N\alpha\rfloor$. No probability, no central limit
+theorem, no tilting.
+
+\begin{theorem}[three scales]\label{thm:scales}
+The polynomial correction to the rate of Theorem~\ref{thm:rate} is exactly
+$N^{-3/2}$, two-sided, for both the unweighted count of confined words and the
+dyadic survival probability $p_N(c)$; and the $O(1)$ phase multiplying it is an
+explicit geometrically weighted renewal sum, whose jump sets are the Beatty
+sequences of $\beta=\alpha-1$.
+\end{theorem}
+\lab{proved (paper)} \cite{DeJesusScales} (version v3, the second revision); not
+formalized. Its two-sided local ballot input is derived there from classical
+fluctuation theory (\lab{cited}: Caravenna \cite{Caravenna2005}, with the ladder
+identity attributed there to Alili and Doney). That note makes \emph{no priority
+claim} for the renewal-phase result relative to the announced but unlocated work
+of Banderier and Wallner \cite{BanderierWallner}, and neither does this note.
+
+The computation of $p_N(0)$ rests on the prefix correspondence of Terras
+\cite{Terras1976} and Everett \cite{Everett1977} (\lab{cited}): the odd $m$
+realising a given valuation word of total $S$ form \emph{exactly one} residue
+class modulo $2^{S+1}$. Their density among the odd integers is therefore $2^{-S}$
+on the nose, which is what makes the following exact rather than asymptotic.
+
+\begin{proposition}[the density, exactly]\label{prop:density}
+$p_N(0)$ is computable in integer arithmetic by the transfer recursion
+$f[0][0]=1$, $f[k+1][S']=\sum_{d\ge1}f[k][S'-d]$ for $S'\le A[k]$, where
+$A[k]=\lfloor k\log_2 3\rfloor$; then
+$\mathrm{num}_N=\sum_S f[N][S]\,2^{A[N]-S}$ is an exact integer with
+$p_N(0)=\mathrm{num}_N/2^{A[N]}$, and $\mathrm{num}_N$ is \emph{also} the exact
+number of odd $m\in[1,2^{A[N]+1})$ that are $N$-confined. Over $N=100,\dots,300$,
+\[
+\log_2\bigl(1/p_N(0)\bigr)-I_0N-\tfrac32\log_2 N\ =\ -3.28\pm0.05 .
+\]
+\end{proposition}
+\lab{verified}. The identification of $\mathrm{num}_N$ with a count was checked
+against direct orbit iteration for $N\le14$ (for instance $\mathrm{num}_2=3$, and
+the $2$-confined odd $m<16$ are exactly $\{7,11,15\}$). The displayed residual is
+an exact-arithmetic confirmation of the $N^{-3/2}$ factor of
+Theorem~\ref{thm:scales} over that range: with the factor the residual is flat to
+about a tenth of a bit per doubling, without it the residual grows by about $1.4$
+bits per doubling. It is a numerical confirmation, not a proof of the exponent.
+
+\begin{conjecture}[sharp EOC]\label{conj:sharp}
+\[
+\log_2 r_{\min}(N,0)\ =\ I_0\,N+\tfrac32\log_2 N+O(1).
+\]
+\end{conjecture}
+\lab{conjecture}. Supporting data, \lab{verified}: an exact scan of every odd
+$m\equiv3\ (\mathrm{mod}\ 4)$ below $10^{12}$ certifies $r_{\min}(N,0)$ for
+$N=1,\dots,346$, with $24$ distinct record holders, the largest being
+$r_{\min}(345)=898\,696\,369\,947$. Writing
+$\Delta_1(N)=\log_2 r_{\min}(N,0)-\log_2(1/p_N(0))$, the empirical growth exponent
+is
+\[
+I_0+b=0.0737,\qquad\text{block-bootstrap }95\%\text{ CI }[0.061,\ 0.087],
+\]
+an interval that contains $I_0=0.0793$ and is bounded away from $0$ at both ends.
+A persistent drift in $\Delta_1$ and a bounded residual cannot be separated on
+this range: the two models differ by $\Delta\mathrm{AICc}=0.29$ at an effective
+sample size of about $7$, the record holders being strongly serially correlated.
+
+\begin{proposition}[clustering]\label{prop:clustering}
+The confined integers are not a Poisson process at the extreme. Two measurements:
+$\Delta_1(N)>0$ at all $24$ record holders, so the \emph{first} confined integer
+is $1.9$ to $2.5$ bits further out than random placement predicts; and the direct
+count $\#\{\text{odd }m\le 2^{j}:\ N\text{-confined}\}$ exceeds $2^{\,j-1}p_N(0)$
+immediately above $r_{\min}(N,0)$ and nowhere else --- by a factor $1.78$ at
+$N=200$, $X=2^{28}$, and $5.45$ at $N=300$, $X=2^{35}$ (twelve observed against
+$2.2$ expected) --- decaying to $\approx1$ by $2^{40}$, while in the
+well-populated regime the null is correct to a few parts in a thousand.
+\end{proposition}
+\lab{verified} for the two measurements. \lab{heuristic} for the attribution:
+these are the two signatures of a clustered point process, and the cause is the
+backward chains of Theorem~\ref{thm:descent}, a confined $m\equiv2\ (\mathrm{mod}\ 3)$
+having a smaller and more-confined backward image. Thinning the population to
+chain roots removes about a quarter to a third of the offset and no more; and it
+cannot move $\Delta_1$ at all, because $r_{\min}(N,0)$ is always a chain root
+(that is part (L4) of Theorem~\ref{thm:descent}), so the thinned null differs from
+the unthinned one by the constant $\log_2(3/2)$ exactly.
+
+\medskip
+\noindent\textbf{What Section~\ref{sec:statistics} amounts to.} The size of the
+confined population is known exactly at leading order, at polynomial order, and
+--- to within a measured constant --- at the extreme. The residual $\Delta_1$ is
+positive, bounded over the computable range, and shows no drift that the data can
+distinguish from none. Improving any of these estimates does not touch
+\textup{(DE)}: a sharper count is still a count.
+
+\section{The structured sectors, excluded}\label{sec:excluded}
+
+The natural way to look for a zero-confined integer is to look for a
+\emph{structured} one. This section records that each natural kind of structure
+has been excluded, and by what.
+
+\medskip
+\noindent\textbf{Algebraic and periodic structure.} By Theorem~\ref{thm:cycledrift}
+no periodic orbit is zero-confined, and by Theorem~\ref{thm:marker} every
+eventually periodic point of $K$ is a negative rational. So no positive integer
+can be confined through periodicity of its orbit.
+
+\medskip
+\noindent\textbf{The dictionary.} Two coordinate systems are in play and it is
+worth fixing the translation. In \emph{accelerated} coordinates an orbit is
+recorded by its valuation word $(a_0,a_1,\dots)$ with $a_k\ge1$. In
+\emph{parity} coordinates one uses the standard map
+$T_{\mathrm{std}}(x)=x/2$ for even $x$ and $(3x+1)/2$ for odd $x$, and records the
+parity word $v_i\equiv T_{\mathrm{std}}^{\,i}(x)\pmod 2$. One accelerated step
+consumes one letter $1$ followed by $a_k-1$ letters $0$, so the valuation word is
+the sequence of gaps between consecutive ones of the parity word, and
+$S_n$ is the position of the $(n+1)$-st one. Writing $k_\ell$ for the number of
+ones among $v_0,\dots,v_{\ell-1}$, zero-confinement $2^{S_n}\le3^n$ becomes
+\[
+k_\ell\;\ge\;\ell\beta\quad\text{at every }\ell,\qquad \beta=1/\alpha=\ln2/\ln3,
+\]
+so \emph{confinement is exactly a lower bound on ones-density, uniform in the
+prefix length}. This is why the critical Sturmian word --- whose ones-count
+$\lceil\ell\beta\rceil$ is the least possible at every $\ell$ --- is the extremal
+confined word, and why the density theorems below are the right tool for the
+non-critical cases.
+
+\medskip
+\noindent\textbf{Combinatorial structure: the conjugacy map.} Bernstein and
+Lagarias \cite{BernsteinLagarias1996,Bernstein1994} showed that
+$x\mapsto v(x)$, the parity vector, is a bijection onto $\{0,1\}^{\N}$ and a
+$2$-adic isometry (\lab{cited}); we write $\Ph$ for its inverse. Rationality of
+$\Ph(v)$ corresponds to eventual periodicity of $v$ in one direction only; the
+converse is Lagarias's Periodicity Conjecture \cite[\S2]{Lagarias1985}
+(\lab{cited}, \lab{open}). Under $\Ph$, confinement becomes a density condition:
+a zero-confined word has ones-density at least $\beta=1/\alpha=\ln2/\ln3$.
+
+For Sturmian words we follow the conventions of Lothaire
+\cite[Ch.~2]{Lothaire2002} (\lab{cited}).
+
+\begin{theorem}[critical Sturmian irrationality]\label{thm:sturmian}
+$\Ph(1c_\beta)\notin\Q$, where $1c_\beta$ is the Sturmian word of slope $\beta$
+and intercept $0$. The result is effective: $\Ph(1c_\beta)$ equals no $u/v$ in
+lowest terms with $\max(|u|,v)\le 2^{301973}$.
+\end{theorem}
+\lab{proved (paper)} \cite{DeJesusSturmian}. The periodic approximants and their
+approximation depths are not new: for every irrational slope
+\cite[Thm.~1]{LopezStoll2009} (\lab{cited}) gives a closed $2$-adic series for
+$\Ph(1c_\gamma)$ indexed by consecutive pairs of continued-fraction convergents,
+whose term exponents $q_{j+1}+q_j-1$ are exactly the depths used; what is new in
+\cite{DeJesusSturmian} is the height comparison that turns them into an
+irrationality proof. The same constant appears in the author's earlier notes in a
+different normalisation, as the $2$-adic Sturmian carry constant
+\cite{DeJesusA} and at the Sturmian--Mahler edge of the realizer problem
+\cite{DeJesusB}. The word $1c_\beta$ is the
+\emph{extremal} zero-confined parity word, its ones-count $\lceil \ell\beta\rceil$
+being the smallest compatible with confinement at every length. An extension to
+every irrational slope, with $n_0=3$ uniformly and margin
+$c(\gamma)=2-\max(1,\gamma\log_2 3)\ge 2-\log_2 3>0$, is
+\lab{proved (paper)}, \emph{in preparation}.
+
+\begin{remark}[credit for the general-slope statement]\label{rem:credit}
+For irrational $\gamma<\beta$ the irrationality of $\Ph(1c_\gamma)$ is an
+immediate consequence of Monks and Yazinski
+\cite[Thm.~2.7(b)]{MonksYazinski2004} (\lab{cited}, refereed), a deduction drawn
+explicitly by L\'opez and Stoll \cite[p.~6]{LopezStoll2021}. For $\gamma>\beta$
+the corresponding statement is \emph{claimed} in the first half of
+\cite[Thm.~1]{LopezStoll2021}, resting on that preprint's own archimedean
+argument; \textbf{that source is an unrefereed preprint with a single version and
+no journal reference, and we treat its half as a claim, not a known theorem,
+wherever it appears below.} Only at $\gamma=\beta$ is the statement new.
+\end{remark}
+
+\begin{theorem}[density exclusions]\label{thm:density}
+Let $v$ be aperiodic. If $\liminf_n k_n(v)/n<\beta$ then $\Ph(v)\notin\Q$
+(\lab{cited}, refereed: \cite[Thm.~2.7(b)]{MonksYazinski2004}). The same
+conclusion for $\liminf_n k_n(v)/n>\beta$ is \lab{cited} from
+\cite[Thm.~1]{LopezStoll2021}, an \textbf{unrefereed} preprint. Consequently the
+parity word of a hypothetical zero-confined integer orbit has lower ones-density
+\emph{exactly} $\beta$.
+\end{theorem}
+
+\begin{proposition}[balanced-square criterion]\label{prop:squares}
+Suppose an aperiodic parity word has arbitrarily long prefixes $WW$ whose block
+$W$, of length $\ell$ with $k$ ones, is \emph{balanced}. Put
+$\theta_W=(k/\ell)\log_2 3$. Then $\Ph(v)\notin\Q$, by
+\[
+\bigl(2-\max(1,\theta_W)\bigr)\,\ell\ \le\ \log_2 H+O(\log \ell),
+\]
+$H$ the height of $\Ph(v)$. The balance hypothesis cannot be dropped: for
+$W=0^{a}1^{a}$ the ratio $c_W/\bigl(\ell\max(2^{\ell},3^{k})\bigr)$ is unbounded,
+and with only the trivial height bound the displayed inequality is vacuous on
+confined prefixes.
+\end{proposition}
+\lab{proved (paper)}. The mechanism is the one Adamczewski and Bugeaud
+\cite{AdamczewskiBugeaud2006} exploit in the archimedean setting, resting on the
+combinatorics of Allouche, Davison, Queff\'elec and Zamboni \cite{ADQZ2001} and
+Berth\'e, Holton and Zamboni \cite{BertheHoltonZamboni2006} (\lab{cited}),
+transplanted to the $2$-adic place:
+repetitions give good rational approximations, and a height bound forbids them.
+The criterion is \emph{one-sided}. It excludes words that are rich in balanced
+squares; it says nothing about a word that has none, and a hypothetical confined
+word has no reason to have any.
+
+\medskip
+\noindent\textbf{Dynamical structure: descent.}
+
+\begin{theorem}[the descent lemmas]\label{thm:descent}
+\textup{(L1)} If $m$ is zero-confined for $N$ steps and $m\equiv2\ (\mathrm{mod}\ 3)$,
+then $p=(2m-1)/3$ is a positive odd integer with $p<m$, $T(p)=m$, and $p$ is
+zero-confined for $N+1$ steps.
+\textup{(L2)} The backward $d=1$ chain from $x$ has length exactly $\vth(x+1)$,
+with $3^{j}\bigl(\mathrm{back}^{j}x+1\bigr)=2^{j}(x+1)$.
+\textup{(L4)} $r_{\min}(N,0)\equiv3$ or $7\ (\mathrm{mod}\ 12)$ for every $N\ge1$.
+\textup{(L7)} Under a forward step with $d=1$, both $\vth(m_k+1)$ and the
+round-trip requirement advance by exactly one, so their difference is invariant;
+a step with even $d$ destroys the budget.
+\end{theorem}
+\lab{proved (lean)}, the \texttt{Descent} library. \lab{verified} for (L4) at all
+$346$ certified values of $N$, where the residue census is
+$3\ (\mathrm{mod}\ 12)$: $218$, $7$: $128$, $11$: $0$.
+
+\begin{proposition}[L4$'$]\label{prop:l4prime}
+For $i\ge2$, if $r_i(N)\equiv2\ (\mathrm{mod}\ 3)$ then $(2r_i(N)-1)/3$ is one of
+$r_1(N),\dots,r_{i-1}(N)$; and $r_1(N)\not\equiv2\ (\mathrm{mod}\ 3)$, which is
+\textup{(L4)}.
+\end{proposition}
+\lab{proved (paper)}, immediately from (L1). \lab{verified} at every $N\le346$.
+
+\medskip
+\noindent The four exclusions, as a map:
+
+\begin{center}\small
+\begin{tabular}{@{}llp{0.40\textwidth}@{}}
+\toprule
+kind of structure & excluded by & what survives it\\
+\midrule
+algebraic / periodic & Thms.~\ref{thm:cycledrift}, \ref{thm:marker}
+& nothing positive: periodic confined points are negative rationals\\
+combinatorial (density) & Thm.~\ref{thm:density}
+& only lower density \emph{exactly} $\beta$, and the half above $\beta$ rests on
+an unrefereed preprint\\
+approximation-theoretic & Thm.~\ref{thm:sturmian}, Prop.~\ref{prop:squares}
+& words with no long balanced repetition; a hypothetical confined word has no
+reason to have one\\
+dynamical (descent) & Thm.~\ref{thm:descent}(L7)
+& everything: the $3$-adic budget cannot be accumulated, so descent removes no
+candidate at all\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent\textbf{The map, read off.} Periodicity is excluded by drift; algebraic
+rationality of the conjugacy value is excluded at the critical slope and, granting
+one unrefereed half, at every non-critical density; approximation-theoretic
+structure --- repetitions --- is excluded when the repeated blocks are balanced;
+and dynamical structure in the form of descent is excluded by (L7). Every one of
+these exclusions removes a \emph{family} of candidates. None of them removes a
+candidate that has no structure at all, and Section~\ref{sec:needed} argues that
+this is not an accident of the methods used.
+
+\section{Closed routes}\label{sec:closed}
+
+Each row is a route that was pursued and closed, with the reason it closes. The
+purpose of the table is to prevent re-derivation.
+
+\begin{center}\small
+\begin{tabular}{@{}p{0.235\textwidth}p{0.50\textwidth}p{0.155\textwidth}@{}}
+\toprule
+route & why it fails & label\\
+\midrule
+descent by inheritance and well-ordering
+& The round-trip criterion is \emph{provably equivalent} to (DE); and (L7) shows
+the $3$-adic budget $\vth(m+1)$ cannot be accumulated by forward motion, since a
+$d=1$ step raises budget and requirement together while an even $d$ destroys the
+budget. Observed round trips are no more frequent than a geometric baseline.
+& \lab{proved (paper)}\\[2pt]
+transport budgets
+& The budget identity collapses to the aggregate identity; the bookkeeping is a
+restatement.
+& \lab{proved (paper)}\\[2pt]
+time-axis and word-level arguments
+& The $2$-adic fixed point $-1$ is zero-confined forever, so no argument at the
+level of words and drift alone can exclude confinement; and uncountably many
+confined words satisfy every word-level shadow while being unrealizable by any
+integer.
+& \lab{proved (paper)}\\[2pt]
+fixed-depth Fourier and triangle methods
+& The implication from a dangerous-window sparsity hypothesis to low-frequency
+decay is machine-checked, but the hypothesis itself is open and the frequency
+$\lambda=1$ is unavoidable, so no frequency averaging is available where it is
+needed.
+& \lab{proved (lean)} for the implication; hypothesis \lab{open}\\[2pt]
+parity-type counting on the cycle side
+& Digit counting for powers of $2$ in base $3$ gives $o(L)$ information only, far
+short of what cycle exclusion needs.
+& \lab{proved (paper)}\\[2pt]
+record-holder anatomy
+& The extremes are generic: every candidate pattern reduces to (L1), (L2), (L4),
+(L4$'$), to the last-maximum structure, or to a selection effect. The record
+holders are not Sturmian-adjacent, sharing only one to three valuations with the
+best shift of the critical Sturmian word over depths up to $236$.
+& \lab{proved (paper)}, \lab{verified}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent A note on the fourth row, because it is the one most often expected to
+work. The analytic side of the programme follows the architecture of Tao
+\cite{Tao2022} (\lab{cited}), whose decay estimate is uniform in the frequency and
+polynomial in strength. The law that arises here is \emph{critical and confined},
+and uniform decay fails for it numerically at small integer frequencies. Tao's
+result therefore does not transfer directly, and no part of it is used as an
+input. That is a statement about the present architecture, not an impossibility
+theorem.
+
+\section{What is needed}\label{sec:needed}
+
+\subsection*{(a) Three conditions, and the controls a candidate must fail}
+
+\begin{criterion}[the three conditions]\label{crit:three}
+A tool capable of deciding \textup{(DE)} must
+\begin{enumerate}
+\item[(i)] use $2$-adic integrality at unboundedly many depths;
+\item[(ii)] use the sign, or the archimedean size, of the integer; and
+\item[(iii)] couple (i) and (ii) along a \emph{single} orbit.
+\end{enumerate}
+\end{criterion}
+\lab{heuristic}: this is a checklist distilled from the closed routes of
+Section~\ref{sec:closed}, not a theorem. Its use is negative and it is cheap to
+apply. The statistics of Section~\ref{sec:statistics} fail (ii) and (iii), having
+no specific integer in them. The irrationality results of
+Section~\ref{sec:excluded} satisfy (i) but fail (ii) and (iii): they use only that
+an integer $M_n$ is nonzero, never its sign, and they concern a single fixed word
+rather than an orbit of integers. The descent lemmas satisfy (ii) and (iii) but
+fail (i): their budget is $3$-adic and (L7) proves it cannot accumulate. The
+reduction of Theorem~\ref{thm:reduction} satisfies all three and yields nothing,
+because it is an equivalence.
+
+\medskip
+\noindent\textbf{The checklist applied, twice.} Both instances below are generic:
+the first is constructed for this note as the obvious thing to try, the second is
+a route that was actually pursued and closed, and whose full record is public
+\cite{EOCDivergenceRepo}. Neither is drawn from correspondence.
+
+\emph{First, a counting argument at the level of words.} Take
+\emph{a divergent orbit has drift
+$R_n\le0$ forever, hence its valuation mean is at most $\alpha$; combine this with
+a counting bound on how many integers below $X$ can have such a mean, and conclude
+that no integer does}. This satisfies (i), since confinement at every depth is a
+$2$-adic integrality condition at unbounded depth. It fails (ii): no sign and no
+size of any particular integer enters, only a count. And it fails (iii): the count
+is over a population, not along one orbit. The proposal is
+Section~\ref{sec:statistics} with a different constant, and
+Section~\ref{sec:statistics} shows the population is exactly as large as random
+placement predicts --- so a counting bound of this kind cannot be improved to a
+contradiction, because there is no discrepancy to exploit.
+
+\emph{Second, the descent route.} Take instead: \emph{let $z_0$ be the least
+zero-confined positive integer; produce from it a smaller one, and contradict
+minimality}. This satisfies (ii), since well-ordering and the strict decrease
+$p<m$ of \textup{(L1)} are exactly a use of positivity, and it satisfies (iii),
+since the moves are taken along the orbit of $z_0$. It fails (i): the resource it
+spends is the $3$-adic budget $\vth(m+1)$ of \textup{(L2)}, not $2$-adic
+integrality, and \textup{(L7)} proves that budget cannot be accumulated by
+forward motion --- a step with $d=1$ raises budget and requirement together, and a
+step with even $d$ destroys the budget. The audit that closed this route also
+found the generic trap in its own right: the statement \emph{``every $z\in K$
+admits a descending round trip''} is \emph{provably equivalent} to
+\textup{(DE)}, so proving it is exactly as hard as the problem. Both diagnoses
+are recorded in \texttt{audits/descent}, whose verdict is \textsc{stop}.
+
+\medskip
+\noindent\textbf{The controls.} A candidate tool must \emph{fail} on each of the
+following, and checking this is the first thing to do with any proposal.
+\begin{itemize}
+\item $-1$ under $3x+1$: a zero-confined fixed point. Any argument that excludes
+positive confinement without using positivity will exclude it too, and is wrong.
+\item $\{-5,-7\}$ under $3x+1$: a zero-confined $2$-cycle. Note that confinement
+is a property of a \emph{point on} the cycle, not of the cycle: $-5$ is confined
+forever while $-7$, on the same cycle, fails at the first step. Any argument
+insensitive to the starting point is wrong.
+\item $+1$ under $3x-1$: a zero-confined \emph{positive} fixed point. See
+Theorem~\ref{thm:signobstruction}.
+\item random confined words: their least realizers sit at the class modulus
+$2^{S_N}$, and an argument that excludes them excludes almost everything and has
+proved too much.
+\end{itemize}
+
+\subsection*{(b) The sign obstruction, as a theorem}
+
+\begin{theorem}[sign obstruction]\label{thm:signobstruction}
+No argument that uses only the aggregate identity, the confinement condition and
+the sign of the denominator can separate the positive integers from the rest of
+$K$.
+\end{theorem}
+
+\begin{proof}[Reason]
+The map $m\mapsto -m$ is an exact conjugacy from the accelerated $3x-1$ map on the
+positive integers to the accelerated $3x+1$ map on the negative integers,
+valuation by valuation: $\vt(3(-m)+1)=\vt(1-3m)=\vt(3m-1)$ and $T(-m)=-T'(m)$,
+where $T'(m)=(3m-1)/2^{\vt(3m-1)}$. The two systems therefore have identical
+valuation words, identical $S_k$ and identical confinement. Now run the
+computation of Theorem~\ref{thm:marker} in the $3x-1$ system. The one-step
+identity is $2^{a_k}m_{k+1}=3m_k-1$, so the carry moves to the other side of the
+periodicity equation, $m(3^{L}-2^{S})=C'_L$ with the \emph{same} positive
+$C'_L=\sum_{i<L}3^{\,L-1-i}2^{\,S_i}$, and confinement gives $3^{L}-2^{S}>0$,
+whence $m>0$. Indeed $+1$ is a zero-confined positive fixed point of $3x-1$, and
+its record ladder is degenerate: $r_1(N)=1$, $r_2(N)=5$, $r_3(N)=17$ for every
+$N$ up to the computed cap, these being the images of $-1$, $-5$, $-17$. The two
+systems agree on the aggregate identity, on the confinement condition and on the
+$S_k$ combinatorics, and disagree on the answer. Whatever separates them is
+something the listed ingredients do not use.
+\end{proof}
+\lab{proved (paper)}; the conjugacy \lab{verified} on every odd $m<4000$ to depth
+$300$, identical words and depths. Compare the descent audit, which found the same
+sensitivity from the backward side: the backward fixed point of $3x+1$ is $-1$ and
+of $3x-1$ is $+1$, so the strict decrease $p<m$ of (L1) is unconditional in the
+first case and fails at exactly one point in the second.
+
+\subsection*{(c) Border versus height}
+
+\begin{formulation}[the price of agreement]\label{form:border}
+Every exclusion in Section~\ref{sec:excluded} has one shape. If a $2$-adic target
+$x$ agrees with a rational of height $H$ to depth $R$ --- the \emph{border} --- then
+\[
+R\ \le\ c\cdot\log_2 H+O(\log R)
+\]
+with $c$ depending on the structure of the approximant. \textup{(DE)} asserts that
+a \emph{finite} height cannot buy an \emph{infinite} border inside $K$: an integer
+$m$ is a rational of height $|m|$, and being zero-confined forever means agreeing
+with the confinement corridor at every depth.
+\end{formulation}
+\lab{heuristic} as a programme statement. The exchange rate is worth tabulating,
+because it shows both how each exclusion is paid for and where the payment is
+unavailable. Write $\Lambda$ for $\log_2$ of the approximant's own size, so that
+the Liouville step closes exactly when the border exceeds $\log_2 H+\Lambda$; the
+\emph{surplus} is the amount by which it does.
+
+\begin{center}\small
+\begin{tabular}{@{}p{0.155\textwidth}llp{0.36\textwidth}@{}}
+\toprule
+family & border & surplus over $\Lambda$ & why it wins\\
+\midrule
+periodic (Thm.~\ref{thm:marker})
+& infinite
+& ---
+& not a border/height competition: the point \emph{is} the rational, and the
+exclusion is by \textbf{sign}, not by height\\[4pt]
+convergent approximants (Thm.~\ref{thm:sturmian})
+& $q_n+q_{n+1}-1$
+& $q_{n+1}-1$
+& the depth law buys one whole continued-fraction level beyond the approximant's
+size, and $q_{n+1}\to\infty$ beats any fixed $\log_2 H$\\[4pt]
+balanced squares (Prop.~\ref{prop:squares})
+& $\ge 2\ell$
+& $\ge (2-\log_2 3)\ell$
+& the surplus grows \emph{linearly} in the block length at rate at least
+$0.415$, uniformly in the slope\\[4pt]
+density (Thm.~\ref{thm:density})
+& ---
+& ---
+& \textbf{does not use this mechanism at all}: below $\beta$ it is an
+orbit-growth argument, above $\beta$ an archimedean accumulation argument in an
+unrefereed source\\[4pt]
+descent (Thm.~\ref{thm:descent})
+& ---
+& ---
+& \textbf{does not use this mechanism either}: its resource is the $3$-adic
+budget $\vth(m+1)$, and (L7) shows it cannot be accumulated\\[4pt]
+\midrule
+\textbf{the generic sector}
+& \textbf{infinite required}
+& \textbf{none available}
+& a confined word of critical density with no periodicity and no long balanced
+repetition; its realizer is an integer of \emph{finite} height, and nothing in
+the list supplies a surplus\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent Three things are visible in the table. Only three of the five families
+trade border against height at all, and of those three the periodic one does not
+really compete --- it wins on sign. The two that genuinely compete both need a
+surplus that \emph{grows}: one continued-fraction level, or a linear rate in the
+block length. And the last row is the problem: a hypothetical zero-confined
+integer must sustain an \emph{infinite} border on a \emph{finite} height, while
+possessing none of the structure that any of the five families consumes. That is
+the precise sense in which the remaining sector is the generic one, and why the
+programme's tools do not reach it.
+
+\medskip
+\noindent Two remarks on what cannot replace height. First, descriptive complexity does not: the Liouville step consumes
+$\log_2 H$ and nothing weaker, because the integer $M_n$ it produces is bounded
+below by $2^{R}$ and above by $H$ times a polynomial, and no measure of
+description length enters either bound. It is worth saying what a height bound would buy, since it fixes the exchange
+rate. By \cite[Thm.~5.2]{DeJesusB} (\lab{proved (paper)}), a finite effective
+irrationality measure $\mu$ for $\Ph(1c_\beta)$ over the integers would give
+$r(D_N)\ge(2C)^{1/\mu}2^{S_N/\mu}$ --- an \emph{exponential} floor on the least
+integer realising the length-$N$ prefix, far beyond anything the linear scale of
+the present estimates provides. That is the shape of a tool satisfying
+Criterion~\ref{crit:three}(i) and (ii) at once, and it is open in exactly the form
+that would be useful. Second, the word side alone does not: there
+are uncountably many confined words satisfying every word-level constraint that
+has been extracted, and almost all of them are realized by no integer at all. The
+height is the only quantity in the problem that distinguishes an integer from a
+$2$-adic limit of integers.
+
+\subsection*{(d) The $\sqrt n$ formulation}
+
+\begin{formulation}[the one-sided walk]\label{form:walk}
+By Theorem~\ref{thm:density}, a divergent orbit of a rational $2$-adic integer has
+parity word of lower density exactly $\beta$ --- refereed below $\beta$, and
+resting on an unrefereed preprint above it. At that density the drift $R_n$ is a
+zero-mean lattice walk, and zero-confinement says it is \emph{one-sided forever},
+$R_n\le0$ for all $n$. For a genuine random walk this has probability zero, and is
+excluded quantitatively by the law of the iterated logarithm.
+\end{formulation}
+\lab{heuristic}, and we state the caveat inside the formulation rather than after
+it: \textbf{this is a reformulation of \textup{(DE)}, not progress toward it}. The
+walk is deterministic, generated by the orbit itself; no independence, no mixing
+and no martingale structure is available, and the confined words are precisely the
+measure-zero set the law of the iterated logarithm describes. What the
+reformulation does contribute is a scale: it says the obstruction is of size
+$\sqrt n$ in the drift, which is what Theorem~\ref{thm:scales}'s $N^{-3/2}$ is
+measuring on the ensemble side.
+
+\subsection*{(e) The only integer-specific features}
+
+\begin{observation}\label{obs:integer}
+The only features an integer possesses that a general element of $\Zt$ does not
+are its finite bit length --- equivalently, a terminating $0^{\infty}$ tail in its
+binary expansion --- and its archimedean size. Every attempt recorded in this
+programme to read either through the dynamics has collapsed into a restatement of
+\textup{(DE)}.
+\end{observation}
+\lab{open}. To be concrete about what is missing, here is the shape such a law
+would have to take. Let $m<2^{B}$ be odd, so that its binary expansion terminates
+after $B$ digits. The parity digits $v_0,\dots,v_{n-1}$ of $m$ are determined by
+$m \bmod 2^{n}$, and conversely determine it; the finiteness of $m$ is the
+statement that all digits beyond $B$ vanish, which the parity coordinates do not
+see directly. A usable law would bound, as a function of $B$ and $n$, how much of
+the parity prefix is \emph{forced} by $m<2^{B}$ --- equivalently, how the
+terminating tail constrains the orbit's valuation word at depth $n\gg B$. Every
+statement of that kind available here is either vacuous (the constraint is
+automatic) or equivalent to (DE) itself.
+Form (d) of Proposition~\ref{prop:equivalent} is exactly the statement
+that the zero tail is what is missing, and it is equivalent to (DE) rather than a
+route to it; the height formulation (c) is the size, and it is likewise
+equivalent. A genuinely new ingredient would have to be a \emph{quantitative law}
+for how the terminating tail propagates into the parity digits --- how many
+parity digits of $m$ are constrained by the fact that $m<2^{B}$, as a function of
+$B$ and of the depth. Nothing of this kind is known here, and the programme
+contains no candidate for it.
+
+\subsection*{(f) The signed ladder of targets}
+
+\begin{proposition}[the ladder]\label{prop:ladder}
+Let \textup{(PosPC)} be the assertion that $K$ contains no positive rational.
+Then
+\[
+\text{Lagarias's Periodicity Conjecture}\ \Longrightarrow\ \textup{(PosPC)}
+\ \Longrightarrow\ \textup{(DE)},
+\]
+and the second implication is strict as far as anything known. Moreover
+\textup{(PosPC)} holds if and only if, for every odd $v\ge1$, no positive odd
+integer has a zero-confined orbit under $n\mapsto(3n+v)/2^{\vt(3n+v)}$.
+\end{proposition}
+\lab{proved (paper)}. The first implication uses Theorem~\ref{thm:marker}: under
+the Periodicity Conjecture every rational $2$-adic integer is eventually cyclic,
+and every eventually periodic point of $K$ is negative. The equivalence at the
+end is an exact conjugacy, valuation by valuation --- scaling by an odd $v$
+preserves every $a_j$ on the nose, which matters because confinement is a
+condition at \emph{every} index. So (PosPC) is (DE) asserted simultaneously for
+the whole family $3x+v$, and it is the natural signed target sitting strictly
+between (DE) and a classical conjecture.
+
+\subsection*{(g) The cycle side}
+
+\begin{observation}\label{obs:cycle}
+Cycle exclusion is an anti-concentration statement modulo $2^{S}-3^{L}$: a
+nontrivial cycle of length $L$ and total $S$ requires the carry $C_L$ to be
+divisible by, and comparable in size to, that modulus. Fixed-prime digit counting
+does not reach it. The closest available machinery is the $p$-adic
+Subspace/Ridout family \cite{Ridout1958,Mahler1957} (\lab{cited}), which gives
+$o(L)$-type information and is \emph{ineffective}: the available proofs do not
+determine the exceptional subspaces, so no rate and no computable threshold
+follow.
+\end{observation}
+\lab{open}. Eliahou's cycle-length bounds \cite{Eliahou1993} (\lab{cited}) are
+what is actually available on this side, and they are of a different nature: they
+constrain $L$ and $S$ through continued-fraction approximations to $\log_2 3$
+rather than through anti-concentration.
+
+\section{Open problems}\label{sec:open}
+
+\begin{enumerate}
+\item \textbf{(DE)}: no positive odd integer is zero-confined. \lab{open}.
+Equivalently, by Theorem~\ref{thm:reduction}, no positive odd integer has a
+divergent accelerated orbit.
+\item \textbf{The integer irrationality measure.} Is there $\mu<\infty$ and $C>0$
+with $|\Ph(1c_\beta)-y|_2\ge C|y|^{-\mu}$ for every \emph{integer} $y\ge1$?
+\lab{open}. The rational-approximation analogue is false unless $\log_3 2$ is
+badly approximable --- the depth law forces any such exponent to exceed
+$1+q_{n+1}/q_n$, and the $331$st partial quotient of $\log_3 2$ is $2436$ --- but
+the integer form, which is the one that converts into an exponential lower bound
+on least realizers \cite[Thm.~5.2]{DeJesusB}, is untouched by that obstruction.
+\item \textbf{Sharp EOC}, Conjecture~\ref{conj:sharp}. \lab{open}.
+\item \textbf{(PosPC)}: $K$ contains no positive rational.
+\lab{open}; strictly between (DE) and Lagarias's Periodicity Conjecture by
+Proposition~\ref{prop:ladder}.
+\item \textbf{Sturmian words at general intercept.} Is $\Ph(1c_{\gamma,\rho})$
+irrational for every irrational $\gamma$ and every $\rho$? \lab{open} for
+$\rho\ne0$. The obstruction is precise: the one-positions are no longer
+$\lfloor j\alpha_\gamma\rfloor$, and the two exact identities on which the depth
+law turns lose their right-hand sides.
+\item \textbf{Transcendence of $\Ph(1c_\beta)$.} \lab{heuristic}. The depth law
+supplies rational approximations of exponent $1+q_{n+1}/q_n$, which exceeds the
+Roth threshold of $2$ along the odd convergents; whether the applicable form of
+the $p$-adic Roth theorem \cite{Ridout1958,KalitzinMurru2026} can consume them,
+and whether the statement is already in the literature, has not been checked. It
+is recorded here as a direction, not a result.
+\item \textbf{Cycle-side anti-concentration} modulo $2^{S}-3^{L}$, in the sense of
+Observation~\ref{obs:cycle}. \lab{open}.
+\item \textbf{Dangerous-window sparsity} for the analytic side: the hypothesis
+that implies low-frequency decay, for every shift and some logarithmic window
+length. \lab{open}.
+\end{enumerate}
+
+\noindent None of these, and nothing else in this note, bears on the Collatz
+conjecture.
+
+\section{Formal and computational resources}\label{sec:resources}
+
+\noindent\textbf{Repositories.} \texttt{eoc-divergence} \cite{EOCDivergenceRepo}
+holds three independent Lean~4 libraries and four audits;
+\texttt{eoc-lean-verification} \cite{EOCLeanRepo} holds the analytic side.
+
+\medskip
+\noindent\textbf{Lean libraries} (Lean \texttt{v4.34.0}, Mathlib
+\texttt{v4.34.0}; no \texttt{sorry}, \texttt{axiom}, \texttt{opaque},
+\texttt{native\_decide} or \texttt{implemented\_by}; every headline theorem
+audited to depend on \texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound} only, enforced in continuous integration).
+\texttt{Divergence} ($\approx1650$ lines) proves Theorems~\ref{thm:reduction},
+\ref{thm:sparsity}, \ref{thm:summable}, \ref{thm:cycledrift}.
+\texttt{Occupation} ($\approx1430$ lines) proves Theorem~\ref{thm:rate} and the
+cycle lemma; it is not imported by \texttt{Divergence}.
+\texttt{Descent} ($\approx430$ lines) proves Theorem~\ref{thm:descent}.
+
+\medskip
+\noindent\textbf{Audits.} \texttt{audits/descent} (verdict \textsc{stop});
+\texttt{audits/sturmian\_irrationality}, including the general-slope phase;
+\texttt{audits/record\_holder\_anatomy}, which produced
+Propositions~\ref{prop:density}, \ref{prop:clustering}, \ref{prop:l4prime} and
+Theorem~\ref{thm:signobstruction}. Each carries its own report with every claim
+labelled and every computation scripted.
+
+\medskip
+\noindent\textbf{Reproducibility.} All arithmetic reported here is exact: integer
+or rational, never floating-point, in every step that reaches a decision. The
+record-holder scan is a C program testing $S_k\le A[k]$ with
+$A[k]=\mathrm{bitlength}(3^k)-1$ precomputed exactly and orbit values carried in
+\texttt{unsigned \_\_int128} behind an overflow guard; it covers every odd
+$m\equiv3\ (\mathrm{mod}\ 4)$ below $10^{12}$ in about $37$ minutes on eight
+cores, and was cross-checked three ways --- against previously published values
+for $N\le200$, against an independent arbitrary-precision reference on random
+windows, and against a residue-class reconstruction of each record holder from its
+own valuation word. The density $p_N(0)$ is computed by the transfer recursion of
+Proposition~\ref{prop:density} and cross-checked against direct orbit counting.
+
+\section*{Declaration of AI assistance}
+
+AI assistance (Anthropic's Claude, including Claude Code) was used for the Lean
+formalization in \texttt{eoc-divergence}, the audits, computations, literature
+work, and the drafting of this note. In particular, the record-holder audit of
+Section~\ref{sec:statistics}, the sign-obstruction analysis of
+Section~\ref{sec:needed} and the present note were drafted in that setting under
+pre-registered protocols with stated stop rules; several claims were corrected or
+withdrawn as a result, and those corrections are recorded in the audit reports
+rather than silently applied. To be specific, four such corrections survive into
+the present note: a sign lemma used in an earlier draft of
+Theorem~\ref{thm:marker} was \emph{false} as stated and was replaced by the
+one-sided form actually needed; the ceiling constant in the square-poorness
+measurement was corrected from a fixed $1/(2-\log_2 3)$ to a per-block quantity,
+and its validity restricted to balanced blocks; an apparent gap between record
+holders and shuffled surrogates was reclassified as a selection effect and the
+comparison replaced by the null model of Proposition~\ref{prop:density}; and a
+drift slope reported from a fit over part of the data changed by a factor of three
+once the sample was pre-registered. Equation~\eqref{eq:aggregate}'s label in this
+note was likewise weakened after checking what Lean proves. All mathematical
+claims, their labels, their framing, and any errors are the author's.
+
+\bibliographystyle{amsplain}
+\bibliography{refs}
+
+\end{document}
