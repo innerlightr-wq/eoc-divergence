@@ -440,13 +440,46 @@ approximation being governed by Hensel truncations instead.
 > **Phase 3: no applicable prior result found — novelty NOT established.**
 
 The archimedean Hecke–Mahler literature provably cannot apply, because our evaluation point is
-off its domain. But three specific gaps remain open, any of which could contain the Phase 0
-statement:
+off its domain.
 
-1. **López–Stoll (2009)** — unobtained; requested in Phase 1c Task 0. Their subject is exactly the
-   conjugacy map on a Sturmian word.
-2. **Calegari–Dimitrov–Tang** — not checked.
-3. **Journal literature off arXiv**, and full texts of the papers above — not checked.
+### Calegari–Dimitrov–Tang — **closed by structure**
+
+`arXiv:2109.09040`, `arXiv:2408.15403`. Their arithmetic holonomy bounds constrain **archimedean**
+values of **holonomic** functions with controlled denominators. Two independent exclusions:
+
+* **Place.** `Ξ_α` has *no archimedean value at all* (§ above; and López–Stoll themselves call
+  `−Φ_R(1c_α)` at this slope "the divergent series", §7 Lemma 27). A method that bounds
+  archimedean values cannot contain a statement about an object with none. This exclusion is
+  airtight and needs no holonomy discussion.
+* **Structure.** Note (B) Remark 6.3: `Ξ_{α,β}` satisfies no standard `d`-Mahler equation
+  `Σ a_i(x) f(x^{d_i}) = 0`; its functional-equation monoid is the *continued-fraction* monoid,
+  not a fixed power map. **CITED** to (B).
+
+> **Methodologically related, cannot contain the result.**
+
+### Lagarias's annotated bibliography — **interim cross-check of López–Stoll (2009)**
+
+`arXiv:math/0608208` (*The 3x+1 problem: an annotated bibliography, II*), entry **67**, Lagarias's
+own annotation of López–Stoll, *The 3x+1 conjugacy map over a Sturmian word*, Integers **9**
+(2009) A13, 141–162, MR 2506145:
+
+> "It is unknown whether there is any aperiodic `x ∈ ℤ₂` such that `Φ(x)` is periodic; this is
+> conjectured not to happen. This paper studies this function for `x` whose 2-adic expansion is a
+> Sturmian word… This paper finds a **generalized continued fraction expansion for `Φ(x)^{-1}`**
+> in this case convergent in the metric on the 2-adic integers `ℤ₂`. It **explicitly computes a
+> number of examples, suggesting** that the images `Φ(x)` then have 2-adic expansions of full
+> complexity."
+
+**"Suggesting", not proving.** On this evidence the 2009 paper supplies a 2-adically convergent
+generalized continued fraction and computational evidence, and **no irrationality theorem**.
+**CITED** — this is Lagarias's annotation, not the paper; Task 0 stays open until the paper itself
+is read.
+
+### Remaining gaps
+
+1. **López–Stoll (2009)** itself — being obtained; Phase 1c Task 0 stays formally open.
+2. **Journal literature off arXiv**, and full texts — not checked.
+3. The user's Google Scholar "cited by" sweep on both López–Stoll papers — pending.
 
 `NOTE.md` keeps its header forbidding a priority claim until these are closed.
 
@@ -457,7 +490,68 @@ statement:
 Raw-map (parity-vector) coordinates: `T(x) = x/2` (even), `(3x+1)/2` (odd) on `ℤ₂`; `Φ(v)` is the
 unique `x ∈ ℤ₂` with parity vector `v`. Working directory `phase1c/`.
 
-## Task 0 — López–Stoll comparison: **BLOCKED**
+## Task 0a — López–Stoll **2021** (`arXiv:2101.12747`) — read; **the stop rule does not fire**
+
+Archived as `sources/LopezStoll_2021_2101.12747.pdf`, sha256 `e4c5bccec262d8fd…`, 51 pp.
+(identical to the copy in `~/Downloads`).
+
+### Normalization — a clash worth pinning
+
+Their `α` is the **ones-density / Sturmian slope**, `0 < α < 1`. Note (A)'s `α` is `log₂3`. They
+are reciprocal:
+
+```
+α_LS  =  ln2/ln3  =  log₃2  =  1/α_A  ≈ 0.630930 .
+```
+
+Their special words (§1, eq. after Theorem 1) are
+
+```
+1c_α := ⌈(j+1)α⌉ − ⌈jα⌉ ,      0c_α := ⌊(j+1)α⌋ − ⌊jα⌋      (j = 0,1,2,…).
+```
+
+### The identification — **VERIFIED**
+
+The raw parity vector of the accelerated characteristic word has its ones exactly at the
+cumulative valuations `⌊j·log₂3⌋` (block map `d ↦ 1 0^{d−1}`). Computed to 2000 digits, that word
+**is** `1c_α` under their ceiling definition, on the nose:
+
+```
+v     = 1101101101011011010110110110101101101011…
+1c_α  = 1101101101011011010110110110101101101011…          identical for all 2000 digits
+```
+
+and, mod `2^3000`,
+
+> **`Ξ_α = −Φ(1c_{ln2/ln3})`.** **VERIFIED** (`Ξ_α ≡ −Φ(v) ≡ 5980427723603026949 mod 2^64`).
+
+Their term formula agrees exactly: `t_i = 2^{⌊(i−1)/α⌋}/3^i` (§10 Lemma 41, citing [9] Lemma 11)
+is `3^{−(j+1)}2^{⌊j·log₂3⌋}` under `i = j+1` — **literally the summands of `Ξ_α`**.
+
+### What they prove, and where it stops
+
+* **Theorem 1** (stated §1, proved §6): if the trajectory of some `ζ ∈ ℚ_odd` is divergent, then
+  `lim h/ℓ = ln2/ln3` **exactly**. So the critical density is the *only* place a rational
+  divergent trajectory could live.
+* Their aperiodicity theorem requires `lim(h/ℓ) > ln2/ln3` **strictly** (abstract; (13)–(14)).
+* Their irrationality results are about the **real** value `Φ_R`, not the 2-adic one: §1 records
+  that ([9], §4) the devil's staircases `F`, `F*` "show the irrationality of `Φ_R(1c_α)` (for
+  `1 > α > ln2/ln3`) and `Φ*_R(1c_α)` (for `0 < α < ln2/ln3`)". **The critical slope is excluded
+  from both ranges.**
+* At `α = ln2/ln3` the real series **diverges**. §7 Lemma 27 calls it "the divergent series
+  `−Φ_R(1c_α)`"; §10 Lemma 41 computes the terms `t_i ∈ (1/6, 1/3]` with arithmetic mean
+  `1/(6 ln 2) ≈ 0.240449`. §§7, 10, 11 study the critical word — its factors, its term
+  distribution, its "pseudo trajectories" — **without an irrationality statement for it.**
+
+> **Conclusion.** `arXiv:2101.12747` does **not** prove `Φ(1c_{ln2/ln3}) ∉ ℚ`. Their method is the
+> archimedean one and it is unavailable at exactly this slope, by their own computation. The
+> Phase 0 result is the 2-adic statement at the critical density — the case their Theorem 1
+> identifies as the only possible home of a rational divergent trajectory.
+
+This **confirms rather than contradicts** the Phase 3 structural argument, from the authors of the
+closest prior work: at the critical slope there is no archimedean value to talk about.
+
+## Task 0b — López–Stoll **2009** (Integers 9, A13): **still BLOCKED**
 
 > J. López, P. Stoll, *The 3x+1 conjugacy map over a Sturmian word*, **Integers 9** (2009) A13.
 
