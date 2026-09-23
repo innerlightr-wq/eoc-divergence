@@ -577,10 +577,109 @@ provided the framing constraint holds.**
 
 ---
 
+# 9b. Direction I — transcendence by a `p`-adic Roth/Ridout route
+
+**Assessment: the arithmetic already in hand clears the Roth threshold, which makes this the
+one direction that could answer an open problem of the paper outright. It is also the one most
+likely to be already known, or to fail on a normalisation. Check the literature before touching
+it.** **HEURISTIC throughout.**
+
+## What would be proved
+
+The paper's **Open Problem 4**: `Φ(1c_β)` is **transcendental** over `ℚ`. More generally
+`Φ(1c_γ)` for suitable irrational `γ`.
+
+## The mechanism, and the number it produces
+
+This is the standard route to transcendence of automatic and Sturmian reals
+(Adamczewski–Bugeaud), transplanted to the `2`-adic place. Repetitions give exceptionally good
+rational approximations; a Roth-type theorem says an algebraic number cannot have them.
+
+**The statement to use. CITED**, from Kalitzin and Murru, *Transcendence of `p`-adic continued
+fractions and a quantitative `p`-adic Roth theorem*, **arXiv:2603.10561**, 11 March 2026, which
+gives both Ridout's original (their Theorem 3) and a clean quantitative form:
+
+> for `α ∈ ℚ_p` algebraic of degree `≥ 2` and `0 < ε ≤ 1/3`, the number of solutions of
+> `|α − A/B|_p < |B|_∞^{−2−ε}` with `A, B ∈ ℤ`, `B > 0`, `gcd(A,B) = 1` and `|B|_∞ ≥ |A|_∞`
+> is less than `exp(C₁ε^{−2})`, with `C₁` depending only on `α`.
+
+**What the depth law supplies.** At an odd convergent, Theorem 5.3 and Lemma 4.2 give
+```
+|Φ(1c_β) − c_n/δ_n|₂ = 2^{−(q_n+q_{n+1}−1)} ,      log₂ max(c_n,|δ_n|) = q_n + log₂q_n + O(1) ,
+```
+so the approximation exponent is
+```
+E_n  =  (q_n + q_{n+1} − 1)/(q_n + log₂q_n + O(1))  →  1 + q_{n+1}/q_n .
+```
+**VERIFIED (this assessment), on the repository's own rigorously determined continued fraction
+of `β`:** at `n = 13`, `q_n = 176 251`, `q_{n+1} = 301 994`, depth `478 244`, giving
+`E₁₃ = 2.713`. The ratios `q_{n+1}/q_n` at the odd convergents run
+`2.00, 2.67, 3.42, 5.77, 23.46, …`, so `E_n = 1 + q_{n+1}/q_n` runs
+`3.00, 3.67, 4.42, 6.77, 24.46, …` — **every one above the Roth threshold of `2`, with room to
+spare, and infinitely many of them.**
+
+At a general irrational slope the same computation gives
+`E_n = (1 + q_{n+1}/q_n)/max(1,θ)`, `θ = γ log₂3`, so the condition to beat is
+`q_{n+1}/q_n > 2·max(1,θ) − 1`.
+
+## Why this is not being claimed
+
+Four reasons, in order of how likely each is to kill it.
+
+1. **It would be too easy, and the machinery is standard.** Ridout is from 1958 and the
+   Sturmian-transcendence argument is textbook. If the depth law plus Ridout really gave
+   `Φ(1c_β)` transcendental in half a page, someone would very likely have done it — the more so
+   since López–Stoll had the `2`-adic series with these exact exponents in 2009. **The first
+   step is a literature search, not a proof attempt.**
+2. **The height normalisation may not be the one Ridout wants.** The quoted form requires
+   `|B|_∞ ≥ |A|_∞`, i.e. the height carried by the *denominator*. Our approximants have
+   `c_n ≈ q_n·|δ_n|`, so `|A| > |B|` — by a factor `q_n`, which is polynomial in `log H` and so
+   should be absorbable, but that has to be checked against the form actually proved rather than
+   assumed.
+3. **Ridout's Theorem 3 carries an archimedean factor.** Its product is
+   `min(1,|α − A/B|_∞)·∏_i min(1,|α_i − A/B|_{p_i})`, over a real root and the `p`-adic roots of
+   one polynomial. The clean `p`-adic-only form above is the quantitative theorem of
+   arXiv:2603.10561, not Ridout's original; which one applies, and whether the archimedean
+   factor can be dropped for a value that is a `2`-adic integer with no distinguished real
+   conjugate, is the second thing to check.
+4. **`c_n/δ_n` need not be in lowest terms.** Reduction only *lowers* the height and so *raises*
+   `E_n`, so this direction is favourable — but the exponent must be computed after reduction
+   for the statement to be exact.
+
+## Value, effort, risk
+
+**Value: the highest in this document if it survives** — it would settle the paper's Open
+Problem 4, and transcendence implies irrationality, so it would subsume Theorem 6.1 and PR #6's
+Theorem 8.5 at the slopes where it applies. It would also change **Direction C**: an
+irrationality *measure* is a weaker and differently-shaped statement than transcendence, and a
+Ridout argument gives qualitative transcendence without a measure. **Effort: small if it works**
+(the approximations already exist and are machine-verified), **unbounded if the answer is that
+it is known**. **Risk: high**, concentrated entirely in points 1–3 above.
+
+**Filter status for (DE):** fails conditions (2) and (3) exactly as directions A–C do. It is
+about one word; it uses `M ≠ 0` and heights, never a sign, and never couples along an orbit of
+integers. **It does not bear on (DE) or on the Collatz conjecture.**
+
+## Concrete first step, with a stop rule
+
+> **A two-day literature audit, before any mathematics.** (1) Search for `p`-adic
+> Roth/Ridout/Schlickewei applied to Bernstein–Lagarias conjugacy values, to `2`-adic Sturmian
+> or Hecke–Mahler series, or to the López–Stoll series of Integers **9** (2009) #A13 —
+> including the citing literature of Ridout and of Adamczewski–Bugeaud. (2) Obtain
+> arXiv:2603.10561 in full and write down the exact hypotheses of the form to be used, in
+> particular the height convention and whether an archimedean factor is required. (3) Only then
+> compute `E_n` after reduction of `c_n/δ_n` to lowest terms, at `n = 3 … 13`, exactly.
+> **STOP and report if** the statement is already in the literature — that is a complete and
+> valuable answer — **or if** the applicable form of the theorem needs `|B| ≥ |A|` in a way the
+> approximants cannot be made to satisfy.
+
+---
+
 # 10. Ranking and recommendation
 
 | rank | direction | value | effort | risk | novelty after the density filter | filter status for (DE) |
 |---|---|---|---|---|---|---|
+| **1?** | **I. Transcendence by a `p`-adic Roth/Ridout route** | **highest if it survives** | small if it works | **high** — most likely already known, or a normalisation failure | would settle Open Problem 4 and subsume the irrationality theorems | fails (2),(3) |
 | **1** | **A. All Sturmian words via initial repetitions** | **high** | **small** | **low** | `γ = β`, `ρ ≠ 0` — a stated open problem | fails (2),(3) — does not bear on (DE) |
 | 2 | G. Fernández–Ibáñez cross-check | moderate | small | low | n/a (cycle side) | n/a — cycle side |
 | 3 | D. Lean formalization (criterion version) | moderate–high | moderate | low | n/a (formalization) | fails (2),(3) |
@@ -590,10 +689,18 @@ provided the framing constraint holds.**
 | 7 | E. Scales 2–3 in `Occupation` | low | large | moderate | n/a | fails (2),(3) |
 | — | F. (DE) itself | — | — | — | — | **nothing passes** |
 
-## Recommendation: **direction A**
+## Recommendation: **direction A**, with one two-day check first
 
 Pursue **A — all Sturmian words, at every slope and every intercept, via initial squares** —
 as the next piece of work.
+
+**But run direction I's literature audit first.** It costs two days, it is pure searching, and
+its outcome changes what A is for: if a `p`-adic Roth route to transcendence is available, it
+subsumes the irrationality statement at the slopes where it applies, and A becomes a sharper
+and more elementary companion rather than the headline. If the audit finds the route already
+taken, or the normalisation fatal, nothing is lost and A proceeds unchanged. **I is ranked
+`1?` and not `1` precisely because its risk is concentrated in a question that two days of
+searching answers.**
 
 **Why, in four points.**
 
