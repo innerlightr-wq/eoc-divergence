@@ -165,11 +165,16 @@ withdrawn"; it now **names four**, all of which survive into the note:
 It also records that equation (1)'s label in this note was weakened after checking what Lean
 actually proves.
 
-**One thing for you to confirm, since only you can.** The declaration's first sentence says AI
-assistance was used *"throughout the programme"*. That is supported for the audits, the
-computations, the literature work and this note. I have **no** evidence either way about the
-Lean library development, and the repositories' own status files do not mention it. If AI was
-not used there, narrow the first sentence to name the parts it covers.
+**Scope — resolved by the author.** The first sentence originally said AI assistance was used
+*"throughout the programme"*, which I could support for the audits, computations, literature
+work and this note but **not** for the Lean library development, about which I had no evidence
+either way. The author supplied the accurate scope, and it is now used verbatim:
+
+> "AI assistance (Anthropic's Claude, including Claude Code) was used for the Lean formalization
+> in `eoc-divergence`, the audits, computations, literature work, and the drafting of this note."
+
+This is **wider** than what I had evidence for — it explicitly includes the Lean formalization —
+and it replaces a vaguer phrase with an enumerated one.
 
 ## 8.4 Two rendering bugs found in the new material, and fixed
 
