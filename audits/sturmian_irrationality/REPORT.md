@@ -1028,12 +1028,12 @@ LaTeX source, so nothing was reconstructed: the deliverable is the patch list
 `revisions/2026-09-sturmian-citations/REVISIONS.md` plus two standalone addenda that travel beside
 the unchanged originals.
 
-## Deposited
+## Deposited — both records complete
 
-| | current version DOI | concept DOI — **cite this** | superseded | state |
-|---|---|---|---|---|
-| (A) | `10.5281/zenodo.22916962` | `10.5281/zenodo.20556483` | `22916798` | ✅ note + addendum |
-| (B) | `10.5281/zenodo.22917066` | `10.5281/zenodo.20594173` | `22916849` | ⚠ addendum still missing |
+| | current version DOI | concept DOI — **cite this** | superseded |
+|---|---|---|---|
+| (A) | `10.5281/zenodo.22916962` | `10.5281/zenodo.20556483` | `22916798` |
+| (B) | `10.5281/zenodo.22917246` | `10.5281/zenodo.20594173` | `22916849`, `22917066` |
 
 Citations:
 
@@ -1042,8 +1042,7 @@ Citations:
 * De Jesús, E. (2026). *The Sturmian–Mahler Edge of the Accelerated Collatz Realizer Problem.*
   Zenodo. https://doi.org/10.5281/zenodo.20594173
 
-Concept DOIs are given because they resolve to the latest version and stay correct across the
-remaining fix to (B).
+Concept DOIs are given because they resolve to the latest version and survive future revisions.
 
 **Note (A)'s record title is not the note's title.** The note renders as *The 2-Adic Sturmian
 Carry Constant in the Collatz Carry Equation* and sits inside an umbrella record covering several
@@ -1052,26 +1051,30 @@ records both names on `dejesus2026sturmiancarry`.
 
 ## Deposition verification — 23 September 2026
 
-Read from both the record endpoint and `/files`, with every file matched by **MD5** against the
-local artefact.
+Each record read from both the record endpoint and `/files`, with every file matched by **MD5**
+against the local artefact.
 
-**(A) `22916962` — passes.** `AdicSturmianCarryConstant (1).pdf` (299 604 B,
+**(A) `22916962` — complete.** `AdicSturmianCarryConstant (1).pdf` (299 604 B,
 `8064824b9605a0ad26603ed742022842`) = the note; `A_addendum.pdf` (403 241 B,
-`de6e65cfa6fbbddbb7faf062c38fe685`) = the addendum. Both byte-identical to the local files. This
-record is correct and needs nothing further.
+`de6e65cfa6fbbddbb7faf062c38fe685`) = the addendum.
 
-**(B) `22917066` — fails; the original is deposited twice.** Both files carry md5
-`830ff7dc768ed1a692e9b050a5e28fa0`: `B_Sturmian_Mahler_Edge.pdf` and
-`SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf` are byte-identical copies of the
-note, the second under its `~/Downloads` filename. **`B_addendum.pdf` (390 796 B,
-`3ecb5e274e5603249f9168dddb314125`) is still absent**, so record (B) continues to serve the note
-with none of the López–Stoll citations and with Remark 11.1 as originally printed. One further
-version of (B) is needed, uploading the addendum and dropping the duplicate; it will supersede
-`22917066` in turn.
+**(B) `22917246` — complete.** `SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf`
+(327 659 B, `830ff7dc768ed1a692e9b050a5e28fa0`) = the note; `B_addendum.pdf` (390 796 B,
+`3ecb5e274e5603249f9168dddb314125`) = the addendum. The duplicate is gone.
 
-**Superseded, both for incomplete file sets** (documented in `ZENODO.md`, *Publication check*):
-`22916798` held the (A) addendum without the note; `22916849` held the (B) note without the
-addendum.
+Both notes are now served under a `~/Downloads`-style filename carrying a ` (1)` suffix. Cosmetic
+only — the MD5s establish the content — and not worth a further version of each record to rename.
+
+**Three superseded versions, all caught by reading the records back:**
+
+| version | what was wrong |
+|---|---|
+| `22916798` (A) | addendum only, no note |
+| `22916849` (B) | note only, no addendum |
+| `22917066` (B) | the note deposited **twice** under two filenames, identical md5; addendum still absent |
+
+`22917066` is the reason the check was done by checksum rather than by file count or size: it had
+two files of plausible size and would have passed a weaker test.
 
 ## Reproducibility note
 

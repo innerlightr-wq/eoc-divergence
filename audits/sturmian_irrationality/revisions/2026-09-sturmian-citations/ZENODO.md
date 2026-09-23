@@ -107,10 +107,10 @@ made.
 
 ## Record 2 — note (B)
 
-**Record:** `10.5281/zenodo.22917066` — https://doi.org/10.5281/zenodo.22917066
+**Record:** `10.5281/zenodo.22917246` — https://doi.org/10.5281/zenodo.22917246
 **Concept DOI:** `10.5281/zenodo.20594173` ← **cite this**
-**Superseded:** `10.5281/zenodo.22916849` (incomplete file set — note only, no addendum)
-⚠ **The current version is still incomplete** — see *Publication check*.
+**Superseded:** `10.5281/zenodo.22916849` (note only, no addendum) and
+`10.5281/zenodo.22917066` (note deposited twice, addendum missing)
 
 **Record title** (unchanged, matches the note):
 
@@ -196,46 +196,53 @@ the preceding sentence without a space.
 
 ## Publication check — 23 September 2026
 
-Every record below was read from both `https://zenodo.org/api/records/<id>` and the dedicated
-`/files` endpoint, and every file was matched by **MD5** against the local artefact, not by size
-alone.
+Every record was read from both `https://zenodo.org/api/records/<id>` and the dedicated `/files`
+endpoint, and every file matched by **MD5** against the local artefact, never by size alone.
 
 ### Version history
 
-| | first new version | corrected version | concept DOI |
+| | superseded | superseded | current | concept DOI |
+|---|---|---|---|---|
+| (A) | `22916798` addendum only | — | **`22916962`** ✅ | `20556483` |
+| (B) | `22916849` note only | `22917066` note twice | **`22917246`** ✅ | `20594173` |
+
+### (A) `10.5281/zenodo.22916962` — ✅ **complete**
+
+| file | size | md5 | is |
 |---|---|---|---|
-| (A) | `22916798` — superseded | **`22916962`** ✅ complete | `20556483` |
-| (B) | `22916849` — superseded | `22917066` ⚠ **still incomplete** | `20594173` |
+| `AdicSturmianCarryConstant (1).pdf` | 299 604 B | `8064824b9605a0ad26603ed742022842` | the note |
+| `A_addendum.pdf` | 403 241 B | `de6e65cfa6fbbddbb7faf062c38fe685` | the addendum |
 
-### (A) `10.5281/zenodo.22916962` — ✅ **passes**
+### (B) `10.5281/zenodo.22917246` — ✅ **complete**
 
-| file | size | md5 | matches |
+| file | size | md5 | is |
 |---|---|---|---|
-| `AdicSturmianCarryConstant (1).pdf` | 299 604 B | `8064824b9605a0ad26603ed742022842` | `sources/A_2adic_Sturmian_Carry_Constant.pdf` |
-| `A_addendum.pdf` | 403 241 B | `de6e65cfa6fbbddbb7faf062c38fe685` | the build in this folder |
+| `SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf` | 327 659 B | `830ff7dc768ed1a692e9b050a5e28fa0` | the note |
+| `B_addendum.pdf` | 390 796 B | `3ecb5e274e5603249f9168dddb314125` | the addendum |
 
-Note and addendum, both present, both byte-identical to the local artefacts. **This record is
-correct and needs nothing further.**
+Exactly two files, note and addendum, both byte-identical to the local artefacts. The duplicate
+is gone.
 
-### (B) `10.5281/zenodo.22917066` — ⚠ **fails: the original is deposited twice**
+**One naming note, cosmetic only.** The copy of the note that survived in (B) is the one named
+`SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf`; `B_Sturmian_Mahler_Edge.pdf` is the
+name that disappeared. Both records therefore now serve their note under a `~/Downloads`-style
+filename carrying a ` (1)` suffix — (A) as `AdicSturmianCarryConstant (1).pdf`. The content is
+right and the MD5s prove it; only the download filename a reader sees is untidy. Renaming would
+cost another version of each record, which is not worth it.
 
-| file | size | md5 | what it actually is |
-|---|---|---|---|
-| `B_Sturmian_Mahler_Edge.pdf` | 327 659 B | `830ff7dc768ed1a692e9b050a5e28fa0` | the note |
-| `SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf` | 327 659 B | `830ff7dc768ed1a692e9b050a5e28fa0` | **the note again** |
-
-**The two files have the same MD5.** The second upload is a byte-identical duplicate of the
-original note under its `~/Downloads` filename, not the addendum.
-
-**`B_addendum.pdf` is still missing** — 390 796 B, md5 `3ecb5e274e5603249f9168dddb314125`, at
-`revisions/2026-09-sturmian-citations/B_addendum.pdf`. Record (B) therefore still serves the note
-with none of the López–Stoll citations, and Remark 11.1 still reads as originally printed.
-
-**Fix:** one more version of record (B), uploading `B_addendum.pdf` and dropping the duplicate.
-That will supersede `22917066` in turn.
-
-### Citation guidance until (B) is fixed
+### Citation guidance
 
 Cite the **concept DOIs** — `10.5281/zenodo.20556483` for (A), `10.5281/zenodo.20594173` for (B).
-They always resolve to the latest version, so they stay correct across the remaining fix, and they
-are what `references.bib` records alongside the version DOIs.
+They resolve to the latest version, so they survive any future revision, and they are what
+`references.bib` carries in the `doi` field of both entries.
+
+### Superseded versions, and why
+
+| version | what was wrong |
+|---|---|
+| `22916798` (A) | held `A_addendum.pdf` only — the addendum with no note to attach it to |
+| `22916849` (B) | held the note only — no addendum, so none of the López–Stoll citations |
+| `22917066` (B) | held the note **twice** under two filenames, identical md5; addendum still absent |
+
+Caught by reading each record back and comparing MD5s. A size-only or file-count check would have
+passed `22917066`, which had the right number of files and plausible sizes.
