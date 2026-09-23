@@ -1018,3 +1018,64 @@ bibliography had both right; the error was in this audit's file, not in the note
 
 *Note on `monks2004autoconjugacy`:* OpenAlex dates it 2003 (online first); the Discrete Math.
 issue is dated 6 January 2004. The entry uses 2004, as in the brief, with the discrepancy recorded.
+
+---
+
+# Revision — López–Stoll citations, and the Zenodo depositions
+
+The citation debt recorded in Phase 1c was discharged on 23 September 2026. Neither note has a
+LaTeX source, so nothing was reconstructed: the deliverable is the patch list
+`revisions/2026-09-sturmian-citations/REVISIONS.md` plus two standalone addenda that travel beside
+the unchanged originals.
+
+## Deposited
+
+| | current version DOI | concept DOI — **cite this** | superseded | state |
+|---|---|---|---|---|
+| (A) | `10.5281/zenodo.22916962` | `10.5281/zenodo.20556483` | `22916798` | ✅ note + addendum |
+| (B) | `10.5281/zenodo.22917066` | `10.5281/zenodo.20594173` | `22916849` | ⚠ addendum still missing |
+
+Citations:
+
+* De Jesús, E. (2026). *Structured Sectors of the Collatz Carry Equation: Christoffel Towers,
+  2-Adic Windows, and Shell Residents.* Zenodo. https://doi.org/10.5281/zenodo.20556483
+* De Jesús, E. (2026). *The Sturmian–Mahler Edge of the Accelerated Collatz Realizer Problem.*
+  Zenodo. https://doi.org/10.5281/zenodo.20594173
+
+Concept DOIs are given because they resolve to the latest version and stay correct across the
+remaining fix to (B).
+
+**Note (A)'s record title is not the note's title.** The note renders as *The 2-Adic Sturmian
+Carry Constant in the Collatz Carry Equation* and sits inside an umbrella record covering several
+notes in the tower line. Anyone following the DOI lands on the collection. `references.bib`
+records both names on `dejesus2026sturmiancarry`.
+
+## Deposition verification — 23 September 2026
+
+Read from both the record endpoint and `/files`, with every file matched by **MD5** against the
+local artefact.
+
+**(A) `22916962` — passes.** `AdicSturmianCarryConstant (1).pdf` (299 604 B,
+`8064824b9605a0ad26603ed742022842`) = the note; `A_addendum.pdf` (403 241 B,
+`de6e65cfa6fbbddbb7faf062c38fe685`) = the addendum. Both byte-identical to the local files. This
+record is correct and needs nothing further.
+
+**(B) `22917066` — fails; the original is deposited twice.** Both files carry md5
+`830ff7dc768ed1a692e9b050a5e28fa0`: `B_Sturmian_Mahler_Edge.pdf` and
+`SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf` are byte-identical copies of the
+note, the second under its `~/Downloads` filename. **`B_addendum.pdf` (390 796 B,
+`3ecb5e274e5603249f9168dddb314125`) is still absent**, so record (B) continues to serve the note
+with none of the López–Stoll citations and with Remark 11.1 as originally printed. One further
+version of (B) is needed, uploading the addendum and dropping the duplicate; it will supersede
+`22917066` in turn.
+
+**Superseded, both for incomplete file sets** (documented in `ZENODO.md`, *Publication check*):
+`22916798` held the (A) addendum without the note; `22916849` held the (B) note without the
+addendum.
+
+## Reproducibility note
+
+`revisions/2026-09-sturmian-citations/references.bib` is a **frozen build input** — the exact
+bibliography the two deposited PDFs were compiled against — and carries a header saying so. The
+canonical `references.bib` in this directory continues to take additions, including the Zenodo
+DOIs above, and the two files are therefore expected to differ.

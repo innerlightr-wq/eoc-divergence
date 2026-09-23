@@ -1,9 +1,10 @@
 # Zenodo — new versions of notes (A) and (B)
 
-Paste-ready text for two new versions. **No DOI for either note is recorded anywhere on this
-machine** (searched the audit tree and the memory index; the Zenodo DOIs found there belong to
-other notes in the programme). The `Record:` fields below are therefore blank — fill them from
-the Zenodo dashboard before publishing.
+**Published 23 September 2026.** DOIs below are filled in and were verified against the Zenodo
+API on that date; see *Publication check* at the foot of this file, which records a discrepancy
+in the deposited file sets of both records.
+
+Paste-ready text for the two new versions, retained as the record of what was deposited.
 
 **File set for each new version — exactly two files:**
 
@@ -21,13 +22,22 @@ record of record stays as published and the correction travels beside it.
 
 ## Record 1 — note (A)
 
-**Record:** `_______________________` (concept DOI: `_______________________`)
+**Record:** `10.5281/zenodo.22916962` — https://doi.org/10.5281/zenodo.22916962
+**Concept DOI:** `10.5281/zenodo.20556483` ← **cite this**
+**Superseded:** `10.5281/zenodo.22916798` (incomplete file set — addendum only, no note)
 
-**Title** (unchanged):
+**Record title** (as deposited — *not* the note's own title):
 
 ```
-The 2-Adic Sturmian Carry Constant in the Collatz Carry Equation
+Structured Sectors of the Collatz Carry Equation:
+Christoffel Towers, 2-Adic Windows, and Shell Residents
 ```
+
+The note itself renders as *The 2-Adic Sturmian Carry Constant in the Collatz Carry Equation*.
+Note (A) lives inside this umbrella record, so anyone following the DOI lands on the collection,
+not on a record named after the note. Cite it as: De Jesús, E. (2026). *Structured Sectors of the
+Collatz Carry Equation: Christoffel Towers, 2-Adic Windows, and Shell Residents.* Zenodo.
+https://doi.org/10.5281/zenodo.22916962
 
 **Files:**
 
@@ -97,9 +107,12 @@ made.
 
 ## Record 2 — note (B)
 
-**Record:** `_______________________` (concept DOI: `_______________________`)
+**Record:** `10.5281/zenodo.22917066` — https://doi.org/10.5281/zenodo.22917066
+**Concept DOI:** `10.5281/zenodo.20594173` ← **cite this**
+**Superseded:** `10.5281/zenodo.22916849` (incomplete file set — note only, no addendum)
+⚠ **The current version is still incomplete** — see *Publication check*.
 
-**Title** (unchanged):
+**Record title** (unchanged, matches the note):
 
 ```
 The Sturmian–Mahler Edge of the Accelerated Collatz Realizer Problem
@@ -178,3 +191,51 @@ bibliography gives Bugeaud–Laurent as Acta Arith. **209** (2023), 59–**90** 
 Luca–Ouaknine–Worrell as Bull. LMS **57** (2025), 1360–**1368**; the publisher records collected
 in `references.bib` give 59–**75** and 1360–**1374**. Reference [20] also runs its DOI URL into
 the preceding sentence without a space.
+
+---
+
+## Publication check — 23 September 2026
+
+Every record below was read from both `https://zenodo.org/api/records/<id>` and the dedicated
+`/files` endpoint, and every file was matched by **MD5** against the local artefact, not by size
+alone.
+
+### Version history
+
+| | first new version | corrected version | concept DOI |
+|---|---|---|---|
+| (A) | `22916798` — superseded | **`22916962`** ✅ complete | `20556483` |
+| (B) | `22916849` — superseded | `22917066` ⚠ **still incomplete** | `20594173` |
+
+### (A) `10.5281/zenodo.22916962` — ✅ **passes**
+
+| file | size | md5 | matches |
+|---|---|---|---|
+| `AdicSturmianCarryConstant (1).pdf` | 299 604 B | `8064824b9605a0ad26603ed742022842` | `sources/A_2adic_Sturmian_Carry_Constant.pdf` |
+| `A_addendum.pdf` | 403 241 B | `de6e65cfa6fbbddbb7faf062c38fe685` | the build in this folder |
+
+Note and addendum, both present, both byte-identical to the local artefacts. **This record is
+correct and needs nothing further.**
+
+### (B) `10.5281/zenodo.22917066` — ⚠ **fails: the original is deposited twice**
+
+| file | size | md5 | what it actually is |
+|---|---|---|---|
+| `B_Sturmian_Mahler_Edge.pdf` | 327 659 B | `830ff7dc768ed1a692e9b050a5e28fa0` | the note |
+| `SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf` | 327 659 B | `830ff7dc768ed1a692e9b050a5e28fa0` | **the note again** |
+
+**The two files have the same MD5.** The second upload is a byte-identical duplicate of the
+original note under its `~/Downloads` filename, not the addendum.
+
+**`B_addendum.pdf` is still missing** — 390 796 B, md5 `3ecb5e274e5603249f9168dddb314125`, at
+`revisions/2026-09-sturmian-citations/B_addendum.pdf`. Record (B) therefore still serves the note
+with none of the López–Stoll citations, and Remark 11.1 still reads as originally printed.
+
+**Fix:** one more version of record (B), uploading `B_addendum.pdf` and dropping the duplicate.
+That will supersede `22917066` in turn.
+
+### Citation guidance until (B) is fixed
+
+Cite the **concept DOIs** — `10.5281/zenodo.20556483` for (A), `10.5281/zenodo.20594173` for (B).
+They always resolve to the latest version, so they stay correct across the remaining fix, and they
+are what `references.bib` records alongside the version DOIs.
