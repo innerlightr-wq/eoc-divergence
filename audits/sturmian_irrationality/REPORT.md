@@ -371,6 +371,87 @@ python3 task5.py            # rational-point controls
 
 ---
 
+# Phase 3 — literature check
+
+## Method, and its limits — stated first
+
+This session's **web-search budget was exhausted (200/200)** before Phase 3 began. The check below
+was made against the **arXiv API only**. It is therefore **incomplete**:
+
+* no MathSciNet / zbMATH / Google Scholar;
+* abstract- and title-level only, not full texts;
+* journal-only papers (e.g. **López–Stoll, Integers 9 (2009) A13**) are invisible to it — and that
+  paper is separately requested in Phase 1c Task 0;
+* **Calegari–Dimitrov–Tang** (arithmetic holonomy bounds) was **not checked at all**.
+
+**Accordingly: no novelty claim is asserted anywhere in this audit.** What follows is what the
+search found, plus a structural argument that is independent of any search.
+
+## What the search returned
+
+`all:"Hecke-Mahler"` — 7 hits:
+
+| year | paper | authors |
+|---|---|---|
+| 2024-12 | Transcendence of Hecke–Mahler Series | Luca, Ouaknine, Worrell |
+| 2022-12 | Rotation number of 2-interval piecewise affine maps | Gaivão, Laurent, Nogueira |
+| 2022-03 | Transcendence and continued fraction expansion of values of Hecke–Mahler series | Bugeaud, Laurent |
+| 2019-07 | Dynamics of 2-interval piecewise affine maps and Hecke–Mahler series | Laurent, Nogueira |
+| 2018-09 | Mahler's method in several variables II | Adamczewski, Faverjon |
+| 2017-04 | Rotation number of interval contracted rotations | Laurent, Nogueira |
+| 2004-07 | On the arithmetic properties of complex values of Hecke–Mahler series | Pellarin |
+
+`abs:"Sturmian" AND abs:"transcendence"` — 2 hits: Luca–Ouaknine–Worrell (2022-04), *On the
+transcendence of a series related to Sturmian words*; Roy (2018-09), on conics.
+
+`abs:"Mahler method" AND abs:"p-adic"` — **0 hits**.
+`abs:"automatic" AND abs:"p-adic" AND abs:"transcendence"` — **0 hits**.
+
+## The structural point — **PROVED**, and independent of any search
+
+> **The constant of Phase 0 has no archimedean value at all.**
+
+The terms of `Ξ_α = Σ_j 3^{−(j+1)}2^{⌊jα⌋}` satisfy `2^{⌊jα⌋} = 3^{j}·2^{⌊jα⌋−jα}` with the
+exponent in `(−1, 0]`, so each term lies in `[1/6, 1/3]`: the series is `Θ(1)` termwise and
+**diverges in `ℝ`**. In Hecke–Mahler coordinates the evaluation point `(z₁,z₂) = (1/3, 2)` sits
+exactly on the boundary `|z₁z₂^{θ}| = 1` of the archimedean domain of convergence.
+
+Every theorem in the list above is a statement about a **complex** value of a Hecke–Mahler series
+(Pellarin's title says so outright; Bugeaud–Laurent require `0 < |z₁|, |z₁z₂^θ| < 1` **strictly**;
+Mahler and Loxton–van der Poorten require the open domain). Luca–Ouaknine–Worrell treat
+`Σ_n f(⌊nθ+ρ⌋)β^{−n}` with `f` a polynomial and `|β| > 1` algebraic — coefficients of *polynomial*
+growth, hence an archimedean-convergent series; the "`p`-adic" there is the Subspace Theorem's
+auxiliary places, **not the place of the value**. Our coefficients `2^{⌊jα⌋}` grow like `3^j`.
+
+So the question Phase 0 answers is not a special case of any of these: **they are about a value
+that, at our point, does not exist.** This is a hypothesis-level exclusion, not an impression.
+
+## Independent cross-check
+
+Note (B) §9 performs the same audit hypothesis by hypothesis — Mahler 1929, Loxton–van der
+Poorten 1977, Bugeaud–Laurent 2023, Luca–Ouaknine–Worrell 2022/2025, Masser 1982/1999 — and
+reaches the same conclusion, naming in each case the hypothesis that excludes `Ξ_{α,β}`. (B) §9
+also records the point that matters for Phase 2: Bugeaud–Laurent's effectivity mechanism is the
+**continued fraction of the real value**, which has no 2-adic counterpart, 2-adic integer
+approximation being governed by Hensel truncations instead.
+
+## Verdict
+
+> **Phase 3: no applicable prior result found — novelty NOT established.**
+
+The archimedean Hecke–Mahler literature provably cannot apply, because our evaluation point is
+off its domain. But three specific gaps remain open, any of which could contain the Phase 0
+statement:
+
+1. **López–Stoll (2009)** — unobtained; requested in Phase 1c Task 0. Their subject is exactly the
+   conjugacy map on a Sturmian word.
+2. **Calegari–Dimitrov–Tang** — not checked.
+3. **Journal literature off arXiv**, and full texts of the papers above — not checked.
+
+`NOTE.md` keeps its header forbidding a priority claim until these are closed.
+
+---
+
 # Phase 1c — irrationality of `Φ(c_s)` for every irrational slope
 
 Raw-map (parity-vector) coordinates: `T(x) = x/2` (even), `(3x+1)/2` (odd) on `ℤ₂`; `Φ(v)` is the
