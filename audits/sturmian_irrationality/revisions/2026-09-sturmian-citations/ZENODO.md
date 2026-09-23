@@ -1,9 +1,10 @@
 # Zenodo — new versions of notes (A) and (B)
 
-Paste-ready text for two new versions. **No DOI for either note is recorded anywhere on this
-machine** (searched the audit tree and the memory index; the Zenodo DOIs found there belong to
-other notes in the programme). The `Record:` fields below are therefore blank — fill them from
-the Zenodo dashboard before publishing.
+**Published 23 September 2026.** DOIs below are filled in and were verified against the Zenodo
+API on that date; see *Publication check* at the foot of this file, which records a discrepancy
+in the deposited file sets of both records.
+
+Paste-ready text for the two new versions, retained as the record of what was deposited.
 
 **File set for each new version — exactly two files:**
 
@@ -21,13 +22,21 @@ record of record stays as published and the correction travels beside it.
 
 ## Record 1 — note (A)
 
-**Record:** `_______________________` (concept DOI: `_______________________`)
+**Record:** `10.5281/zenodo.22916798` — https://doi.org/10.5281/zenodo.22916798
+**Concept DOI:** `10.5281/zenodo.20556483`
 
-**Title** (unchanged):
+**Record title** (as deposited — *not* the note's own title):
 
 ```
-The 2-Adic Sturmian Carry Constant in the Collatz Carry Equation
+Structured Sectors of the Collatz Carry Equation:
+Christoffel Towers, 2-Adic Windows, and Shell Residents
 ```
+
+The note itself renders as *The 2-Adic Sturmian Carry Constant in the Collatz Carry Equation*.
+Note (A) lives inside this umbrella record, so anyone following the DOI lands on the collection,
+not on a record named after the note. Cite it as: De Jesús, E. (2026). *Structured Sectors of the
+Collatz Carry Equation: Christoffel Towers, 2-Adic Windows, and Shell Residents.* Zenodo.
+https://doi.org/10.5281/zenodo.22916798
 
 **Files:**
 
@@ -97,9 +106,10 @@ made.
 
 ## Record 2 — note (B)
 
-**Record:** `_______________________` (concept DOI: `_______________________`)
+**Record:** `10.5281/zenodo.22916849` — https://doi.org/10.5281/zenodo.22916849
+**Concept DOI:** `10.5281/zenodo.20594173`
 
-**Title** (unchanged):
+**Record title** (unchanged, matches the note):
 
 ```
 The Sturmian–Mahler Edge of the Accelerated Collatz Realizer Problem
@@ -178,3 +188,38 @@ bibliography gives Bugeaud–Laurent as Acta Arith. **209** (2023), 59–**90** 
 Luca–Ouaknine–Worrell as Bull. LMS **57** (2025), 1360–**1368**; the publisher records collected
 in `references.bib` give 59–**75** and 1360–**1374**. Reference [20] also runs its DOI URL into
 the preceding sentence without a space.
+
+---
+
+## Publication check — 23 September 2026
+
+Both records were read back from `https://zenodo.org/api/records/<id>` and from the dedicated
+`/files` endpoint on 23 September 2026. Both DOIs resolve, both are **version** DOIs with a
+distinct concept DOI, and both records are dated 2026-09-23.
+
+| | record | concept | deposited files |
+|---|---|---|---|
+| (A) | `10.5281/zenodo.22916798` | `10.5281/zenodo.20556483` | `A_addendum.pdf` (403 241 B) |
+| (B) | `10.5281/zenodo.22916849` | `10.5281/zenodo.20594173` | `B_Sturmian_Mahler_Edge.pdf` (327 659 B) |
+
+### ⚠ The file sets do not match the plan, and the two errors are inverted
+
+This file's instruction was **two files per record: the original PDF unchanged, plus the
+addendum**. Neither record has both, and each is missing the half the other one has:
+
+* **Record (A) holds the addendum but not the note.** `A_addendum.pdf` is there (403 241 B —
+  byte-size match to the build in this folder); the note's own PDF is not. A reader following the
+  DOI gets a two-page citation addendum with no document to attach it to, and the corrected
+  Theorem 7.1 range and the Lemma 5.1 typo fix point at text that is not in the record.
+* **Record (B) holds the note but not the addendum.** `B_Sturmian_Mahler_Edge.pdf` is there
+  (327 659 B — byte-size match to `sources/`); `B_addendum.pdf` is not. A reader gets the note
+  with none of the López–Stoll citations, and Remark 11.1 still reads as originally printed, with
+  no correction in the record.
+
+**Fix:** add the missing file to each record. On Zenodo this means a new version of each —
+published files are immutable — so each fix produces a further version DOI, and the two DOIs
+recorded above become the superseded ones. The concept DOIs (`20556483`, `20594173`) are stable
+across that and are the safe thing to cite in the meantime.
+
+Not a guess: both file lists were read twice, from the record endpoint and from `/files`, and the
+sizes match the local artefacts exactly.

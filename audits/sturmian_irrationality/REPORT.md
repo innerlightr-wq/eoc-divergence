@@ -1018,3 +1018,55 @@ bibliography had both right; the error was in this audit's file, not in the note
 
 *Note on `monks2004autoconjugacy`:* OpenAlex dates it 2003 (online first); the Discrete Math.
 issue is dated 6 January 2004. The entry uses 2004, as in the brief, with the discrepancy recorded.
+
+---
+
+# Revision — López–Stoll citations, and the Zenodo depositions
+
+The citation debt recorded in Phase 1c was discharged on 23 September 2026. Neither note has a
+LaTeX source, so nothing was reconstructed: the deliverable is the patch list
+`revisions/2026-09-sturmian-citations/REVISIONS.md` plus two standalone addenda that travel beside
+the unchanged originals.
+
+## Deposited
+
+| | record DOI | concept DOI | record title |
+|---|---|---|---|
+| (A) | `10.5281/zenodo.22916798` | `10.5281/zenodo.20556483` | *Structured Sectors of the Collatz Carry Equation: Christoffel Towers, 2-Adic Windows, and Shell Residents* |
+| (B) | `10.5281/zenodo.22916849` | `10.5281/zenodo.20594173` | *The Sturmian–Mahler Edge of the Accelerated Collatz Realizer Problem* |
+
+Citations:
+
+* De Jesús, E. (2026). *Structured Sectors of the Collatz Carry Equation: Christoffel Towers,
+  2-Adic Windows, and Shell Residents.* Zenodo. https://doi.org/10.5281/zenodo.22916798
+* De Jesús, E. (2026). *The Sturmian–Mahler Edge of the Accelerated Collatz Realizer Problem.*
+  Zenodo. https://doi.org/10.5281/zenodo.22916849
+
+**Note (A)'s record title is not the note's title.** The note renders as *The 2-Adic Sturmian
+Carry Constant in the Collatz Carry Equation* and sits inside an umbrella record covering several
+notes in the tower line. Anyone following the DOI lands on the collection. `references.bib`
+records both names on `dejesus2026sturmiancarry`.
+
+## ⚠ Deposited file sets are incomplete — both records
+
+Read back from the Zenodo record and `/files` endpoints on 23 September 2026. The plan was two
+files per record, the original PDF unchanged plus the addendum. **Each record has exactly one, and
+the two errors are inverted:**
+
+* **(A) `22916798`** holds `A_addendum.pdf` (403 241 B) and **not** the note. The addendum's
+  corrected Theorem 7.1 range and Lemma 5.1 typo fix point at text absent from the record.
+* **(B) `22916849`** holds `B_Sturmian_Mahler_Edge.pdf` (327 659 B) and **not** the addendum. The
+  note is served with none of the López–Stoll citations and with Remark 11.1 as originally
+  printed.
+
+Sizes match the local artefacts exactly, and both listings were read twice. Fixing this means a
+new version of each record, since published Zenodo files are immutable, so the two record DOIs
+above will be superseded; the concept DOIs are stable and are the safe thing to cite meanwhile.
+Details in `revisions/2026-09-sturmian-citations/ZENODO.md`, *Publication check*.
+
+## Reproducibility note
+
+`revisions/2026-09-sturmian-citations/references.bib` is a **frozen build input** — the exact
+bibliography the two deposited PDFs were compiled against — and carries a header saying so. The
+canonical `references.bib` in this directory continues to take additions, including the Zenodo
+DOIs above, and the two files are therefore expected to differ.
