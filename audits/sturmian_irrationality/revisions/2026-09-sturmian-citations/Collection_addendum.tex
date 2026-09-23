@@ -1,0 +1,160 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.8in,top=0.65in,bottom=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{titlesec}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\titlespacing*{\section}{0pt}{1.1ex plus .2ex}{0.5ex}
+\titlespacing*{\paragraph}{0pt}{0.8ex plus .1ex}{1em}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.6em}{}
+\setlength{\parskip}{0.15ex}
+\renewcommand{\baselinestretch}{0.95}
+\setlength{\bibsep}{0pt plus 0.3ex}
+
+\newcommand{\Xa}{\Xi_{\alpha}}
+\newcommand{\Ztwo}{\mathbb{Z}_2}
+
+\title{Citation addendum to eleven notes of \\
+\emph{``Structured Sectors of the Collatz Carry Equation: \\
+Christoffel Towers, 2-Adic Windows, and Shell Residents''}}
+\author{Elias De Jes\'us\\
+\small Independent Researcher\\
+\small ORCID: \href{https://orcid.org/0009-0007-0190-9143}{0009-0007-0190-9143}\\
+\small \texttt{dejesuselias10@gmail.com}}
+\date{September 2026}
+
+\begin{document}
+\maketitle\vspace{-2.5em}
+
+\section*{Purpose}
+
+Eleven notes in this collection use the 2-adic Sturmian carry constant $\Xa$, or the
+first-disagreement bit depth $\ell(D)=v_2\bigl(Q(D)+\Xa\bigr)$ built from it, and none of them
+cites L\'opez and Stoll. This addendum supplies that citation for all eleven at once. It
+accompanies them without altering any of them.
+
+A separate addendum, \emph{Citation addendum and correction to ``The 2-Adic Sturmian Carry
+Constant in the Collatz Carry Equation''} (September 2026), covers the note in which $\Xa$ is
+introduced; this one covers the notes that consume it.
+
+\textbf{No theorem, proof or numerical result in any of the eleven notes changes}, and this
+addendum makes no new mathematical claim.
+
+\section{The omitted citation, and what it contains}
+
+\begin{quote}
+J.~L\'opez and P.~Stoll, \emph{The 3x+1 conjugacy map over a Sturmian word}, Integers \textbf{9}
+(2009), \#A13, 141--162 \cite{lopez2009conjugacy}.
+\end{quote}
+
+\noindent For every irrational slope $\alpha\in(0,1)$ with convergents $p_k/q_k$, and with
+$1c_\alpha(j)=\lceil (j+1)\alpha\rceil-\lceil j\alpha\rceil$, their Theorem~1 gives, in $\Ztwo$,
+\begin{equation}
+\Phi(1c_\alpha) \;=\; -\tfrac13 \;-\; \sum_{j\ge 0} (-1)^{j+1}\,
+\frac{2^{\,q_{j+1}+q_j-1}}{3\,(3^{p_{j+1}}-2^{q_{j+1}})(3^{p_j}-2^{q_j})}\,,
+\label{eq:ls}
+\end{equation}
+where $\Phi$ is the Bernstein--Lagarias conjugacy map \cite{bernstein1996conjugacy}; their
+Corollary~2 gives a generalized continued fraction for $-1/\Phi(1c_\alpha)$, convergent in $\Ztwo$.
+Their \S4 leaves $\Ztwo$ for the real function $\Phi_{\mathbb{R}}$, proving irrationality of
+$\Phi_{\mathbb{R}}(m_\alpha)$ on $\mathbb{Q}\cap(\ln 2/\ln 3,\,1]$ and of a dual limit point below
+$\ln 2/\ln 3$; that restriction is forced, since $\sum 2^{nq}/3^{np}$ converges in $\mathbb{R}$
+exactly when $\ln 2/\ln 3 < p/q \le 1$. The companion paper \cite{lopez2021periodicity} proves
+aperiodicity for parity words of ones-density strictly above $\ln 2/\ln 3$.
+
+\medskip
+\noindent\textbf{Why this bears on the eleven notes.} The denominators of \eqref{eq:ls} are the
+walls of two consecutive convergent shells and its term exponents are $q_{j+1}+q_j-1$, which in
+the collection's coordinates read $p_n+p_{n+1}-1$. \emph{These are the approximants and the
+approximation depths that the bit analyzer measures.} The constant is theirs, up to sign and
+normalization:
+\[
+\Xa \;=\; -\,\Phi\bigl(1c_{\ln 2/\ln 3}\bigr),
+\]
+their slope being the ones-density $\ln 2/\ln 3 = 1/\alpha$ and their convergent $(p_k,q_k)$ the
+collection's shell $(q_n,p_n)$ with numerator and denominator exchanged. Verified modulo
+$2^{3000}$.
+
+\section{Attribution, as it should read in each of the eleven}
+
+One sentence suffices, at the point where $\Xa$ or $\ell(D)$ is first introduced:
+
+\begin{quote}
+The constant $\Xa$ and the convergent-shell approximation depths it measures are not new here.
+For every irrational slope, L\'opez and Stoll \cite{lopez2009conjugacy} give a closed 2-adic
+series for the Bernstein--Lagarias conjugacy value of the characteristic Sturmian word, whose term
+exponents are $p_n+p_{n+1}-1$ in the present coordinates; $\Xa=-\Phi(1c_{\ln 2/\ln 3})$. The
+companion note's Theorem~7.1 is an independent derivation, sharper in separating the upper
+($p_n-1$) and lower ($p_n+p_{n+1}-1$) convergent cases with exact constants, shell by shell.
+\end{quote}
+
+\noindent Two further points travel with it, both from the companion addendum:
+
+\begin{itemize}\itemsep1pt
+\item \textbf{Range.} The companion note's Theorem~7.1 holds as proved for $n\ge 3$ in that note's
+own shell numbering, where $(q_1,p_1)=(1,1)$; its proof uses $q_n\ge 2$ and $q_{n+1}>q_n$, which
+first hold at the shell $(2,3)$. Any note quoting the per-shell depth inherits that range.
+\item \textbf{Partial correspondence.} Only the odd-indexed continued-fraction convergents of
+\cite{lopez2009conjugacy} are periodic cycle values; the even ones carry an additional gap term.
+\end{itemize}
+
+\section{The eleven notes, and where the attribution belongs}
+
+Each line quotes the note's own text at the point of first use, with its page.
+
+\begin{longtable}{@{}p{0.40\textwidth}p{0.47\textwidth}r@{}}
+\toprule
+\textbf{note} & \textbf{quoted line} & \textbf{p.}\\
+\midrule
+\endhead
+A Bit Analyzer for the Collatz Carry Equation &
+``Definition 2.1 (Bit analyzer). The bit depth of $D$ is $\ell(D)=v_2(Q(D)+\Xa)$'' & 2\\
+Adjacent Tower Products in the Collatz Carry Equation &
+``analyzer is $\ell(D)=v_2(Q(D)+\Xa)$, where $\Xa$ is the 2-adic Sturmian carry constant of the second note'' & 1\\
+Finite Christoffel Products in the Collatz Carry Equation &
+``bit depth $\ell(D)=v_2(Q(D)+\Xa)$ with $\Xa$ the archived Sturmian\ldots'' & 2\\
+Standard-Block Nonsingularity in the Collatz Carry Equation &
+``the 2-adic Sturmian carry constant of the companion note pins the only\ldots'' & 1\\
+Grouped Tower Products in the Collatz Carry Equation &
+``$v_2(Q_{a,b}+\Xa)=83=p_5+p_6-1$'' & 1\\
+Tail-Tracking and the Leading-Block Principle &
+``The bit depth $\ell(D)=v_2(Q(D)+\Xa)$ is governed by a\ldots'' & 1\\
+The Wrap Regime in the Collatz Carry Equation &
+``algorithm computes $\ell(D)=v_2(Q(D)+\Xa)$ for every finite product of standard tower blocks'' & 1\\
+The Positive-Entropy 2-Adic Carry Law &
+``Let $\Xa$ denote the rigid Sturmian 2-adic carry constant associated to\ldots'' & 8\\
+Unbalanced Residents: the $(7,11)$ Shell &
+``so $\ell(D_{-17})=v_2(Q+\Xa)=2$'' & 3\\
+Unbalanced Residents and Time-Axis Contacts &
+``has computable $\ell(D)=v_2(Q(D)+\Xa)$'' & 2\\
+The Anatomy of the $-17$ Cycle &
+``$\ell(D_{-17})=v_2(Q+\Xa)=2$'' & 5\\
+\bottomrule
+\end{longtable}
+
+\noindent\textbf{Scope.} The remaining sixteen notes of the collection contain no occurrence of
+$\Xa$ and no first-disagreement depth, and need no attribution; nor does the referee note
+\texttt{cubic\_modulus\_threshold\_referee\_note.md}, whose subject is the modulus depth
+$\theta=m/S$, a different quantity. Together with the note in which $\Xa$ is introduced, that
+partitions the collection's 29 files as $1+11+16+1$.
+
+% TODO(Elias): add pointer to irrationality note once posted
+%   -- belongs in Section 2, after the sentence on what Lopez-Stoll leave open. Until that note is
+%      public, no irrationality claim about Xi_alpha appears anywhere in this addendum.
+
+\medskip\noindent\emph{Acknowledgment.} The omission was identified during an adversarial citation
+audit of the Sturmian thread, assisted by Claude (Anthropic). All statements here, and any errors,
+are the author's.
+
+\enlargethispage{3\baselineskip}
+{\footnotesize
+\bibliographystyle{plain}
+\bibliography{references}
+}
+
+\end{document}

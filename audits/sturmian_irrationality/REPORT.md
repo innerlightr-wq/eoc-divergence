@@ -1030,10 +1030,10 @@ the unchanged originals.
 
 ## Deposited — both records complete
 
-| | current version DOI | concept DOI — **cite this** | superseded |
-|---|---|---|---|
-| (A) | `10.5281/zenodo.22916962` | `10.5281/zenodo.20556483` | `22916798` |
-| (B) | `10.5281/zenodo.22917246` | `10.5281/zenodo.20594173` | `22916849`, `22917066` |
+| | current version DOI | concept DOI — **cite this** | files | superseded |
+|---|---|---|---|---|
+| (A) | `10.5281/zenodo.22918600` | `10.5281/zenodo.20556483` | **31** | `22916798`, `22916962`, `22917426` |
+| (B) | `10.5281/zenodo.22917246` | `10.5281/zenodo.20594173` | 2 | `22916849`, `22917066` |
 
 Citations:
 
@@ -1042,39 +1042,174 @@ Citations:
 * De Jesús, E. (2026). *The Sturmian–Mahler Edge of the Accelerated Collatz Realizer Problem.*
   Zenodo. https://doi.org/10.5281/zenodo.20594173
 
-Concept DOIs are given because they resolve to the latest version and survive future revisions.
-
 **Note (A)'s record title is not the note's title.** The note renders as *The 2-Adic Sturmian
-Carry Constant in the Collatz Carry Equation* and sits inside an umbrella record covering several
-notes in the tower line. Anyone following the DOI lands on the collection. `references.bib`
-records both names on `dejesus2026sturmiancarry`.
+Carry Constant in the Collatz Carry Equation* and sits inside the umbrella record covering the
+tower line. `references.bib` records both names on `dejesus2026sturmiancarry`.
 
-## Deposition verification — 23 September 2026
+## Deposition verification — closed, 23 September 2026
 
-Each record read from both the record endpoint and `/files`, with every file matched by **MD5**
-against the local artefact.
+Every record was read from both the record endpoint and `/files`, with every file matched by
+**MD5** against the local artefacts. Never by size or file count alone.
 
-**(A) `22916962` — complete.** `AdicSturmianCarryConstant (1).pdf` (299 604 B,
-`8064824b9605a0ad26603ed742022842`) = the note; `A_addendum.pdf` (403 241 B,
-`de6e65cfa6fbbddbb7faf062c38fe685`) = the addendum.
+**(A) `22918600` — complete.** 31 files; both endpoints agree exactly; **31/31 verified by MD5**
+against the staged manifest; no missing file, no unmatched file, no mismatch, no duplicate MD5.
+The set is the 29 originals of `20599453` under their June filenames — referee `.md` included —
+plus `A_addendum.pdf` (`de6e65cfa6fbbddbb7faf062c38fe685`) and `Collection_addendum.pdf`
+(`b8c8fd0f5cd5406326bc058bdb94f7c2`). The September ` (1)` filename suffixes are gone.
 
 **(B) `22917246` — complete.** `SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf`
-(327 659 B, `830ff7dc768ed1a692e9b050a5e28fa0`) = the note; `B_addendum.pdf` (390 796 B,
-`3ecb5e274e5603249f9168dddb314125`) = the addendum. The duplicate is gone.
+(327 659 B, `830ff7dc768ed1a692e9b050a5e28fa0`) and `B_addendum.pdf` (390 796 B,
+`3ecb5e274e5603249f9168dddb314125`).
 
-Both notes are now served under a `~/Downloads`-style filename carrying a ` (1)` suffix. Cosmetic
-only — the MD5s establish the content — and not worth a further version of each record to rename.
+**Concept DOIs confirmed.** `https://doi.org/10.5281/zenodo.20556483` resolves (HTTP 200) with
+final URL `https://zenodo.org/records/22918600`, so the concept DOI is again the correct citation
+for the umbrella record.
 
-**Three superseded versions, all caught by reading the records back:**
+### Five superseded versions, and why each was caught
 
 | version | what was wrong |
 |---|---|
 | `22916798` (A) | addendum only, no note |
+| `22916962` (A) | note + addendum, but 25 of the 29 collection files silently dropped |
+| `22917426` (A) | 5 files — note, addendum and three Tier-1 notes only |
 | `22916849` (B) | note only, no addendum |
-| `22917066` (B) | the note deposited **twice** under two filenames, identical md5; addendum still absent |
+| `22917066` (B) | the note deposited **twice** under two filenames, identical md5; addendum absent |
 
-`22917066` is the reason the check was done by checksum rather than by file count or size: it had
-two files of plausible size and would have passed a weaker test.
+`22917066` is why every check in this audit is by checksum: it had two files of plausible size and
+would have passed a file-count or size test. `22916962` is why every check also compares against
+the *previous* version's manifest: it had exactly the two files asked for, and had quietly lost 25
+others.
+
+## Collection-addendum scope — verified against the downloaded PDFs
+
+All 29 files of `10.5281/zenodo.20599453` were downloaded and MD5-verified against the record
+manifest (29/29). Each was then scanned page by page for `Ξ`, `carry constant`, `v₂(Q…)`, `ℓ(D)`
+and `López`/`Stoll`.
+
+**Exactly twelve PDFs contain `Ξ`.** One of them is note (A) itself, already covered by
+`A_addendum.pdf`; the other eleven are the collection-addendum scope.
+
+### The eleven — quoted line and page
+
+| # | note (file) | quoted line | page |
+|---|---|---|---|
+| 1 | *A Bit Analyzer for the Collatz Carry Equation* (`BitAnalyzerCollatzCarryEquation.pdf`) | "Definition 2.1 (Bit analyzer). The bit depth of D is `ℓ(D) = v2(Q(D) + Ξα)`, and the centered…" | p. 2 |
+| 2 | *Adjacent Tower Products in the Collatz Carry Equation* (`AdjacentTowerProductsCollatzCarryEquation.pdf`) | "analyzer is `ℓ(D) = v2(Q(D) + Ξα)`, where `Ξα` is the 2-adic Sturmian carry constant of the second note [1]." | p. 1 |
+| 3 | *Finite Christoffel Products in the Collatz Carry Equation* (`FiniteChristoffelProducts.pdf`) | "quotient `Q(D) = −C(D)/δ`, and bit depth `ℓ(D) = v2(Q(D) + Ξα)` with `Ξα` the archived Sturmian…" | p. 2 |
+| 4 | *Standard-Block Nonsingularity in the Collatz Carry Equation* (`StandardBlockNonsingularity (1).pdf`) | "dition, in which the 2-adic Sturmian carry constant of the companion note [2] pins the only…" | p. 1 |
+| 5 | *Grouped Tower Products in the Collatz Carry Equation* (`GroupedTowerProductsCarry_Equation (1).pdf`) | "`v2(Qa,b + Ξα) = 83 = p5 + p6 − 1`." | p. 1 |
+| 6 | *Tail-Tracking and the Leading-Block Principle* (`TailTrackingLeadingBlockPrinciple.pdf`) | "of the convergents of `α = log2 3`. The bit depth `ℓ(D) = v2(Q(D) + Ξα)` is governed by a…" | p. 1 |
+| 7 | *The Wrap Regime in the Collatz Carry Equation* (`WrapRegimeCollatzCarryEquation.pdf`) | "gorithm computes `ℓ(D) = v2(Q(D) + Ξα)` for every finite product of standard tower blocks:" | p. 1 |
+| 8 | *The Positive-Entropy 2-Adic Carry Law* (`PositiveEntropy2Adic.pdf`) | "Let `Ξα` denote the rigid Sturmian 2-adic carry constant associated to…" | p. 8 |
+| 9 | *Unbalanced Residents … The (7, 11) Shell* (`UnbalancedResidentsCollatzCarryEquation (1).pdf`) | "so `ℓ(D−17) = v2(Q + Ξα) = 2`. The shell's quotients reach `|Q| ≈ 158`…" | p. 3 |
+| 10 | *Unbalanced Residents and Time-Axis Contacts* (`UnbalancedResidentsTime_AxisContactsCCE.pdf`) | "restarted — has computable `ℓ(D) = v2(Q(D) + Ξα)`, with nonsingularity certificates across entire…" | p. 2 |
+| 11 | *The Anatomy of the −17 Cycle: Time-Axis and Finite-Field Structure* (`TimeAxisFiniteFieldStructure.pdf`) | "`ℓ(D−17) = v2(Q + Ξα) = 2`." | p. 5 |
+
+**Every quoted line was located in the downloaded PDF.** All eleven titles match the triage list.
+
+### ⚠ One correction to the reason given for item 2
+
+The Step 5 survey in this report said Adjacent Tower Products "cites (A)'s Theorem 7.1 explicitly",
+and that reason carried into the triage list. **It is wrong, and the error was mine** — a grep for
+the string "Theorem 7.1" matched the note's *own* Theorem 7.1. The only two occurrences of "7.1"
+in that note are:
+
+> p. 4 — "Theorem 7.1 (Standard-factorization ladder). Let `Rn < 0`. For `1 ≤ b ≤ an+2`,"
+> p. 6 — "ladder identities (Thm. 7.1) and the five verified instances;"
+
+both referring to its own numbering. Its actual dependence is the one quoted in the table: it uses
+the bit analyzer `ℓ(D) = v₂(Q(D) + Ξα)` and attributes `Ξα` to "the second note [1]". **The
+attribution requirement is unchanged** — it consumes the carry constant and the first-disagreement
+depth either way — only the stated reason is corrected.
+
+### Cleared — 16 PDFs with zero occurrences of `Ξ`
+
+`CompositeDecomposition.pdf` · `CorrelatedPrimeLayersCollatzCarryEquation.pdf` ·
+`CorridorBracketsBottleneckRatios.pdf` · `FiniteFieldZeroSums.pdf` ·
+`ImprimitiveSplittingForcedLayerZeros.pdf` · `LocalIsolationWallContactsCollatzCarry.pdf` ·
+`modulus_depth_landmarks.pdf` · `NearCritical.pdf` · `ProjectiveClosureCoordinates.pdf` ·
+`ProjectiveNearMisses.pdf` · `ShellMixedBracketTracers.pdf` · `ShellNearMissBottleneck.pdf` ·
+`ShellPureTracer.pdf` · `WallPrimeTracersCCEquation.pdf` · `ZeroSubwindowObstructions.pdf` ·
+`ZeroWindowVarieties.pdf`
+
+Plus `cubic_modulus_threshold_referee_note.md` — the referee note, triaged separately below.
+
+### ⚠ The partition is 1 + 11 + 16 + 1, not 11 + 17 + 1
+
+The triage brief gave the partition as `11 + 17 + 1 = 29`. That arithmetic works only by counting
+note (A) among the "17 cleared", and note (A) is not cleared — it is the note the existing
+`A_addendum.pdf` is about, and it contains `Ξ` 33 times. The checkable partition is:
+
+| class | count | |
+|---|---|---|
+| note (A) — covered by `A_addendum.pdf` | **1** | `AdicSturmianCarryConstant.pdf` |
+| needs the collection addendum | **11** | the table above |
+| cleared, no `Ξ` and no depth law | **16** | the list above |
+| referee note, not a note | **1** | `cubic_modulus_threshold_referee_note.md` |
+| | **29** | ✓ |
+
+## The 29th file — identified and triaged
+
+The count of 28 notes against 29 files in `20599453` is explained: **28 PDFs and one Markdown
+file.** The odd one out is
+
+> `cubic_modulus_threshold_referee_note.md` — 12 542 B, md5 `7b7cf52b0e842ec3a868f3074e6e61b6`
+> (verified on download), 138 lines.
+
+**It is not a note.** It is a *hostile-referee technical note* asking whether the cubic compactness
+threshold `θ_crit ≈ 0.317672` has number-theoretic meaning for carry-residue modulus growth, and
+its own verdict is **"False lead as a dynamical threshold; admissible only as an imported partition
+bookkeeping marker."**
+
+**Triage — every marker returns zero:**
+
+| marker | count |
+|---|---|
+| `Ξ` · `Xi` · `carry constant` | 0 · 0 · 0 |
+| `López` · `Lopez` · `Stoll` | 0 · 0 · 0 |
+| `Christoffel` · `Sturmian` · `mechanical` | 0 · 0 · 0 |
+| `convergent` · `approximant` · `continued fraction` | 0 · 0 · 0 |
+| `Theorem 7.1` · `first-disagreement` | 0 · 0 |
+
+It does use the block value `Q(D)`, via `Q ≡ −C_L(D)·3^{−L} (mod 2^m)`, and it is about "depth" —
+but the depth is the **modulus depth** `θ = m/S`, the shell/entropy coordinate, not the
+first-disagreement depth `v₂(Q(D) + Ξ_α)` that the López–Stoll attribution concerns. Its machinery
+is hypergeometric cut-point laws, large deviations and TV distance to Bernoulli(`ρ`); there is no
+approximant, no convergent shell, and no carry constant anywhere in it.
+
+> **Verdict: no attribution needed.** Same class as Composite Decomposition, Correlated Prime
+> Layers, Corridor Brackets / Bottleneck Ratios and Finite-Field Zero Sums.
+
+So the full set of 29 files partitions as: 28 notes plus one referee note, and the referee note is
+out of scope for this revision.
+
+## Tier-1 citation debt — **STILL OPEN**
+
+Adding the three Tier-1 notes to the umbrella record does **not** discharge their debt:
+
+* `A_addendum.pdf` in the record has md5 `de6e65cfa6fbbddbb7faf062c38fe685` — byte-identical to
+  the addendum built in this audit, which addresses **note (A) only**. **No extended addendum
+  exists.** It names no Tier-1 note.
+* The three Tier-1 PDFs are byte-identical to their June copies and to `~/Downloads`, so they are
+  **unmodified** and still contain no López–Stoll citation anywhere.
+
+Co-depositing an unmodified note beside an addendum that does not mention it changes nothing about
+what that note claims. The Tier-1 requirement is unchanged from the Step 5 survey: each of Bit
+Analyzer, Adjacent Tower Products and Finite Christoffel Products needs its own one-sentence
+attribution to López–Stoll 2009 via note (A), and the `n ≥ 3` range wherever it quotes the
+per-shell depth.
+
+## Superseded versions, and why
+
+| version | what was wrong |
+|---|---|
+| `22916798` (A) | addendum only, no note |
+| `22916962` (A) | note + addendum, but 25 collection files already dropped |
+| `22916849` (B) | note only, no addendum |
+| `22917066` (B) | the note deposited **twice** under two filenames, identical md5; addendum absent |
+
+`22917066` is why every check here is by checksum rather than by file count or size: it had two
+files of plausible size and would have passed a weaker test.
 
 ## Reproducibility note
 
