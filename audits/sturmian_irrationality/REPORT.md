@@ -1072,6 +1072,41 @@ on the 5-file record. **The fix is one more version carrying all 29 original fil
 `A_addendum.pdf`, 30 in total.** Until then, cite the version DOI of whichever state is meant.
 Full file list in `revisions/2026-09-sturmian-citations/ZENODO.md`.
 
+## The 29th file — identified and triaged
+
+The count of 28 notes against 29 files in `20599453` is explained: **28 PDFs and one Markdown
+file.** The odd one out is
+
+> `cubic_modulus_threshold_referee_note.md` — 12 542 B, md5 `7b7cf52b0e842ec3a868f3074e6e61b6`
+> (verified on download), 138 lines.
+
+**It is not a note.** It is a *hostile-referee technical note* asking whether the cubic compactness
+threshold `θ_crit ≈ 0.317672` has number-theoretic meaning for carry-residue modulus growth, and
+its own verdict is **"False lead as a dynamical threshold; admissible only as an imported partition
+bookkeeping marker."**
+
+**Triage — every marker returns zero:**
+
+| marker | count |
+|---|---|
+| `Ξ` · `Xi` · `carry constant` | 0 · 0 · 0 |
+| `López` · `Lopez` · `Stoll` | 0 · 0 · 0 |
+| `Christoffel` · `Sturmian` · `mechanical` | 0 · 0 · 0 |
+| `convergent` · `approximant` · `continued fraction` | 0 · 0 · 0 |
+| `Theorem 7.1` · `first-disagreement` | 0 · 0 |
+
+It does use the block value `Q(D)`, via `Q ≡ −C_L(D)·3^{−L} (mod 2^m)`, and it is about "depth" —
+but the depth is the **modulus depth** `θ = m/S`, the shell/entropy coordinate, not the
+first-disagreement depth `v₂(Q(D) + Ξ_α)` that the López–Stoll attribution concerns. Its machinery
+is hypergeometric cut-point laws, large deviations and TV distance to Bernoulli(`ρ`); there is no
+approximant, no convergent shell, and no carry constant anywhere in it.
+
+> **Verdict: no attribution needed.** Same class as Composite Decomposition, Correlated Prime
+> Layers, Corridor Brackets / Bottleneck Ratios and Finite-Field Zero Sums.
+
+So the full set of 29 files partitions as: 28 notes plus one referee note, and the referee note is
+out of scope for this revision.
+
 ## Tier-1 citation debt — **STILL OPEN**
 
 Adding the three Tier-1 notes to the umbrella record does **not** discharge their debt:
