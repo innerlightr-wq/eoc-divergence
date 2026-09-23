@@ -26,6 +26,7 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\vt}{\nu_2}
+\newcommand{\vth}{\nu_3}
 \DeclareMathOperator{\Ph}{\Phi}
 \newcommand{\lab}[1]{\textnormal{\textsc{\small #1}}}
 
@@ -155,7 +156,9 @@ three cases, with disjoint asymptotic valuation means
 $\overline D_N=S_N/N$:
 \[
 \text{terminating: }\lim \overline D_N=2;\qquad
-\text{cyclic: }\lim \overline D_N=S/L\in(\log_2 3,\tau_M];\qquad
+\text{cyclic: }\lim \overline D_N=S/L\in(\log_2 3,\tau_M];
+\]
+\[
 \text{injective: }\limsup \overline D_N\le\log_2 3 .
 \]
 Equivalently, $\limsup_N \overline D_N>\tau_M$ if and only if the orbit reaches $1$.
@@ -483,10 +486,10 @@ word has no reason to have any.
 \textup{(L1)} If $m$ is zero-confined for $N$ steps and $m\equiv2\ (\mathrm{mod}\ 3)$,
 then $p=(2m-1)/3$ is a positive odd integer with $p<m$, $T(p)=m$, and $p$ is
 zero-confined for $N+1$ steps.
-\textup{(L2)} The backward $d=1$ chain from $x$ has length exactly $\vt[3](x+1)$,
+\textup{(L2)} The backward $d=1$ chain from $x$ has length exactly $\vth(x+1)$,
 with $3^{j}\bigl(\mathrm{back}^{j}x+1\bigr)=2^{j}(x+1)$.
 \textup{(L4)} $r_{\min}(N,0)\equiv3$ or $7\ (\mathrm{mod}\ 12)$ for every $N\ge1$.
-\textup{(L7)} Under a forward step with $d=1$, both $\vt[3](m_k+1)$ and the
+\textup{(L7)} Under a forward step with $d=1$, both $\vth(m_k+1)$ and the
 round-trip requirement advance by exactly one, so their difference is invariant;
 a step with even $d$ destroys the budget.
 \end{theorem}
@@ -540,13 +543,13 @@ Each row is a route that was pursued and closed, with the reason it closes. The
 purpose of the table is to prevent re-derivation.
 
 \begin{center}\small
-\begin{tabular}{@{}p{0.27\textwidth}p{0.55\textwidth}l@{}}
+\begin{tabular}{@{}p{0.235\textwidth}p{0.50\textwidth}p{0.155\textwidth}@{}}
 \toprule
 route & why it fails & label\\
 \midrule
 descent by inheritance and well-ordering
 & The round-trip criterion is \emph{provably equivalent} to (DE); and (L7) shows
-the $3$-adic budget $\vt[3](m+1)$ cannot be accumulated by forward motion, since a
+the $3$-adic budget $\vth(m+1)$ cannot be accumulated by forward motion, since a
 $d=1$ step raises budget and requirement together while an even $d$ destroys the
 budget. Observed round trips are no more frequent than a geometric baseline.
 & \lab{proved (paper)}\\[2pt]
@@ -614,8 +617,13 @@ reduction of Theorem~\ref{thm:reduction} satisfies all three and yields nothing,
 because it is an equivalence.
 
 \medskip
-\noindent\textbf{The checklist applied, once.} As an illustration, take the most
-natural proposal a reader is likely to make: \emph{a divergent orbit has drift
+\noindent\textbf{The checklist applied, twice.} Both instances below are generic:
+the first is constructed for this note as the obvious thing to try, the second is
+a route that was actually pursued and closed, and whose full record is public
+\cite{EOCDivergenceRepo}. Neither is drawn from correspondence.
+
+\emph{First, a counting argument at the level of words.} Take
+\emph{a divergent orbit has drift
 $R_n\le0$ forever, hence its valuation mean is at most $\alpha$; combine this with
 a counting bound on how many integers below $X$ can have such a mean, and conclude
 that no integer does}. This satisfies (i), since confinement at every depth is a
@@ -626,6 +634,20 @@ Section~\ref{sec:statistics} with a different constant, and
 Section~\ref{sec:statistics} shows the population is exactly as large as random
 placement predicts --- so a counting bound of this kind cannot be improved to a
 contradiction, because there is no discrepancy to exploit.
+
+\emph{Second, the descent route.} Take instead: \emph{let $z_0$ be the least
+zero-confined positive integer; produce from it a smaller one, and contradict
+minimality}. This satisfies (ii), since well-ordering and the strict decrease
+$p<m$ of \textup{(L1)} are exactly a use of positivity, and it satisfies (iii),
+since the moves are taken along the orbit of $z_0$. It fails (i): the resource it
+spends is the $3$-adic budget $\vth(m+1)$ of \textup{(L2)}, not $2$-adic
+integrality, and \textup{(L7)} proves that budget cannot be accumulated by
+forward motion --- a step with $d=1$ raises budget and requirement together, and a
+step with even $d$ destroys the budget. The audit that closed this route also
+found the generic trap in its own right: the statement \emph{``every $z\in K$
+admits a descending round trip''} is \emph{provably equivalent} to
+\textup{(DE)}, so proving it is exactly as hard as the problem. Both diagnoses
+are recorded in \texttt{audits/descent}, whose verdict is \textsc{stop}.
 
 \medskip
 \noindent\textbf{The controls.} A candidate tool must \emph{fail} on each of the
@@ -688,8 +710,67 @@ a \emph{finite} height cannot buy an \emph{infinite} border inside $K$: an integ
 $m$ is a rational of height $|m|$, and being zero-confined forever means agreeing
 with the confinement corridor at every depth.
 \end{formulation}
-\lab{heuristic} as a programme statement. Two remarks on what cannot replace
-height. First, descriptive complexity does not: the Liouville step consumes
+\lab{heuristic} as a programme statement. The exchange rate is worth tabulating,
+because it shows both how each exclusion is paid for and where the payment is
+unavailable. Write $\Lambda$ for $\log_2$ of the approximant's own size, so that
+the Liouville step closes exactly when the border exceeds $\log_2 H+\Lambda$; the
+\emph{surplus} is the amount by which it does.
+
+\begin{center}\small
+\begin{tabular}{@{}p{0.155\textwidth}llp{0.36\textwidth}@{}}
+\toprule
+family & border & surplus over $\Lambda$ & why it wins\\
+\midrule
+periodic (Thm.~\ref{thm:marker})
+& infinite
+& ---
+& not a border/height competition: the point \emph{is} the rational, and the
+exclusion is by \textbf{sign}, not by height\\[4pt]
+convergent approximants (Thm.~\ref{thm:sturmian})
+& $q_n+q_{n+1}-1$
+& $q_{n+1}-1$
+& the depth law buys one whole continued-fraction level beyond the approximant's
+size, and $q_{n+1}\to\infty$ beats any fixed $\log_2 H$\\[4pt]
+balanced squares (Prop.~\ref{prop:squares})
+& $\ge 2\ell$
+& $\ge (2-\log_2 3)\ell$
+& the surplus grows \emph{linearly} in the block length at rate at least
+$0.415$, uniformly in the slope\\[4pt]
+density (Thm.~\ref{thm:density})
+& ---
+& ---
+& \textbf{does not use this mechanism at all}: below $\beta$ it is an
+orbit-growth argument, above $\beta$ an archimedean accumulation argument in an
+unrefereed source\\[4pt]
+descent (Thm.~\ref{thm:descent})
+& ---
+& ---
+& \textbf{does not use this mechanism either}: its resource is the $3$-adic
+budget $\vth(m+1)$, and (L7) shows it cannot be accumulated\\[4pt]
+\midrule
+\textbf{the generic sector}
+& \textbf{infinite required}
+& \textbf{none available}
+& a confined word of critical density with no periodicity and no long balanced
+repetition; its realizer is an integer of \emph{finite} height, and nothing in
+the list supplies a surplus\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent Three things are visible in the table. Only three of the five families
+trade border against height at all, and of those three the periodic one does not
+really compete --- it wins on sign. The two that genuinely compete both need a
+surplus that \emph{grows}: one continued-fraction level, or a linear rate in the
+block length. And the last row is the problem: a hypothetical zero-confined
+integer must sustain an \emph{infinite} border on a \emph{finite} height, while
+possessing none of the structure that any of the five families consumes. That is
+the precise sense in which the remaining sector is the generic one, and why the
+programme's tools do not reach it.
+
+\medskip
+\noindent Two remarks on what cannot replace height. First, descriptive complexity does not: the Liouville step consumes
 $\log_2 H$ and nothing weaker, because the integer $M_n$ it produces is bounded
 below by $2^{R}$ and above by $H$ times a polynomial, and no measure of
 description length enters either bound. It is worth saying what a height bound would buy, since it fixes the exchange
@@ -878,8 +959,18 @@ Section~\ref{sec:statistics}, the sign-obstruction analysis of
 Section~\ref{sec:needed} and the present note were drafted in that setting under
 pre-registered protocols with stated stop rules; several claims were corrected or
 withdrawn as a result, and those corrections are recorded in the audit reports
-rather than silently applied. All mathematical claims, their labels, their
-framing, and any errors are the author's.
+rather than silently applied. To be specific, four such corrections survive into
+the present note: a sign lemma used in an earlier draft of
+Theorem~\ref{thm:marker} was \emph{false} as stated and was replaced by the
+one-sided form actually needed; the ceiling constant in the square-poorness
+measurement was corrected from a fixed $1/(2-\log_2 3)$ to a per-block quantity,
+and its validity restricted to balanced blocks; an apparent gap between record
+holders and shuffled surrogates was reclassified as a selection effect and the
+comparison replaced by the null model of Proposition~\ref{prop:density}; and a
+drift slope reported from a fit over part of the data changed by a factor of three
+once the sample was pre-registered. Equation~\eqref{eq:aggregate}'s label in this
+note was likewise weakened after checking what Lean proves. All mathematical
+claims, their labels, their framing, and any errors are the author's.
 
 \bibliographystyle{amsplain}
 \bibliography{refs}
