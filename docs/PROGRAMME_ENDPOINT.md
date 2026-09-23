@@ -44,3 +44,14 @@ does not touch either open problem.
 stay bounded, and a bounded realizer is exactly what an infinitely confined orbit would supply.
 This implication is **paper-level and not formalized here**; see
 [`EQUIVALENT_FORMS_OF_DE.md`](EQUIVALENT_FORMS_OF_DE.md).
+
+## Closed routes
+
+Routes examined and closed, with the reason each closes.
+
+| Route | Finding | Status |
+|---|---|---|
+| Descent via inheritance + well-ordering | Sign-sensitive: the backward fixed point is `−1` for `3x+1` but `+1` for `3x−1`, so L1's strict decrease `p < m` is unconditional in the first case and fails at `m = 1` in the second. But **L7** shows forward motion cannot accumulate 3-adic budget — a `d = 1` step raises `v₃(m+1)` and the round-trip requirement by exactly one, and even `d` destroys the budget. Any descent statement over `Z` is moreover *equivalent* to (DE). | **STOP** |
+
+Full record: [`audits/descent/DESCENT_AUDIT.md`](../audits/descent/DESCENT_AUDIT.md).
+The three results retained are formalized in the `Descent` library (L1, L2, L4, L7).

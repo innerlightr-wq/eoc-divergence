@@ -244,3 +244,43 @@ Axiom audit: `[propext, Classical.choice, Quot.sound]` (`choose_step` uses only
     (with its non-strict companion `two_pow_le_three_pow_iff`).
 
 **The `Occupation` companion library is complete.**
+
+---
+
+# `Descent` (audit library)
+
+A third **separate** library holding the results retained by
+[`audits/descent/DESCENT_AUDIT.md`](../audits/descent/DESCENT_AUDIT.md), whose verdict on a
+descent proof of (DE) was **STOP**. It imports **only** `Divergence.Basic`, modifies nothing in
+`Divergence/` or `Occupation/`, and has its own axiom audit
+(`scripts/DescentAxioms.lean`) enforced in CI.
+
+| Theorem | Content |
+|---|---|
+| `back_confinedUpTo`, `back_step_zeroConfined` | **L1** — the backward `d = 1` step inherits confinement, with one horizon to spare |
+| `three_pow_mul_back_iterate`, `back_chain_length` | **L2** — the chain law; the chain has length exactly `v₃(x+1)` |
+| `least_confined_mod12` | **L4** — a least confined integer is `≡ 3 or 7 (mod 12)` |
+| `v3_T_succ`, `rt_shift`, `not_three_dvd_T_succ`, `three_dvd_T_succ` | **L7** — the lockstep invariance |
+
+Axiom audit for all 25: `[propext, Classical.choice, Quot.sound]`.
+
+## Notes
+
+16. `Divergence.ZeroConfined` lives in `Divergence.CycleDrift`, which the "import only
+    `Divergence.Basic`" rule excludes. The infinite-horizon statements are therefore written in
+    the **unfolded** form `∀ n, 2 ^ S m n ≤ 3 ^ n`, which *is* `Divergence.ZeroConfined m` by
+    definition, so `back_step_zeroConfined` applies to it directly without the import.
+    `forall_confinedUpTo_iff` records the bridge to the finite horizons.
+17. L1 is split into named lemmas rather than the proposed single bundled conjunction with a
+    `let`: the bundled form is awkward to consume, and `orbit_back` / `S_back` are wanted
+    separately in any case. Same content.
+18. L2's closed form is stated division-free as `3^j · (back^[j] x + 1) = 2^j · (x+1)`, so no
+    `ℕ`-division appears downstream. Every hypothesis supplies `m ≥ 1`, making the subtraction
+    in `back m = (2m−1)/3` exact; `three_mul_back` states that explicitly and is used in place of
+    the division throughout.
+19. L4 uses `IsLeast`, and **uses** `confinedUpTo_mono` rather than assuming it: L1 delivers
+    horizon `N+1` and the set asks for `N`.
+20. `not_three_dvd_T_succ` **drops** the proposed `2 ≤ a m`: for odd `m`, `a_pos` gives
+    `a m ≥ 1`, so `a m % 2 = 0` already forces `a m ≥ 2`.
+21. `three_dvd_T_succ` is stated for **all** odd `a m`, including `a m = 1`, where it is
+    consistent with `v3_T_succ` (budget `≥ 1`). The proposed `a m ≥ 3` is unnecessary.

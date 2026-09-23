@@ -26,3 +26,6 @@ jobs:
 
       - name: Axiom audit (Occupation)
         run: python3 scripts/check_axioms.py scripts/OccupationAxioms.lean
+
+      - name: Axiom audit (Descent)
+        run: python3 scripts/check_axioms.py scripts/DescentAxioms.lean

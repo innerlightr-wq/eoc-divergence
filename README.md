@@ -56,6 +56,7 @@ the equivalence unconditional. See [`docs/STATUS.md`](docs/STATUS.md) for the le
 | `Divergence/LastMaximum.lean` | paper Prop 4.10 | **proved** |
 | `Divergence/Main.lean` | paper Thm 6.14 | **proved** |
 | `Occupation/*.lean` | companion: confined-mass rate | **proved** (separate library) |
+| `Descent/*.lean` | descent audit: L1, L2, L4, L7 | **proved** (separate library) |
 
 **No module introduces an external hypothesis.** Every `Prop` the headline theorem depends on is
 proved in this repository.

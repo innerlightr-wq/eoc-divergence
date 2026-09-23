@@ -1,5 +1,5 @@
 name = "divergence"
-defaultTargets = ["Divergence", "Occupation"]
+defaultTargets = ["Divergence", "Occupation", "Descent"]
 
 [[require]]
 name = "mathlib"
@@ -11,3 +11,6 @@ name = "Divergence"
 
 [[lean_lib]]
 name = "Occupation"
+
+[[lean_lib]]
+name = "Descent"
