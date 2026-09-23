@@ -470,13 +470,23 @@ that are still zero-confined. Six draws each:
 | 56 924 955 | 25 | 193 | 301, 304, 305, 305, 305, 305 |
 | 63 728 127 | 25 | **236** | 368, 368, 373, 373, 373, 373 |
 
-> **The single sharpest number in Phase 2.** A permutation of a record holder's own valuation
-> word — preserving density and total drift exactly — has a least realizer around `2^{370}`
-> where the record holder itself is `2^{25}`. The spread across draws is at most **5 bits**, so
-> the surrogates are not a distribution with the record holder in its tail; they sit at the
-> class modulus, which is where a generic word's least realizer sits. **Whatever makes a record
-> holder small is destroyed by re-ordering its valuations, and is therefore not a property of
-> the density or of the drift endpoint.**
+> **What this does and does not show — recorded at the author's instruction.** A permutation of
+> a record holder's own valuation word, preserving density and total drift exactly, has a least
+> realizer around `2^{370}` where the record holder itself is `2^{25}`, with at most **5 bits**
+> of spread across draws.
+>
+> **That gap is a selection effect, and C3-shuffle is the wrong null for size.** A record holder
+> is the **minimum over all** zero-confined words of length `N`; a shuffled surrogate is **one
+> typical** word, whose least realizer necessarily sits near `2^{S}` — the class modulus — since
+> the least element of a class mod `2^{S+1}` is of that order for a generic class. Comparing a
+> minimum-over-a-huge-family against a single draw measures the size of the family, not any
+> property of the record holder.
+>
+> So the shuffle control retains a narrower value: it shows that **ordering, not density or
+> endpoint drift, is what distinguishes one confined word from another** — a shuffled word is
+> still confined, still has the same `S_N`, and its realizer is still generic. For **size**, the
+> correct null is the random-placement model `N0` of §2.7, which compares `r_k(N)` against the
+> exact density `p_N(0)` and so accounts for the size of the family.
 
 ### C4 — the `3x−1` sign control
 
@@ -560,4 +570,154 @@ The roughly equal thirds at `r₂, r₃` are the arithmetic already noted in
 `audits/descent/DESCENT_AUDIT.md` ("the equal thirds are arithmetic, not data"): the classes
 `≡ 3 (mod 4)` split evenly mod 12, and only the `11 (mod 12)` third carries a backward chain.
 The content is that `r₁` is the one that never does.
+
+## 2.7 `N0` — the random-placement null model for **size**
+
+`scripts/nullmodel.py`, `scripts/delta.py`.
+
+**The exact density.** The odd `m` with a given zero-confined valuation word `d` of total `S`
+form exactly one residue class mod `2^{S+1}`, so their density **among odd integers** is `2^{-S}`.
+Summing over all zero-confined words of length `N`:
+```
+p_N(0)  =  Σ_{d confined, |d| = N}  2^{−S(d)}       ( = Occupation.p N 0 )
+```
+computed here **exactly** by the transfer recursion over `(k, S)`:
+```
+f[0][0] = 1 ,      f[k+1][S′] = Σ_{d ≥ 1} f[k][S′−d]     for  S′ ≤ A[k] ,
+num_N := Σ_S f[N][S]·2^{A[N]−S}  ∈ ℤ ,        p_N(0) = num_N / 2^{A[N]} .
+```
+No floating point, no asymptotics: `num_N` is an exact integer, and it is *also* the exact count
+of odd `m ∈ [1, 2^{A[N]+1})` that are `N`-confined.
+
+> **VERIFIED.** `num_N` equals that count, computed independently by orbit iteration, for
+> `N = 1,2,3,4,5,6,8,10,12,14` — e.g. `num_2 = 3` and the 2-confined odd `m < 16` are exactly
+> `{7, 11, 15}`; `num_{14} = 168 807`. No mismatch.
+
+**Scales 1 and 2, tested on the exact density.** `Occupation.confined_mass_rate` gives
+`−(1/N)log₂p_N(0) → I₀ = α(1 − H₂(1/α)) = 0.0793186…` (**PROVED**, formalized). The *Three
+Scales of Confinement* note adds the polynomial factor, `p_N(0) ≍ 2^{−I₀N}·N^{−3/2}`
+(**CITED**, paper-proved, not formalized). Testing the second exactly:
+
+| `N` | `log₂(1/p_N)` | `/N` | `log₂(1/p_N) − I₀N − (3/2)log₂N` |
+|---|---|---|---|
+| 10 | 3.954 | 0.3954 | −1.822 |
+| 20 | 5.699 | 0.2849 | −2.371 |
+| 50 | 9.556 | 0.1911 | −2.876 |
+| 100 | 14.822 | 0.1482 | −3.075 |
+| 150 | 19.572 | 0.1305 | −3.169 |
+| 200 | 24.127 | 0.1206 | −3.202 |
+| 250 | 28.495 | 0.1140 | −3.283 |
+| 300 | 32.861 | 0.1095 | −3.277 |
+
+The last column settles to **≈ −3.2 ± 0.1** across `N = 100 … 300` while `−(1/N)log₂p_N` is
+still only at `0.110` against `I₀ = 0.0793` — i.e. the `N^{−3/2}` factor is doing essentially
+all of the visible correction, and the exact density is `p_N(0) ≈ 2^{−3.2}·2^{−I₀N}·N^{−3/2}`
+in this range. **VERIFIED** (exact `p_N`); the identification of the exponent as `−3/2` is
+**CITED**.
+
+**The null.** Under random placement the `N`-confined odd integers are a Poisson process of rate
+`λ = p_N(0)/2` per integer, so `r_k(N) ~ Gamma(k, λ)` and
+```
+Δ_k(N)  :=  log₂ r_k(N) − log₂ k − log₂(1/p_N(0)) ,
+E[Δ_k]  =  1 + ψ(k)/ln 2 − log₂ k    →   +0.167 (k=1),  +0.610 (k=2),  +0.746 (k=3).
+```
+
+**One measurement artefact, handled.** `r_k(N)` is a step function of `N` while `log₂(1/p_N)`
+rises smoothly, so `Δ_k` is a **saw-tooth**: it jumps at each new record holder and then decays
+deterministically. Averaging over all `N` therefore measures the step widths, not the placement.
+**The order statistic is sampled exactly at the jumps**, and that is where `N0` is tested below.
+
+---
+
+# Phase 3 — measurements M2, M3, M4
+
+`scripts/phase3.py`. Exact arithmetic; divisions appear only in the reported ratios.
+
+## 3.1 M2 — Sturmian proximity
+
+Two quantities per record holder: the integer drift deficit `D_k = A[k] − S_k ≥ 0` (zero
+exactly on the critical line), and the longest common prefix of the orbit's **valuation word**
+with a **shift** of the critical Sturmian valuation word `d_i = ⌊(i+1)α⌋ − ⌊iα⌋` (shifts
+`0 … 2000`).
+
+| `r₁` | depth | `max D_k` | `D` at depth | mean `D` | best lcp | shift | lcp/depth |
+|---|---|---|---|---|---|---|---|
+| 27 | 36 | 6 | 1 | 2.86 | 3 | 0 | 0.083 |
+| 703 | 50 | 6 | 2 | 3.54 | 1 | 0 | 0.020 |
+| 10 087 | 65 | 6 | 1 | 2.69 | 1 | 0 | 0.015 |
+| 270 271 | 102 | 14 | 0 | 8.31 | 1 | 0 | 0.010 |
+| 626 331 | 110 | 11 | 1 | 5.23 | 3 | 0 | 0.027 |
+| 1 126 015 | 140 | 14 | 4 | 7.81 | 1 | 0 | 0.007 |
+| 13 421 671 | 180 | 15 | 2 | 7.01 | 1 | 0 | 0.006 |
+| 26 716 671 | 187 | 15 | 1 | 6.14 | 1 | 0 | 0.005 |
+| 56 924 955 | 193 | 15 | 0 | 8.27 | 3 | 0 | 0.016 |
+| **63 728 127** | **236** | 12 | 1 | 6.61 | **1** | 0 | **0.004** |
+
+*(control: the Sturmian word's own prefix scores lcp/depth = 1.000 by construction.)*
+
+> **VERIFIED, and it is a clean negative.** Over depths up to 236 the record holders agree with
+> the best Sturmian shift for **1 to 3 valuations**. They are not near the critical Sturmian
+> word in any prefix sense — no nearer than a generic confined word would be.
+>
+> The drift tells the other half of the story: `max D_k` runs 6–15 and the mean 2.7–8.3, so the
+> orbits wander well away from the critical line, but `D` at the final confined step is **0–4**
+> in every case. A record holder ends **drift-critical**, which is why the next step breaks
+> confinement — this is the future-minimum / last-maximum structure of `Divergence.LastMaximum`,
+> seen from the data side, not a new phenomenon.
+
+## 3.2 M3 — the signed border to the rational points of `K`
+
+By **P1** every zero-confined periodic point of `K` is a negative rational; they were enumerated
+exactly:
+
+| period `≤` | points | all negative? | height range |
+|---|---|---|---|
+| 4 | 9 | ✔ | 1 … 85 |
+| 6 | 46 | ✔ | 1 … 1 085 |
+| 8 | 296 | ✔ | 1 … 13 349 |
+| 10 | **1 717** | ✔ | 1 … 148 813 |
+
+> **P1 VERIFIED on all 1 717 zero-confined periodic points of period ≤ 10. Every one is a
+> negative rational, with no exception.**
+
+Border ratio `v₂(m − x_w)/log₂ height(x_w)`, maximised over the 769 points of period ≤ 9:
+
+| target | `log₂m` | best ratio | `v₂` | nearest `x_w` |
+|---|---|---|---|---|
+| 27 | 4 | 2.153 | 5 | `−5` |
+| 703 | 9 | 1.538 | 17 | `−2123/1675` |
+| 35 655 | 15 | **2.262** | 14 | `−73/17` |
+| 270 271 | 18 | 1.277 | 14 | `−1993/1417` |
+| 1 126 015 | 20 | 1.272 | 14 | `−2059/1931` |
+| 8 088 063 | 22 | 1.125 | 16 | `−19171/18659` |
+| 26 716 671 | 24 | 0.984 | 14 | `−19171/18659` |
+| 63 728 127 | 25 | 1.195 | 17 | `−19171/18659` |
+| C2 Sturmian `r(D_N)`, `N = 20, 40, 60` | 31, 63, 92 | **4.307** each | 10 | `−5` |
+| C1 `−5`, `−17` | 2, 4 | ∞ | ∞ | themselves |
+
+The Sturmian realizers score a constant 4.307 because `1c_β`'s valuation word opens
+`1,2,1,2,1,2,…`, agreeing with `(1,2)^∞` — the word of `−5` — for six valuations; that is a
+fixed initial coincidence, not a deepening one, and it does not grow with `N`.
+
+## 3.3 M4 — the Markov-type exponent, ranked
+
+`E(x) = max over rationals p/q (q odd) of v₂(x − p/q)/log₂ height(p/q)`, searched over odd
+`q ≤ 2049` and every `t ≤ K`; the exact representation `p/q = x` is excluded (it gives `∞`).
+
+| rank | target | `E` | `E`/trivial ceiling |
+|---|---|---|---|
+| **1** | **the periodic points of `K`** (`−1, −5, −17, …`) | **∞** — each *is* a rational of tiny height | — |
+| 2 | 8 088 063 · 26 716 671 · **63 728 127** | 5.678 | 0.38 · 0.35 · 0.34 |
+| 3 | 1 126 015 | 4.417 | 0.32 |
+| 4 | Sturmian `r(D_{20/40/60})` | 4.307 | 0.30 · 0.15 · 0.11 |
+| 5 | 13 421 671 | 3.876 | 0.36 |
+| 6 | 703 · 270 271 | 3.786 | 0.57 · 0.31 |
+| 7 | 10 087 | 3.445 | 0.52 |
+| 8 | 626 331 | 2.850 | 0.37 |
+| 9 | 35 655 · 56 924 955 | 2.702 | 0.54 · 0.35 |
+| 10 | 27 | 2.524 | 0.72 |
+
+Next-best `E` for the periodic points once they themselves are excluded: `−1 → 1.292`,
+`−5 → 2.524`, `−17 → 2.524`. Also `Φ(1c_β) mod 2^{190}` scores 4.307, at `−5`, for the same
+initial-coincidence reason as its realizers.
 
