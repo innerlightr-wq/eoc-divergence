@@ -819,3 +819,51 @@ the critical slope should not be assumed.
 
 **Phase 0 is unaffected**: it concerns the critical slope and the lower convergents only, where
 the approximants are periodic cycle values — verified directly, not inferred.
+
+---
+
+# Phase 3 — literature workflow (Zotero + citation APIs)
+
+## Step 1 — Zotero: **local API unreachable; collection not found**
+
+| check | result |
+|---|---|
+| Zotero installed | yes, `/usr/bin/zotero` |
+| Zotero **running** | **no** — no process, nothing listening |
+| local API `http://localhost:23119/api/…` | **unreachable** (connection refused; also probed `:23120`, `/connector/ping`, `/api/`) |
+| data directory | `~/Zotero/` with `zotero.sqlite` (5.5 MB) |
+| Better BibTeX | installed (`~/Zotero/better-bibtex/`), but **no auto-exported `.bib`** anywhere under `~/Zotero` |
+
+The Zotero 7 local API only serves while the application is running, so it could not be used. I
+read the database **read-only instead**, and to guarantee the library was not touched I copied
+`zotero.sqlite` to the scratch directory first and opened the copy with
+`sqlite3.connect('file:…?mode=ro', uri=True)`. **Nothing in `~/Zotero` was written, moved or
+locked.**
+
+> ### ⚠ There is no collection named "Sturmian irrationality".
+>
+> All 180-odd collection names were listed; no match, and no near-match. The relevant tree is:
+>
+> ```
+> [ 13] EOC — Collatz Conjecture Research            (0 items directly)
+>        [14] 00 — Reviews & Surveys                       6
+>        [15] 01 — Classical 3x+1 Results                 10
+>        [16] 02 — Accelerated Collatz & Valuation Dynamics 6
+>        [17] 03 — Probabilistic / Random Models           4
+>        [18] 04 — Tao Almost-All Results                  3
+>        [19] 05 — Mixing, Fourier & Residue Methods       3
+>        [20] 06 — Divergent-Orbit Constraints             4
+>        [21] 07 — Congruences, Realizers & Arithmetic Placement 6
+>        [22] 08 — Recent Results & Refinements            3
+>        [23] 09 — Directly Cited in EOC                  23
+>        [24] 10 — Closest Prior Art / Novelty Checks      8
+>        [25] 11 — Open Problems & Conjectural Context     4
+> ```
+>
+> **Reported rather than guessed**: `references.bib` has *not* been written, because the source
+> collection is ambiguous. Name the collection (or say "create it from the HIT/RELATED list
+> below") and I will export it.
+
+Both conjugacy-map papers are already in the library — a title search returns
+*The 3x+1 Conjugacy Map* (Bernstein–Lagarias) and *The 3x+1 Conjugacy Map over a Sturmian Word*
+(López–Stoll 2009) — so the collection may simply be a naming difference.
