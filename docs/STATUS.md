@@ -173,3 +173,39 @@ Axiom audit for all nine: `[propext, Classical.choice, Quot.sound]`.
    `(i : Fin N)` does not elaborate; the `ℕ` form also keeps every index manipulation inside
    `omega`'s reach. `rot` therefore takes `r : ℕ`.
 5. `rot_zero_mod` does not need `0 < N` (it was dropped as unused).
+
+## O2 — the entropy estimate: **complete**
+
+Ported from `eoc-lean-verification`'s `EOC/BinomialEntropy.lean` (`one_le_succ_mul_choose_mul`,
+the max-term argument), trimmed to what O3 consumes. Entropy is in **nats**
+(`Real.binEntropy`); O3 divides by `Real.log 2` where bits are wanted.
+
+| Theorem | Statement |
+|---|---|
+| `sum_term_eq_one` | `Σ_j C(n,j) p^j q^{n-j} = 1` for `p + q = 1` |
+| `choose_mul_le_one` | one term is at most the sum |
+| `term_le_term_max` | the terms peak at `j = k` when `p = k/n` (interior) |
+| `one_le_succ_mul_choose_mul` | `1 ≤ (n+1)·C(n,k)·p^k·q^{n-k}` |
+| `weight_eq_one`, `weight_pos` | the weight at the endpoints, and its positivity |
+| `log_weight_eq` | `p^k q^{n-k} = exp(−n·H(k/n))`, in log form |
+| `log_choose_le` | `log C(n,k) ≤ n·H(k/n)` — no `log(n+1)` loss |
+| `abs_log_choose_sub_le` | `\|log C(n,k) − n·H(k/n)\| ≤ log(n+1)` |
+
+Axiom audit for all nine: `[propext, Classical.choice, Quot.sound]`.
+
+### Deviations
+
+6. `choose_mul_le_one` drops `0 < n` (unused) and takes `p, q` explicitly with `0 ≤ p`,
+   `0 ≤ q`, `p + q = 1` — those *are* needed and were implicit in the brief.
+7. `term_le_term_max` keeps the **interior** hypotheses `0 < k` and `k < n` of the original
+   port, rather than the proposed `k ≤ n`. At the endpoints the maximum statement is still
+   true but needs a different argument, and its only consumer
+   (`one_le_succ_mul_choose_mul`) handles `k = 0` and `k = n` directly, where the bound is
+   the trivial `1 ≤ n+1`.
+8. `log_choose_le` is exported alongside `abs_log_choose_sub_le`: on the upper side the truth
+   is `log C(n,k) − n·H(k/n) ≤ 0`, strictly better than `≤ log(n+1)`. O3 uses the sharp form
+   for the upper bound and the absolute form for the lower.
+9. The endpoint identity in `log_weight_eq` holds **only** because Lean's `0^0 = 1` and
+   `log 0 = 0` line up: at `k = 0` the weight is `0^0 · 1^n = 1` and `binEntropy 0 = 0`.
+   Both endpoints are split out explicitly, since `Real.log_mul` needs each factor nonzero
+   and the interior argument assumes `0 < p < 1`.

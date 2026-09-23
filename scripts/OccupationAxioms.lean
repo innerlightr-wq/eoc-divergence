@@ -13,3 +13,14 @@ below reports a subset of `[propext, Classical.choice, Quot.sound]`. -/
 #print axioms Occupation.exists_rot_neg
 #print axioms Occupation.exists_rot_confined
 #print axioms Occupation.card_comps_le_mul
+
+-- O2: the entropy estimate.
+#print axioms Occupation.sum_term_eq_one
+#print axioms Occupation.choose_mul_le_one
+#print axioms Occupation.term_le_term_max
+#print axioms Occupation.one_le_succ_mul_choose_mul
+#print axioms Occupation.weight_eq_one
+#print axioms Occupation.weight_pos
+#print axioms Occupation.log_weight_eq
+#print axioms Occupation.log_choose_le
+#print axioms Occupation.abs_log_choose_sub_le
