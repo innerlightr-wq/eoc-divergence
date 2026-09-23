@@ -73,7 +73,7 @@ Two remarks. First, the denominator is **odd** (`2^S − 3^L` with `S ≥ L ≥ 
 > suppose the periodic point `Φ(w^∞)` is zero-confined. Then `Φ(w^∞) < 0`.
 
 *Proof.* Paper Prop. 4.1 gives `Φ(w^∞) = c_w/(2^ℓ − 3^k)` with
-`c_w = Σ_{i<ℓ,\,w_i=1} 3^{k−k_{i+1}(w)} 2^i ∈ ℤ_{>0}`, and `2^ℓ ≠ 3^k`. In parity coordinates
+`c_w = Σ_{i<ℓ, w_i=1} 3^{k−k_{i+1}(w)} 2^i ∈ ℤ_{>0}`, and `2^ℓ ≠ 3^k`. In parity coordinates
 zero-confinement reads `k_j(w^∞) ≥ jβ` for every `j`, i.e. `2^j ≤ 3^{k_j}`; at `j = ℓ` this is
 `2^ℓ ≤ 3^k`, hence `2^ℓ − 3^k < 0` and `Φ(w^∞) < 0`. ∎
 
