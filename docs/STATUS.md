@@ -130,3 +130,46 @@ No approved statement was changed, and no hypothesis was added or removed.
     `R_n → −∞` is `ρ n → 0`. `Real.exp` is used once, in `Q_le_exp`, and never inverted.
 17. `exists_last_max` is stated for an arbitrary positive real sequence tending to `0`, with no
     Collatz content, so it can be reused or replaced independently.
+
+---
+
+# `Occupation` (companion library)
+
+A **separate** Lean library holding one occupation-side result: the exponential rate of
+confined-word mass. It is **not** part of the headline equivalence, and `Divergence.lean` does
+not import it. It has its own axiom audit (`scripts/OccupationAxioms.lean`), enforced in CI
+under the same permitted set.
+
+`Occupation` imports nothing from `Divergence`: `Confined` here is a condition on abstract
+words, not on orbits, so the library is fully self-contained.
+
+## O1 — compositions and the cycle lemma: **complete**
+
+| Theorem | Statement |
+|---|---|
+| `card_comps` | stars and bars: `#comps N s = C(s-1, N-1)` for `1 ≤ N ≤ s` |
+| `confComps_eq_empty` | confinement caps the total: empty once `2N + c ≤ s` |
+| `p_eq_sum` | the mass, organised by total |
+| `p_pos` | the all-ones word is `0`-confined, so `p N c > 0` |
+| `two_pow_lt_three_pow_iff` | the one integral/real bridge: `2^S < 3^j ↔ S < j·log₂3` |
+| `sum_range_rot` | a rotation permutes a full period |
+| `exists_rot_neg` | **the cycle lemma** (Dvoretzky–Motzkin; Spitzer), generic |
+| `exists_rot_confined` | `2^s < 3^N` ⟹ some rotation is `0`-confined |
+| `card_comps_le_mul` | rotation is at most `N`-to-1: `#comps ≤ N · #confComps` |
+
+Axiom audit for all nine: `[propext, Classical.choice, Quot.sound]`.
+
+## Deviations and notes
+
+1. `confComps_eq_empty` carries `1 ≤ N`. It is **false at `N = 0`**: with `c = 0, s = 0` the
+   hypothesis `2·0 + 0 ≤ 0` holds, yet the empty word is vacuously positive and confined
+   (`2^0 ≤ 2^0·3^0`). The step `2^c·3^N < 2^{c+2N}` needs `3^N < 4^N`, strict only for `N ≥ 1`.
+2. Consequently **`p 0 c` is not the true empty-word mass**. Nothing downstream uses `N = 0`;
+   every statement about the rate carries `1 ≤ N`.
+3. `card_comps` needs both `1 ≤ N` and `N ≤ s`. At `s = 0, N = 1` the count is `0` while
+   `(0-1).choose 0 = 1` in ℕ-truncated subtraction, so the unguarded form is false.
+4. The cycle lemma is indexed by `ℕ` with an explicit `% N`, not by `Fin N` with its group
+   structure. This Mathlib has **no `NatCast (Fin N)` instance**, even with `NeZero N`, so
+   `(i : Fin N)` does not elaborate; the `ℕ` form also keeps every index manipulation inside
+   `omega`'s reach. `rot` therefore takes `r : ℕ`.
+5. `rot_zero_mod` does not need `0 < N` (it was dropped as unused).

@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
-"""Fail unless every `#print axioms` line reports only Lean's three standard axioms."""
+"""Fail unless every `#print axioms` line reports only Lean's three standard axioms.
+
+Usage: check_axioms.py [path/to/Axioms.lean]   (default: scripts/Axioms.lean)
+"""
 import re, subprocess, sys
 
 ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
 
-out = subprocess.run(["lake", "env", "lean", "scripts/Axioms.lean"],
+target = sys.argv[1] if len(sys.argv) > 1 else "scripts/Axioms.lean"
+
+out = subprocess.run(["lake", "env", "lean", target],
                      capture_output=True, text=True)
 sys.stdout.write(out.stdout)
 sys.stderr.write(out.stderr)
 if out.returncode != 0:
-    sys.exit("FAIL: scripts/Axioms.lean did not elaborate")
+    sys.exit(f"FAIL: {target} did not elaborate")
 
 lines = [l for l in out.stdout.splitlines() if "depend" in l]
 if not lines:

@@ -21,5 +21,8 @@ jobs:
       - name: Forbidden constructs
         run: python3 scripts/check_forbidden.py
 
-      - name: Axiom audit
-        run: python3 scripts/check_axioms.py
+      - name: Axiom audit (Divergence)
+        run: python3 scripts/check_axioms.py scripts/Axioms.lean
+
+      - name: Axiom audit (Occupation)
+        run: python3 scripts/check_axioms.py scripts/OccupationAxioms.lean
