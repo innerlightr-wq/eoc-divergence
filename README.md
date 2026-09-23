@@ -38,8 +38,8 @@ zero-confined seed.
 
 ## Status
 
-**Milestone M1 of 5 complete.** The `←` direction (`divergent_of_zeroConfined`) is proved; the `→`
-direction is in progress. See [`docs/STATUS.md`](docs/STATUS.md) for the current ledger.
+**Milestone M2 of 5 complete.** The `←` direction (`divergent_of_zeroConfined`) is proved, and the
+raw-map layer the `→` direction runs through is in place. See [`docs/STATUS.md`](docs/STATUS.md) for the current ledger.
 
 ## Ledger
 
@@ -47,7 +47,7 @@ direction is in progress. See [`docs/STATUS.md`](docs/STATUS.md) for the current
 |---|---|---|
 | `Divergence/Basic.lean` | Lemma 2.4 (aggregate identity) | **proved** |
 | `Divergence/CycleDrift.lean` | Lemma 4.2 (cycle drift); `←` direction | **proved** |
-| `Divergence/RawMap.lean` | Terras shift; Curry Lemma 2.2 (contraction) | not started |
+| `Divergence/RawMap.lean` | Terras shift; Curry Lemma 2.2 (contraction); bridge | **proved** |
 | `Divergence/BinomialTail.lean` | entropy tail bound | not started |
 | `Divergence/WindowedSparsity.lean` | Garcia–Tal Fundamental Lemma; Curry Thm 2.3 | not started |
 | `Divergence/Summable.lean` | Curry Prop 3.1 / paper Prop 4.9 | not started |

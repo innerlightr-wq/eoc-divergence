@@ -1,6 +1,6 @@
 # Status
 
-Milestone **M1 of 5** complete. `main` builds; CI enforces `lake build`, the forbidden-construct
+Milestone **M2 of 5** complete. `main` builds; CI enforces `lake build`, the forbidden-construct
 scan, and the axiom audit on every push.
 
 ## Proved
@@ -12,8 +12,17 @@ scan, and the axiom audit on every push.
 | `not_zeroConfined_of_repeat` | a periodic orbit is not zero-confined | Lemma 4.2 |
 | `injective_iff_divergent` | injective orbit ⟺ divergent orbit | — |
 | `divergent_of_zeroConfined` | **the `←` direction of the headline theorem** | Thm 6.14 (half) |
+| `U_iter_shift` | shift invariant for every `j ≤ N` | Terras; Garcia–Tal Lemma 1 |
+| `U_iter_shift_endpoint` | the endpoint form, as a corollary | Garcia–Tal Lemma 1 |
+| `oddCount_shift` | the parity prefix is shift-invariant | — |
+| `modEq_of_parity_prefix` | equal parity prefixes ⟹ `n ≡ n' [MOD 2^N]` | prefix injectivity |
+| `raw_aggregate_identity` | `2^N·U^N n = 3^m·n + E N n` | — |
+| `E_lt`, `contraction` | `2^N·U^N n < 3^m·(n + 2^N)` | Curry Lemma 2.2 |
+| `bridge` | `orbit M n = U^[S M n] M` for odd `M` | — |
+| `raw_injective_of_divergent` | divergent ⟹ raw orbit injective and collision-free | M4 interface |
 
-Axiom audit for all of the above: `[propext, Classical.choice, Quot.sound]`.
+Axiom audit for all of the above: `[propext, Classical.choice, Quot.sound]`
+(`U_iter_two_pow_mul` uses only `[propext, Quot.sound]`).
 
 ## Open hypotheses
 
@@ -22,7 +31,7 @@ one, it will appear here as a named hypothesis on the theorems that use it, neve
 
 ## Remaining
 
-M2 `RawMap` · M3 `BinomialTail` · M4 `WindowedSparsity` · M5 `Summable` + `LastMaximum` + `Main`.
+M3 `BinomialTail` · M4 `WindowedSparsity` · M5 `Summable` + `LastMaximum` + `Main`.
 
 The `→` direction is the substantial half: it needs the Garcia–Tal / Curry windowed sparsity
 theorem formalized, which is what makes the headline equivalence unconditional.
@@ -40,3 +49,15 @@ Recorded so the plan and the code never drift apart.
    `B = 0` as well (both sides are `0` for `t ≥ 1`, and `0` at `t = 0`), so the hypothesis was
    unused. `1 ≤ B` is still established at the call site, where it *is* needed.
 5. `cycle_drift` and `orbit_pos` keep `Odd m`: positivity of the cycle value is genuinely used.
+
+### M2
+
+No approved statement was changed, and no hypothesis was added or removed.
+
+6. `oddCount` is *defined* as `(parityPrefix N n).card` rather than as an inline `filter` count,
+   so that `oddCount_eq_card` is `rfl`. Same definition, factored the way M4 will want it.
+7. The sharp bound `E ≤ 3^{m-1}(2^N − 1)` was skipped, as agreed: `E_lt` is what `contraction`
+   consumes. `E_eq_zero` records the `m = 0` case separately, with no truncated subtraction.
+8. Supporting lemmas added beyond the approved list, none of them load-bearing on their own:
+   `U_of_even`, `U_of_odd`, `two_mul_U_of_even`, `two_mul_U_of_odd`, `oddCount_eq_sum`,
+   `oddCount_succ`, `oddCount_le`, `E_succ`, `E_succ_even`, `E_succ_odd`.
