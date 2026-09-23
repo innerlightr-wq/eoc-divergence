@@ -24,3 +24,13 @@ below reports a subset of `[propext, Classical.choice, Quot.sound]`. -/
 #print axioms Occupation.log_weight_eq
 #print axioms Occupation.log_choose_le
 #print axioms Occupation.abs_log_choose_sub_le
+
+-- O3: the rate.
+#print axioms Occupation.two_pow_sN_lt
+#print axioms Occupation.le_sN
+#print axioms Occupation.sN_div_tendsto
+#print axioms Occupation.choose_step
+#print axioms Occupation.p_le
+#print axioms Occupation.le_p
+#print axioms Occupation.rate_core
+#print axioms Occupation.confined_mass_rate

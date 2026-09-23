@@ -55,9 +55,48 @@ the equivalence unconditional. See [`docs/STATUS.md`](docs/STATUS.md) for the le
 | `Divergence/Summable.lean` | Curry Prop 3.1 / paper Prop 4.9 | **proved** |
 | `Divergence/LastMaximum.lean` | paper Prop 4.10 | **proved** |
 | `Divergence/Main.lean` | paper Thm 6.14 | **proved** |
+| `Occupation/*.lean` | companion: confined-mass rate | **proved** (separate library) |
 
 **No module introduces an external hypothesis.** Every `Prop` the headline theorem depends on is
 proved in this repository.
+
+## Companion result (occupation side)
+
+A **separate** Lean library, `Occupation`, holds one occupation-side result:
+
+```lean
+theorem confined_mass_rate (c : ℕ) :
+    Tendsto (fun N : ℕ => -(1 / (N : ℝ)) * Real.logb 2 (p N c)) atTop (𝓝 I₀)
+```
+
+where `p N c = Σ 2^{-S_N(d)}` over the `c`-confined words `d` of length `N` (all letters `≥ 1`,
+`2^{S_j} ≤ 2^c·3^j` for every `j ≤ N`), and
+
+```
+I₀ = α(1 − H₂(1/α)) ≈ 0.0793186,      α = log₂3.
+```
+
+**This is not part of the headline equivalence.** `Divergence` does not import `Occupation`, and
+`divergent_iff_zeroConfined` does not depend on any of it. It is a companion: it proves the
+*statistical* rate that Revision 7 §3.3 and the Sturmian-capacity note treated as a
+standard-technique expectation rather than a theorem. Confined-word mass decays at exactly the
+exponential rate `I₀` — no more, no less.
+
+The proof is purely combinatorial: no probability, no central limit theorem, no tilting. The
+upper bound organises words by total valuation and uses unimodality of `C(s−1,N−1)·2^{-s}`; the
+lower bound is the cycle lemma at the anchor total `s_N = ⌊Nα⌋`, realised integrally as
+`Nat.log 2 (3^N)`.
+
+`Occupation` has its own axiom audit (`scripts/OccupationAxioms.lean`), enforced in CI under the
+same permitted set, and introduces no external hypothesis.
+
+### Attribution
+
+* **Dvoretzky & Motzkin (1947)**, and **Spitzer**, for the cycle lemma — the rotation argument
+  behind the lower bound.
+* **Terras (1976)** and **Everett (1977)** for the word/residue correspondence that makes
+  confined words the right objects to count.
+* The rate constant `I₀` is from the author's earlier notes.
 
 ## Guarantees
 

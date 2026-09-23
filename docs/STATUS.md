@@ -209,3 +209,38 @@ Axiom audit for all nine: `[propext, Classical.choice, Quot.sound]`.
    `log 0 = 0` line up: at `k = 0` the weight is `0^0 · 1^n = 1` and `binEntropy 0 = 0`.
    Both endpoints are split out explicitly, since `Real.log_mul` needs each factor nonzero
    and the interior argument assumes `0 < p < 1`.
+
+## O3 — the rate: **complete**
+
+| Theorem | Statement |
+|---|---|
+| `sN`, `two_pow_sN_le`, `lt_two_pow_sN_succ` | the anchor `s_N = Nat.log 2 (3^N)` |
+| `two_pow_sN_lt` | `2^{s_N} < 3^N`, **strict by parity** |
+| `le_sN` | `N ≤ s_N` |
+| `sN_div_tendsto` | `s_N / N → α` |
+| `choose_step`, `two_mul_choose_le`, `tt_le_top` | unimodality of `C(s-1,N-1)·2^{-s}` |
+| `p_le` | upper bound: the largest confined total dominates |
+| `le_p` | lower bound: the cycle lemma at the anchor |
+| `rate_core` | the rate along any anchor with `f N / N → α` |
+| **`confined_mass_rate`** | **`-(1/N)·log₂ p(N,c) → I₀`** |
+
+Axiom audit: `[propext, Classical.choice, Quot.sound]` (`choose_step` uses only
+`[propext, Quot.sound]`).
+
+### Deviations and notes
+
+10. `le_sN` needs **no** hypothesis — `Nat.log 2 (3^0) = 0`, so `N ≤ s_N` holds at `N = 0` too.
+    I had proposed `1 ≤ N`.
+11. `confComps_eq_empty_of_gt` dropped an unused `1 ≤ N`.
+12. `p_le` is stated as `p N c ≤ ((c:ℝ) + s_N + 1) · tt N (c + s_N)` with
+    `tt N s = C(s-1,N-1)·2^{-s}` a named definition, rather than spelled out. Same content.
+13. `hbig : c + s_N + 2 ≤ 2N` holds eventually, supplied inside `confined_mass_rate` from
+    `s_N ≤ Nα` and `α < 2`. It is *false* for small `N`, as expected.
+14. **The real-`c` corollary was skipped**, as agreed: `p` is defined over a `ℕ`-valued corridor,
+    and a real corridor would need a second `Confined` predicate plus the transfer lemmas
+    between them. The `ℕ` version is the theorem.
+15. No logarithm is evaluated numerically anywhere: `α` and `I₀` are defined symbolically, the
+    anchor is `Nat.log`, and the single integral/real bridge is `two_pow_lt_three_pow_iff`
+    (with its non-strict companion `two_pow_le_three_pow_iff`).
+
+**The `Occupation` companion library is complete.**
