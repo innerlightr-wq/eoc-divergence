@@ -1,7 +1,14 @@
 # Irrationality of the 2-adic Sturmian carry constant
 
-*Draft. Novelty is **not** asserted: the literature check (Phase 3 of the audit) is pending, and
-this draft must not be circulated with a priority claim until it is complete.*
+*Draft, 23 September 2026. The literature check (Phase 3 of the audit) is **complete**: no prior
+proof was found across OpenAlex, Google Scholar and zbMATH. Novelty statement, as approved:*
+
+> *No prior proof is known; the question is stated as open in López–Stoll (2009) and treated as
+> open in López–Stoll (2021).*
+
+*This is a "no prior proof found" verdict across three indexes, not a proof of priority; journal
+literature off arXiv is narrowed by the zbMATH and Scholar passes but not formally exhausted. The
+wording above says exactly that, and should not be strengthened.*
 
 ## Statement
 
@@ -126,3 +133,16 @@ actually live.
 
 [A] E. De Jesús, *The 2-Adic Sturmian Carry Constant in the Collatz Carry Equation*, 5 June 2026.
 [B] E. De Jesús, *The Sturmian–Mahler Edge of the Accelerated Collatz Realizer Problem*, June 2026.
+[LS09] J. López and P. Stoll, *The 3x+1 conjugacy map over a Sturmian word*, Integers **9** (2009),
+#A13, 141–162. `doi:10.1515/integ.2009.014` — the 2-adic series and continued fraction for
+`Φ(1c_α)`, and irrationality of the **real** values off the critical slope; the 2-adic question is
+left open.
+[LS21] J. López and P. Stoll, *The 3x+1 periodicity conjecture in ℝ*, `arXiv:2101.12747` (2021) —
+aperiodicity for ones-density strictly above `ln2/ln3`; the critical density is treated as open.
+
+*Note (A) is cited here for its Theorem 7.1. Per the September 2026 citation revision, the
+approximants and the approximation depths that theorem recovers originate in [LS09]; (A)'s own
+contribution is the separated, exact, shell-by-shell form (`p_n − 1` upper, `p_n + p_{n+1} − 1`
+lower). **Indexing:** this draft numbers the shells from `0` (`R_0 = 1 − α < 0`), so the range
+`n ≥ 2` used above is the right one here; the same restriction reads `n ≥ 3` in (A)'s own
+numbering, where `(q_1,p_1) = (1,1)`. Both name the same first shell, `(2,3)`.*
