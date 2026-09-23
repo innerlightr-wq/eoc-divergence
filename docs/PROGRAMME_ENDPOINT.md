@@ -1,5 +1,11 @@
 # Programme endpoint: the two-sided status
 
+> **A narrative account of everything below, written for a reader new to the programme, is the
+> synthesis note** *After the Reduction: Proved Statistics, Excluded Structure, and the Missing
+> Pointwise Tool in the Accelerated 3x+1 Problem*
+> ([`papers/synthesis`](../papers/synthesis); [doi:10.5281/zenodo.22925399](https://doi.org/10.5281/zenodo.22925399)).
+> This file is the ledger; the note is the argument.
+
 Both sides of the EOC programme have now reached the same shape. The *statistics* are theorems.
 The *exact reductions* are theorems. What is open on each side is the placement of specific
 integers inside a population whose size is known.
