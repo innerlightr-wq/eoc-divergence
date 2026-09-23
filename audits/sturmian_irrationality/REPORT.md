@@ -641,7 +641,15 @@ terms has `v₂` equal to the *next* term's exponent `q_{j+2}+q_{j+1}−1`, givi
 `2, 4, 10, 26, 83, 148, 568, 1538, …` — whose odd-indexed members `10, 83, 568` are exactly note
 (A)'s lower-convergent values.
 
-### ⚠ Attribution finding
+### Observation beyond note (A)'s proven range
+
+The table agrees at `k = 1` and `k = 2` — shells `(1,1)` and `(1,2)`, both with `q_n = 1`. Note
+(A)'s Lemma 5.1 explicitly requires `q_n ≥ 2` (the range `1 ≤ i ≤ q_n − 1` must be non-empty), so
+these two rows lie **outside its proven range**. The law's *formula* nonetheless returns the right
+values there (`2` and `1`). **Recorded as an observation, not as a theorem**: two data points do
+not extend a proof, and nothing in Phase 0 uses `n < 2`.
+
+### ⚠ Citation debt — **action required on notes (A) and (B)**
 
 > **Note (A)'s Theorem 7.1 is, in its lower-convergent half, the leading 2-adic term of
 > López–Stoll 2009 Theorem 1 — and neither note (A) nor note (B) cites López–Stoll anywhere**
@@ -650,9 +658,17 @@ terms has `v₂` equal to the *next* term's exponent `q_{j+2}+q_{j+1}−1`, givi
 This does **not** affect correctness: note (A)'s proof is self-contained and was re-derived in
 Phase 0 Task 2, and its statement is *sharper* in one respect — it gives the upper and lower cases
 separately with exact constants, where López–Stoll's series exposes the depths only through the
-alternation. But the object, the approximants, and the depths coincide, and the 2009 paper is
-prior art that should be cited. Note (A)'s description of its result as the tower's "first
-theorem-grade structural result" needs qualification accordingly.
+alternation. But the object, the approximants, and the depths coincide.
+
+> **Required citation.** Notes (A) and (B) must cite
+> **J. López and P. Stoll, *The 3x+1 conjugacy map over a Sturmian word*, Integers 9 (2009), #A13,
+> 141–162 (MR 2506145)** as the **first source of the approximants and of the approximation
+> depths**, with note (A)'s Theorem 7.1 presented as an **independent and sharper derivation** —
+> sharper in giving the exact upper (`p_n − 1`) and lower (`p_n + p_{n+1} − 1`) constants
+> separately. Note (A)'s description of its result as the tower's "first theorem-grade structural
+> result" must be qualified accordingly.
+>
+> *Author has confirmed he will revise (A) and (B) on Zenodo.*
 
 **Consequence for Phase 0: none, except to strengthen it.** The valuation law that the Liouville
 argument consumes is now sourced twice, independently.
@@ -755,3 +771,51 @@ cd audits/sturmian_irrationality/phase1c
 python3 conj.py      # 1.1 isometry, 1.2 closed form, 1.3 periodic values
 python3 height.py    # the height-bound counterexample and the mechanical-word scan
 ```
+
+---
+
+# Phase 1c — scope correction: the all-slope extension is a **target**, not a corollary
+
+Recorded at the author's instruction, and it is the right call.
+
+## Why it is not immediate
+
+Phase 0 works at the critical slope because, at each shell, the approximant is a **periodic cycle
+value** `Φ(m_{p/q}^∞) = c_w/(2^ℓ − 3^k)` — a rational whose height is controlled by the
+balanced-word bound of Task 1.3. What is *not* automatic in general is the identification of such
+a value with a continued-fraction convergent: by López–Stoll's Lemma 27,
+
+```
+−P_{2k+1}/Q_{2k+1} = F(p_{2k+1}/q_{2k+1})         (a periodic cycle value)
+−P_{2k}/Q_{2k}     = F(p_{2k}/q_{2k}) + g(p_{2k}/q_{2k})   (cycle value + gap)
+```
+
+so **only the odd-indexed convergents are periodic-word values**. Any argument that silently
+treats every convergent as a cycle value — and therefore imports the height bound for one — is
+unsound.
+
+*Clarifying observation.* The verification above computed `Φ(m_{p_k/q_k}^∞)` **directly** at every
+shell, both parities, and matched note (A)'s law in all eight rows. So at the critical slope the
+periodic values are genuine approximants at **every** shell; what is index-dependent is only their
+coincidence with López–Stoll's `−P_k/Q_k`. The obstruction to the general-slope theorem is
+therefore in the *proof* for arbitrary `α`, not in the parity as such.
+
+## The target, stated
+
+> For every irrational slope `α ∈ (0,1)`, prove:
+>
+> 1. **the depth law** — `v₂(Φ(1c_α) − Φ(m_{p/q}^∞))` at those convergents where the periodic
+>    value is the approximant, equivalently the longest-common-prefix law of Phase 1c Task 2;
+> 2. **balanced-word height bounds** there — available: Task 1.3's
+>    `|c_w| ≤ 3ℓ·max(2^ℓ, 3^k)` for mechanical `w`, whose `log₂` is
+>    `max(ℓ, k·log₂3) + log₂(3ℓ)`;
+> 3. **depth > Liouville ceiling for infinitely many of them**, in **both** regimes
+>    `α ≤ ln2/ln3` and `α > ln2/ln3`.
+
+The two regimes are genuinely different: `ln2/ln3` is where the real series changes convergence
+behaviour (López–Stoll Definition 22), where `F` and `F*` change roles, and where the ceiling
+`max(ℓ, k log₂3)` switches which argument attains the maximum. A single uniform argument across
+the critical slope should not be assumed.
+
+**Phase 0 is unaffected**: it concerns the critical slope and the lower convergents only, where
+the approximants are periodic cycle values — verified directly, not inferred.
