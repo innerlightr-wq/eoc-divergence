@@ -1,2 +1,19 @@
 /.lake/
 *.olean
+
+# --- third-party papers -----------------------------------------------------
+# This repository is public, so it does not redistribute papers by other authors.
+# Local copies live under the relevant audits/*/sources/ directory and are kept
+# out of git; each such directory carries a SOURCES.md with the DOI or arXiv
+# identifier and the retrieval URL, and `pdftotext -layout` reproduces the text
+# extractions that the reports cite by line number.
+#
+# Repo-wide, so a new audit folder is covered from the moment it is created --
+# this rule exists because a per-directory .gitignore that had not yet been
+# committed failed to protect a branch cut from main (see PR #10).
+**/sources/*.pdf
+**/sources/*.txt
+
+# ...except the author's own technical notes, which ARE tracked.
+!audits/sturmian_irrationality/sources/A_*.pdf
+!audits/sturmian_irrationality/sources/B_*.pdf
