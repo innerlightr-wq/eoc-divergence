@@ -22,9 +22,11 @@ record of record stays as published and the correction travels beside it.
 
 ## Record 1 — note (A)
 
-**Record:** `10.5281/zenodo.22916962` — https://doi.org/10.5281/zenodo.22916962
-**Concept DOI:** `10.5281/zenodo.20556483` ← **cite this**
-**Superseded:** `10.5281/zenodo.22916798` (incomplete file set — addendum only, no note)
+**Record:** `10.5281/zenodo.22917426` — https://doi.org/10.5281/zenodo.22917426
+**Concept DOI:** `10.5281/zenodo.20556483`
+**Superseded:** `10.5281/zenodo.22916798` (addendum only) and `10.5281/zenodo.22916962` (note + addendum)
+⚠ **The current version holds 5 of the collection's 29 files** — see *Umbrella record: 25 files
+dropped*. Do **not** cite the concept DOI for this record until that is resolved.
 
 **Record title** (as deposited — *not* the note's own title):
 
@@ -37,7 +39,7 @@ The note itself renders as *The 2-Adic Sturmian Carry Constant in the Collatz Ca
 Note (A) lives inside this umbrella record, so anyone following the DOI lands on the collection,
 not on a record named after the note. Cite it as: De Jesús, E. (2026). *Structured Sectors of the
 Collatz Carry Equation: Christoffel Towers, 2-Adic Windows, and Shell Residents.* Zenodo.
-https://doi.org/10.5281/zenodo.22916962
+https://doi.org/10.5281/zenodo.22917426
 
 **Files:**
 
@@ -246,3 +248,63 @@ They resolve to the latest version, so they survive any future revision, and the
 
 Caught by reading each record back and comparing MD5s. A size-only or file-count check would have
 passed `22917066`, which had the right number of files and plausible sizes.
+
+---
+
+## Umbrella record: 25 files dropped — ⚠ **action needed**
+
+Read back 23 September 2026 from the record and `/files` endpoints, and the concept's version
+list (`/api/records/22917426/versions`, 17 versions).
+
+### What the current version holds — 5 files, all verified, no duplicates
+
+| file | size | md5 | is |
+|---|---|---|---|
+| `AdicSturmianCarryConstant (1).pdf` | 299 604 | `8064824b9605a0ad26603ed742022842` | note (A) |
+| `A_addendum.pdf` | 403 241 | `de6e65cfa6fbbddbb7faf062c38fe685` | the (A) citation addendum |
+| `AdjacentTowerProductsCollatzCarryEquation (1).pdf` | 289 431 | `ab51c2d20833a9dd5b0237e22e3164db` | Tier-1 note |
+| `FiniteChristoffelProducts (1).pdf` | 247 985 | `cf4a5c83d031057c31cfe70ac00d3737` | Tier-1 note |
+| `BitAnalyzerCollatzCarryEquation (1).pdf` | 256 230 | `aad1685bbdfc73749a23074c3536c253` | Tier-1 note |
+
+All five MD5s are distinct — **no duplicate** — and every one matches a local artefact, so
+**nothing in the record matches nothing**. The three Tier-1 PDFs are byte-identical both to
+`~/Downloads` and to their copies in the June collection: they are the **unmodified** notes.
+
+### The regression
+
+The last full-collection version is **`10.5281/zenodo.20599453`** (8 June 2026) with **29 files**.
+The three September versions replaced the file set instead of adding to it:
+
+| version | date | files |
+|---|---|---|
+| `20599453` | 2026-06-08 | **29** — last full collection |
+| `22916798` | 2026-09-23 | 1 |
+| `22916962` | 2026-09-23 | 2 |
+| `22917426` | 2026-09-23 | **5** ← current |
+
+**25 files present in `20599453` are absent from the current version:**
+
+`CompositeDecomposition.pdf` · `CorrelatedPrimeLayersCollatzCarryEquation.pdf` ·
+`CorridorBracketsBottleneckRatios.pdf` · `FiniteFieldZeroSums.pdf` ·
+`GroupedTowerProductsCarry_Equation (1).pdf` · `ImprimitiveSplittingForcedLayerZeros.pdf` ·
+`LocalIsolationWallContactsCollatzCarry.pdf` · `NearCritical.pdf` · `PositiveEntropy2Adic.pdf` ·
+`ProjectiveClosureCoordinates.pdf` · `ProjectiveNearMisses.pdf` · `ShellMixedBracketTracers.pdf` ·
+`ShellNearMissBottleneck.pdf` · `ShellPureTracer.pdf` · `StandardBlockNonsingularity (1).pdf` ·
+`TailTrackingLeadingBlockPrinciple.pdf` · `TimeAxisFiniteFieldStructure.pdf` ·
+`UnbalancedResidentsCollatzCarryEquation (1).pdf` · `UnbalancedResidentsTime_AxisContactsCCE.pdf` ·
+`WallPrimeTracersCCEquation.pdf` · `WrapRegimeCollatzCarryEquation.pdf` ·
+`ZeroSubwindowObstructions.pdf` · `ZeroWindowVarieties.pdf` ·
+`cubic_modulus_threshold_referee_note.md` · `modulus_depth_landmarks.pdf`
+
+**Why it matters.** The concept DOI `10.5281/zenodo.20556483` resolves to the *latest* version, so
+it now lands a reader on a 5-file record rather than the 29-file collection. This is exactly the
+citation this file and `REPORT.md` were recommending. Nothing is lost permanently — Zenodo
+versions are immutable, and `20599453` still serves all 29 — but the collection's current face is
+gutted.
+
+A concrete consequence: `NearCritical.pdf` is among the missing, and note (A) cites it as its own
+reference [9]. The record hosting note (A) no longer serves the note that (A) depends on.
+
+**Fix:** one more version of the umbrella record carrying all 29 original files plus
+`A_addendum.pdf` — 30 in total. Until then cite the **version** DOI of whichever state is meant:
+`20599453` for the full collection, `22917426` for the current 5-file state.

@@ -1028,53 +1028,77 @@ LaTeX source, so nothing was reconstructed: the deliverable is the patch list
 `revisions/2026-09-sturmian-citations/REVISIONS.md` plus two standalone addenda that travel beside
 the unchanged originals.
 
-## Deposited — both records complete
+## Deposited
 
-| | current version DOI | concept DOI — **cite this** | superseded |
+| | current version DOI | concept DOI | superseded |
 |---|---|---|---|
-| (A) | `10.5281/zenodo.22916962` | `10.5281/zenodo.20556483` | `22916798` |
-| (B) | `10.5281/zenodo.22917246` | `10.5281/zenodo.20594173` | `22916849`, `22917066` |
+| (A) | `10.5281/zenodo.22917426` ⚠ | `10.5281/zenodo.20556483` ⚠ | `22916798`, `22916962` |
+| (B) | `10.5281/zenodo.22917246` ✅ | `10.5281/zenodo.20594173` ✅ **cite this** | `22916849`, `22917066` |
 
-Citations:
+**(B) is settled.** `SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf` (327 659 B,
+`830ff7dc768ed1a692e9b050a5e28fa0`) and `B_addendum.pdf` (390 796 B,
+`3ecb5e274e5603249f9168dddb314125`) — note and addendum, nothing else.
 
-* De Jesús, E. (2026). *Structured Sectors of the Collatz Carry Equation: Christoffel Towers,
-  2-Adic Windows, and Shell Residents.* Zenodo. https://doi.org/10.5281/zenodo.20556483
-* De Jesús, E. (2026). *The Sturmian–Mahler Edge of the Accelerated Collatz Realizer Problem.*
-  Zenodo. https://doi.org/10.5281/zenodo.20594173
-
-Concept DOIs are given because they resolve to the latest version and survive future revisions.
+**(A)'s umbrella record has a regression** — see below. Cite it by **version** DOI until fixed.
 
 **Note (A)'s record title is not the note's title.** The note renders as *The 2-Adic Sturmian
-Carry Constant in the Collatz Carry Equation* and sits inside an umbrella record covering several
-notes in the tower line. Anyone following the DOI lands on the collection. `references.bib`
-records both names on `dejesus2026sturmiancarry`.
+Carry Constant in the Collatz Carry Equation* and sits inside an umbrella record covering the
+tower line. `references.bib` records both names on `dejesus2026sturmiancarry`.
 
-## Deposition verification — 23 September 2026
+## ⚠ Umbrella record `22917426`: 25 of 29 collection files dropped
 
-Each record read from both the record endpoint and `/files`, with every file matched by **MD5**
-against the local artefact.
+Verified 23 September 2026 from the record endpoint, `/files`, and the concept version list.
 
-**(A) `22916962` — complete.** `AdicSturmianCarryConstant (1).pdf` (299 604 B,
-`8064824b9605a0ad26603ed742022842`) = the note; `A_addendum.pdf` (403 241 B,
-`de6e65cfa6fbbddbb7faf062c38fe685`) = the addendum.
+The current version holds **5 files**, all verified by MD5, **no duplicates**, and every one
+matching a local artefact:
 
-**(B) `22917246` — complete.** `SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf`
-(327 659 B, `830ff7dc768ed1a692e9b050a5e28fa0`) = the note; `B_addendum.pdf` (390 796 B,
-`3ecb5e274e5603249f9168dddb314125`) = the addendum. The duplicate is gone.
+| file | md5 | is |
+|---|---|---|
+| `AdicSturmianCarryConstant (1).pdf` | `8064824b…` | note (A) |
+| `A_addendum.pdf` | `de6e65cf…` | the (A) citation addendum |
+| `AdjacentTowerProductsCollatzCarryEquation (1).pdf` | `ab51c2d2…` | Tier-1 note, **unmodified** |
+| `FiniteChristoffelProducts (1).pdf` | `cf4a5c83…` | Tier-1 note, **unmodified** |
+| `BitAnalyzerCollatzCarryEquation (1).pdf` | `aad1685b…` | Tier-1 note, **unmodified** |
 
-Both notes are now served under a `~/Downloads`-style filename carrying a ` (1)` suffix. Cosmetic
-only — the MD5s establish the content — and not worth a further version of each record to rename.
+But the last full-collection version, `10.5281/zenodo.20599453` (8 June 2026), holds **29 files**.
+The three September versions replaced the file set rather than adding to it (1 → 2 → 5 files), so
+**25 files are absent from the current version**, including `NearCritical.pdf` — which note (A)
+cites as its own reference [9]. The record hosting note (A) no longer serves the note (A) depends
+on.
 
-**Three superseded versions, all caught by reading the records back:**
+Nothing is lost permanently: Zenodo versions are immutable and `20599453` still serves all 29. But
+the concept DOI resolves to the *latest* version, so `10.5281/zenodo.20556483` now lands a reader
+on the 5-file record. **The fix is one more version carrying all 29 original files plus
+`A_addendum.pdf`, 30 in total.** Until then, cite the version DOI of whichever state is meant.
+Full file list in `revisions/2026-09-sturmian-citations/ZENODO.md`.
+
+## Tier-1 citation debt — **STILL OPEN**
+
+Adding the three Tier-1 notes to the umbrella record does **not** discharge their debt:
+
+* `A_addendum.pdf` in the record has md5 `de6e65cfa6fbbddbb7faf062c38fe685` — byte-identical to
+  the addendum built in this audit, which addresses **note (A) only**. **No extended addendum
+  exists.** It names no Tier-1 note.
+* The three Tier-1 PDFs are byte-identical to their June copies and to `~/Downloads`, so they are
+  **unmodified** and still contain no López–Stoll citation anywhere.
+
+Co-depositing an unmodified note beside an addendum that does not mention it changes nothing about
+what that note claims. The Tier-1 requirement is unchanged from the Step 5 survey: each of Bit
+Analyzer, Adjacent Tower Products and Finite Christoffel Products needs its own one-sentence
+attribution to López–Stoll 2009 via note (A), and the `n ≥ 3` range wherever it quotes the
+per-shell depth.
+
+## Superseded versions, and why
 
 | version | what was wrong |
 |---|---|
 | `22916798` (A) | addendum only, no note |
+| `22916962` (A) | note + addendum, but 25 collection files already dropped |
 | `22916849` (B) | note only, no addendum |
-| `22917066` (B) | the note deposited **twice** under two filenames, identical md5; addendum still absent |
+| `22917066` (B) | the note deposited **twice** under two filenames, identical md5; addendum absent |
 
-`22917066` is the reason the check was done by checksum rather than by file count or size: it had
-two files of plausible size and would have passed a weaker test.
+`22917066` is why every check here is by checksum rather than by file count or size: it had two
+files of plausible size and would have passed a weaker test.
 
 ## Reproducibility note
 
