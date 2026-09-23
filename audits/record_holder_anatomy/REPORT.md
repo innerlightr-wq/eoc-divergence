@@ -33,9 +33,9 @@ constant, so `R_k → +∞`. Everything below is on `ℤ₂^× ∖ {−1/3}`.
 ```
 2^{S_n} · m_n = 3^n · m_0 + C_n ,     C_0 = 0 ,  C_{n+1} = 3·C_n + 2^{S_n} ,
 ```
-so `C_n = Σ_{i<n} 3^{\,n−1−i} 2^{S_i}`, and in particular
+so `C_n = Σ_{i<n} 3^{n−1−i}·2^{S_i}`, and in particular
 ```
-C_n ≥ 3^{\,n−1} > 0      for every n ≥ 1.                                     (†)
+C_n ≥ 3^{n−1} > 0      for every n ≥ 1.                                     (†)
 ```
 
 ---
@@ -73,7 +73,7 @@ Two remarks. First, the denominator is **odd** (`2^S − 3^L` with `S ≥ L ≥ 
 > suppose the periodic point `Φ(w^∞)` is zero-confined. Then `Φ(w^∞) < 0`.
 
 *Proof.* Paper Prop. 4.1 gives `Φ(w^∞) = c_w/(2^ℓ − 3^k)` with
-`c_w = Σ_{i<ℓ,\,w_i=1} 3^{\,k−k_{i+1}(w)} 2^i ∈ ℤ_{>0}`, and `2^ℓ ≠ 3^k`. In parity coordinates
+`c_w = Σ_{i<ℓ,\,w_i=1} 3^{k−k_{i+1}(w)} 2^i ∈ ℤ_{>0}`, and `2^ℓ ≠ 3^k`. In parity coordinates
 zero-confinement reads `k_j(w^∞) ≥ jβ` for every `j`, i.e. `2^j ≤ 3^{k_j}`; at `j = ℓ` this is
 `2^ℓ ≤ 3^k`, hence `2^ℓ − 3^k < 0` and `Φ(w^∞) < 0`. ∎
 
@@ -209,7 +209,7 @@ them at once.
 > If `m` is a purely periodic point of `T'` of period `L` with total `S` and is zero-confined,
 > then
 > ```
-> m = C'_L / (3^L − 2^S) ,   C'_L = Σ_{i<L} 3^{\,L−1−i}2^{S_i} > 0 ,   3^L − 2^S > 0 ,
+> m = C'_L / (3^L − 2^S) ,   C'_L = Σ_{i<L} 3^{L−1−i}·2^{S_i} > 0 ,   3^L − 2^S > 0 ,
 > ```
 > so **`m > 0`**.
 
@@ -310,7 +310,7 @@ balanced height bound of Remark 4.3,
 ```
 2^{2ℓ} ≤ |M| ≤ m·(1+3ℓ)·max(2^ℓ, 3^k) ,
 ```
-and with `θ := (k/ℓ)·log₂3`, `max(2^ℓ,3^k) ≤ 2^{\,max(1,θ)ℓ + log₂3}`, giving
+and with `θ := (k/ℓ)·log₂3`, `max(2^ℓ,3^k) ≤ 2^{max(1,θ)·ℓ + log₂3}`, giving
 
 > **`(2 − max(1,θ))·ℓ ≤ log₂ m + log₂(1+3ℓ) + log₂3`.**
 
