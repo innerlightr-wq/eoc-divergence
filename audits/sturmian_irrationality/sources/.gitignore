@@ -1,0 +1,9 @@
+# Third-party papers are not redistributed from this public repository.
+# Keep local copies here; SOURCES.md records where each one came from, and the
+# audit reports quote only the passages they discuss.
+*.pdf
+*.txt
+
+# The author's own technical notes are tracked.
+!A_2adic_Sturmian_Carry_Constant.pdf
+!B_Sturmian_Mahler_Edge.pdf
