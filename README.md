@@ -38,9 +38,10 @@ zero-confined seed.
 
 ## Status
 
-**Milestone M4 of 5 complete.** The `←` direction (`divergent_of_zeroConfined`) is proved, and the
-windowed sparsity theorem — the substantial input to the `→` direction — is now formalized rather
-than assumed. See [`docs/STATUS.md`](docs/STATUS.md) for the current ledger.
+**Complete.** All five milestones are done. `divergent_iff_zeroConfined` is proved with **no
+hypotheses** and depends on no axioms beyond Lean's three standard ones. In particular the
+Garcia–Tal / Curry windowed sparsity theorem is *proved here*, not assumed, which is what makes
+the equivalence unconditional. See [`docs/STATUS.md`](docs/STATUS.md) for the ledger.
 
 ## Ledger
 
@@ -51,9 +52,12 @@ than assumed. See [`docs/STATUS.md`](docs/STATUS.md) for the current ledger.
 | `Divergence/RawMap.lean` | Terras shift; Curry Lemma 2.2 (contraction); bridge | **proved** |
 | `Divergence/BinomialTail.lean` | entropy tail bound; `γ = 31/50` certificates | **proved** |
 | `Divergence/WindowedSparsity.lean` | Garcia–Tal Fundamental Lemma; Curry Thm 2.3 | **proved** |
-| `Divergence/Summable.lean` | Curry Prop 3.1 / paper Prop 4.9 | not started |
-| `Divergence/LastMaximum.lean` | paper Prop 4.10 | not started |
-| `Divergence/Main.lean` | paper Thm 6.14 | not started |
+| `Divergence/Summable.lean` | Curry Prop 3.1 / paper Prop 4.9 | **proved** |
+| `Divergence/LastMaximum.lean` | paper Prop 4.10 | **proved** |
+| `Divergence/Main.lean` | paper Thm 6.14 | **proved** |
+
+**No module introduces an external hypothesis.** Every `Prop` the headline theorem depends on is
+proved in this repository.
 
 ## Guarantees
 

@@ -1,7 +1,18 @@
 # Status
 
-Milestone **M4 of 5** complete. `main` builds; CI enforces `lake build`, the forbidden-construct
-scan, and the axiom audit on every push.
+**Complete — all five milestones.** `main` builds; CI enforces `lake build`, the
+forbidden-construct scan, and the axiom audit on every push.
+
+The headline theorem
+
+```lean
+theorem divergent_iff_zeroConfined :
+    (∃ M, Odd M ∧ DivergentOrbit M) ↔ (∃ m, Odd m ∧ ZeroConfined m)
+```
+
+takes **no hypotheses** and depends on `[propext, Classical.choice, Quot.sound]` and nothing else.
+It does **not** exclude divergent orbits; it reduces that question to universal drift exit, which
+is open.
 
 ## Proved
 
@@ -32,21 +43,27 @@ scan, and the axiom audit on every push.
 | `fibre_card_le_choose` | heavy fibre `≤ C(N,m)`, for **every** `m` | prefix injectivity |
 | `light_fibre_card_le` | light fibre `≤ 2·3^m`, for **every** `m` | contraction + collision-freeness |
 | `exists_window_sparsity` | `#(A ∩ [a, a+2^N)) ≤ 4(N+1)·θ^N`, `θ < 2` | Garcia–Tal; Curry Thm 2.3 |
+| `summable_inv_orbit` | `Σ 1/m_n < ∞` for a divergent orbit | Curry Prop 3.1 / Prop 4.9 |
+| `rho_mul_orbit` | `ρ_n·m_n = m_0·Q_n` | Eliahou–Rozier |
+| `rho_tendsto_zero` | `ρ_n → 0` | — |
+| `exists_last_max` | generic strict last maximum | — |
+| `exists_zeroConfined_of_divergent` | divergent ⟹ a zero-confined seed | Prop 4.10 |
+| **`divergent_iff_zeroConfined`** | **the headline theorem, no hypotheses** | **Thm 6.14** |
 
 Axiom audit for all of the above: `[propext, Classical.choice, Quot.sound]`
 (`U_iter_two_pow_mul` uses only `[propext, Quot.sound]`).
 
 ## Open hypotheses
 
-**None.** No `Prop`-valued external input has been introduced. If a later milestone cannot avoid
-one, it will appear here as a named hypothesis on the theorems that use it, never as an `axiom`.
+**None.** No `Prop`-valued external input was ever introduced, in any milestone. Curry's
+Theorem 2.3 — the one input the companion repository carried as an unformalized external
+hypothesis — is proved here as `exists_window_sparsity`.
 
-## Remaining
+## What remains open is mathematics, not formalization
 
-M5 `Summable` + `LastMaximum` + `Main`.
-
-The `→` direction is the substantial half: it needs the Garcia–Tal / Curry windowed sparsity
-theorem formalized, which is what makes the headline equivalence unconditional.
+`divergent_iff_zeroConfined` converts the divergence question into an exactly equivalent one:
+does some positive odd `m` satisfy `2^{S_n(m)} ≤ 3^n` for every `n`? That is universal drift
+exit, and it is open. Nothing in this repository bears on it.
 
 ## Deviations from the approved statement list
 
@@ -100,3 +117,16 @@ No approved statement was changed, and no hypothesis was added or removed.
 14. Classical decidability is scoped to `windowFinset` and `Bset` via `open Classical in`, not
     opened file-wide, so `Finset.filter` lemmas elsewhere keep their own instances. Note the
     `open ... in` must precede the docstring, not sit between it and the declaration.
+
+### M5
+
+**No statement was changed beyond the correction agreed before building.**
+
+15. `rho_succ` and `rho_mul_orbit` carry `Odd M`. Without it they are false at `M = 0`: there
+    `orbit 0 0 = 0`, and `1 + 1/(3·0) = 1` in Lean, so the step identity reads `1/3 = 0`. The
+    identity `(3m+1)/3 = m(1 + 1/(3m))` needs `m ≠ 0`, and `T m ≥ 1` always, so `orbit 0 0` is
+    the only zero that can occur in any orbit.
+16. No logarithm appears anywhere in M5: the drift is carried by `ρ n = 2^{S_n}/3^n`, and
+    `R_n → −∞` is `ρ n → 0`. `Real.exp` is used once, in `Q_le_exp`, and never inverted.
+17. `exists_last_max` is stated for an arbitrary positive real sequence tending to `0`, with no
+    Collatz content, so it can be reused or replaced independently.
