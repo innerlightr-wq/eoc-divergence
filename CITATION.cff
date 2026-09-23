@@ -17,3 +17,19 @@ references:
         orcid: "https://orcid.org/0009-0007-0190-9143"
     year: 2026
     doi: "10.5281/zenodo.22906673"
+  - type: article
+    title: "After the Reduction: Proved Statistics, Excluded Structure, and the Missing Pointwise Tool in the Accelerated 3x+1 Problem"
+    authors:
+      - family-names: "De Jesús"
+        given-names: "Elias"
+        orcid: "https://orcid.org/0009-0007-0190-9143"
+    year: 2026
+    doi: "10.5281/zenodo.22925399"
+  - type: article
+    title: "The 3x+1 conjugacy map sends the critical Sturmian word to an irrational 2-adic integer"
+    authors:
+      - family-names: "De Jesús"
+        given-names: "Elias"
+        orcid: "https://orcid.org/0009-0007-0190-9143"
+    year: 2026
+    doi: "10.5281/zenodo.22920056"

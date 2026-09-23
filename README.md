@@ -61,6 +61,18 @@ the equivalence unconditional. See [`docs/STATUS.md`](docs/STATUS.md) for the le
 **No module introduces an external hypothesis.** Every `Prop` the headline theorem depends on is
 proved in this repository.
 
+## Papers
+
+Two papers are developed in this repository. Both are deposited; the repository holds their
+sources, their verification scripts, and the audits behind them.
+
+| paper | location | record |
+|---|---|---|
+| *After the Reduction: Proved Statistics, Excluded Structure, and the Missing Pointwise Tool in the Accelerated 3x+1 Problem* --- the programme synthesis note | [`papers/synthesis`](papers/synthesis) | [doi:10.5281/zenodo.22925399](https://doi.org/10.5281/zenodo.22925399) |
+| *The 3x+1 conjugacy map sends the critical Sturmian word to an irrational 2-adic integer* | [`papers/critical-sturmian-irrationality`](papers/critical-sturmian-irrationality) | [doi:10.5281/zenodo.22920056](https://doi.org/10.5281/zenodo.22920056) (version 1; an extension to every irrational slope is in preparation) |
+
+Neither paper claims progress toward the Collatz conjecture.
+
 ## Companion result (occupation side)
 
 A **separate** Lean library, `Occupation`, holds one occupation-side result:
