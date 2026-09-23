@@ -933,3 +933,58 @@ This is the P1 marker doing its job and finding nothing: the eventually periodic
 are a classified, negative, small-height family, and the record holders stay a bounded 2-adic
 distance from all of them.
 
+---
+
+# Q5 — the record holders against `N0`
+
+## 5.0 Pre-registration, written before any of the fits below were run
+
+The Phase-2 fits used a least-squares line through the jump points and a nominal standard
+error. That is not adequate here, for two reasons recorded in §2.7: the confined integers come
+in **chains** (L1/L2), so the residuals are serially correlated, and the number of *distinct*
+record holders is small. The following is fixed in advance.
+
+1. **The sample is the 24 distinct record holders**, each at its **first-appearance `N`**, not
+   the 346 values of `N`. Repeating a record holder across an `N`-range adds no information.
+2. **Error bars by block bootstrap** over that series (moving blocks of length 3, 20 000
+   resamples), not by the nominal `σ`.
+3. **Three models, fixed before fitting:**
+   * **B — linear drift:** `Δ(N) = a + b·N`;
+   * **A1 — constant plus decaying transient:** `Δ(N) = a + b/N`;
+   * **A2 — constant plus exponential transient:** `Δ(N) = a + b·e^{−N/c}`.
+   Model **B** is the "persistent drift" hypothesis; **A1** and **A2** are the "the null holds,
+   with a transient" hypotheses. They are compared by **AICc**, with the sample size replaced
+   by the **effective** sample size `n_eff = n·(1−ρ₁)/(1+ρ₁)` estimated from the lag-1
+   autocorrelation of the residuals, and separately by the **block-bootstrap distribution of the
+   AICc difference**. A model is called preferred only if `ΔAICc ≥ 2` and the bootstrap puts it
+   ahead in at least 80 % of resamples.
+4. **Censoring**: a jump point at `N` is visible only if `Δ < log₂(bound) − log₂(1/p_N)`. Points
+   failing `threshold ≥ Δ + 3.5` are dropped before fitting, as in §2.7.
+
+## 5.1 What the drift would mean, either way — recorded before the verdict
+
+This is worth fixing in advance, because it bounds how much the answer to Q5 can matter.
+
+The exact density gives `log₂(1/p_N(0)) = I₀N + (3/2)log₂N − 3.28 + o(1)` (§2.7), so
+```
+log₂ r₁(N)  =  I₀·N + (3/2)·log₂N − 3.28 + Δ₁(N) .
+```
+* If `Δ₁` is **bounded** (models A1/A2), the growth exponent of `r₁` is exactly `I₀ = 0.0793`.
+* If `Δ₁` carries a **persistent linear drift** `b·N` (model B), the exponent becomes `I₀ + b`.
+
+The largest decline anywhere in this data is about `−0.01` bits per step. Taken at face value
+and extrapolated forever, that gives an exponent
+```
+I₀ + b  ≈  0.0793 − 0.01  =  0.069  >  0 ,
+```
+still exponential growth, and still `r₁(N) → ∞` at a rate `2^{εN}` with `ε ≈ 0.069`. That is
+consistent with **Open Problem C** for any `ε > 0`, and it is what the measured fit already
+says: §2.2's empirical law `log₂r₁ ≈ 0.0811·N + 10.25` sits slightly *above* `I₀` because of the
+`(3/2)log₂N` term, not below it.
+
+> **Nothing in this data suggests the growth rate could reach `0`.** For `r₁(N)` to stop growing
+> one would need `b ≤ −I₀ = −0.0793` bits per step, eight times the largest decline observed and
+> of the opposite character (a drift that never levels off). The Q5 result below, whichever way
+> it goes, does not bear on (DE) or on Open Problem C; it is a statement about how well a
+> Poisson null describes the extreme order statistic over the range that can be computed.
+
