@@ -343,6 +343,33 @@ A persistent drift in $\Delta_1$ and a bounded residual cannot be separated on
 this range: the two models differ by $\Delta\mathrm{AICc}=0.29$ at an effective
 sample size of about $7$, the record holders being strongly serially correlated.
 
+\begin{remark}[which half is hard, and which is merely open]\label{rem:halves}
+Conjecture~\ref{conj:sharp} has two halves and they are not of the same kind.
+
+\emph{The lower half}, $r_{\min}(N,0)\ge c\,2^{I_0N}N^{3/2}$, implies
+$r_{\min}(N,0)\to\infty$, which is \textup{(DE)} by
+Proposition~\ref{prop:equivalent}\,(b); it is also stronger than Open Problem~C,
+which asks only that least realizers grow at all. \textbf{Conjecture~\ref{conj:sharp}
+is therefore at least as hard as \textup{(DE)}}, and nothing in
+Section~\ref{sec:statistics} should be read as evidence that it is within reach.
+\lab{proved (paper)} for the implication; \lab{open} for the half itself.
+
+\emph{The upper half}, $r_{\min}(N,0)\le C\,2^{I_0N}N^{3/2}$ --- the existence of
+\emph{small} confined integers --- does \textbf{not} imply \textup{(DE)}, and is
+open independently of it. What is elementary is only this: for $k\ge2$ the integer
+$m=2^{k}-1$ has $m_j=3^{j}2^{\,k-j}-1$ and $a_j=1$ for $j<k-1$, so $S_j=j$ and
+confinement $2^{j}\le 3^{j}$ holds throughout; hence $m$ is zero-confined for at
+least $k-1$ steps and
+\[
+r_{\min}(N,0)\ \le\ 2^{\,N+1}-1 .
+\]
+\lab{proved (paper)}, and \lab{verified} for $k\le 25$, where the true depths are in fact
+far larger than $k-1$ --- for instance $91$ at $k=25$ --- so even this bound is not
+tight. The gap between the elementary exponent $1$ and the conjectured
+$I_0=0.0793\ldots$ is the whole of the upper half, and closing any of it requires
+no progress on \textup{(DE)}; see Section~\ref{sec:open}\,(4).
+\end{remark}
+
 \begin{proposition}[clustering]\label{prop:clustering}
 The confined integers are not a Poisson process at the extreme. Two measurements:
 $\Delta_1(N)>0$ at all $24$ record holders, so the \emph{first} confined integer
@@ -885,7 +912,15 @@ badly approximable --- the depth law forces any such exponent to exceed
 $1+q_{n+1}/q_n$, and the $331$st partial quotient of $\log_3 2$ is $2436$ --- but
 the integer form, which is the one that converts into an exponential lower bound
 on least realizers \cite[Thm.~5.2]{DeJesusB}, is untouched by that obstruction.
-\item \textbf{Sharp EOC}, Conjecture~\ref{conj:sharp}. \lab{open}.
+\item \textbf{Sharp EOC}, Conjecture~\ref{conj:sharp}. \lab{open}. By
+Remark~\ref{rem:halves} its lower half is at least as hard as \textup{(DE)}.
+\item \textbf{The upper half alone, at any exponent.} Is there $c<1$ with
+$r_{\min}(N,0)\le 2^{\,cN}$ for all large $N$? \lab{open}. This asks for the
+existence of \emph{small} zero-confined integers and, unlike every other problem
+in this list, \textbf{it does not require any progress on \textup{(DE)}} ---
+indeed it is consistent with \textup{(DE)} being true. The elementary bound of
+Remark~\ref{rem:halves} gives only $c=1$; the conjectured value is
+$c=I_0=0.0793\ldots$, and nothing between the two is known.
 \item \textbf{(PosPC)}: $K$ contains no positive rational.
 \lab{open}; strictly between (DE) and Lagarias's Periodicity Conjecture by
 Proposition~\ref{prop:ladder}.
