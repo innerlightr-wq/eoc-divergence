@@ -40,6 +40,39 @@ orbit values, the actual least realizers — sit inside a population whose size 
 determined. That is the common obstruction, and it is why improving either statistical estimate
 does not touch either open problem.
 
+## A signed conjecture strictly between (DE) and Lagarias
+
+`K` denotes the zero-confined points of `ℤ₂^×`: those with `2^{S_n} ≤ 3^n` for every `n`.
+
+> **(PosPC), the positive-side Periodicity Conjecture.** `K` contains no positive rational.
+
+| statement | relation | status |
+|---|---|---|
+| (LPC) Lagarias's Periodicity Conjecture | **⇒ (PosPC)** | **open** |
+| **(PosPC)** | **⇒ (DE)** | **open** |
+| (DE) universal drift exit | — | **open** |
+
+Both implications are proved in
+[`audits/record_holder_anatomy/REPORT.md`](../audits/record_holder_anatomy/REPORT.md), P2. They
+rest on the **signed marker**: every *eventually periodic* point of `K` is a **negative**
+rational, because periodicity turns the aggregate identity into `m(2^{S_L} − 3^L) = C_L` with
+`C_L > 0` and, by confinement plus unique factorisation, `2^{S_L} − 3^L < 0`.
+
+**(PosPC) is strictly stronger than (DE)** as far as anything known: it also excludes positive
+*non-integer* rationals. Concretely, (PosPC) holds **iff** for every odd `v ≥ 1` no positive odd
+integer has a zero-confined orbit under `n ↦ (3n+v)/2^{v₂(3n+v)}` — an exact,
+valuation-by-valuation conjugacy. So (PosPC) is (DE) asserted for the whole family `3x+v` at
+once. **It is therefore *not* listed in [`EQUIVALENT_FORMS_OF_DE.md`](EQUIVALENT_FORMS_OF_DE.md),
+which records statements that are equivalent to (DE).**
+
+**What the marker does not do.** It classifies the eventually periodic points only, and it is
+sign-sensitive in a way that is easy to over-read: for `3x−1` the identical argument gives
+`m = C'_L/(3^L − 2^{S_L})` and therefore **positivity**, with `+1` a zero-confined positive
+periodic point. Hence the corollary recorded with it: *no argument using only the aggregate
+identity, the confinement condition and the sign of the denominator can separate the positive
+integers from the rest of `K`* — the two systems agree on all three inputs and disagree on the
+answer.
+
 **Open Problem C at any rate implies (DE).** If least realizers grow at all, realizers cannot
 stay bounded, and a bounded realizer is exactly what an infinitely confined orbit would supply.
 This implication is **paper-level and not formalized here**; see
