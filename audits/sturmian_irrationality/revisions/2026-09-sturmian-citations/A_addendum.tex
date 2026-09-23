@@ -1,0 +1,193 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.8in,top=0.65in,bottom=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\titlespacing*{\section}{0pt}{1.1ex plus .2ex}{0.5ex}
+\titlespacing*{\subsection}{0pt}{0.9ex plus .2ex}{0.3ex}
+\titlespacing*{\paragraph}{0pt}{0.8ex plus .1ex}{1em}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.6em}{}
+\setlength{\parskip}{0.15ex}
+\renewcommand{\baselinestretch}{0.95}
+\setlength{\bibsep}{0pt plus 0.3ex}
+
+\newcommand{\Xiac}{\Xi_{\alpha}}
+\newcommand{\Ztwo}{\mathbb{Z}_2}
+
+\title{Citation addendum and correction to \\
+\emph{``The 2-Adic Sturmian Carry Constant in the Collatz Carry Equation''} \\
+{\normalsize (5 June 2026)}}
+\author{Elias De Jes\'us\\
+\small Independent Researcher\\
+\small ORCID: \href{https://orcid.org/0009-0007-0190-9143}{0009-0007-0190-9143}\\
+\small \texttt{dejesuselias10@gmail.com}}
+\date{September 2026}
+
+\begin{document}
+\maketitle\vspace{-2.5em}
+
+\section*{Purpose}
+
+This addendum accompanies the note \emph{The 2-Adic Sturmian Carry Constant in the Collatz Carry
+Equation} \cite{dejesus2026sturmiancarry} (hereafter \textbf{the note}) without altering it. It
+supplies a citation the note omitted, qualifies the one priority claim that omission made
+unsustainable, and corrects a typographical slip in a proof together with a range hypothesis the
+proof uses but the theorem statement did not record.
+
+\textbf{No theorem, proof or computed value in the note changes.} The single mathematical edit is
+the misprinted factor identified in Section~\ref{sec:typo}, which has no consequence for any
+statement in the note. This addendum makes no new mathematical claim.
+
+\section{The omitted citation, and what it contains}
+
+\begin{quote}
+J.~L\'opez and P.~Stoll, \emph{The 3x+1 conjugacy map over a Sturmian word}, Integers \textbf{9}
+(2009), \#A13, 141--162 \cite{lopez2009conjugacy}.
+\end{quote}
+
+\noindent For every irrational slope $\alpha\in(0,1)$ with convergents $p_k/q_k$, and with
+$1c_\alpha(j)=\lceil (j+1)\alpha\rceil-\lceil j\alpha\rceil$, their Theorem~1 gives, in $\Ztwo$,
+\begin{equation}
+\Phi(1c_\alpha) \;=\; -\tfrac13 \;-\; \sum_{j\ge 0} (-1)^{j+1}\,
+\frac{2^{\,q_{j+1}+q_j-1}}{3\,(3^{p_{j+1}}-2^{q_{j+1}})(3^{p_j}-2^{q_j})}\,,
+\label{eq:ls}
+\end{equation}
+where $\Phi$ is the Bernstein--Lagarias conjugacy map \cite{bernstein1996conjugacy}. Their
+Corollary~2 gives a generalized continued fraction for $-1/\Phi(1c_\alpha)$, convergent in $\Ztwo$.
+Their \S4 leaves $\Ztwo$ and studies the real function $\Phi_{\mathbb{R}}$, proving irrationality
+of $\Phi_{\mathbb{R}}(m_\alpha)$ on $\mathbb{Q}\cap(\ln 2/\ln 3,\,1]$ and of a dual limit point
+below $\ln 2/\ln 3$; the restriction is forced, since $\sum 2^{nq}/3^{np}$ converges in
+$\mathbb{R}$ if and only if $\ln 2/\ln 3 < p/q \le 1$.
+
+The denominators of \eqref{eq:ls} are the walls of two consecutive convergent shells, and the term
+exponents are $q_{j+1}+q_j-1$. \textbf{These are the approximants and the approximation depths of
+the note.}
+
+The companion paper \cite{lopez2021periodicity} proves aperiodicity for parity words of
+ones-density strictly above $\ln 2/\ln 3$, and its Theorem~1 shows that a rational divergent
+trajectory would have density exactly $\ln 2/\ln 3$.
+
+\section{Dictionary}
+
+Signs were checked term by term against the note's own Definition~4.1, and the identity was
+verified numerically modulo $2^{3000}$.
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+& the note & L\'opez--Stoll \\
+\midrule
+slope & $\alpha=\log_2 3\approx 1.58496$ & $\alpha_{\mathrm{LS}}=\ln 2/\ln 3=\log_3 2\approx 0.630930$\\
+relation & \multicolumn{2}{l}{$\alpha_{\mathrm{LS}} = 1/\alpha$}\\
+word & $c_\alpha$, with $s_j(c_\alpha)=\lfloor j\alpha\rfloor$ & $1c_{\alpha_{\mathrm{LS}}}(j)=\lceil (j+1)\alpha_{\mathrm{LS}}\rceil-\lceil j\alpha_{\mathrm{LS}}\rceil$\\
+constant & $\Xiac=\sum_{j\ge0}3^{-(j+1)}2^{\lfloor j\alpha\rfloor}$ & $\Phi(1c_{\alpha_{\mathrm{LS}}})$\\
+\textbf{identity} & \multicolumn{2}{l}{$\boldsymbol{\Xiac = -\,\Phi\bigl(1c_{\ln 2/\ln 3}\bigr)}$}\\
+shell & $(q_n,p_n)=(\text{length},\text{discharge})$ & $(p_k,q_k)=(\text{numerator},\text{denominator})$\\
+relation & \multicolumn{2}{l}{$(q_n,p_n)=(p_k,q_k)$: their numerator is the note's word length}\\
+approximant & $x_n=Q_n=-C_n/\delta_n$ & $F(p_k/q_k)=\phi(m_{p/q})/(2^{q}-3^{p})$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\emph{Sign anchor.} \S9 of the note records the shell $(2,3)$ as $Q=-5$ with
+$\Xi((1,2)^\infty)=C/\delta=5/1=5$; the convention above reproduces this.
+\emph{A qualification on the approximants.} Their Definition~26 sets
+$F(p/q)=\phi(m_{p/q})/(2^{q}-3^{p})$, which \emph{is} the periodic cycle value
+$\Phi(m_{p/q}^{\infty})$. But the proof of their Lemma~27 gives
+$-P_{2k+1}/Q_{2k+1}=F(p_{2k+1}/q_{2k+1})$ while
+$-P_{2k}/Q_{2k}=F(p_{2k}/q_{2k})+g(p_{2k}/q_{2k})$. \textbf{Only the odd-indexed continued-fraction
+convergents are periodic cycle values}; the even ones carry an additional gap term.
+
+\medskip
+\noindent\emph{Depth correspondence.} In the note's coordinates the term exponents
+$q_{j+1}+q_j-1$ of \eqref{eq:ls} read $p_n+p_{n+1}-1$. Direct computation confirms this: the
+partial sums of \eqref{eq:ls} have error valuations $2,4,10,26,83,148,568,1538,\dots$, i.e.\
+$p_n+p_{n+1}-1$ for $n=1,2,3,\dots$ in the numbering of \S\S9--10 of the note. The note's
+lower-convergent values $10,83,568$ are exactly the odd-indexed members of that sequence. Its
+upper-convergent values $p_n-1$ ($7,64,484$) do \emph{not} appear there: \eqref{eq:ls} records the
+valuation of its own tail, not $v_2(x_n+\Xiac)$ shell by shell.
+
+\section{Qualified claim}
+
+\paragraph{Original wording (\S1, second paragraph).}
+\begin{quote}
+``This note begins the study of the tower itself, and presents its first theorem-grade structural
+result.''
+\end{quote}
+
+\paragraph{Corrected wording.}
+\begin{quote}
+``This note begins the study of the tower itself, and presents a theorem-grade structural result
+for it. The result is not the first 2-adic theorem about this object. For every irrational slope,
+L\'opez and Stoll \cite{lopez2009conjugacy} give a closed 2-adic series for the
+Bernstein--Lagarias conjugacy value \cite{bernstein1996conjugacy} of the characteristic Sturmian
+word, indexed by consecutive pairs of continued-fraction convergents; in the coordinates of this
+note its term exponents are $p_n+p_{n+1}-1$, the lower-convergent depths of Theorem~7.1. What
+follows is an independent derivation, sharper in one respect: it separates the upper and lower
+convergent cases and pins each constant exactly, shell by shell.''
+\end{quote}
+
+\noindent The abstract carries the same qualification. The proof given in the note is independent
+of \cite{lopez2009conjugacy} and was re-derived in full. Correspondingly, Remark~5.2, which credits
+\cite{lothaire2002algebraic} for the classical word-agreement fact, should add that the 2-adic
+consequence of that agreement --- the periodic values of the convergent blocks approximating the
+conjugacy value of the characteristic word, with depths governed by consecutive convergent pairs
+--- is Theorem~1 of \cite{lopez2009conjugacy}.
+
+\section{Range of Theorem 7.1}
+
+Theorem~7.1 is stated in the note without a range. Its proof, through Lemma~5.1, uses
+$q_n\ge 2$ (the index range $1\le i\le q_n-1$ must be non-empty) and $q_{n+1}>q_n$. In the
+numbering of \S\S9--10, where $(q_1,p_1)=(1,1)$, both hold from the shell $(2,3)$ onward, so
+\textbf{Theorem~7.1 holds as proved for $n\ge 3$}. The two initial shells $(1,1)$ and $(1,2)$ have $q_n=1$ and lie outside the proof's scope. The
+stated formula nevertheless returns the correct valuations there, $2$ and $1$ respectively, as
+verified by direct computation; this is an observation, not an extension of the theorem. Nothing
+in the note uses the two excluded shells.
+
+\section{Correction}
+\label{sec:typo}
+
+\paragraph{Original (\S5, proof of Lemma 5.1, lower case).}
+\begin{quote}
+``At $j^*=q_n+q_{n+1}$ the mismatch occurs: $m_{j^*}=m_{q_{n+1}}=q_n-1$ and
+$m_{j^*}+j^*|R_n| = q_n+q_n|R_n|-|R_{n+1}| > q_n$.''
+\end{quote}
+
+\paragraph{Corrected.}
+\begin{quote}
+``At $j^*=q_n+q_{n+1}$ the mismatch occurs: $m_{j^*}=m_{q_{n+1}}=q_n-1$ and
+$m_{j^*}+j^*|R_n| = q_n+q_n|R_n|-q_n|R_{n+1}| > q_n$.''
+\end{quote}
+
+\noindent Indeed, with $m_{j^*}=q_n-1$ and $j^*=q_n+q_{n+1}$,
+\[
+m_{j^*}+j^*|R_n| \;=\; (q_n-1)+q_n|R_n|+q_{n+1}|R_n|
+\;=\; (q_n-1)+q_n|R_n|+\bigl(1-q_n|R_{n+1}|\bigr)
+\;=\; q_n+q_n|R_n|-q_n|R_{n+1}| ,
+\]
+using $q_{n+1}|R_n|+q_n|R_{n+1}|=1$, equation~(1) of the note. The factor $q_n$ on the last term
+was dropped in the printed line.
+
+\paragraph{Consequence: none.} The inequality $>q_n$ follows from $|R_n|>|R_{n+1}|$, which is
+classical. Lemma~5.1, Theorem~7.1, Proposition~8.1 and every value in the computational ledger of
+\S10 are unaffected.
+
+% TODO(Elias): add pointer to irrationality note once posted
+%   -- belongs at \S11 "Next targets", item (1): "an effective non-integrality statement for the
+%      truncations of Xi_alpha". Leave the note's text as printed until the note is public.
+
+\medskip\noindent\emph{Acknowledgment.} The omission was identified during an adversarial citation audit of
+the Sturmian thread, assisted by Claude (Anthropic). All statements here, and any errors, are the
+author's.
+
+{\footnotesize
+\bibliographystyle{plain}
+\bibliography{references}
+}
+
+\end{document}

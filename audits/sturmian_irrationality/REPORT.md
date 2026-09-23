@@ -946,8 +946,8 @@ not modified.**
 | Rozier (2018), *Parity Sequences of the 3x+1 Map…* | `arXiv:1805.00133` |
 | Yazinski (2011), *Pseudoperiodicity and the 3x+1 Conjugacy Function* | `arXiv:1102.5547` |
 | Monks & Yazinski (2004), *The autoconjugacy of the 3x+1 function* | `10.1016/S0012-365X(03)00125-0` |
-| Bugeaud & Laurent (2023), Acta Arith. **209**, 59–75 | `10.4064/aa220323-18-1` (`arXiv:2203.12901`) |
-| Luca, Ouaknine & Worrell (2025), Bull. LMS **57**, 1360–1374 | `10.1112/blms.70033` (`arXiv:2412.07908`) |
+| Bugeaud & Laurent (2023), Acta Arith. **209**, 59–90 | `10.4064/aa220323-18-1` (`arXiv:2203.12901`) |
+| Luca, Ouaknine & Worrell (2025), Bull. LMS **57** (5), 1360–1368 | `10.1112/blms.70033` (`arXiv:2412.07908`) |
 | Luca, Ouaknine & Worrell (2022), *On the transcendence of a series related to Sturmian words* | `arXiv:2204.08268` |
 | Adamczewski & Bugeaud (2006), *Real and p-adic expansions involving symmetric patterns*, IMRN | `10.1155/IMRN/2006/75968` |
 | Pellarin (2004), *On the arithmetic properties of complex values of Hecke–Mahler series* | `arXiv:math/0407378` |
@@ -958,6 +958,12 @@ not modified.**
 Already present (no action): Terras 1976, Everett 1977, Lagarias 1985 and both annotated
 bibliographies, Bernstein 1994, Bernstein–Lagarias 1996, López–Stoll 2009, Mahler 1957, Ridout 1958,
 Schlickewei 1976, Evertse–Schlickewei 2002, Dvoretzky–Motzkin 1947.
+
+*Correction (23 Sept 2026).* Two page ranges in the first build of `references.bib` were wrong —
+Bugeaud–Laurent was entered as 59–75 and Luca–Ouaknine–Worrell as 1360–1374. Both were re-checked
+against the publisher DOI records via Crossref and OpenAlex, which agree on **59–90** and
+**1360–1368** (Bull. LMS issue 5). The bib file and the table above are corrected. Note (B)'s own
+bibliography had both right; the error was in this audit's file, not in the note.
 
 *Note on `monks2004autoconjugacy`:* OpenAlex dates it 2003 (online first); the Discrete Math.
 issue is dated 6 January 2004. The entry uses 2004, as in the brief, with the discrepancy recorded.
