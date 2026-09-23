@@ -452,7 +452,10 @@ approximation being governed by Hensel truncations instead.
 
 ## Verdict
 
-> **Phase 3: no applicable prior result found — novelty NOT established.**
+> **Phase 3: no applicable prior result found.** *(Superseded 23 Sept 2026: with the manual
+> Google Scholar and zbMATH sweep complete — see "Manual sweep" below — the gate is **CLOSED**
+> and the approved novelty statement is "no prior proof is known; the question is stated as open
+> in López–Stoll (2009) and treated as open in López–Stoll (2021)".)*
 
 The archimedean Hecke–Mahler literature provably cannot apply, because our evaluation point is
 off its domain.
@@ -495,9 +498,56 @@ is read.
 1. ~~López–Stoll (2009)~~ — **obtained and read**; see Phase 1c Task 0b. It proves irrationality
    of the *real* values only, and explicitly diverges at the critical slope. **Closed.**
 2. **Journal literature off arXiv**, and full texts of the arXiv papers — not checked.
-3. The user's Google Scholar "cited by" sweep on both López–Stoll papers — pending.
+3. ~~The author's Google Scholar "cited by" sweep on both López–Stoll papers~~ — **done**; see
+   *Manual sweep* below. **Closed.**
 
-`NOTE.md` keeps its header forbidding a priority claim until these are closed.
+## Manual sweep, Elias, September 2026 — **the Phase 3 gate is CLOSED**
+
+Run by the author on Google Scholar and zbMATH, the two indexes the programmatic sweep could not
+reach. Reported here as received; the classifications are the author's.
+
+### Cited-by
+
+| target | index | result |
+|---|---|---|
+| López–Stoll 2009 | Google Scholar ("Cited by", count 6) | Rozier 2018 (arXiv) and Rozier 2019 (Integers) — the same paper twice; López–Stoll 2012 (de Gruyter and EMIS copies of the same paper); López–Stoll 2021; De Jesús, EOC. **No HIT.** |
+| López–Stoll 2021 | Google Scholar | no "cited by"; zbMATH holds a preprint record only |
+| López–Stoll 2009, `Zbl 1195.11040` | zbMATH | cited in **1** document: Rozier 2019, `Zbl 1448.11060`. **No HIT.** |
+
+Scholar's 6 collapses to **3 distinct works** once the duplicate hostings are merged — consistent
+with OpenAlex's `cited_by = 3`, and all three were already screened in the programmatic sweep
+above.
+
+### Keyword searches (Google Scholar) — all clean
+
+`"periodicity conjecture" Sturmian` · `Collatz "2-adic" Sturmian irrational` ·
+`"3x+1" "mechanical word"` · `"3x+1" Sturmian irrational`. Results were either already known or
+unrelated.
+
+### Individually checked and classified
+
+| work | class | reason |
+|---|---|---|
+| **Winkler (2026)**, *Admissible `qx+1` Sequences, Semiconvergents, and Rational Catalan Numbers*, preprint, 14 Sept 2026, Ruhr University Bochum (ResearchGate 414300439) | RELATED | word-level and cycle-lemma combinatorics of admissible sequences; semiconvergents appear on the continued-fraction side, as in note (A) §9. No 2-adic value and no `Φ`. |
+| **Stephan (2026)**, *Ceiling orbits … not P-recursive* | RELATED | orbit combinatorics |
+| **Stephan (2026)**, *Confinement schemas … powers of rational numbers modulo one* | RELATED | confinement of `(3/2)^n` mod 1; the distribution side, not the 2-adic value |
+| **Stephan (2026)**, *Transcendence criteria for the minimal word of the rational base 3/2*, `arXiv:2609.19007` | RELATED | closest of the three: transcendence criteria for a rational-base minimal word — **and the irrationality of its constant `K` is left open there** |
+| **Douzi (2024)**, HAL `hal-04488755` | NOISE | claimed Collatz proof; no 2-adic or `Φ` content |
+| **Fernández & Ibáñez (2026)**, *Christoffel words as extremal structures in Collatz dynamics*, `arXiv:2607.24844` | RELATED | Christoffel words as extremal cycle words — relevant to the cycle-side notes, not to this result |
+
+### Verdict
+
+> **No prior proof found across OpenAlex, Google Scholar and zbMATH.** Three indexes, two of them
+> manual and full-text. The nearest neighbours either study the real values off the critical
+> slope (López–Stoll), or leave the analogous constant's irrationality open (Stephan 2026).
+
+> **Novelty statement approved for the note** (exact wording): *"no prior proof is known; the
+> question is stated as open in López–Stoll (2009) and treated as open in López–Stoll (2021)."*
+
+**`NOTE.md`'s prohibition is lifted** as of 23 September 2026. Note that this is a *no prior proof
+found* verdict across three indexes, not a proof of priority — gap 2 above (journal literature off
+arXiv) is narrowed by the zbMATH and Scholar passes but not formally exhausted, and the novelty
+wording above is phrased to say exactly that and no more.
 
 ---
 
@@ -926,8 +976,9 @@ Two further limits:
   what an indexing gap looks like; note that OpenAlex has its title misspelled, which is a sign of
   thin metadata.
 
-**The manual Google Scholar / zbMATH check remains the final cross-check, and the novelty claim
-stays blocked until it is done.**
+**The manual Google Scholar / zbMATH check was the final cross-check. It was run by the author in
+September 2026 and is recorded under "Manual sweep" in the Phase 3 section above: Scholar's 6 citing records collapse to
+the same 3 distinct works OpenAlex found, and zbMATH shows 1. The gate is CLOSED.**
 
 ## Step 3 — `references.bib`
 
@@ -946,8 +997,8 @@ not modified.**
 | Rozier (2018), *Parity Sequences of the 3x+1 Map…* | `arXiv:1805.00133` |
 | Yazinski (2011), *Pseudoperiodicity and the 3x+1 Conjugacy Function* | `arXiv:1102.5547` |
 | Monks & Yazinski (2004), *The autoconjugacy of the 3x+1 function* | `10.1016/S0012-365X(03)00125-0` |
-| Bugeaud & Laurent (2023), Acta Arith. **209**, 59–75 | `10.4064/aa220323-18-1` (`arXiv:2203.12901`) |
-| Luca, Ouaknine & Worrell (2025), Bull. LMS **57**, 1360–1374 | `10.1112/blms.70033` (`arXiv:2412.07908`) |
+| Bugeaud & Laurent (2023), Acta Arith. **209**, 59–90 | `10.4064/aa220323-18-1` (`arXiv:2203.12901`) |
+| Luca, Ouaknine & Worrell (2025), Bull. LMS **57** (5), 1360–1368 | `10.1112/blms.70033` (`arXiv:2412.07908`) |
 | Luca, Ouaknine & Worrell (2022), *On the transcendence of a series related to Sturmian words* | `arXiv:2204.08268` |
 | Adamczewski & Bugeaud (2006), *Real and p-adic expansions involving symmetric patterns*, IMRN | `10.1155/IMRN/2006/75968` |
 | Pellarin (2004), *On the arithmetic properties of complex values of Hecke–Mahler series* | `arXiv:math/0407378` |
@@ -958,6 +1009,12 @@ not modified.**
 Already present (no action): Terras 1976, Everett 1977, Lagarias 1985 and both annotated
 bibliographies, Bernstein 1994, Bernstein–Lagarias 1996, López–Stoll 2009, Mahler 1957, Ridout 1958,
 Schlickewei 1976, Evertse–Schlickewei 2002, Dvoretzky–Motzkin 1947.
+
+*Correction (23 Sept 2026).* Two page ranges in the first build of `references.bib` were wrong —
+Bugeaud–Laurent was entered as 59–75 and Luca–Ouaknine–Worrell as 1360–1374. Both were re-checked
+against the publisher DOI records via Crossref and OpenAlex, which agree on **59–90** and
+**1360–1368** (Bull. LMS issue 5). The bib file and the table above are corrected. Note (B)'s own
+bibliography had both right; the error was in this audit's file, not in the note.
 
 *Note on `monks2004autoconjugacy`:* OpenAlex dates it 2003 (online first); the Discrete Math.
 issue is dated 6 January 2004. The entry uses 2004, as in the brief, with the discrepancy recorded.

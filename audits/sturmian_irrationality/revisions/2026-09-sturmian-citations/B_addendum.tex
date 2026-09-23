@@ -1,0 +1,188 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.8in,top=0.65in,bottom=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\titlespacing*{\section}{0pt}{1.1ex plus .2ex}{0.5ex}
+\titlespacing*{\subsection}{0pt}{0.9ex plus .2ex}{0.3ex}
+\titlespacing*{\paragraph}{0pt}{0.8ex plus .1ex}{1em}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.6em}{}
+\setlength{\parskip}{0.15ex}
+\renewcommand{\baselinestretch}{0.95}
+\setlength{\bibsep}{0pt plus 0.3ex}
+
+\newcommand{\Ztwo}{\mathbb{Z}_2}
+\newcommand{\Xab}{\Xi_{\alpha,\beta}}
+
+\title{Citation addendum to \\
+\emph{``The Sturmian--Mahler Edge of the Accelerated Collatz Realizer Problem''} \\
+{\normalsize (June 2026)}}
+\author{Elias De Jes\'us\\
+\small Independent Researcher\\
+\small ORCID: \href{https://orcid.org/0009-0007-0190-9143}{0009-0007-0190-9143}\\
+\small \texttt{dejesuselias10@gmail.com}}
+\date{September 2026}
+
+\begin{document}
+\maketitle\vspace{-2.5em}
+
+\section*{Purpose}
+
+This addendum accompanies the note \emph{The Sturmian--Mahler Edge of the Accelerated Collatz
+Realizer Problem} \cite{dejesus2026sturmianmahler} (hereafter \textbf{the note}) without altering
+it. The note's \S9 audits the literature gate around the 2-adic value $\Xab$ theorem by theorem,
+stating in each case the hypothesis that excludes the Collatz evaluation point; it omitted the
+closest prior work on the object itself, the two papers of L\'opez and Stoll. This addendum adds
+them, supplies the dictionary identifying $\Xab$ with the value they study, and qualifies the one
+statement in \S11 that the omission left overstated.
+
+\textbf{No theorem, proof or numerical result in the note changes}, and this addendum makes no new
+mathematical claim; nothing here asserts or bears on irrationality of $\Xab$, which remains the
+note's Open Problem~1.
+
+\section{The omitted citations, and what they contain}
+
+\subsection*{L\'opez--Stoll 2009 \cite{lopez2009conjugacy}}
+
+\emph{The 3x+1 conjugacy map over a Sturmian word}, Integers \textbf{9} (2009), \#A13, 141--162.
+
+For every irrational slope $\alpha\in(0,1)$ with convergents $p_k/q_k$ and
+$1c_\alpha(j)=\lceil(j+1)\alpha\rceil-\lceil j\alpha\rceil$, their Theorem~1 gives, in $\Ztwo$,
+\begin{equation}
+\Phi(1c_\alpha) \;=\; -\tfrac13 \;-\; \sum_{j\ge 0} (-1)^{j+1}\,
+\frac{2^{\,q_{j+1}+q_j-1}}{3\,(3^{p_{j+1}}-2^{q_{j+1}})(3^{p_j}-2^{q_j})}\,,
+\label{eq:ls}
+\end{equation}
+$\Phi$ being the Bernstein--Lagarias conjugacy map \cite{bernstein1996conjugacy}; their
+Corollary~2 gives a generalized continued fraction for $-1/\Phi(1c_\alpha)$, convergent in $\Ztwo$.
+Their \S4 then leaves $\Ztwo$ and studies the real function $\Phi_{\mathbb{R}}$, proving
+\textbf{irrationality of the real values} $\Phi_{\mathbb{R}}(m_\alpha)$ for
+$\alpha\in\mathbb{Q}\cap(\ln 2/\ln 3,\,1]$, and of a dual limit point for
+$0<\alpha<\ln 2/\ln 3$. The domain restriction is forced: $\sum 2^{nq}/3^{np}$ converges in
+$\mathbb{R}$ if and only if $\ln 2/\ln 3 < p/q \le 1$.
+
+On the 2-adic question they claim nothing. Their abstract says the examples ``\emph{suggest} that
+$\Phi$ always maps Sturmian words to infinite words of full complexity''; their \S4 says of the
+transcendence analogue, ``\emph{We have no proof.}''
+
+\subsection*{L\'opez--Stoll 2021 \cite{lopez2021periodicity}}
+
+\emph{The 3x+1 periodicity conjecture in $\mathbb{R}$}, arXiv:2101.12747.
+
+Their Theorem~1: if the trajectory of some $\zeta\in\mathbb{Q}_{\mathrm{odd}}$ is divergent then
+$\lim h/\ell=\ln 2/\ln 3$ exactly --- the critical density is the only place a rational divergent
+trajectory could live --- while their aperiodicity theorem requires $\lim(h/\ell)>\ln 2/\ln 3$
+\textbf{strictly}. At $\alpha=\ln 2/\ln 3$ the real series diverges: their \S7 Lemma~27 names it
+``the divergent series $-\Phi_{\mathbb{R}}(1c_\alpha)$'', and their \S10 Lemma~41 computes its
+terms $t_i=2^{\lfloor (i-1)/\alpha\rfloor}/3^{i}\in(1/6,1/3]$, which under $i=j+1$ are literally
+the summands of the note's $\Xi_{\alpha,0}$ up to sign.
+
+\section{Dictionary}
+
+Signs were checked term by term against the note's own Theorem~4.1, and the identity was verified
+numerically modulo $2^{3000}$.
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+& the note & L\'opez--Stoll \\
+\midrule
+slope & $\alpha=\log_2 3\approx 1.58496$ & $\alpha_{\mathrm{LS}}=\ln 2/\ln 3\approx 0.630930$ (ones-density)\\
+relation & \multicolumn{2}{l}{$\alpha_{\mathrm{LS}}=1/\alpha$}\\
+word & $S_i=\lfloor i\alpha+\beta\rfloor$; here $\beta=0$ & $1c_{\alpha_{\mathrm{LS}}}(j)=\lceil (j+1)\alpha_{\mathrm{LS}}\rceil-\lceil j\alpha_{\mathrm{LS}}\rceil$\\
+constant & $\Xi_{\alpha,0}=-\sum_{i\ge0}3^{-(i+1)}2^{\lfloor i\alpha\rfloor}$ & $\Phi(1c_{\alpha_{\mathrm{LS}}})$\\
+\textbf{identity} & \multicolumn{2}{l}{$\boldsymbol{\Xi_{\alpha,0}=+\,\Phi\bigl(1c_{\ln 2/\ln 3}\bigr)}$}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\emph{Sign check.} Remark~4.2 of the note evaluates $(1,2)^\infty$ to $-5$; the
+convention above reproduces that value, and the sign is opposite to the companion carry-constant
+note, where $\Xi_\alpha=-\Phi(1c_{\ln 2/\ln 3})$. In parity-vector coordinates, therefore, $\Xab$
+is a value of the Bernstein--Lagarias conjugacy map
+\cite{bernstein1994noniterative,bernstein1996conjugacy} on a Sturmian parity word, and at
+$\beta=0$ it is exactly the value whose 2-adic expansion \eqref{eq:ls} describes. This
+identification belongs in \S4, immediately after Theorem~4.1.
+
+\section{Addition to the literature gate (\S9)}
+
+The following belongs as a further bullet in \S9, in the same form as the others --- the
+hypothesis that excludes our point, not an impression.
+
+\begin{quote}
+\textbf{L\'opez--Stoll 2009 \cite{lopez2009conjugacy}; L\'opez--Stoll 2021
+\cite{lopez2021periodicity}.} The closest prior work on this exact object. The 2009 paper gives
+the 2-adic series and continued-fraction expansion of $\Phi(1c_\alpha)$ for every irrational slope
+--- the approximants and approximation depths of this edge --- and then proves irrationality of
+the \emph{real} values $\Phi_{\mathbb{R}}(m_\alpha)$ on $\mathbb{Q}\cap(\ln2/\ln3,\,1]$, with a
+dual construction below $\ln2/\ln3$. The 2021 paper proves aperiodicity for ones-density
+\emph{strictly} above $\ln2/\ln3$, and shows that the critical density is the only possible home
+of a rational divergent trajectory. \emph{Excluded by the domain hypothesis, at both places.} The
+real series converges exactly when $\ln2/\ln3 < p/q \le 1$, and the staircase $F$ diverges at
+$x=\ln2/\ln3$; our slope is that single excluded point, and it is excluded from the dual
+construction as well. On the 2-adic question the 2009 paper claims nothing. The exclusion
+mechanism is the resonance of Theorem~6.5(ii), reached independently by the authors of the closest
+prior work: at the critical slope there is no archimedean value to talk about.
+\end{quote}
+
+\noindent This strengthens \S9's conclusion rather than weakening it: the note argues that the
+failure of the archimedean theory at $\Xab$ is relocation, not degeneracy (Remark~6.6), and
+L\'opez and Stoll reach the same boundary from the opposite direction, recording the divergence
+explicitly.
+
+\section{Qualified claim}
+
+\paragraph{Original wording (\S11, Remark 11.1).}
+\begin{quote}
+``Irrationality does not follow from Sturmian aperiodicity: `rational 2-adic $\Rightarrow$
+eventually periodic valuation word' is the open periodicity conjecture [3], not a theorem.''
+\end{quote}
+
+\paragraph{Corrected wording.}
+\begin{quote}
+``Irrationality does not follow from Sturmian aperiodicity: `rational 2-adic $\Rightarrow$
+eventually periodic valuation word' is the periodicity conjecture [3], which is open at our slope.
+It is not open everywhere: L\'opez and Stoll \cite{lopez2021periodicity} prove it for parity words
+of ones-density \emph{strictly} greater than $\ln2/\ln3$, and their Theorem~1 shows that a
+rational divergent trajectory would have density exactly $\ln2/\ln3$. The critical density --- the
+density of the mechanical words of slope $\alpha=\log_2 3$ studied here --- is precisely the case
+their method does not reach.''
+\end{quote}
+
+\noindent The remainder of Remark~11.1 --- the equivalence between rationality of $\Xab$ and a
+mechanical integer orbit in a generalized $3x+q$ system, and the statement that Corollary~5.6
+settles only $q=1$ --- is unchanged and unaffected.
+
+\paragraph{Open Problem 1.} The statement stands verbatim. It gains one sentence of context: the
+archimedean analogue is a theorem off the critical slope --- L\'opez and Stoll
+\cite{lopez2009conjugacy} prove irrationality of the real values $\Phi_{\mathbb{R}}(m_\alpha)$ for
+$\alpha\in\mathbb{Q}\cap(\ln2/\ln3,1]$, and of the dual limit point below $\ln2/\ln3$ --- and
+neither covers $\alpha=\ln2/\ln3$, where the real series diverges. The 2-adic problem is therefore
+not a corollary of their results.
+
+% TODO(Elias): add pointer to irrationality note once posted
+%   -- belongs immediately after Open Problem 1. Until that note is public, Open Problem 1 stands
+%      as printed and no irrationality claim is made anywhere in this addendum.
+
+\paragraph{Bibliographic note.} The note's bibliographic note (p.~10) lists which references were verified against primary or
+publisher sources. The entries added here --- \cite{lopez2009conjugacy},
+\cite{lopez2021periodicity}, \cite{bernstein1996conjugacy}, \cite{bernstein1994noniterative} ---
+were read in full from the primary sources: the 2009 paper (22~pp., Integers \textbf{9}, \#A13)
+and the 2021 preprint (51~pp., arXiv:2101.12747).
+
+\medskip\noindent\emph{Acknowledgment.} The omission was identified during an adversarial citation audit of
+the Sturmian thread, assisted by Claude (Anthropic). All statements here, and any errors, are the
+author's.
+
+\enlargethispage{3\baselineskip}
+{\footnotesize
+\bibliographystyle{plain}
+\bibliography{references}
+}
+
+\end{document}
