@@ -117,16 +117,24 @@ merged** (the author merges it in mid-October).
 
 This is the most important thing in the inventory, and it is easy to miss.
 
-> **CITED.** For an aperiodic word `v`, `Φ(v) ∉ ℚ` is already known whenever
-> `lim inf kₙ(v)/n ≠ β`:
-> * `< β` — Monks–Yazinski 2004, Thm 2.7(b), refereed;
-> * `> β` — López–Stoll 2021, Thm 1, first half, unpublished.
+> **CITED.** For an aperiodic word `v` with `lim inf kₙ(v)/n ≠ β`, `Φ(v) ∉ ℚ` is:
+> * **known**, for `< β` — an immediate consequence of Monks–Yazinski 2004, Thm 2.7(b),
+>   **refereed**, and the deduction is drawn explicitly in López–Stoll 2021, p. 6;
+> * **claimed**, for `> β` — the first half of López–Stoll 2021, Thm 1, resting on that
+>   preprint's own archimedean argument (their Lemmas 23–26). **arXiv:2101.12747v1, one
+>   version, no journal reference: unrefereed. It is a claim, not a known theorem**, and this
+>   document treats it as such throughout.
 
 Both are *density* statements: they quantify over all aperiodic words, at every intercept, of
 every complexity. **Therefore the novelty of any new irrationality criterion is confined to
-words of lower density exactly `β`** — plus effectivity, plus replacing an unpublished argument
-with a published one. Sections 2 and 3 are ranked by that standard and not by how much ground
-they appear to cover.
+words of lower density exactly `β`, plus whatever is added by putting the `> β` half on a
+refereed footing**, plus effectivity. Sections 2 and 3 are ranked by that standard and not by
+how much ground they appear to cover.
+
+**The asymmetry matters and is easy to lose.** Below `β` a new proof adds only effectivity,
+because the statement is already a theorem. Above `β` a new proof adds the statement itself in
+publishable form, because at present it rests on an unrefereed preprint. The two are not the
+same kind of contribution, and the per-region table in §2 keeps them apart.
 
 ---
 
@@ -235,7 +243,7 @@ applies), which holds for `ℓ > 1/γ`.
 | region | what direction A adds |
 |---|---|
 | `γ < β`, any `ρ` | nothing qualitative — Monks–Yazinski 2004. Effective height bounds are new. |
-| `γ > β`, any `ρ` | an elementary published proof in place of López–Stoll 2021's unpublished archimedean one, plus effectivity. |
+| `γ > β`, any `ρ` | **the statement, on a refereed footing.** Here it is only *claimed*, in an unrefereed preprint (López–Stoll 2021, archimedean); an elementary and effective proof would make it a theorem. |
 | **`γ = β`, `ρ ≠ 0`** | **new.** This is the real content, and it is exactly the paper's Open Problem 1. |
 | `γ = β`, `ρ = 0` | already PR #6 / v1. |
 
@@ -322,8 +330,10 @@ derives exactly this, in realizer form, from `s` consecutive copies of a converg
 
 # 4. Direction C — an irrationality measure for `Φ(1c_β)`
 
-**Assessment: high value, very high risk, and there is a proved obstruction to the rational
-form. Rank low, and re-scope before attempting.**
+**Assessment: high value, very high risk. The *rational-approximation* form is refuted unless
+`β` is badly approximable; the *integer* form — the paper's actual Open Problem 3, and the one
+the realizer floor needs — is untouched and remains **OPEN**. Rank low, and re-scope before
+attempting.**
 
 ## What would be proved, and what it would buy
 
@@ -351,9 +361,18 @@ expected to be unbounded (as for almost every real), in which case **no finite r
 irrationality measure exists at all**. Whether `log₃2` is badly approximable is **OPEN** and
 far out of reach.
 
-The integer form is not killed by this — integers are not the approximants `c_n/δ_n` — but the
-method in the repository has no purchase on it: every bound proved there comes from the
-approximants `Φ(w_n^∞)`, which are rationals with odd denominator, never integers.
+> **The integer form is not touched by this, and it is the one that matters. OPEN.**
+> The refutation above is of the *rational-approximation* analogue — `|Φ(1c_β) − p/q|₂` over all
+> rationals — which is false unless `β` is badly approximable. The paper's Open Problem 3, and
+> the only form note (B)'s Theorem 5.2 consumes, quantifies over **integers** `y ≥ 1`. Integers
+> are not the approximants `c_n/δ_n`, so nothing above applies to them, and **the integer form
+> remains open**. It is also the form the realizer floor needs: `|Φ(1c_β) − y|₂ ≥ C y^{−μ}`
+> with `y` an integer is exactly what converts into `r(D_N) ≥ (2C)^{1/μ}2^{S_N/μ}`.
+>
+> What *is* established is that the repository's method has no purchase on it: every bound
+> proved there comes from `Φ(w_n^∞)`, rationals with odd denominator, never integers. So the
+> direction is not refuted — it is **unattacked**, and the rational-form refutation is only a
+> warning against asking the question in the shape that is already false.
 
 ## Where it actually sits
 
