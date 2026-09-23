@@ -317,59 +317,10 @@ direction only; P3 is a control that shows where the sign enters.
 
 ---
 
-## Phase 2 onward — not started
+## Phase 2 onward
 
-No computation has been run. Phase 2 (record-holder data: `r₁, r₂, r₃` by an exact pruned search
-over zero-confined residue classes, with residue mod 12, `v₃(m+1)`, lineage and gaps) and Phase 3
-(M1–M4 with controls C1–C4) await approval.
-
-### M1's ceiling: the derivation the brief asks for, done now — and two corrections
-
-The brief pre-registers a square-poorness ceiling `≈ 2.41·log₂m_k` and says any violation "is a
-bug or a counterexample to the derivation". Both halves need fixing before a single measurement
-is taken.
-
-**The derivation. PROVED.** Let the parity word of `m` have a prefix `u u` with `|u| = ℓ`, `k`
-ones, and let `m` be the integer realizing it, so `Φ` of the word is `m` and the height is
-`H = m`. Suppose `u` is **balanced**. Then, exactly as in the paper's Liouville step with the
-balanced height bound of Remark 4.3,
-```
-2^{2ℓ} ≤ |M| ≤ m·(1+3ℓ)·max(2^ℓ, 3^k) ,
-```
-and with `θ := (k/ℓ)·log₂3`, `max(2^ℓ,3^k) ≤ 2^{max(1,θ)·ℓ + log₂3}`, giving
-
-> **`(2 − max(1,θ))·ℓ ≤ log₂ m + log₂(1+3ℓ) + log₂3`.**
-
-**Correction 1 — the constant is per block, and it is `1`, not `2.41`, in the regime that
-matters.** Write `θ_W = (k/ℓ)·log₂3` for the block `W` of the square actually found, so the
-ceiling reads `ℓ ≤ (log₂m_k + O(log ℓ))/(2 − θ_W)`. For a
-*zero-confined* prefix, `2^{S_k} ≤ 3^k` says exactly `k/ℓ ≥ β`, hence
-```
-θ = (k/ℓ)·log₂3 ≥ β·log₂3 = 1 ,
-```
-so `max(1,θ) = θ` and the ceiling is `ℓ ≤ (log₂m + O(log ℓ))/(2 − θ)`. The brief's `2.41` is
-`1/(2 − log₂3) = 2.4094…`, which is the value at `θ → log₂3`, i.e. at ones-density `→ 1`.
-Zero-confinement pushes the *other* way: record holders sit just above density `β`, so `θ ≈ 1`
-and the correct ceiling is
-```
-ℓ ≲ log₂ m_k + O(log log m_k) ,
-```
-a factor `2.41` tighter than pre-registered. Using `2.41` would report spurious slack, and the
-slack is precisely what M1 and Q2 are supposed to measure. **The constant must be computed per
-prefix from its own `θ`, not fixed in advance.**
-
-**Correction 2 — there is no ceiling at all without balance.** The bound above uses
-`c_u ≤ 3ℓ·max(2^ℓ,3^k)`, which holds for balanced `u` and **fails unboundedly otherwise**
-(`audits/sturmian_irrationality/REPORT.md` §1.3: for `u = 0^a1^a`, `c_u = 2^a(3^a−2^a) ≈ 2^{1.29ℓ}`
-against `max(2^ℓ,3^k) = 2^ℓ`). With only the trivial bound `c_u ≤ ℓ·3^k·2^{ℓ−1}` the inequality
-becomes `(1 − θ)ℓ ≤ log₂m + O(log ℓ)`, and since `θ ≥ 1` on zero-confined prefixes the left side
-is `≤ 0`: **vacuous**. So a "violation" of the ceiling is *not* prima facie a bug or a
-counterexample — the first thing to check is whether the repeated block is balanced. M1 must
-therefore record, for every square it finds, the block's **discrepancy**
-`max_j |k_j(u) − j·k/ℓ|` alongside the exponent, and the ceiling must be applied only where that
-discrepancy is bounded.
-
-Both corrections are pre-registered here, before any data.
+Phase 2 follows below. Phase 3's interpretation (M2–M4 and the answers to Q1–Q4) is **not**
+offered here, by instruction: Phase 2 reports data.
 
 ---
 
@@ -407,6 +358,12 @@ residue class mod `2^{S+1}` (Terras/Everett; the repository's `modEq_of_parity_p
 class is refined one letter at a time by solving `A′ + 3^{k+1}t ≡ 2^{d−1} (mod 2^d)` for `t`.
 **VERIFIED:** `minrep` applied to each record holder's own valuation word returns that record
 holder, and the same total `S`, for all of them.
+
+**A third check, on the scanner itself.** The C scanner was compared against an independent
+Python reference implementation (`anatomy.conf_depth`, arbitrary precision) on **40 random
+4000-wide windows below `10^11`**: identical maximum depth *and* identical argmax in every
+window, no exception. This is independent of the `N ≤ 200` cross-check below, which tests the
+scanner against previously published values rather than against a second implementation.
 
 ## 2.1 Cross-check against the published `N ≤ 200` table
 
@@ -541,4 +498,66 @@ For `3x−1` the ladder is **degenerate**: `r₁(N)` does not grow at all, becau
 lie on positive zero-confined cycles and are confined forever. By the conjugacy these are
 `−1`, `−5`, `−17`. Note also `r₁ ≡ 1 (mod 12)` there, so **L4's residue law is sign-specific
 too**.
+
+## 2.5 What Correction 2 actually says, tested
+
+`scripts/unbalanced_demo.py`. The Phase-1 correction says the M1 ceiling is **proved only for
+balanced blocks**, because its input is the balanced height bound `c_W ≤ 3ℓ·max(2^ℓ,3^k)`. It is
+worth being precise about what was and was not observed.
+
+Take `W = 1 0^a 1^a` and the parity word `W W`; the least integer realizing it is
+`(−c_L·3^{−k_L}) mod 2^L` (paper Prop. 2.2's computation), and it reproduces the word exactly.
+
+| `a` | `ℓ` | `k` | `disc(W)` | balanced | `c_W / (3ℓ·max(2^ℓ,3^k))` | `log₂m` | `R` | ceiling | holds? | `v₂(M)=R` |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 2 | 5 | 3 | 4/5 | yes | 0.102 | 9 | 12 | 15.28 | ✓ | ✓ |
+| 6 | 13 | 7 | 36/13 | no | 0.269 | 23 | 26 | 30.00 | ✓ | ✓ |
+| 12 | 25 | 13 | 144/25 | no | **1.717** | 47 | 53 | 55.19 | ✓ | ✓ |
+| 16 | 33 | 17 | 256/33 | no | **6.625** | 65 | 67 | 74.12 | ✓ | ✓ |
+| 20 | 41 | 21 | 400/41 | no | **27.03** | 81 | 83 | 89.88 | ✓ | ✓ |
+| 24 | 49 | 25 | 576/49 | no | **114.5** | 97 | 99 | 106.02 | ✓ | ✓ |
+
+> **The honest reading. VERIFIED.** The **input** to the ceiling fails from `a = 12` on, and
+> fails unboundedly (ratio 114.5 at `a = 24`, growing). The **conclusion** nevertheless holds
+> on every row — because the least realizer of a length-`L` word is of size `≈2^L` while
+> `R ≤ L`, so the ceiling is satisfied for a reason that has nothing to do with the height
+> bound. An unbalanced block could break the ceiling only if it *also* had an anomalously small
+> realizer, and **no such case was found — here, or anywhere else in Phase 2**.
+>
+> So Correction 2 stands as a statement about **what is proved**, not about what was observed:
+> off the balanced class the inequality is unproved (with the trivial height bound it is
+> vacuous, since `(1−θ)ℓ ≤ log₂m` is empty for `θ ≥ 1`), and M1 must therefore record the
+> discrepancy and apply the ceiling only where it is small. The exact isometry `v₂(M) = R`
+> holds on every row regardless, balanced or not — it does not depend on the height bound.
+
+## 2.6 The residue laws at the second and third record holders
+
+**L4** says `r₁(N) ≡ 3 or 7 (mod 12)`. It does **not** extend to `r₂` and `r₃`, and the reason is
+exactly L4's own proof, which uses minimality. What does extend is this:
+
+> **L4′. PROVED** (from **L1**, `Descent/BackStep.lean`). For `i ≥ 2`, `r_i(N) ≡ 2 (mod 3)` is
+> permitted, and whenever it holds, the backward `d = 1` image `(2r_i(N) − 1)/3` is one of
+> `r_1(N), …, r_{i−1}(N)`.
+>
+> *Proof.* L1: if `m ∈ Z_N` and `m ≡ 2 (mod 3)` then `p = (2m−1)/3` is a positive odd integer
+> with `p < m` and `p ∈ Z_{N+1} ⊆ Z_N`. So `p` is an `N`-confined positive odd integer strictly
+> below `r_i(N)`, and the `N`-confined integers below `r_i(N)` are exactly
+> `r_1(N), …, r_{i−1}(N)`. ∎
+
+**VERIFIED** over every `N = 1 … 236`: `r₂ ≡ 2 (mod 3)` in **80** of the 236 values and `r₃` in
+**64**; in **all 144 cases the backward image is an earlier `r_j`**, with no exception. And
+`r₁ ≡ 2 (mod 3)` in **0** cases, which is L4.
+
+Residue census over `N = 1 … 236` (every `r_i ≡ 3 (mod 4)`, forced by `2^{S_1} ≤ 3`):
+
+| | `≡ 3 (mod 12)` | `≡ 7 (mod 12)` | `≡ 11 (mod 12)` |
+|---|---|---|---|
+| `r₁` | 130 | 106 | **0** — this is L4 |
+| `r₂` | 81 | 70 | 80 |
+| `r₃` | 85 | 67 | 64 |
+
+The roughly equal thirds at `r₂, r₃` are the arithmetic already noted in
+`audits/descent/DESCENT_AUDIT.md` ("the equal thirds are arithmetic, not data"): the classes
+`≡ 3 (mod 4)` split evenly mod 12, and only the `11 (mod 12)` third carries a backward chain.
+The content is that `r₁` is the one that never does.
 
