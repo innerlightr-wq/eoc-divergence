@@ -867,3 +867,97 @@ locked.**
 Both conjugacy-map papers are already in the library — a title search returns
 *The 3x+1 Conjugacy Map* (Bernstein–Lagarias) and *The 3x+1 Conjugacy Map over a Sturmian Word*
 (López–Stoll 2009) — so the collection may simply be a naming difference.
+
+## Step 2 — cited-by sweep
+
+### Queries run, with result counts
+
+| API | query | result |
+|---|---|---|
+| OpenAlex | `title.search:"The 3x+1 conjugacy map over a Sturmian word"` | 1 work → `W1989074566`, **cited_by = 3** |
+| OpenAlex | `title.search:"The 3x+1 Periodicity Conjecture in R"` | **0** — OpenAlex stores the title with a typo, *"Periodicity **Conjeture**"* |
+| OpenAlex | `works/doi:10.48550/arxiv.2101.12747` | `W3127959870`, **cited_by = 0** |
+| OpenAlex | `title.search:"The 3x+1 conjugacy map"` | 5 works → `W2033304944` (Bernstein–Lagarias 1996), **cited_by = 33** |
+| OpenAlex | `filter=cites:W1989074566` | 3 citing works retrieved |
+| OpenAlex | `filter=cites:W3127959870` | 0 citing works |
+| OpenAlex | `filter=cites:W2033304944` | 33 citing works retrieved |
+| Semantic Scholar | `paper/arXiv:2101.12747/citations`, and title searches for the other two | **0 returned for all three** — see the caveat below |
+
+### Every citing work of López–Stoll 2009, screened in full (no keyword triage)
+
+| # | citing work | class | reason |
+|---|---|---|---|
+| 1 | **López & Stoll (2012)**, *The 2-Adic, Binary and Decimal Periods of 1/3^k Approach Full Complexity for Increasing k*, Integers **12**, `10.1515/integers-2012-0013` | **RELATED** | Same authors, same complexity theme — but about the expansions of `1/3^k`, which are **rational** (eventually periodic) 2-adics. No statement about `Φ` on aperiodic Sturmian input. |
+| 2 | **Rozier (2018)**, *Parity Sequences of the 3x+1 Map on the 2-adic Integers and Euclidean Embedding*, `arXiv:1805.00133` | **RELATED** | Same object (`Φ`, parity sequences): a new inverse-transform formula, ergodicity of the induced automorphism, a self-similar plane embedding. No irrationality or aperiodicity theorem. |
+| 3 | **López & Stoll (2021)**, *The 3x+1 Periodicity Conjecture in ℝ*, `arXiv:2101.12747` | **RELATED** | Read in full (Task 0a). Proves aperiodicity for ones-density **strictly** above `ln2/ln3`; `F` diverges at the critical slope. |
+
+### Second net — works citing Bernstein–Lagarias 1996 that mention Sturmian
+
+All 33 screened against `sturmian · mechanical · irrational · aperiodic · transcend · periodicity conjecture · conjugacy`. Five flagged; **the only two mentioning Sturmian are López–Stoll 2009 and 2021**, both already assessed. The other three:
+
+| citing work | class | reason |
+|---|---|---|
+| **Yazinski (2011)**, *Pseudoperiodicity and the 3x+1 Conjugacy Function*, `arXiv:1102.5547` | **RELATED** | Directly about periodicity of `Φ`; proves families of 2-adics are *not* fixed points, supporting the `Φ` Fixed Point Conjecture. Not about Sturmian input, and not an irrationality theorem. |
+| **Monks & Yazinski (2004)**, *The autoconjugacy of the 3x+1 function*, Discrete Math. **275**, 219–236 | **RELATED** | Structure of `Φ` itself. No Sturmian or irrationality content. |
+| *The Collatz conjecture and De Bruijn graphs* (2012/2013) | **NOISE** | Identifies a graph isomorphism with the Bernstein–Lagarias conjugacy; no arithmetic of values. |
+
+The remaining 28 are **NOISE** for this question (ergodic/stochastic models, fractal visualisations, De Bruijn graphs, solenoidal/automatic-sequence papers, Lagarias's bibliographies, surveys).
+
+### Verdict
+
+> **No HIT.** Nothing found proves — or claims — that `Φ` of a Sturmian or mechanical word is
+> irrational/aperiodic in `ℤ₂`, at any slope.
+
+### ⚠ Coverage caveat — stated precisely, because the requested wording would overstate it
+
+The brief's template verdict was *"cited-by sweep clean (OpenAlex + Semantic Scholar)"*. **That
+would be inaccurate**: Semantic Scholar returned **0 citing works for all three targets**,
+including Bernstein–Lagarias 1996, which certainly has citations there. That is an **API failure**
+(unauthenticated rate limiting), not a finding. The honest statement is:
+
+> **Cited-by sweep clean on OpenAlex. Semantic Scholar did not return data and contributes no
+> coverage.**
+
+Two further limits:
+
+* OpenAlex citation counts for **Integers** — a small open-access journal — may be incomplete, so
+  `cited_by = 3` for the 2009 paper is a lower bound.
+* `cited_by = 0` for the 2021 preprint is plausible for a 2021 arXiv posting but is also exactly
+  what an indexing gap looks like; note that OpenAlex has its title misspelled, which is a sign of
+  thin metadata.
+
+**The manual Google Scholar / zbMATH check remains the final cross-check, and the novelty claim
+stays blocked until it is done.**
+
+## Step 3 — `references.bib`
+
+Written to `audits/sturmian_irrationality/references.bib`: **28 entries**, Better BibTeX-style keys
+(`<firstauthor-lowercase><year><first significant title word>`, stopwords and leading numerals
+skipped — e.g. `lopez2009conjugacy`). Built from collections **[23]** and **[24]** where relevant to
+this note, plus the specified works and every RELATED item from the sweep. **The Zotero library was
+not modified.**
+
+### Works to add to collection [24] — not currently in the library
+
+| work | identifier |
+|---|---|
+| López & Stoll (2021), *The 3x+1 Periodicity Conjecture in ℝ* | `arXiv:2101.12747` |
+| López & Stoll (2012), *The 2-Adic, Binary and Decimal Periods of 1/3^k…*, Integers 12 | `10.1515/integers-2012-0013` |
+| Rozier (2018), *Parity Sequences of the 3x+1 Map…* | `arXiv:1805.00133` |
+| Yazinski (2011), *Pseudoperiodicity and the 3x+1 Conjugacy Function* | `arXiv:1102.5547` |
+| Monks & Yazinski (2004), *The autoconjugacy of the 3x+1 function* | `10.1016/S0012-365X(03)00125-0` |
+| Bugeaud & Laurent (2023), Acta Arith. **209**, 59–75 | `10.4064/aa220323-18-1` (`arXiv:2203.12901`) |
+| Luca, Ouaknine & Worrell (2025), Bull. LMS **57**, 1360–1374 | `10.1112/blms.70033` (`arXiv:2412.07908`) |
+| Luca, Ouaknine & Worrell (2022), *On the transcendence of a series related to Sturmian words* | `arXiv:2204.08268` |
+| Adamczewski & Bugeaud (2006), *Real and p-adic expansions involving symmetric patterns*, IMRN | `10.1155/IMRN/2006/75968` |
+| Pellarin (2004), *On the arithmetic properties of complex values of Hecke–Mahler series* | `arXiv:math/0407378` |
+| Calegari, Dimitrov & Tang (2021), *The Unbounded Denominators Conjecture* | `arXiv:2109.09040` |
+| Calegari, Dimitrov & Tang (2024), *The linear independence of 1, ζ(2), L(2,χ₋₃)* | `arXiv:2408.15403` |
+| Lothaire (2002), *Algebraic Combinatorics on Words*, CUP | ISBN 9780521812207 |
+
+Already present (no action): Terras 1976, Everett 1977, Lagarias 1985 and both annotated
+bibliographies, Bernstein 1994, Bernstein–Lagarias 1996, López–Stoll 2009, Mahler 1957, Ridout 1958,
+Schlickewei 1976, Evertse–Schlickewei 2002, Dvoretzky–Motzkin 1947.
+
+*Note on `monks2004autoconjugacy`:* OpenAlex dates it 2003 (online first); the Discrete Math.
+issue is dated 6 January 2004. The entry uses 2004, as in the brief, with the discrepancy recorded.
