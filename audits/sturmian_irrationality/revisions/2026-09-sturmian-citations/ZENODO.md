@@ -22,8 +22,9 @@ record of record stays as published and the correction travels beside it.
 
 ## Record 1 — note (A)
 
-**Record:** `10.5281/zenodo.22916798` — https://doi.org/10.5281/zenodo.22916798
-**Concept DOI:** `10.5281/zenodo.20556483`
+**Record:** `10.5281/zenodo.22916962` — https://doi.org/10.5281/zenodo.22916962
+**Concept DOI:** `10.5281/zenodo.20556483` ← **cite this**
+**Superseded:** `10.5281/zenodo.22916798` (incomplete file set — addendum only, no note)
 
 **Record title** (as deposited — *not* the note's own title):
 
@@ -36,7 +37,7 @@ The note itself renders as *The 2-Adic Sturmian Carry Constant in the Collatz Ca
 Note (A) lives inside this umbrella record, so anyone following the DOI lands on the collection,
 not on a record named after the note. Cite it as: De Jesús, E. (2026). *Structured Sectors of the
 Collatz Carry Equation: Christoffel Towers, 2-Adic Windows, and Shell Residents.* Zenodo.
-https://doi.org/10.5281/zenodo.22916798
+https://doi.org/10.5281/zenodo.22916962
 
 **Files:**
 
@@ -106,8 +107,10 @@ made.
 
 ## Record 2 — note (B)
 
-**Record:** `10.5281/zenodo.22916849` — https://doi.org/10.5281/zenodo.22916849
-**Concept DOI:** `10.5281/zenodo.20594173`
+**Record:** `10.5281/zenodo.22917066` — https://doi.org/10.5281/zenodo.22917066
+**Concept DOI:** `10.5281/zenodo.20594173` ← **cite this**
+**Superseded:** `10.5281/zenodo.22916849` (incomplete file set — note only, no addendum)
+⚠ **The current version is still incomplete** — see *Publication check*.
 
 **Record title** (unchanged, matches the note):
 
@@ -193,33 +196,46 @@ the preceding sentence without a space.
 
 ## Publication check — 23 September 2026
 
-Both records were read back from `https://zenodo.org/api/records/<id>` and from the dedicated
-`/files` endpoint on 23 September 2026. Both DOIs resolve, both are **version** DOIs with a
-distinct concept DOI, and both records are dated 2026-09-23.
+Every record below was read from both `https://zenodo.org/api/records/<id>` and the dedicated
+`/files` endpoint, and every file was matched by **MD5** against the local artefact, not by size
+alone.
 
-| | record | concept | deposited files |
+### Version history
+
+| | first new version | corrected version | concept DOI |
 |---|---|---|---|
-| (A) | `10.5281/zenodo.22916798` | `10.5281/zenodo.20556483` | `A_addendum.pdf` (403 241 B) |
-| (B) | `10.5281/zenodo.22916849` | `10.5281/zenodo.20594173` | `B_Sturmian_Mahler_Edge.pdf` (327 659 B) |
+| (A) | `22916798` — superseded | **`22916962`** ✅ complete | `20556483` |
+| (B) | `22916849` — superseded | `22917066` ⚠ **still incomplete** | `20594173` |
 
-### ⚠ The file sets do not match the plan, and the two errors are inverted
+### (A) `10.5281/zenodo.22916962` — ✅ **passes**
 
-This file's instruction was **two files per record: the original PDF unchanged, plus the
-addendum**. Neither record has both, and each is missing the half the other one has:
+| file | size | md5 | matches |
+|---|---|---|---|
+| `AdicSturmianCarryConstant (1).pdf` | 299 604 B | `8064824b9605a0ad26603ed742022842` | `sources/A_2adic_Sturmian_Carry_Constant.pdf` |
+| `A_addendum.pdf` | 403 241 B | `de6e65cfa6fbbddbb7faf062c38fe685` | the build in this folder |
 
-* **Record (A) holds the addendum but not the note.** `A_addendum.pdf` is there (403 241 B —
-  byte-size match to the build in this folder); the note's own PDF is not. A reader following the
-  DOI gets a two-page citation addendum with no document to attach it to, and the corrected
-  Theorem 7.1 range and the Lemma 5.1 typo fix point at text that is not in the record.
-* **Record (B) holds the note but not the addendum.** `B_Sturmian_Mahler_Edge.pdf` is there
-  (327 659 B — byte-size match to `sources/`); `B_addendum.pdf` is not. A reader gets the note
-  with none of the López–Stoll citations, and Remark 11.1 still reads as originally printed, with
-  no correction in the record.
+Note and addendum, both present, both byte-identical to the local artefacts. **This record is
+correct and needs nothing further.**
 
-**Fix:** add the missing file to each record. On Zenodo this means a new version of each —
-published files are immutable — so each fix produces a further version DOI, and the two DOIs
-recorded above become the superseded ones. The concept DOIs (`20556483`, `20594173`) are stable
-across that and are the safe thing to cite in the meantime.
+### (B) `10.5281/zenodo.22917066` — ⚠ **fails: the original is deposited twice**
 
-Not a guess: both file lists were read twice, from the record endpoint and from `/files`, and the
-sizes match the local artefacts exactly.
+| file | size | md5 | what it actually is |
+|---|---|---|---|
+| `B_Sturmian_Mahler_Edge.pdf` | 327 659 B | `830ff7dc768ed1a692e9b050a5e28fa0` | the note |
+| `SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf` | 327 659 B | `830ff7dc768ed1a692e9b050a5e28fa0` | **the note again** |
+
+**The two files have the same MD5.** The second upload is a byte-identical duplicate of the
+original note under its `~/Downloads` filename, not the addendum.
+
+**`B_addendum.pdf` is still missing** — 390 796 B, md5 `3ecb5e274e5603249f9168dddb314125`, at
+`revisions/2026-09-sturmian-citations/B_addendum.pdf`. Record (B) therefore still serves the note
+with none of the López–Stoll citations, and Remark 11.1 still reads as originally printed.
+
+**Fix:** one more version of record (B), uploading `B_addendum.pdf` and dropping the duplicate.
+That will supersede `22917066` in turn.
+
+### Citation guidance until (B) is fixed
+
+Cite the **concept DOIs** — `10.5281/zenodo.20556483` for (A), `10.5281/zenodo.20594173` for (B).
+They always resolve to the latest version, so they stay correct across the remaining fix, and they
+are what `references.bib` records alongside the version DOIs.
