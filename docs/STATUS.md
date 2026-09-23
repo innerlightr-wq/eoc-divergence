@@ -1,6 +1,6 @@
 # Status
 
-Milestone **M2 of 5** complete. `main` builds; CI enforces `lake build`, the forbidden-construct
+Milestone **M3 of 5** complete. `main` builds; CI enforces `lake build`, the forbidden-construct
 scan, and the axiom audit on every push.
 
 ## Proved
@@ -20,6 +20,12 @@ scan, and the axiom audit on every push.
 | `E_lt`, `contraction` | `2^N·U^N n < 3^m·(n + 2^N)` | Curry Lemma 2.2 |
 | `bridge` | `orbit M n = U^[S M n] M` for odd `M` | — |
 | `raw_injective_of_divergent` | divergent ⟹ raw orbit injective and collision-free | M4 interface |
+| `tail_mul_le` | the sum-to-one weighted tail bound | — |
+| `card_subsets_card_ge` | `#{T ⊆ range N : k ≤ #T} = tail N k` | M4 heavy case |
+| `entropy_certificate` | `50^50 < 2^50·31^31·19^19`, i.e. `H(31/50) < 1` | — |
+| `light_certificate` | `3^31 < 2^50`, i.e. `(31/50)·log₂3 < 1` | — |
+| `heavy_tail_pow` | `tail^50 · (31^31·19^19)^N ≤ (50^50)^N` | — |
+| `exists_window_base` | **one** `θ < 2` bounding both branches | M4/M5 interface |
 
 Axiom audit for all of the above: `[propext, Classical.choice, Quot.sound]`
 (`U_iter_two_pow_mul` uses only `[propext, Quot.sound]`).
@@ -31,7 +37,7 @@ one, it will appear here as a named hypothesis on the theorems that use it, neve
 
 ## Remaining
 
-M3 `BinomialTail` · M4 `WindowedSparsity` · M5 `Summable` + `LastMaximum` + `Main`.
+M4 `WindowedSparsity` · M5 `Summable` + `LastMaximum` + `Main`.
 
 The `→` direction is the substantial half: it needs the Garcia–Tal / Curry windowed sparsity
 theorem formalized, which is what makes the headline equivalence unconditional.
@@ -61,3 +67,16 @@ No approved statement was changed, and no hypothesis was added or removed.
 8. Supporting lemmas added beyond the approved list, none of them load-bearing on their own:
    `U_of_even`, `U_of_odd`, `two_mul_U_of_even`, `two_mul_U_of_odd`, `oddCount_eq_sum`,
    `oddCount_succ`, `oddCount_le`, `E_succ`, `E_succ_even`, `E_succ_odd`.
+
+### M3
+
+9. `tail_mul_le` — stated **without** `hk : k ≤ N`. The hypothesis is unused: summing over
+   `Icc k N` already forces `j ≤ N` at every term, and for `k > N` the tail is empty and the
+   bound is `0 ≤ (a+b)^N`. `heavy_tail_pow` still case-splits on `k ≤ N`, because its weight
+   identity `19N = 50(N-k) + (50k - 31N)` does need it.
+10. `light_pow_le : 50m ≤ 31N → 3^m ≤ 2^N` is kept but **not** exported as the light interface.
+    It carries no geometric saving, so M5's dyadic sum would not converge through it; the light
+    branch of `exists_window_base` supplies the saving instead.
+11. `exists_window_base` exports a **single** `θ ≈ 1.9762` for both branches — the max of the
+    heavy base `(50^50/(31^31·19^19))^{1/50} ≈ 1.9427` and the light base `3^{31/50} ≈ 1.9762` —
+    so M5 sums one ratio `θ/2`. `rpow` appears only inside this theorem and `le_base_pow`.

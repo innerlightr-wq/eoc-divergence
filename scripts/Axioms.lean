@@ -26,3 +26,12 @@ at M5 this becomes `Divergence.divergent_iff_zeroConfined`. -/
 #print axioms Divergence.bridge
 #print axioms Divergence.orbit_range_subset
 #print axioms Divergence.raw_injective_of_divergent
+
+-- M3
+#print axioms Divergence.tail_mul_le
+#print axioms Divergence.card_subsets_card_ge
+#print axioms Divergence.entropy_certificate
+#print axioms Divergence.light_certificate
+#print axioms Divergence.heavy_tail_pow
+#print axioms Divergence.light_pow_le
+#print axioms Divergence.exists_window_base
