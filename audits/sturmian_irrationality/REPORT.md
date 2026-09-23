@@ -1028,49 +1028,57 @@ LaTeX source, so nothing was reconstructed: the deliverable is the patch list
 `revisions/2026-09-sturmian-citations/REVISIONS.md` plus two standalone addenda that travel beside
 the unchanged originals.
 
-## Deposited
+## Deposited — both records complete
 
-| | current version DOI | concept DOI | superseded |
-|---|---|---|---|
-| (A) | `10.5281/zenodo.22917426` ⚠ | `10.5281/zenodo.20556483` ⚠ | `22916798`, `22916962` |
-| (B) | `10.5281/zenodo.22917246` ✅ | `10.5281/zenodo.20594173` ✅ **cite this** | `22916849`, `22917066` |
+| | current version DOI | concept DOI — **cite this** | files | superseded |
+|---|---|---|---|---|
+| (A) | `10.5281/zenodo.22918600` | `10.5281/zenodo.20556483` | **31** | `22916798`, `22916962`, `22917426` |
+| (B) | `10.5281/zenodo.22917246` | `10.5281/zenodo.20594173` | 2 | `22916849`, `22917066` |
 
-**(B) is settled.** `SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf` (327 659 B,
-`830ff7dc768ed1a692e9b050a5e28fa0`) and `B_addendum.pdf` (390 796 B,
-`3ecb5e274e5603249f9168dddb314125`) — note and addendum, nothing else.
+Citations:
 
-**(A)'s umbrella record has a regression** — see below. Cite it by **version** DOI until fixed.
+* De Jesús, E. (2026). *Structured Sectors of the Collatz Carry Equation: Christoffel Towers,
+  2-Adic Windows, and Shell Residents.* Zenodo. https://doi.org/10.5281/zenodo.20556483
+* De Jesús, E. (2026). *The Sturmian–Mahler Edge of the Accelerated Collatz Realizer Problem.*
+  Zenodo. https://doi.org/10.5281/zenodo.20594173
 
 **Note (A)'s record title is not the note's title.** The note renders as *The 2-Adic Sturmian
-Carry Constant in the Collatz Carry Equation* and sits inside an umbrella record covering the
+Carry Constant in the Collatz Carry Equation* and sits inside the umbrella record covering the
 tower line. `references.bib` records both names on `dejesus2026sturmiancarry`.
 
-## ⚠ Umbrella record `22917426`: 25 of 29 collection files dropped
+## Deposition verification — closed, 23 September 2026
 
-Verified 23 September 2026 from the record endpoint, `/files`, and the concept version list.
+Every record was read from both the record endpoint and `/files`, with every file matched by
+**MD5** against the local artefacts. Never by size or file count alone.
 
-The current version holds **5 files**, all verified by MD5, **no duplicates**, and every one
-matching a local artefact:
+**(A) `22918600` — complete.** 31 files; both endpoints agree exactly; **31/31 verified by MD5**
+against the staged manifest; no missing file, no unmatched file, no mismatch, no duplicate MD5.
+The set is the 29 originals of `20599453` under their June filenames — referee `.md` included —
+plus `A_addendum.pdf` (`de6e65cfa6fbbddbb7faf062c38fe685`) and `Collection_addendum.pdf`
+(`b8c8fd0f5cd5406326bc058bdb94f7c2`). The September ` (1)` filename suffixes are gone.
 
-| file | md5 | is |
-|---|---|---|
-| `AdicSturmianCarryConstant (1).pdf` | `8064824b…` | note (A) |
-| `A_addendum.pdf` | `de6e65cf…` | the (A) citation addendum |
-| `AdjacentTowerProductsCollatzCarryEquation (1).pdf` | `ab51c2d2…` | Tier-1 note, **unmodified** |
-| `FiniteChristoffelProducts (1).pdf` | `cf4a5c83…` | Tier-1 note, **unmodified** |
-| `BitAnalyzerCollatzCarryEquation (1).pdf` | `aad1685b…` | Tier-1 note, **unmodified** |
+**(B) `22917246` — complete.** `SturmianMahlerEdgeAcceleratedCollatzRealizerProblem (1).pdf`
+(327 659 B, `830ff7dc768ed1a692e9b050a5e28fa0`) and `B_addendum.pdf` (390 796 B,
+`3ecb5e274e5603249f9168dddb314125`).
 
-But the last full-collection version, `10.5281/zenodo.20599453` (8 June 2026), holds **29 files**.
-The three September versions replaced the file set rather than adding to it (1 → 2 → 5 files), so
-**25 files are absent from the current version**, including `NearCritical.pdf` — which note (A)
-cites as its own reference [9]. The record hosting note (A) no longer serves the note (A) depends
-on.
+**Concept DOIs confirmed.** `https://doi.org/10.5281/zenodo.20556483` resolves (HTTP 200) with
+final URL `https://zenodo.org/records/22918600`, so the concept DOI is again the correct citation
+for the umbrella record.
 
-Nothing is lost permanently: Zenodo versions are immutable and `20599453` still serves all 29. But
-the concept DOI resolves to the *latest* version, so `10.5281/zenodo.20556483` now lands a reader
-on the 5-file record. **The fix is one more version carrying all 29 original files plus
-`A_addendum.pdf`, 30 in total.** Until then, cite the version DOI of whichever state is meant.
-Full file list in `revisions/2026-09-sturmian-citations/ZENODO.md`.
+### Five superseded versions, and why each was caught
+
+| version | what was wrong |
+|---|---|
+| `22916798` (A) | addendum only, no note |
+| `22916962` (A) | note + addendum, but 25 of the 29 collection files silently dropped |
+| `22917426` (A) | 5 files — note, addendum and three Tier-1 notes only |
+| `22916849` (B) | note only, no addendum |
+| `22917066` (B) | the note deposited **twice** under two filenames, identical md5; addendum absent |
+
+`22917066` is why every check in this audit is by checksum: it had two files of plausible size and
+would have passed a file-count or size test. `22916962` is why every check also compares against
+the *previous* version's manifest: it had exactly the two files asked for, and had quietly lost 25
+others.
 
 ## Collection-addendum scope — verified against the downloaded PDFs
 

@@ -22,11 +22,10 @@ record of record stays as published and the correction travels beside it.
 
 ## Record 1 — note (A)
 
-**Record:** `10.5281/zenodo.22917426` — https://doi.org/10.5281/zenodo.22917426
-**Concept DOI:** `10.5281/zenodo.20556483`
-**Superseded:** `10.5281/zenodo.22916798` (addendum only) and `10.5281/zenodo.22916962` (note + addendum)
-⚠ **The current version holds 5 of the collection's 29 files** — see *Umbrella record: 25 files
-dropped*. Do **not** cite the concept DOI for this record until that is resolved.
+**Record:** `10.5281/zenodo.22918600` — https://doi.org/10.5281/zenodo.22918600 ✅ **complete, 31 files**
+**Concept DOI:** `10.5281/zenodo.20556483` ← **cite this**; confirmed to resolve to `22918600`
+**Superseded:** `22916798` (addendum only), `22916962` (note + addendum, 25 files dropped),
+`22917426` (5 files)
 
 **Record title** (as deposited — *not* the note's own title):
 
@@ -39,7 +38,7 @@ The note itself renders as *The 2-Adic Sturmian Carry Constant in the Collatz Ca
 Note (A) lives inside this umbrella record, so anyone following the DOI lands on the collection,
 not on a record named after the note. Cite it as: De Jesús, E. (2026). *Structured Sectors of the
 Collatz Carry Equation: Christoffel Towers, 2-Adic Windows, and Shell Residents.* Zenodo.
-https://doi.org/10.5281/zenodo.22917426
+https://doi.org/10.5281/zenodo.20556483
 
 **Files:**
 
@@ -337,3 +336,40 @@ they can be re-uploaded byte-identical. The two addenda are built in this folder
 Uploading the originals under these exact names also clears the cosmetic ` (1)` suffixes the
 September versions introduced (`AdicSturmianCarryConstant (1).pdf` and the rest): the names above
 are the ones the June collection used.
+
+---
+
+## Final verification — `10.5281/zenodo.22918600`, 23 September 2026
+
+Read from `https://zenodo.org/api/records/22918600` and the `/files` endpoint; **the two endpoints
+agree exactly**. Every file matched by **MD5** against the 31-file manifest staged in
+`~/Documents/zenodo-uploads/umbrella-final/`.
+
+| check | result |
+|---|---|
+| files in record | **31** |
+| verified against manifest by MD5 | **31 / 31** |
+| missing (in manifest, absent from record) | **none** |
+| unmatched (in record, absent from manifest) | **none** |
+| MD5 mismatches | **none** |
+| duplicate MD5s within the record | **none** |
+
+The set is the 29 originals of `20599453` under their June filenames — the referee `.md`
+included — plus `A_addendum.pdf` (`de6e65cf…`) and `Collection_addendum.pdf` (`b8c8fd0f…`).
+
+**Concept DOI confirmed.** `https://doi.org/10.5281/zenodo.20556483` resolves (HTTP 200) with
+final URL `https://zenodo.org/records/22918600`, and the version listing puts `22918600` (31
+files) at the head. The concept DOI is again the correct citation for this record.
+
+### Version history, closed
+
+| version | files | state |
+|---|---|---|
+| `20599453` (8 Jun) | 29 | last June collection |
+| `22916798` | 1 | superseded — addendum only |
+| `22916962` | 2 | superseded — note + addendum, 25 collection files dropped |
+| `22917426` | 5 | superseded — 5-file set |
+| **`22918600`** | **31** | **current — complete, both addenda** |
+
+The ` (1)` filename suffixes introduced by the September versions are gone: the originals are
+served under their June names again.
