@@ -243,16 +243,128 @@ with `q_n ≥ 2 log₂(2H) + 10` (crudely), i.e. at continued-fraction depth `O(
 
 ---
 
-# Status
+---
+
+# Phase 0, Task 4 — numerical verification
+
+`Ξ_α mod 2^K` by the carry recursion `A ← 3A + 2^{s_j}` with `s_j = ⌊jα⌋ = bitlen(3^j) − 1`
+(exact), then `Ξ ≡ 3^{−J}A_J`; `C_n` by the same recursion over `q_n` steps with
+`s_j(X_n) = ⌊j p_n/q_n⌋`; `x_n ≡ −C_n δ_n^{−1} (mod 2^K)`. No float enters. Convergents from a
+Stern–Brocot descent whose only primitive is the exact comparison `2^p < 3^q ⟺ p < bitlen(3^q)`;
+the shell list reproduces (A) §3 exactly, including `(190537, 301994)`.
+
+`Ξ_α mod 2^64 = 5980427723603026949`.
+
+| `n` | `q_n` | `p_n` | side | law `ℓ_n` | observed `v₂(x_n+Ξ_α)` | match |
+|---:|---:|---:|:---|---:|---:|:---:|
+| 2 | 2 | 3 | lower | 10 | 10 | ✓ |
+| 3 | 5 | 8 | upper | 7 | 7 | ✓ |
+| 4 | 12 | 19 | lower | 83 | 83 | ✓ |
+| 5 | 41 | 65 | upper | 64 | 64 | ✓ |
+| 6 | 53 | 84 | lower | 568 | 568 | ✓ |
+| 7 | 306 | 485 | upper | 484 | 484 | ✓ |
+| 8 | 665 | 1054 | lower | 25780 | 25780 | ✓ |
+| 9 | 15601 | 24727 | upper | 24726 | 24726 | ✓ |
+| 10 | 31867 | 50508 | lower | 176250 | 176250 | ✓ |
+| 11 | 79335 | 125743 | upper | 125742 | 125742 | ✓ |
+| 12 | 111202 | 176251 | lower | 478244 | 478244 | ✓ |
+
+**VERIFIED**: the law holds exactly at every shell `n = 2 … 12`, upper and lower, at `K = 480000`
+(29 s). This passes the brief's target `(79335, 125743)` by one further level.
+
+## The finite consequence, made explicit
+
+Each lower convergent forces, for a hypothetical `Ξ_α = u/v` of height `H = max(|u|, v)`,
+`H > 2^{ℓ_n}/(2 q_n 3^{q_n})`. Using `⌊q_nα⌋ = p_n` at lower convergents (checked exactly):
+
+| `n` | `ℓ_n` | excludes all heights `H` with `log₂H` below |
+|---:|---:|---:|
+| 2 | 10 | 5 |
+| 4 | 83 | 59 |
+| 6 | 568 | 477 |
+| 8 | 25780 | 24716 |
+| 10 | 176250 | 125726 |
+| 12 | 478244 | **301975** |
+
+> **VERIFIED:** `Ξ_α` is not a rational number of height `≤ 2^{301975}`.
+
+That is the finite, machine-checked shadow of the theorem. Full irrationality follows from the
+law at *all* `n`, which is PROVED (Task 2), not merely verified.
+
+---
+
+# Phase 0, Task 5 — controls
+
+The template must **not** fire on a rational point. For the rational `−x_m = C_m/δ_m` the
+analogue of `M_n` is `M_n^{(m)} = C_m δ_n − δ_m C_n`, computed here in **exact integers** (no
+modular reduction), with `v₂(M_n^{(m)}) = v₂(x_n − x_m)`.
+
+`x_2 = −C_2/δ_2 = −5/1 = −5`, the `(1,2)^∞` point — so `m = 2` *is* the requested `−5` control.
+
+| `n` | `v₂(x_n + 5)` | `log₂\|M_n\|` | `q_n log₂3` |
+|---:|---:|---:|---:|
+| 3 | 7 | 9 | 7 |
+| 4 | **10** | 21 | 19 |
+| 5 | **10** | 69 | 64 |
+| 6 | **10** | 88 | 84 |
+| 7 | **10** | 492 | 484 |
+| 8 | **10** | 1062 | 1054 |
+| 9 | **10** | 24739 | 24726 |
+
+**Frozen at 10 = ℓ_2 = p_2 + p_3 − 1** from `n = 4` on. (At `n = 3` the value is
+`min(ℓ_2, ℓ_3) = min(10, 7) = 7`, exactly as the ultrametric predicts.) Two further controls:
+
+| fixed `m` | `ℓ_m` | frozen value of `v₂(x_n − x_m)` | from |
+|---:|---:|---:|---|
+| 2 | 10 | **10** | `n ≥ 4` |
+| 4 | 83 | **83** | `n ≥ 6` |
+| 6 | 568 | **568** | `n ≥ 8` |
+
+In every row `2^{v₂(M_n)} ≤ \|M_n\|` holds comfortably — **no contradiction is produced**.
+
+## Why the template cannot fire on a rational point
+
+The Liouville step needs `2^{v₂(M_n)} ≤ |M_n| < 2Hq_n3^{q_n}` to be *violated*, i.e. it needs
+`v₂(M_n)` to outgrow `q_n log₂3 + O(log q_n)`. At a rational point `−x_m`,
+
+```
+v₂(M_n^{(m)}) = v₂( (x_n + Ξ_α) − (x_m + Ξ_α) ) = min(ℓ_n, ℓ_m) = ℓ_m   for ℓ_n > ℓ_m,
+```
+
+a **constant**, while `log₂|M_n|` grows linearly in `q_n`. The inequality is therefore satisfied
+for every `n` and no contradiction arises. The freeze is not an accident of the computation: it
+is the ultrametric identity above, and it happens at exactly the depth where `c_α` first
+disagrees with the periodic word `X_m^∞`.
+
+Against this, at the true point the valuation is `ℓ_n = p_n + p_{n+1} − 1` at lower convergents,
+which exceeds `q_nα + O(log q_n) = p_n + O(log q_n)` by the full amount `p_{n+1}`. **The
+argument fires only on the unbounded growth of the approximation depth, which a rational point
+cannot have.** Step 3 of the proof (`M_n ≠ 0`) and Step 5 (the growth) are precisely the two
+places a rational target fails.
+
+---
+
+# Phase 0 — VERDICT
 
 | Task | Result |
 |---|---|
 | 1 — reconciliation | **PROVED**: `Ξ_{α,0} = −Ξ_α`; `c_α` is intercept `β = 0`; lower shells are the even indices |
 | 2 — valuation law re-derived | **PROVED for `n ≥ 2`**; one typo in (A) recorded, no consequence |
-| 3 — Liouville argument | **written; proof above** |
-| 4 — numerical verification | *not yet run* |
-| 5 — controls | *not yet run* |
+| 3 — Liouville argument | **PROVED** |
+| 4 — numerics | **VERIFIED**, shells `n = 2…12`, `K = 480000`, all 11 exact matches |
+| 5 — controls | **PASS**: frozen at `ℓ_m`; template correctly fails to fire |
 
-**Verdict for Phase 0 is withheld** until Tasks 4 and 5 pass, per the audit rule that controls
-precede any positive claim. The proof in Task 3 does not depend on those checks; they are there to
-catch an error in it.
+> ## **Phase 0: PROVED.**  `Ξ_α ∉ ℚ`, equivalently `Ξ_{α,0} ∉ ℚ`.
+
+Scope, exactly: the **characteristic** point, intercept `β = 0`. (B)'s Open Problem 1 asks this
+for every `β`; Phase 1 addresses the rest.
+
+## Reproduction
+
+```bash
+cd audits/sturmian_irrationality
+python3 cf.py 300000        # exact convergents
+python3 task4.py 480000 12  # valuation law, shells 2..12   (~30 s)
+python3 task5.py            # rational-point controls
+```
+
