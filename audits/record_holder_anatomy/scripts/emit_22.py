@@ -41,21 +41,26 @@ if __name__ == "__main__":
     print(f"\n**{len(holders)} distinct values of `r₁`**, strictly increasing. "
           f"`r₁ mod 12 ∈ {{3,7}}` and `v₃(r₁+1) = 0` at every one "
           f"({'PASS' if all(r[0]%12 in (3,7) and v3(r[0]+1)==0 for _,_,r in rows) else 'FAIL'}).\n")
-    # runtime wall
-    lg = [(hi, math.log2(r[0])) for _, hi, r in rows if r[0] > 1]
-    if len(lg) > 4:
-        xs = [a for a, _ in lg[-10:]]; ys = [b for _, b in lg[-10:]]
-        n = len(xs); mx = sum(xs)/n; my = sum(ys)/n
-        sl = sum((x-mx)*(y-my) for x, y in zip(xs, ys)) / sum((x-mx)**2 for x in xs)
-        ic = my - sl*mx
-        print(f"**The runtime wall.** The work is linear in the bound. Over the last ten "
-              f"record holders `log₂r₁ ≈ {sl:.4f}·N + {ic:.1f}`, so each further "
-              f"`+{1/sl:.1f}` in `N` doubles the scan.\n")
-        for N in (Nmax+20, Nmax+50, Nmax+100):
-            b = 2 ** (sl*N + ic)
-            t = secs * b / LIM
-            unit = f"{t/60:.0f} min" if t < 5400 else (f"{t/3600:.1f} h" if t < 3*86400 else f"{t/86400:.0f} days")
-            print(f"* to reach `N ≈ {N}` needs a bound near `2^{sl*N+ic:.0f}` ≈ {b:.1e}, "
-                  f"about **{unit}** on 8 cores at the measured rate;")
-        print(f"\nSo the practical wall on this machine is around `N ≈ {Nmax+30}`–`{Nmax+60}`; "
-              f"beyond that a linear scan is the wrong tool.")
+    # runtime wall -- fit on the JUMP points (first N of each distinct r1), not on rows
+    pts, seen = [], None
+    for N in sorted(tab):
+        if tab[N][0] != seen:
+            seen = tab[N][0]; pts.append((N, seen))
+    xs = [N for N, _ in pts[-12:]]; ys = [math.log2(r) for _, r in pts[-12:]]
+    n = len(xs); mx = sum(xs)/n; my = sum(ys)/n
+    sl = sum((x-mx)*(y-my) for x, y in zip(xs, ys)) / sum((x-mx)**2 for x in xs)
+    ic = my - sl*mx
+    print(f"**The runtime wall.** The work is linear in the bound. Fitting the last twelve "
+          f"jump points (the first `N` at which each new `r₁` appears) gives\n")
+    print(f"```\nlog₂ r₁(N)  ≈  {sl:.4f}·N + {ic:.2f}     (doubling every {1/sl:.1f} steps of N)\n```\n")
+    print(f"so each `+{1/sl:.1f}` in `N` doubles the scan. At the measured rate "
+          f"({secs/60:.0f} min for `2^{LIM.bit_length()-1}` on 8 cores):\n")
+    for N in (Nmax + 25, Nmax + 50, Nmax + 100):
+        b = 2 ** (sl*N + ic)
+        t = secs * b / LIM
+        unit = (f"{t/60:.0f} min" if t < 5400 else
+                f"{t/3600:.1f} h" if t < 3*86400 else f"{t/86400:.0f} days")
+        print(f"* `N ≈ {N}` needs a bound near `2^{sl*N+ic:.0f}` ≈ {b:.1e} — about **{unit}**;")
+    print(f"\nSo the practical wall on this machine is **`N ≈ {Nmax+25}`–`{Nmax+45}`**: a few hours. "
+          f"Beyond that a linear scan is the wrong tool, and the next step would have to be a "
+          f"search over the class tree rather than over the integers.")

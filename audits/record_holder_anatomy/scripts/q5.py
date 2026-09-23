@@ -35,8 +35,10 @@ def load(paths, tag=None):
             acc[N] += vals
     return {N: sorted(v)[:3] for N, v in acc.items()}
 
-def analyse(tab, nums, label, shift):
-    """shift = log2(p_N / density_N):  0 for ALL, log2(3/2) for ROOTS."""
+def analyse(tab, nums, label, shift, B=None):
+    """shift = log2(p_N / density_N): 0 for ALL, log2(3/2) for ROOTS.
+    B = log2(scan bound): a jump point at N is only VISIBLE if Delta_k < B - log2(1/density),
+    so points near the bound are censored from above and must be dropped before fitting."""
     Nmax = max(tab)
     rows = []
     for N in sorted(tab):
@@ -54,6 +56,14 @@ def analyse(tab, nums, label, shift):
                 seen = r[i]; pts.append((N, d[i], r[i]))
         pts = [(N, v, m) for N, v, m in pts if N >= 10]
         if len(pts) < 5: continue
+        cens = 0
+        if B is not None:
+            keep = []
+            for N, v, m in pts:
+                thr = B - (log2_inv_p(N, nums) + shift) - math.log2(i + 1)
+                if thr >= v + 3.5: keep.append((N, v, m))
+                else: cens += 1
+            pts = keep
         xs = [N for N, _, _ in pts]; ys = [v for _, v, _ in pts]
         n = len(xs); mx = sum(xs)/n; my = sum(ys)/n
         sxx = sum((x-mx)**2 for x in xs)
@@ -62,12 +72,20 @@ def analyse(tab, nums, label, shift):
         sd = (sum(t*t for t in res)/max(1, n-2)) ** 0.5
         se = sd / math.sqrt(sxx)
         span = sl * (max(xs) - min(xs))
-        print(f"\nDelta_{i+1}, at {n} jump points, N = {min(xs)}..{max(xs)}")
+        print(f"\nDelta_{i+1}, at {n} uncensored jump points, N = {min(xs)}..{max(xs)}"
+              + (f"  ({cens} censored by the scan bound, dropped)" if cens else ""))
+        print("   values: " + " ".join(f"{v:+.2f}" for _, v, _ in pts))
         print(f"   mean {my:+.3f}   sd {(sum((y-my)**2 for y in ys)/max(1,n-1))**0.5:.3f}"
               f"   min {min(ys):+.3f}   max {max(ys):+.3f}")
         print(f"   Poisson E[Delta_{i+1}] = {EXP[i]:+.3f}   ->  offset {my-EXP[i]:+.3f} bits")
         print(f"   slope {sl:+.6f}/step  ({span:+.2f} bits across the range),"
               f"  s.e. {se*(max(xs)-min(xs)):.2f} bits  ->  {abs(span)/(se*(max(xs)-min(xs))+1e-12):.1f} sigma")
+        h = n // 2
+        m1 = sum(ys[:h]) / h; m2 = sum(ys[h:]) / (n - h)
+        print(f"   first half (N <= {xs[h-1]}) mean {m1:+.3f} | second half mean {m2:+.3f}"
+              f"  ->  step {m2-m1:+.3f} bits")
+        print( "   CAVEAT: the s.e. above assumes independent residuals; successive record")
+        print( "   holders are not independent, so the nominal sigma is optimistic.")
         out[i+1] = (my, my-EXP[i], span, se*(max(xs)-min(xs)))
     return out
 
@@ -76,8 +94,10 @@ if __name__ == "__main__":
     both = any(open(p).readline().startswith(("A ", "R ")) for p in paths)
     tabA = load(paths, "A" if both else None)
     nums = transfer(max(tabA))
-    analyse(tabA, nums, "POPULATION 'ALL' -- every N-confined odd integer", 0.0)
+    B = math.log2(float(__import__("os").environ.get("SCAN_BOUND", "1e12")))
+    analyse(tabA, nums, "POPULATION 'ALL' -- every N-confined odd integer", 0.0, B)
     if both:
         tabR = load(paths, "R")
+        BR = math.log2(float(__import__("os").environ.get("ROOT_BOUND", "2.5e11")))
         analyse(tabR, nums, "POPULATION 'ROOTS' -- chain roots only (m != 2 mod 3), "
-                            "null density (2/3) p_N(0)", math.log2(1.5))
+                            "null density (2/3) p_N(0)", math.log2(1.5), BR)

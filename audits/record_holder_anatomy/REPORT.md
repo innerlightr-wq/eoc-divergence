@@ -374,6 +374,91 @@ scanner against previously published values rather than against a second impleme
 because *the scan* stopped there, not because the number did: `r₁ = 63728127` has confinement
 depth **236**, so it is `r₁(N)` for **`N = 194 … 236`**, not merely `194 … 200`.
 
+## 2.2 The record holders `r₁, r₂, r₃`
+
+Exact scan of every odd `m ≡ 3 (mod 4)` below **1 000 000 000 000** = `2^39`  in 37 min on 8 cores.
+`r₁(N)` is therefore certified for **`N = 1 … 346`**, and the full triple `r₁,r₂,r₃` for `N = 1 … 344`.
+
+| `N`-range | `r₁` | `r₂` | `r₃` | `r₁ mod 12` | `v₃(r₁+1)` = chain | `r₂/r₁` | `r₃/r₂` |
+|---|---|---|---|---|---|---|---|
+| 1–1 | 3 | 7 | 11 | 3 | 0 | 2.3333 | 1.5714 |
+| 2–2 | 7 | 11 | 15 | 7 | 0 | 1.5714 | 1.3636 |
+| 3–3 | 7 | 15 | 27 | 7 | 0 | 2.1429 | 1.8000 |
+| 4–4 | 27 | 31 | 39 | 3 | 0 | 1.1481 | 1.2581 |
+| 5–33 | 27 | 31 | 47 | 3 | 0 | 1.1481 | 1.5161 |
+| 34–34 | 27 | 31 | 703 | 3 | 0 | 1.1481 | 22.6774 |
+| 35–36 | 27 | 703 | 1 055 | 3 | 0 | 26.0370 | 1.5007 |
+| 37–49 | 703 | 1 055 | 1 407 | 7 | 0 | 1.5007 | 1.3336 |
+| 50–50 | 703 | 1 407 | 10 087 | 7 | 0 | 2.0014 | 7.1692 |
+| 51–51 | 10 087 | 15 039 | 34 239 | 7 | 0 | 1.4909 | 2.2767 |
+| 52–57 | 10 087 | 34 239 | 35 655 | 7 | 0 | 3.3944 | 1.0414 |
+| 58–65 | 10 087 | 35 655 | 37 503 | 7 | 0 | 3.5347 | 1.0518 |
+| 66–69 | 35 655 | 37 503 | 45 055 | 3 | 0 | 1.0518 | 1.2014 |
+| 70–78 | 35 655 | 37 503 | 45 127 | 3 | 0 | 1.0518 | 1.2033 |
+| 79–79 | 35 655 | 45 127 | 60 975 | 3 | 0 | 1.2657 | 1.3512 |
+| 80–80 | 35 655 | 45 127 | 270 271 | 3 | 0 | 1.2657 | 5.9891 |
+| 81–84 | 35 655 | 270 271 | 288 615 | 3 | 0 | 7.5802 | 1.0679 |
+| 85–95 | 270 271 | 288 615 | 362 343 | 7 | 0 | 1.0679 | 1.2555 |
+| 96–96 | 270 271 | 362 343 | 376 831 | 7 | 0 | 1.3407 | 1.0400 |
+| 97–102 | 270 271 | 362 343 | 381 727 | 7 | 0 | 1.3407 | 1.0535 |
+| 103–103 | 362 343 | 381 727 | 401 151 | 3 | 0 | 1.0535 | 1.0509 |
+| 104–104 | 381 727 | 401 151 | 626 331 | 7 | 0 | 1.0509 | 1.5613 |
+| 105–108 | 381 727 | 626 331 | 667 375 | 7 | 0 | 1.6408 | 1.0655 |
+| 109–109 | 626 331 | 667 375 | 1 027 431 | 3 | 0 | 1.0655 | 1.5395 |
+| 110–110 | 626 331 | 1 027 431 | 1 126 015 | 3 | 0 | 1.6404 | 1.0960 |
+| 111–114 | 1 027 431 | 1 126 015 | 1 127 871 | 3 | 0 | 1.0960 | 1.0016 |
+| 115–115 | 1 126 015 | 1 127 871 | 1 327 743 | 7 | 0 | 1.0016 | 1.1772 |
+| 116–117 | 1 126 015 | 1 327 743 | 1 394 431 | 7 | 0 | 1.1792 | 1.0502 |
+| 118–134 | 1 126 015 | 1 394 431 | 1 689 023 | 7 | 0 | 1.2384 | 1.2113 |
+| 135–139 | 1 126 015 | 1 689 023 | 2 252 031 | 7 | 0 | 1.5000 | 1.3333 |
+| 140–140 | 1 126 015 | 2 252 031 | 8 088 063 | 7 | 0 | 2.0000 | 3.5915 |
+| 141–144 | 8 088 063 | 9 280 639 | 12 132 095 | 3 | 0 | 1.1474 | 1.3072 |
+| 145–153 | 8 088 063 | 12 132 095 | 13 421 671 | 3 | 0 | 1.5000 | 1.1063 |
+| 154–154 | 8 088 063 | 13 421 671 | 14 378 779 | 3 | 0 | 1.6594 | 1.0713 |
+| 155–156 | 13 421 671 | 14 378 779 | 19 638 399 | 7 | 0 | 1.0713 | 1.3658 |
+| 157–165 | 13 421 671 | 19 638 399 | 20 132 507 | 7 | 0 | 1.4632 | 1.0252 |
+| 166–179 | 13 421 671 | 20 132 507 | 20 638 335 | 7 | 0 | 1.5000 | 1.0251 |
+| 180–180 | 13 421 671 | 20 638 335 | 26 716 671 | 7 | 0 | 1.5377 | 1.2945 |
+| 181–183 | 20 638 335 | 26 716 671 | 56 924 955 | 3 | 0 | 1.2945 | 2.1307 |
+| 184–187 | 26 716 671 | 56 924 955 | 63 728 127 | 3 | 0 | 2.1307 | 1.1195 |
+| 188–191 | 56 924 955 | 63 728 127 | 64 040 575 | 3 | 0 | 1.1195 | 1.0049 |
+| 192–193 | 56 924 955 | 63 728 127 | 95 592 191 | 3 | 0 | 1.1195 | 1.5000 |
+| 194–216 | 63 728 127 | 95 592 191 | 96 883 183 | 3 | 0 | 1.5000 | 1.0135 |
+| 217–228 | 63 728 127 | 95 592 191 | 181 930 687 | 3 | 0 | 1.5000 | 1.9032 |
+| 229–231 | 63 728 127 | 95 592 191 | 217 740 015 | 3 | 0 | 1.5000 | 2.2778 |
+| 232–232 | 63 728 127 | 217 740 015 | 1 104 180 463 | 3 | 0 | 3.4167 | 5.0711 |
+| 233–236 | 63 728 127 | 217 740 015 | 1 200 991 791 | 3 | 0 | 3.4167 | 5.5157 |
+| 237–241 | 217 740 015 | 1 200 991 791 | 1 442 817 471 | 3 | 0 | 5.5157 | 1.2014 |
+| 242–248 | 217 740 015 | 1 200 991 791 | 1 801 487 687 | 3 | 0 | 5.5157 | 1.5000 |
+| 249–249 | 1 200 991 791 | 1 801 487 687 | 1 827 397 567 | 3 | 0 | 1.5000 | 1.0144 |
+| 250–250 | 1 200 991 791 | 1 827 397 567 | 2 741 096 351 | 3 | 0 | 1.5216 | 1.5000 |
+| 251–269 | 1 827 397 567 | 2 741 096 351 | 2 788 008 987 | 7 | 0 | 1.5000 | 1.0171 |
+| 270–272 | 1 827 397 567 | 2 788 008 987 | 3 136 510 111 | 7 | 0 | 1.5257 | 1.1250 |
+| 273–275 | 2 788 008 987 | 3 136 510 111 | 4 704 765 167 | 3 | 0 | 1.1250 | 1.5000 |
+| 276–276 | 2 788 008 987 | 3 136 510 111 | 6 273 020 223 | 3 | 0 | 1.1250 | 2.0000 |
+| 277–279 | 2 788 008 987 | 3 136 510 111 | 12 235 060 455 | 3 | 0 | 1.1250 | 3.9009 |
+| 280–281 | 2 788 008 987 | 12 235 060 455 | 14 500 812 391 | 3 | 0 | 4.3885 | 1.1852 |
+| 282–340 | 12 235 060 455 | 14 500 812 391 | 18 352 590 683 | 3 | 0 | 1.1852 | 1.2656 |
+| 341–343 | 12 235 060 455 | 14 500 812 391 | 21 751 218 587 | 3 | 0 | 1.1852 | 1.5000 |
+| 344–344 | 12 235 060 455 | 14 500 812 391 | 850 097 105 055 | 3 | 0 | 1.1852 | 58.6241 |
+| 345–346 | 898 696 369 947 | — | — | 3 | 0 | — | — |
+
+**24 distinct values of `r₁`**, strictly increasing. `r₁ mod 12 ∈ {3,7}` and `v₃(r₁+1) = 0` at every one (PASS).
+
+**The runtime wall.** The work is linear in the bound. Fitting the last twelve jump points (the first `N` at which each new `r₁` appears) gives
+
+```
+log₂ r₁(N)  ≈  0.0811·N + 10.25     (doubling every 12.3 steps of N)
+```
+
+so each `+12.3` in `N` doubles the scan. At the measured rate (37 min for `2^39` on 8 cores):
+
+* `N ≈ 371` needs a bound near `2^40` ≈ 1.4e+12 — about **52 min**;
+* `N ≈ 396` needs a bound near `2^42` ≈ 5.7e+12 — about **3.5 h**;
+* `N ≈ 446` needs a bound near `2^46` ≈ 9.6e+13 — about **58.5 h**;
+
+So the practical wall on this machine is **`N ≈ 371`–`391`**: a few hours. Beyond that a linear scan is the wrong tool, and the next step would have to be a search over the class tree rather than over the integers.
+
 ## 2.3 M1 — the square-poorness profile, exact
 
 `scripts/m1.py`. For an integer `m` whose parity word begins with a repetition of block `W`
@@ -554,9 +639,9 @@ exactly L4's own proof, which uses minimality. What does extend is this:
 > below `r_i(N)`, and the `N`-confined integers below `r_i(N)` are exactly
 > `r_1(N), …, r_{i−1}(N)`. ∎
 
-**VERIFIED** over every `N = 1 … 236`: `r₂ ≡ 2 (mod 3)` in **80** of the 236 values and `r₃` in
-**64**; in **all 144 cases the backward image is an earlier `r_j`**, with no exception. And
-`r₁ ≡ 2 (mod 3)` in **0** cases, which is L4.
+**VERIFIED** over every `N = 1 … 346` (see §2.2): `r₁ ≡ 2 (mod 3)` in **0** cases, which is L4;
+and in **every** case where `r₂` or `r₃` is `≡ 2 (mod 3)`, the backward image is an earlier
+`r_j`, with no exception.
 
 Residue census over `N = 1 … 236` (every `r_i ≡ 3 (mod 4)`, forced by `2^{S_1} ≤ 3`):
 
@@ -656,6 +741,11 @@ consequences, both acted on:
   class mod 3 in density `1/3`, and exactly `2/3` of every class consists of roots. The thinned
   test compares the `k`-th smallest confined **root** against Poisson at rate `q_N(0)/2`.
 
+  **VERIFIED** by direct count over a full period mod `3·2^{A[N]+1}`, for `N = 1 … 14`: the
+  `N`-confined odd integers number exactly `3·num_N` and the roots among them exactly `2·num_N`,
+  with no exception — e.g. at `N = 14`, `num_N = 168 807`, all-confined `506 421 = 3·num_N`,
+  roots `337 614 = 2·num_N`.
+
 ---
 
 # Phase 3 — measurements M2, M3, M4
@@ -749,4 +839,97 @@ fixed initial coincidence, not a deepening one, and it does not grow with `N`.
 Next-best `E` for the periodic points once they themselves are excluded: `−1 → 1.292`,
 `−5 → 2.524`, `−17 → 2.524`. Also `Φ(1c_β) mod 2^{190}` scores 4.307, at `−5`, for the same
 initial-coincidence reason as its realizers.
+
+---
+
+# Answers to the pre-registered questions
+
+## Q1 — do the record holders show structure beyond the L4 residue law and the Descent lineage facts that survives C3?
+
+> **No. Every pattern found reduces to something already proved, or to a selection effect.**
+> **Classification: explained by known facts.**
+
+The complete list of what was found, and what each reduces to:
+
+| observation | reduces to |
+|---|---|
+| `r₁ ≡ 3 or 7 (mod 12)` at all 346 values; `r₁` never `≡ 11` | **L4**, proved (`Descent/ResidueLaw.lean`) |
+| `v₃(r₁+1) = 0` at every record holder | **L4 read through L2** — the same statement |
+| `r₂, r₃` *do* hit `11 (mod 12)`, and when they do the backward image is an earlier `r_j` | **L4′**, proved here from **L1** (§2.6) |
+| record holders end drift-critical (`D` at the last confined step is 0–4) | the future-minimum / last-maximum structure, `Divergence.LastMaximum` |
+| the orbit wanders far from the critical line mid-run (`max D_k` 6–15) | nothing; it is what confinement permits |
+| record holders are `2^{25}` where shuffled surrogates are `2^{370}` | **a selection effect** — minimum over a huge family against one draw (§2.4) |
+| the ones-density tends to `β` along the run | forced: confinement *is* `k/ℓ ≥ β` |
+| square-poorness relative to size | see Q2 — it is not poorness, and it is not extreme |
+
+Nothing was found that survives C3 once C3 is read correctly, and nothing at all that is not
+either a proved lemma of `Descent`/`Divergence` or an artefact of how the record holders are
+selected.
+
+## Q2 — is the square-poorness ceiling ever approached? how much slack?
+
+> **Never approached by the record holders, and they are not the extreme case.**
+> **Classification: explained by known facts.**
+
+Writing `Q = ℓ·(e − max(1,θ_W))` for the best initial repetition at any step of a run, and
+comparing with `log₂|m_k|` at that step (the ceiling says `Q ≤ log₂|m_k| + O(log ℓ)`):
+
+| object | `Q/log₂m_k` | headroom, bits |
+|---|---|---|
+| shuffled surrogates (C3) | ≈ 0.04 | 285 – 365 |
+| random confined words (C3) | ≈ 0.16 | 53 – 237 |
+| **record holders** | **0.34 – 0.72** | **9 – 20** |
+| critical Sturmian realizers (C2) | 0.53 – 0.73 | 15 – 17 |
+
+So the record holders have **9–20 bits of headroom** and never come within a factor of the
+ceiling. They are **squarer** than a random realizer of the same depth, not poorer — but the
+Sturmian edge is squarer still, and the ordering
+`shuffles < random < record holders ≲ Sturmian` is exactly the ordering of how *structured* the
+underlying word is. That is a restatement of the construction, not a discovery.
+
+The ceiling itself was never violated: **0 balanced blocks with negative slack and 0 isometry
+failures over several thousand rows** (§2.3). The M1 stop rule did not fire.
+
+## Q3 — do M3/M4 show discrete top levels, or a continuum?
+
+> **One isolated top level, then a continuum. No second or third Markov-like level.**
+> **Classification: genuinely new as an observation; explained by known facts as a mechanism.**
+
+The Markov-type exponent `E(x) = max v₂(x − p/q)/log₂height(p/q)` ranks as:
+
+* **level 1, isolated: `E = ∞`.** The rational points of `K` — and by **P1** these are exactly
+  the negative rationals of §3.2, 1 717 of them at period `≤ 10`, every one negative. They have
+  `E = ∞` because each *is* a rational of small height. Removing the exact representation drops
+  them straight into the band (`−1 → 1.29`, `−5 → 2.52`, `−17 → 2.52`).
+* **then a band, `E ≈ 2.5 … 5.7`, with no gap.** Record holders (2.52 – 5.68), the Sturmian
+  realizers (4.31 each), and `Φ(1c_β) mod 2^{190}` (4.31) are interleaved. The three record
+  holders at the top of the band (`8 088 063`, `26 716 671`, `63 728 127`, all at 5.678) reach
+  it through the **same** rational, `−3/3 = −1`, at `t = 9` — a shared coincidence, not three
+  independent ones.
+
+So the spectrum is: the rational points of `K` (a single discrete level, characterised by P1),
+and below them a continuum in which the record holders are not distinguished. **No Markov-like
+ladder of intermediate levels was found.**
+
+## Q4 — does the signed border show a trend with `N`?
+
+> **Oscillating, with no trend, and the absolute agreement does not grow at all.**
+> **Classification: explained by known facts.**
+
+Best border ratio `v₂(m − x_w)/log₂height(x_w)` over the 769 periodic points of period `≤ 9`,
+as `r₁` runs from `27` to `63 728 127` (`log₂m` from 4 to 25):
+
+```
+2.15, 1.54, 1.65, 2.26, 1.28, 2.15, 1.27, 1.12, 2.10, 0.98, 2.15, 1.19
+```
+
+no monotone component; and the *absolute* agreement `v₂` stays in **5 … 17** across the whole
+range while `log₂m` triples. **Record holders do not approach the rational points of `K` as `N`
+grows.** The Sturmian realizers behave the same way for a transparent reason: their constant
+4.307 comes from `1c_β`'s valuation word opening `1,2,1,2,1,2` — a six-letter coincidence with
+the word of `−5` that never deepens.
+
+This is the P1 marker doing its job and finding nothing: the eventually periodic points of `K`
+are a classified, negative, small-height family, and the record holders stay a bounded 2-adic
+distance from all of them.
 
