@@ -492,8 +492,9 @@ is read.
 
 ### Remaining gaps
 
-1. **López–Stoll (2009)** itself — being obtained; Phase 1c Task 0 stays formally open.
-2. **Journal literature off arXiv**, and full texts — not checked.
+1. ~~López–Stoll (2009)~~ — **obtained and read**; see Phase 1c Task 0b. It proves irrationality
+   of the *real* values only, and explicitly diverges at the critical slope. **Closed.**
+2. **Journal literature off arXiv**, and full texts of the arXiv papers — not checked.
 3. The user's Google Scholar "cited by" sweep on both López–Stoll papers — pending.
 
 `NOTE.md` keeps its header forbidding a priority claim until these are closed.
@@ -566,7 +567,95 @@ is `3^{−(j+1)}2^{⌊j·log₂3⌋}` under `i = j+1` — **literally the summan
 This **confirms rather than contradicts** the Phase 3 structural argument, from the authors of the
 closest prior work: at the critical slope there is no archimedean value to talk about.
 
-## Task 0b — López–Stoll **2009** (Integers 9, A13): **still BLOCKED**
+## Task 0b — López–Stoll **2009** (Integers 9, A13) — read; **the stop rule does not fire**
+
+Archived as `sources/LopezStoll_2009_Integers9_A13.pdf`, sha256 `e6901bbe7b84af72…`, 22 pp.
+(Integers **9** (2009), #A13, 141–162.)
+
+### What they prove
+
+* **Theorem 1.** For irrational `α = [0;a₁,a₂,…] ∈ (0,1)` with convergents `(p_k/q_k)` and
+  `1c_α(j) = ⌈(j+1)α⌉ − ⌈jα⌉`, **in `ℤ₂`**:
+  ```
+  Φ(1c_α) = −1/3 − Σ_{j≥0} (−1)^{j+1} · 2^{q_{j+1}+q_j−1} / [ 3(3^{p_{j+1}}−2^{q_{j+1}})(3^{p_j}−2^{q_j}) ] .
+  ```
+* **Corollary 2.** A generalized continued fraction for `−1/Φ(1c_α)`, convergent in `ℤ₂`.
+* **§4.** Leaving the 2-adic world, `Φ_R` is studied as a *real* function. Their Definition 22
+  restricts the domain to `ℚ ∩ (ln2/ln3, 1]`, because `Σ 2^{nq}/3^{np}` converges in `ℝ`
+  **iff `ln2/ln3 < p/q ≤ 1`**. There they prove `Φ_R(m_α)` is **irrational**, and that the devil's
+  staircase `F` maps irrationals to irrationals. For `0 < α < ln2/ln3` they build the dual `F*`
+  and prove irrationality of the real limit point `ζ`.
+
+### Where it stops — in their own words
+
+> "Furthermore, **`F` diverges at `x = ln(2)/ln(3)`**, the odd approximations in Theorem 1
+> approach `−∞` and the even `+∞`, while in Corollary 2 both approximations approach `0`."
+
+So `(ln2/ln3, 1]` is covered by `F`, `(0, ln2/ln3)` by `F*`, and **the single point
+`x = ln2/ln3` — our slope — is excluded from both, by their own computation.**
+
+On the 2-adic question they claim nothing:
+
+* abstract: "The given examples **suggest** that `Φ` always maps Sturmian words to infinite words
+  of full complexity";
+* §4: "It seems that `F` additionally maps irrationals to transcendental numbers. **We have no
+  proof.**"
+
+> **The stop rule does not fire.** López–Stoll 2009 proves irrationality of the **real** values
+> `Φ_R`, `Φ*_R` off the critical slope. It does not prove — and does not claim — irrationality of
+> the **2-adic** `Φ(1c_α)`, at any slope.
+
+### The brief's question: are their convergents the periodic cycle values?
+
+**Partly, and the distinction matters.** Their Definition 26 sets `F(p/q) = ϕ(m_{p/q})/(2^q − 3^p)`,
+which *is* the periodic cycle value `Φ(m_{p/q}^∞)`. But the proof of their Lemma 27 shows
+
+```
+−P_{2k+1}/Q_{2k+1} = F(p_{2k+1}/q_{2k+1}) ,      −P_{2k}/Q_{2k} = F(p_{2k}/q_{2k}) + g(p_{2k}/q_{2k}) .
+```
+
+So the **odd** continued-fraction convergents are cycle values; the **even** ones are cycle values
+*plus the gap* `g`. Only half of the CF convergents are periodic cycle values.
+
+### Independent verification of note (A)'s valuation law — **VERIFIED**
+
+Computing `Φ` of the periodic word `m_{p_k/q_k}^∞` directly (mod `2^{4000}`) and comparing with
+`Φ(1c_α)`, against note (A) Theorem 7.1 (their `(p_k,q_k)` is note (A)'s shell `(q_n,p_n)`):
+
+| k | `p_k/q_k` | shell | `v₂(Φ(1c) − Φ(per))` | note (A) law | side |
+|---:|:--|:--|---:|---:|:--|
+| 1 | 1/1 | (1,1) | 2 | 2 | lower |
+| 2 | 1/2 | (1,2) | 1 | 1 | upper |
+| 3 | 2/3 | (2,3) | 10 | 10 | lower |
+| 4 | 5/8 | (5,8) | 7 | 7 | upper |
+| 5 | 12/19 | (12,19) | 83 | 83 | lower |
+| 6 | 41/65 | (41,65) | 64 | 64 | upper |
+| 7 | 53/84 | (53,84) | 568 | 568 | lower |
+| 8 | 306/485 | (306,485) | 484 | 484 | upper |
+
+**Exact agreement in every row** — an independent confirmation of note (A)'s law, from a different
+construction. (It even holds at `k = 1, 2`, which note (A)'s own proof excludes for `q_n = 1`.)
+
+Their Theorem 1's partial sums were also checked directly against `Φ(1c_α)`: the error after `j`
+terms has `v₂` equal to the *next* term's exponent `q_{j+2}+q_{j+1}−1`, giving the sequence
+`2, 4, 10, 26, 83, 148, 568, 1538, …` — whose odd-indexed members `10, 83, 568` are exactly note
+(A)'s lower-convergent values.
+
+### ⚠ Attribution finding
+
+> **Note (A)'s Theorem 7.1 is, in its lower-convergent half, the leading 2-adic term of
+> López–Stoll 2009 Theorem 1 — and neither note (A) nor note (B) cites López–Stoll anywhere**
+> (0 occurrences in either bibliography, checked).
+
+This does **not** affect correctness: note (A)'s proof is self-contained and was re-derived in
+Phase 0 Task 2, and its statement is *sharper* in one respect — it gives the upper and lower cases
+separately with exact constants, where López–Stoll's series exposes the depths only through the
+alternation. But the object, the approximants, and the depths coincide, and the 2009 paper is
+prior art that should be cited. Note (A)'s description of its result as the tower's "first
+theorem-grade structural result" needs qualification accordingly.
+
+**Consequence for Phase 0: none, except to strengthen it.** The valuation law that the Liouville
+argument consumes is now sourced twice, independently.
 
 > J. López, P. Stoll, *The 3x+1 conjugacy map over a Sturmian word*, **Integers 9** (2009) A13.
 
