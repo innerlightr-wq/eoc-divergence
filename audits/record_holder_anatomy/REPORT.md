@@ -609,11 +609,20 @@ Scales of Confinement* note adds the polynomial factor, `p_N(0) ≍ 2^{−I₀N}
 | 250 | 28.495 | 0.1140 | −3.283 |
 | 300 | 32.861 | 0.1095 | −3.277 |
 
-The last column settles to **≈ −3.2 ± 0.1** across `N = 100 … 300` while `−(1/N)log₂p_N` is
-still only at `0.110` against `I₀ = 0.0793` — i.e. the `N^{−3/2}` factor is doing essentially
-all of the visible correction, and the exact density is `p_N(0) ≈ 2^{−3.2}·2^{−I₀N}·N^{−3/2}`
-in this range. **VERIFIED** (exact `p_N`); the identification of the exponent as `−3/2` is
-**CITED**.
+> **An exact-arithmetic confirmation of Scale 2. VERIFIED numerically.** The last column settles
+> to **≈ −3.20 … −3.28** across `N = 100 … 300`, against `−(1/N)log₂p_N` still only at `0.110`
+> versus `I₀ = 0.0793` at `N = 300`. So in this range the exact density is
+> ```
+> p_N(0)  ≈  2^{−3.28} · 2^{−I₀N} · N^{−3/2} ,
+> ```
+> and the `N^{−3/2}` factor accounts for essentially all of the visible correction to the
+> exponential rate: with it the residual is flat to about a tenth of a bit per doubling, without
+> it the residual grows by ≈ 1.4 bits per doubling. The exponent `−3/2` itself is **CITED**
+> (*Three Scales of Confinement*, paper-proved, **not** formalized); what is established here is
+> that the exact `p_N(0)`, computed in integer arithmetic with no asymptotics, is consistent
+> with it over `N = 100 … 300`. `I₀` is **PROVED** and formalized
+> (`Occupation.confined_mass_rate`). This is a numerical confirmation, not a proof of the
+> exponent.
 
 **The null.** Under random placement the `N`-confined odd integers are a Poisson process of rate
 `λ = p_N(0)/2` per integer, so `r_k(N) ~ Gamma(k, λ)` and
@@ -622,10 +631,30 @@ in this range. **VERIFIED** (exact `p_N`); the identification of the exponent as
 E[Δ_k]  =  1 + ψ(k)/ln 2 − log₂ k    →   +0.167 (k=1),  +0.610 (k=2),  +0.746 (k=3).
 ```
 
-**One measurement artefact, handled.** `r_k(N)` is a step function of `N` while `log₂(1/p_N)`
-rises smoothly, so `Δ_k` is a **saw-tooth**: it jumps at each new record holder and then decays
-deterministically. Averaging over all `N` therefore measures the step widths, not the placement.
-**The order statistic is sampled exactly at the jumps**, and that is where `N0` is tested below.
+**Two things that would corrupt the test, both handled.**
+
+*The saw-tooth.* `r_k(N)` is a step function of `N` while `log₂(1/p_N)` rises smoothly, so `Δ_k`
+jumps at each new record holder and then decays deterministically. Averaging over all `N`
+measures the step widths, not the placement. **The order statistic is sampled exactly at the
+jumps**, and that is where `N0` is tested.
+
+*Clustering, which breaks the independence the Poisson model assumes.* By **L1**, a confined
+`m ≡ 2 (mod 3)` has a **smaller and more-confined** backward `d = 1` image, and by **L2** the
+chain from `m` has length exactly `v₃(m+1)`. So confined integers arrive in **chains**, not
+independently, and the Poisson expectations `E[Δ₂], E[Δ₃]` assume something false. Two
+consequences, both acted on:
+
+* **`Δ₁` at the jump points is the primary Q5 test.** `r₁(N)` is always a chain root (that is
+  **L4**), so it is the one order statistic the chains do not displace.
+* **A lineage-thinned null.** Restrict the population to **chain roots** — confined `m` with
+  `m ≢ 2 (mod 3)`, equivalently `3 ∤ m+1`, equivalently `v₃(m+1) = 0`, equivalently no backward
+  `d = 1` step. Their density is exactly
+  ```
+  q_N(0) = (2/3)·p_N(0) ,
+  ```
+  **PROVED**: `2^{S+1}` is invertible mod 3, so each residue class mod `2^{S+1}` meets each
+  class mod 3 in density `1/3`, and exactly `2/3` of every class consists of roots. The thinned
+  test compares the `k`-th smallest confined **root** against Poisson at rate `q_N(0)/2`.
 
 ---
 
