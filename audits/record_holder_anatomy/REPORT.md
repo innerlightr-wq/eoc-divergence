@@ -988,3 +988,241 @@ says: §2.2's empirical law `log₂r₁ ≈ 0.0811·N + 10.25` sits slightly *ab
 > it goes, does not bear on (DE) or on Open Problem C; it is a statement about how well a
 > Poisson null describes the extreme order statistic over the range that can be computed.
 
+## 5.2 What the pre-registration caught
+
+The Phase-2 fits, run before §5.0 was written, used the jump points with `N ≥ 10` and reported
+a slope of **−0.0101 bits per step** for `Δ₁`. On the pre-registered sample — **all** distinct
+record holders at first appearance, including the three at `N = 1, 2, 4` — the same fit gives
+
+> **`b = −0.0033` bits per step, three times smaller.**
+
+The three early holders (`Δ₁ = +0.58, +1.39, +2.46`) sit *below* the mid-range plateau, so
+dropping them tilted the line. **The larger figure was an artefact of that choice, and the
+pre-registration is what caught it.** Everything below uses the pre-registered sample. The
+Phase-2 numbers stand only as what an unpre-registered fit would have said.
+
+## 5.3 Q5 on the `ALL` population — the result
+
+23 distinct record holders (one dropped by the censoring rule), `N = 1 … 282`:
+
+```
+Δ₁ :  +0.58 +1.39 +2.46 +1.43 +3.59 +3.79 +4.72 +3.38 +3.33 +3.57 +4.07 +3.86
+      +4.22 +3.65 +1.89 +2.02 +2.72 +2.36 +0.33 +1.74 +2.16 +0.86 +2.19
+```
+
+**Stated accurately, which matters here:** every one of the 23 values is **above** the Poisson
+expectation `E[Δ₁] = +0.167`; the minimum is `+0.33` and the late block (`N ≥ 180`) has mean
+`+1.81`. **The trend is a decline *toward* the null, not a crossing below it.** (This is a
+statement about `Δ₁` only — see §5.5, where `Δ₂` and `Δ₃` do dip below `E`.)
+
+| model | rss | `ρ₁` | `n_eff` | AICc | `ΔAICc` | fitted |
+|---|---|---|---|---|---|---|
+| **B** `a+bN` | 31.70 | 0.529 | 7.08 | **16.07** | 0.00 | `a=+3.074, b=−0.00333` |
+| **A1** `a+b/N` | 27.58 | 0.553 | 6.62 | 16.36 | **+0.29** | `a=+2.812, b=−2.280` |
+| **A2** `a+b·e^{−N/c}` | 27.88 | 0.519 | 7.28 | 26.96 | +10.89 | `c` pinned at the grid floor |
+
+Block bootstrap (`L = 3`, 5 000 resamples): **B 66.8 %, A1 32.0 %, A2 1.2 %**.
+
+> **Verdict on the pre-registered rule: no model is preferred.** B has the lowest AICc, but
+> `ΔAICc = 0.29` against A1 is far short of the required `2`, and B wins only 66.8 % of
+> resamples against the required 80 %. A2 is excluded on both criteria, and its transient
+> constant `c` pinned at the grid floor, i.e. it degenerates to a step. **With `ρ₁ ≈ 0.53` the
+> effective sample size is `n_eff ≈ 7` from 23 holders: this data cannot separate a persistent
+> drift from a constant with a slow transient.** **HEURISTIC**, and not more.
+
+### The form the synthesis paper can use
+
+Since `log₂r₁(N) = I₀·N + (3/2)log₂N − 3.28 + Δ₁(N)`, model B's slope is exactly the correction
+to the growth exponent. From the block bootstrap:
+
+> **empirical growth exponent `I₀ + b = 0.0737`, 95 % CI `[0.0611, 0.0873]`.**
+
+and
+
+> **`I₀ = 0.07932` — model A1's prediction, an exponent exactly `I₀` — lies inside that
+> interval**, comfortably, at the 63rd percentile of the bootstrap distribution of `b = 0`'s
+> position. The interval also excludes `0` by a wide margin: its lower end, `0.0611`, still
+> gives `r₁(N) ≍ 2^{0.061N}`.
+
+**Neither the drift nor its absence is established; both lie inside one interval that is
+entirely positive.** That is the honest statement, and §5.1 already records that it does not
+bear on (DE) or on Open Problem C either way.
+
+## 5.4 Q5 on the `ROOTS` population — and why it cannot move `Δ₁`
+
+> **PROVED, and VERIFIED: `r₁(N) = ρ₁(N)` at every `N`.** The smallest `N`-confined integer and
+> the smallest `N`-confined **chain root** are the same number, because **L4** says `r₁(N)` is
+> always a root. Verified at every `N ≤ 346`, no exception.
+
+So the lineage thinning cannot change the `Δ₁` *series* at all: it changes only the null, by the
+exact constant `log₂(3/2) = 0.585`. The consequence:
+
+| | mean `Δ₁` | Poisson `E` | offset | slope `b` | 95 % CI for `b` |
+|---|---|---|---|---|---|
+| ALL, `10^12` | +2.622 | +0.167 | **+2.454** | −0.00566 | `[−0.0183, +0.0080]` |
+| ALL, same `2.5·10^11` range | +2.622 | +0.167 | +2.454 | −0.00566 | `[−0.0183, +0.0080]` |
+| **ROOTS** | +2.037 | +0.167 | **+1.870** | −0.00566 | `[−0.0183, +0.0080]` |
+
+* The **same-range control is identical**, so nothing in §5.3 is an artefact of comparing a
+  `10^12` scan with a `2.5·10^11` one — the same 23 holders survive the censoring rule in both.
+* **Thinning removes exactly `0.585` of the `+2.454` offset — about a quarter — and nothing
+  else.** The slope, the model comparison and the growth-exponent interval are unchanged, by the
+  identity above.
+* One accuracy point: under the thinned null, `Δ₁` is **no longer above `E` everywhere** — the
+  value at `N = 237` is `−0.26`. So the "every value above the Poisson expectation" statement of
+  §5.3 is specific to the unthinned null.
+
+**Growth exponent, all three populations:** `I₀ + b = 0.0737`, 95 % CI `[0.0611, 0.0873]`, with
+`I₀ = 0.07932` inside it. Identical across the three, for the reason above.
+
+## 5.5 `Δ₂, Δ₃` — is the deviation explained by the chains?
+
+Here the two populations genuinely differ: `r₂ ≠ ρ₂` at **100** values of `N` and `r₃ ≠ ρ₃` at
+**235**.
+
+| `k` | population | `n` | mean `Δ_k` | Poisson `E` | **offset** | slope `b` | 95 % CI for `b` |
+|---|---|---|---|---|---|---|---|
+| 1 | ALL | 23 | +2.622 | +0.167 | **+2.454** | −0.00566 | `[−0.0183, +0.0080]` |
+| 1 | ROOTS | 23 | +2.037 | +0.167 | **+1.870** | −0.00566 | `[−0.0183, +0.0080]` |
+| 2 | ALL | 46 | +2.086 | +0.610 | **+1.476** | −0.00468 | `[−0.0133, +0.0035]` |
+| 2 | ROOTS | 40 | +1.693 | +0.610 | **+1.083** | −0.00626 | `[−0.0140, +0.0026]` |
+| 3 | ALL | 59 | +1.708 | +0.746 | **+0.962** | −0.00637 | `[−0.0128, −0.0005]` |
+| 3 | ROOTS | 56 | +1.422 | +0.746 | **+0.676** | −0.00516 | `[−0.0106, −0.0000]` |
+
+> **Answer: the chains explain part of it, and not most of it.** Thinning to roots removes
+> **0.39 bits of the 1.48-bit offset at `k = 2`** and **0.29 of 0.96 at `k = 3`** — about a
+> quarter to a third in each case, the same fraction it removes at `k = 1`. What is left,
+> `+1.08` and `+0.68`, is **not** explained by the lineage.
+>
+> The offsets fall monotonically with `k` on both populations (`+2.45, +1.48, +0.96` and
+> `+1.87, +1.08, +0.68`), which is the signature of a *first-point* effect rather than a
+> density error: the further into the order statistic one goes, the closer the Poisson null
+> comes to right.
+>
+> On the slopes: only `Δ₃` has a bootstrap CI excluding zero, and only barely
+> (`[−0.0128, −0.0005]` and `[−0.0106, −0.0000]`). `Δ₁` and `Δ₂` do not. **No population gives a
+> drift that is established.**
+
+## 5.6 The direct-count diagnostic — where the excess sits
+
+Observed `#{odd m ≤ 2^j : m is N-confined}` against `2^{j−1}·p_N(0)`, the latter exact.
+Complete scan of every odd `m ≡ 3 (mod 4)` below `2^{40}`.
+
+> **An exact fact that bounds what this can show.** For `j ≥ A[N]+1` the ratio is **identically
+> 1**: each class mod `2^{S+1}` with `S ≤ A[N]` contributes exactly `2^{j−S−1}` elements of
+> `[0,2^j)`, and summing over the confined words reproduces `2^{j−1}p_N(0)` term by term.
+> VERIFIED: at `N = 10, X = 2^{20}` the observed count is **33 824** and the expected is
+> **33 824.000** — exactly equal.
+
+| `j` | `N=20` | `N=30` | `N=60` | `N=100` | `N=150` | `N=200` | `N=250` | `N=300` |
+|---|---|---|---|---|---|---|---|---|
+| 20 | 0.9923 | 0.9550 | 0.8588 | 0.7737 | — | — | — | — |
+| 24 | 0.9997 | 0.9934 | 0.9719 | 0.9360 | 0.3717 | — | — | — |
+| 26 | 0.9998 | 0.9966 | 0.9996 | **1.0310** | 0.9990 | 0.5462 | — | — |
+| 28 | 1.0000 | 0.9988 | 0.9985 | 1.0068 | **1.0629** | **1.7750** | — | — |
+| 30 | 1.0000 | 1.0003 | 1.0005 | 0.9844 | **1.0760** | 1.3654 | — | — |
+| 32 | 1.0000 | 1.0002 | 1.0001 | 0.9822 | 1.0005 | 1.3398 | **1.5858** | — |
+| 35 | 1.0000 | 1.0001 | 1.0008 | 0.9995 | 0.9981 | 1.1926 | 1.1894 | **5.4503** |
+| 38 | 1.0000 | 1.0000 | 1.0001 | 1.0012 | 0.9941 | 1.0583 | 0.8893 | 1.5329 |
+| 40 | 1.0000 | 1.0000 | 1.0001 | 1.0006 | 0.9966 | 1.0080 | 1.0152 | 1.2490 |
+
+Reading it:
+
+* **Where the counts are large the null is right to within a few parts in a thousand.** For
+  `N ≤ 60` the ratio is `1.0000` from `j ≈ 28` on; for `N = 100` and `150` it is within `0.6 %`
+  at `j = 40`. There is no systematic deficit or excess in the well-populated regime.
+* **The one-sided approach from below at small `j` is the class structure, not a deviation.**
+  Until `2^j` exceeds the moduli `2^{S+1}` the classes are only partly sampled, so the count
+  runs under; this is the same exact fact quoted above, seen from the other side.
+* **The excess sits immediately above `r₁(N)`, and only there.** At `N = 200`, `r₁ = 2^{25.9}`
+  and the ratio peaks at `1.78` at `X = 2^{28}`–`2^{29}`, i.e. 4–8 times `r₁`, decaying to
+  `1.008` by `2^{40}`. At `N = 300`, `r₁ = 2^{33.5}` and the peak is `5.45` at `X = 2^{35}`,
+  about three times `r₁` — 12 confined integers where 2.2 are expected.
+
+> **The two halves of Q5 fit together.** `Δ₁ > 0` says the **first** confined integer is further
+> out than Poisson predicts; the count excess says that **once it appears, the next few arrive
+> sooner** than Poisson predicts. Those are the two signatures of a **clustered**, not Poisson,
+> point process — which is exactly what L1/L2 and the shared residue classes produce. The
+> clustering is also why `Δ₂, Δ₃` sit below `Δ₁` and why the thinned null moves them only
+> partway. **HEURISTIC** as an explanation; the two measurements themselves are **VERIFIED**.
+
+## 5.7 Q5 — the answer
+
+> **Q5. Is `Δ(N)` bounded and patternless, or does it drift?**
+>
+> **Undecidable on this data, and the interval that contains both answers is entirely
+> positive.** **HEURISTIC.**
+>
+> * `Δ₁` never crosses below the Poisson expectation under the unthinned null: all 23 values
+>   above `E = +0.167`, minimum `+0.33`. **The movement is a decline toward the null, not past
+>   it.**
+> * Models B (`a+bN`) and A1 (`a+b/N`) are separated by `ΔAICc = 0.29` and by 67 % / 32 % of
+>   bootstrap resamples — neither threshold of the pre-registration is met. With `ρ₁ ≈ 0.53` the
+>   effective sample is `n_eff ≈ 7`.
+> * **Empirical growth exponent `I₀ + b = 0.0737`, 95 % CI `[0.0611, 0.0873]`, containing
+>   `I₀ = 0.0793`** — the exponent A1 predicts — and bounded away from `0` at both ends.
+> * The residual offset (`+2.45`, or `+1.87` against the lineage-thinned null) is **not**
+>   explained by the chains, and is accompanied by a count **excess** just above `r₁`. Both are
+>   consistent with clustering.
+>
+> **Direction of any deviation:** the record holders are *larger* than Poisson predicts, by 1.9
+> to 2.5 bits, with a possible slow decline toward the null. The *notable* direction the brief
+> named — record holders systematically **smaller** than predicted — **is not observed**.
+
+---
+
+# Classification of every finding
+
+| finding | label | new / explained / closed |
+|---|---|---|
+| P1 — every eventually periodic point of `K` is a negative rational (both coordinate systems) | **PROVED** | explained by known facts (general form of Prop. 4.1 + the descent audit's C2) |
+| P1.c — "`T` preserves the sign of nonzero rationals" is **false**; the one-sided form is what is needed | **PROVED** | **a correction to the brief** |
+| P1 verified on all 1 717 zero-confined periodic points of period `≤ 10` | **VERIFIED** | — |
+| P2 — (LPC) ⇒ (PosPC) ⇒ (DE), the second strictly as far as anything known | **PROVED** / **OPEN** (converse) | **useful bookkeeping**; now in `PROGRAMME_ENDPOINT.md`, deliberately not in `EQUIVALENT_FORMS_OF_DE.md` |
+| P2(iii) — (PosPC) ⇔ (DE) for every `3x+v`, by an exact valuation-by-valuation conjugacy | **PROVED** | explained by known facts (accelerated analogue of Cor. 7.3) |
+| P3 — the identical argument gives **positivity** for `3x−1`; the marker correctly claims nothing there | **PROVED** | **genuinely new as stated** |
+| P3 corollary — no argument using only the aggregate identity, confinement and the denominator's sign can separate positive integers from the dust | **PROVED** | **genuinely new**, and a limit on the method |
+| `m ↦ −m` is an **exact conjugacy** `3x−1` on `ℤ_{>0}` ↔ `3x+1` on `ℤ_{<0}` | **PROVED**, **VERIFIED** | **genuinely new as stated**; it makes C1 and C4 one dataset |
+| the `3x−1` record ladder is degenerate (`r₁ ≡ 1`, `r₂ ≡ 5`, `r₃ ≡ 17`) | **VERIFIED** | explained by the conjugacy + P3 |
+| `r₁(N)` certified for `N = 1 … 346`; the published `N ≤ 200` table reproduced exactly | **VERIFIED** | **extends known data**; the `63 728 127`-has-depth-236 correction is **new** |
+| L4 at all 346 values; `v₃(r₁+1) = 0` at every record holder | **VERIFIED** | explained by known facts (**L4**, **L2**) |
+| L4′ — `r_i ≡ 2 (mod 3)` for `i ≥ 2` forces the backward image to be an earlier `r_j` | **PROVED** from **L1** | **genuinely new as stated**, and it explains the mod-12 census |
+| M1 — 0 isometry failures and 0 balanced violations over several thousand rows | **VERIFIED** | the stop rule did not fire |
+| M1's ceiling constant is per block and `≈ 1`, not `2.41`; and there is **no** ceiling off the balanced class | **PROVED** | **a correction to the brief** |
+| off the balanced class the height bound fails unboundedly while the ceiling's conclusion survives for an unrelated reason | **VERIFIED** | records what Correction 2 does and does not claim |
+| M2 — record holders share 1–3 valuations with the best Sturmian shift, out of depths to 236 | **VERIFIED** | **clean negative**; they are not Sturmian-adjacent |
+| M2 — they end drift-critical (`D` at the last step 0–4) | **VERIFIED** | explained by known facts (`Divergence.LastMaximum`) |
+| M3/M4 — one isolated top level (the rational points of `K`, `E = ∞`, all negative by P1), then a continuum `2.5 … 5.7` | **VERIFIED** | **genuinely new as an observation**; the mechanism is P1 |
+| M4 — the three top record holders reach their exponent through the *same* rational `−1` | **VERIFIED** | a coincidence, not three |
+| Q4 — the signed border oscillates, `v₂` stays in `5 … 17` while `log₂m` triples | **VERIFIED** | **closed**: record holders do not approach the rational points of `K` |
+| C3-shuffle — the `2^{25}` vs `2^{370}` gap is a **selection effect**; the wrong null for size | **HEURISTIC** (the reading), **VERIFIED** (the numbers) | **a correction to the interpretation** |
+| `q_N(0) = (2/3)p_N(0)` exactly | **PROVED**, **VERIFIED** to `N = 14` | — |
+| `p_N(0)` computed exactly by transfer recursion; `= 2^{−3.28}·2^{−I₀N}·N^{−3/2}` over `N = 100…300` | **VERIFIED** numerically; exponent **CITED** | **an exact-arithmetic confirmation of Scale 2** |
+| the `−0.0101 → −0.0033` slope change from dropping early holders | **VERIFIED** | **an artefact, caught by the pre-registration** |
+| Q5 — B vs A1 undecidable at `n_eff ≈ 7`; growth exponent `0.0737`, CI `[0.0611, 0.0873]` ∋ `I₀` | **HEURISTIC** | **closed for now**: the range that can be computed cannot separate them |
+| the count excess sits immediately above `r₁(N)` and nowhere else | **VERIFIED** | clustering; **HEURISTIC** as an explanation |
+
+## The stop rule
+
+> **It fires.** The pre-registered rule was: *stop and report if every candidate pattern is
+> reproduced by the controls or reduces to known facts.* Every pattern in the table above is
+> either a proved lemma of `Descent`/`Divergence`/this audit, a control artefact, a selection
+> effect, or a measurement that came out null. **No structure was found in the record holders
+> that is not accounted for.** That is a valid, recordable result: **this route is closed.**
+
+**Nothing in this audit bears on (DE), on Open Problem C, or on the Collatz conjecture.** §5.1
+records the arithmetic that bounds how much the one open numerical question — whether `Δ` drifts
+— could ever matter: even the largest decline in the data leaves a growth exponent of `0.069`,
+and stopping the growth would need eight times that, of a different character.
+
+## Proposed follow-ups — proposed only, not written
+
+1. **Extend `r₁` to `N ≈ 390`** with a class-tree search rather than a linear scan (§2.2's wall).
+   The only value would be more jump points for Q5; at `n_eff ≈ 7` from 23 holders, roughly
+   doubling the distinct holders is what it would take to separate B from A1.
+2. **Formalize L4′** in the `Descent` library — it is four lines from L1 and currently only in
+   this report.
+3. **Formalize P1** (`m = C_L/(2^{S_L} − 3^L) < 0`) — it is the aggregate identity plus unique
+   factorisation, and it would put the signed marker on the same footing as L1/L2/L4/L7.
+4. **The `3x−1` mirror conjugacy** deserves a one-line lemma somewhere durable; it collapses two
+   controls into one and is the cleanest statement of where the sign enters.
