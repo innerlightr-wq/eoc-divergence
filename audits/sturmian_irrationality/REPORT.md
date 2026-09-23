@@ -368,3 +368,111 @@ python3 task4.py 480000 12  # valuation law, shells 2..12   (~30 s)
 python3 task5.py            # rational-point controls
 ```
 
+
+---
+
+# Phase 1c — irrationality of `Φ(c_s)` for every irrational slope
+
+Raw-map (parity-vector) coordinates: `T(x) = x/2` (even), `(3x+1)/2` (odd) on `ℤ₂`; `Φ(v)` is the
+unique `x ∈ ℤ₂` with parity vector `v`. Working directory `phase1c/`.
+
+## Task 0 — López–Stoll comparison: **BLOCKED**
+
+> J. López, P. Stoll, *The 3x+1 conjugacy map over a Sturmian word*, **Integers 9** (2009) A13.
+
+**The PDF is not in `sources/` and is not present anywhere on this machine** (searched
+`~/Downloads`, `~/GitHub`, `~/Documents`). This session's web-search budget is also exhausted.
+Per the brief's own instruction — *"otherwise STOP and ask me for it"* — **Task 0 is stopped and
+the paper is requested.**
+
+Consequence for the audit: the stop rule *"STOP at Task 0 if López–Stoll already prove it"*
+**cannot be evaluated**. Everything below is therefore framework only, and **no novelty or
+priority claim is made or may be made** until Task 0 is completed. It is entirely possible that
+López–Stoll, or the `arXiv:2101.12747` line, already contains part or all of Task 3.
+
+## Task 1 — framework
+
+### 1.1 Isometry — **CITED**, verified
+
+> **Bernstein–Lagarias (1996)**, *The 3x+1 conjugacy map*, Canad. J. Math. **48**: the parity-vector
+> map `Q : ℤ₂ → ℤ₂` is a 2-adic **isometry** conjugating `T` to the shift. Hence with `Φ = Q^{-1}`,
+> `|Φ(v) − Φ(w)|₂ = |v − w|₂`, i.e.
+>
+> ```
+> v₂( Φ(v) − Φ(w) )  =  length of the longest common prefix of v and w.
+> ```
+
+**VERIFIED**: 200 random pairs agreeing to a prescribed length `L` and differing at `L`, at
+`K = 400`: `v₂(Φ(a) − Φ(b)) = L` in every case.
+
+### 1.2 Closed form — **PROVED**, verified
+
+`T(x) = (3^{v}x + v)/2` with `v = x mod 2`, so `2x_{j+1} = 3^{v_j}x_j + v_j`. With
+`k_j = #{i < j : v_i = 1}`, induction gives
+
+```
+2^j x_j  =  3^{k_j} x_0  +  Σ_{i<j} 3^{k_j − k_{i+1}} 2^i v_i .
+```
+
+Dividing by `3^{k_j}` and letting `j → ∞` — the remainder `2^j 3^{−k_j} x_j` has `v₂ ≥ j → 0` in
+`ℤ₂` — yields
+
+> ```
+> Φ(v)  =  − Σ_{i : v_i = 1} 3^{−k_{i+1}} 2^{i} ,        k_{i+1} = #{ i' ≤ i : v_{i'} = 1 } .
+> ```
+
+*Check.* `v = 1^∞`: `k_{i+1} = i+1`, so `Φ = −⅓Σ(2/3)^i = −1`. ✓ `v = 0^∞ ↦ 0`. ✓
+
+**VERIFIED**: `Φ(1^∞) ≡ −1` and `Φ(0^∞) = 0` mod `2^400`; and for 200 random words the closed
+form's output, iterated through `T` for 200 steps, reproduces the prescribed parity vector exactly.
+
+### 1.3 Periodic words — **PROVED**, verified; **and a correction to the stated height bound**
+
+Grouping `i = tℓ + r` and summing the 2-adic geometric series `Σ_t (2^ℓ3^{−k})^t`
+(`v₂(2^ℓ3^{−k}) = ℓ ≥ 1`):
+
+> ```
+> Φ(w^∞)  =  c_w / (2^ℓ − 3^k) ,      c_w = Σ_{r<ℓ, w_r=1} 3^{\,k − κ_{r+1}} 2^{r} ∈ ℤ ,
+> ```
+
+with `κ_{r+1} = #{i ≤ r : w_i = 1}`. **VERIFIED** against the closed form for 300 random periods
+of length `≤ 14`, mod `2^400`: exact agreement in every case.
+
+> ⚠ **The height bound `|c_w| ≤ ℓ·max(2^ℓ, 3^k)` is FALSE for general `w`.**
+>
+> Writing `a_r = k − κ_{r+1}` (ones strictly after `r`), the term is `3^{a_r}2^{r}`. For a word
+> whose ones are all at the *end*, `a_r` and `r` are both large together and the term outruns
+> both `2^ℓ` and `3^k`. Explicitly, for `w = 0^{10}1^{10}`:
+> ```
+> c_w = 1024·(3^{10} − 2^{10}) = 59 417 600 ,   ℓ·max(2^ℓ,3^k) = 20·2^{20} = 20 971 520 ,
+> ```
+> a ratio of **2.83**. Exhaustive search over *all* words of each length shows the first failure
+> at `ℓ = 10` (`w = 0000111111`, ratio 1.039) and the ratio growing steadily — 4.75 at `ℓ = 18`,
+> with the extremal witness always of the form `0^a1^b`. It is unbounded.
+
+The bound **does** hold once the word is balanced, which is the only case Task 3 needs:
+
+> **Proposition (corrected height bound).** If `w` is a mechanical word of length `ℓ` with `k`
+> ones, then `|c_w| ≤ 3ℓ · max(2^ℓ, 3^k)`.
+>
+> *Proof.* Balance gives `a_r ≤ s(ℓ−1−r) + 1` with `s = k/ℓ`. Hence
+> `3^{a_r}2^r ≤ 3·2^{\,r + s(ℓ−1−r)log₂3}`, whose exponent is **linear** in `r`, so the maximum is
+> at an endpoint: `r = 0` gives `≤ 3·3^{k}`, `r = ℓ−1` gives `≤ 3·2^{ℓ−1}`. Summing `≤ ℓ` terms
+> gives the claim. ∎
+
+**VERIFIED**: over **all** Christoffel words with `q < 400` (48 000-odd words), the worst value of
+`|c_w| / (ℓ·max(2^ℓ,3^k))` is **0.4531**, at `(p,q) = (200,317)` — so even the un-corrected
+constant holds comfortably on mechanical words. The factor 3 in the Proposition is slack.
+
+**Effect on the plan.** `log₂|c_w| ≤ max(ℓ, k·log₂3) + log₂(3ℓ)`, which is exactly the ceiling
+Task 1.4 asks for, with `O(1) = log₂3`. So Task 3's arithmetic is unaffected — but the
+balancedness hypothesis must be carried explicitly, and a version of Task 3 applied to arbitrary
+periodic approximants would be **unsound**.
+
+## Reproduction
+
+```bash
+cd audits/sturmian_irrationality/phase1c
+python3 conj.py      # 1.1 isometry, 1.2 closed form, 1.3 periodic values
+python3 height.py    # the height-bound counterexample and the mechanical-word scan
+```
