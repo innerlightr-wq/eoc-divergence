@@ -238,9 +238,14 @@ def cmd_audit():
         chk("n=%-2d  identity (p_n+p_{n+1}) a D_n = 1 + p_n a (D_n - D_{n+1})" % n,
             abs(lhs-rhs) < Decimal(10)**-60)
         chk("n=%-2d  that quantity lies in (1,2)" % n, 1 < lhs < 2)
-        chk("n=%-2d  p_{n+1} a D_n < 1" % n, pn1*al*Dn < 1)
+        chk("n=%-2d  (eq:pn1)  p_{n+1} a D_n = 1 - p_n a D_{n+1} < 1" % n,
+            abs(pn1*al*Dn - (1 - pn*al*Dn1)) < Decimal(10)**-60 and pn1*al*Dn < 1)
+        chk("n=%-2d  floor gap: (p_n+p_{n+1}) a D_n / p_n < 1" % n, lhs/pn < 1)
         chk("n=%-2d  m_{p_{n+1}} = p_n - 1" % n, (pn1*qn) % pn == pn - 1)
         chk("n=%-2d  D_n < 1/q_{n+1}" % n, Dn < Decimal(1)/qn1)
+
+    print("\nSection 1, the critical growth rate:")
+    chk("3^beta / 2 = 1", abs(Decimal(3)**b/2 - 1) < Decimal(10)**-60)
 
     print("\nTheorem 6.2, the explicit constants:")
     chk("alpha/8 < 0.2", float(al)/8 < 0.2)

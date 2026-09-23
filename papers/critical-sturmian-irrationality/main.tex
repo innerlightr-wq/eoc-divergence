@@ -36,7 +36,7 @@
 \urladdr{https://orcid.org/0009-0007-0190-9143}
 \date{September 2026}
 
-\subjclass[2020]{Primary 11B83; Secondary 11J72, 68R15, 11A55}
+\subjclass[2020]{Primary 11J72; Secondary 11B83, 68R15, 11A55}
 \keywords{$3x+1$ problem, conjugacy map, Sturmian word, 2-adic integers,
 irrationality, continued fractions}
 
@@ -81,9 +81,11 @@ direction only. If $v$ is eventually periodic then $\Ph(v)\in\Q$; the converse i
 Lagarias's Periodicity Conjecture \cite[\S 2]{Lagarias1985}, which is open, and
 which asserts that no aperiodic parity vector has a rational $\Ph$-value. Very
 little is known unconditionally in that direction. L\'opez and Stoll
-\cite{LopezStoll2009} studied $\Ph$ on Sturmian parity words, produced a $2$-adic
-series and a generalised continued fraction for the values, computed examples
-suggesting full complexity of the images, and wrote that they had no proof.
+\cite{LopezStoll2009} studied $\Ph$ on Sturmian parity words and produced a
+$2$-adic series and a generalised continued fraction for the values. They state
+in their abstract that it is unknown whether there exists any aperiodic $v$ with
+an eventually periodic $\Ph(v)$, and that their computed examples suggest that
+$\Ph$ always maps Sturmian words to words of full complexity.
 
 This paper settles one explicit word. Let
 \[
@@ -92,8 +94,10 @@ This paper settles one explicit word. Let
 and let $1c_\beta$ be the Sturmian word of slope $\beta$ and intercept $0$ in the
 notation of \cite{LopezStoll2009}, namely $1c_\beta(j)=\lceil (j+1)\beta\rceil-\lceil
 j\beta\rceil$ for $j\ge 0$. Its ones-density is $\beta$, the critical density for
-the $3x+1$ map: a parity word of ones-density $\beta$ describes an orbit whose
-size is asymptotically neither growing nor shrinking.
+the $3x+1$ map: by \eqref{eq:Tn} below, an orbit whose parity word has
+$k_\ell/\ell\to\beta$ satisfies
+$\bigl(3^{k_\ell}/2^{\ell}\bigr)^{1/\ell}\to 3^{\beta}/2=1$, so its
+multiplicative growth rate is exactly $1$.
 
 \begin{theorem}\label{thm:main-intro}
 $\Ph(1c_\beta)\notin\Q$. Equivalently, the $2$-adic expansion of $\Ph(1c_\beta)$
@@ -105,10 +109,11 @@ Stoll's irrationality results in \cite{LopezStoll2009} concern the \emph{real}
 function $\Ph_\R$ and hold on $\Q\cap(\beta,1]$, with a dual construction below
 $\beta$; the restriction is forced, because the relevant real series converges if
 and only if $\beta<p/q\le 1$, and their staircase diverges at $x=\beta$. Their
-later work \cite{LopezStoll2021} proves aperiodicity of the parity words for
-ones-density \emph{strictly} above $\beta$, and its Theorem~1 shows that a
-divergent trajectory of a rational $2$-adic integer would have ones-density
-exactly $\beta$. The word of Theorem~\ref{thm:main-intro} sits at that single
+later preprint \cite{LopezStoll2021} proves that $\Ph$ maps an aperiodic parity
+word whose \emph{lower} ones-density is \emph{strictly} greater than $\beta$ to
+an aperiodic $2$-adic integer, and its Theorem~1 shows that a divergent
+trajectory of a rational $2$-adic integer would have lower ones-density exactly
+$\beta$. The word of Theorem~\ref{thm:main-intro} sits at that single
 excluded density, and the present argument is $2$-adic rather than archimedean.
 
 \medskip
@@ -408,7 +413,10 @@ $|\eta_n|=D_n/(p_n\beta)$.
 Set $m_j=jq_n \bmod p_n$, so that $\{j\alpha_n\}=m_j/p_n$; since
 $\gcd(p_n,q_n)=1$ we have $m_j\ge1$ for $1\le j<p_n$, and $m_{p_n}=0$.
 
-\emph{(2), $n$ even.} Here $\eta_n>0$, so a mismatch at $j$ means
+\emph{(2), $n$ even.} Over the range $j\le p_n$ used here the two floor
+sequences differ by at most one, since
+$j|\eta_n|\le p_n|\eta_n|=\alpha D_n<\alpha/q_{n+1}<1$; the equivalence below is
+therefore valid. Here $\eta_n>0$, so a mismatch at $j$ means
 $\lfloor j\alpha_n\rfloor>\lfloor j\alpha\rfloor$, which requires
 $\{j\alpha_n\}<j\eta_n$, i.e. $m_j<jp_n\eta_n=jD_n/\beta=j\alpha D_n$. For
 $1\le j<p_n$ this fails, because $m_j\ge1$ while
@@ -441,10 +449,21 @@ so, multiplying by $\alpha=1/\beta$ and using $p_n=\beta q_n+D_n$,
 \end{equation}
 Note $0<p_n\alpha(D_n-D_{n+1})<(q_n+1)D_n\le (q_n+1)/q_{n+1}\le1$, because
 $p_n\alpha=q_n+\alpha D_n<q_n+1$ and $q_{n+1}\ge q_n+1$; so the left side of
-\eqref{eq:ident} lies in $(1,2)$. In particular $p_{n+1}\alpha D_n<1$.
+\eqref{eq:ident} lies in $(1,2)$. Subtracting $p_n\alpha D_n$ from
+\eqref{eq:ident} gives moreover
+\begin{equation}\label{eq:pn1}
+p_{n+1}\alpha D_n=1-p_n\alpha D_{n+1}<1 .
+\end{equation}
+Finally, over the range of indices used below the two floor sequences differ by
+at most one: for $j\le p_n+p_{n+1}$,
+\[
+j|\eta_n|=\frac{j\,\alpha D_n}{p_n}\le\frac{(p_n+p_{n+1})\alpha D_n}{p_n}<\frac{2}{p_n}\le 1,
+\]
+since $p_n\ge2$ for $n\ge3$. This is what makes \eqref{eq:mis} an equivalence.
 
 Now no $j\le p_{n+1}$ satisfies \eqref{eq:mis}: since $m_j\le p_n-1$, it would
-force $j\alpha D_n\ge1$, whereas $j\alpha D_n\le p_{n+1}\alpha D_n<1$. Next, for
+force $j\alpha D_n\ge1$, whereas $j\alpha D_n\le p_{n+1}\alpha D_n<1$ by
+\eqref{eq:pn1}. Next, for
 $j=p_{n+1}+i$ with $1\le i\le p_n-1$ we have $m_j=(iq_n\bmod p_n)-1\le p_n-2$ by
 \eqref{eq:mstar}, since $iq_n\not\equiv0\pmod{p_n}$; and
 $j\alpha D_n<(p_n+p_{n+1})\alpha D_n<2$, so
@@ -543,7 +562,8 @@ is finite, so $M_n\ne0$, and therefore
 
 \emph{Archimedean size.} By Lemma~\ref{lem:height}, $c_n\le q_n\,3^{p_n}$. Hence
 \[
-|M_n|\le |u|\,|\delta_n|+v\,c_n\le H\bigl(3^{p_n}+q_n3^{p_n}\bigr)
+|M_n|\le |u|\,|\delta_n|+v\,c_n
+\le H\cdot 3^{p_n}+H\cdot q_n\cdot 3^{p_n}
 =H(1+q_n)3^{p_n}\le 2Hq_n\,3^{p_n}.
 \]
 Now $3^{p_n}=2^{\,p_n\alpha}$ and $p_n\alpha-q_n=\alpha(p_n-q_n\beta)=\alpha D_n$,
