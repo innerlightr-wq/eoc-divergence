@@ -1,0 +1,6 @@
+# Third-party papers are not redistributed from this public repository.
+# Keep local copies in sources/; SOURCES.md records where each one came from.
+# (A second, narrower .gitignore lives in sources/ on the paper/v2-all-slopes
+#  branch; both rules apply once that branch merges.)
+sources/*.pdf
+sources/*.txt
