@@ -1,0 +1,813 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{convention}[theorem]{Convention}
+
+\newcommand{\Zt}{\mathbb{Z}_2}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\vt}{v_2}
+\newcommand{\lcp}{\operatorname{lcp}}
+\DeclareMathOperator{\Ph}{\Phi}
+
+\begin{document}
+
+\title[The critical Sturmian word has irrational conjugacy value]
+{The $3x+1$ conjugacy map sends the critical Sturmian word\\ to an irrational
+2-adic integer}
+
+\author{Elias De Jes\'us}
+\address{Independent Researcher}
+\email{dejesuselias10@gmail.com}
+\urladdr{https://orcid.org/0009-0007-0190-9143}
+\date{September 2026}
+
+\subjclass[2020]{Primary 11J72; Secondary 11B83, 68R15, 11A55}
+\keywords{$3x+1$ problem, conjugacy map, Sturmian word, 2-adic integers,
+irrationality, continued fractions}
+
+\begin{abstract}
+Let $T$ be the $3x+1$ map on the $2$-adic integers and let $\Ph$ be the
+Bernstein--Lagarias conjugacy map, which sends a parity vector to the unique
+$2$-adic integer realising it. Let $\beta=\ln 2/\ln 3$ and let $1c_\beta$ be the
+Sturmian word of slope $\beta$ studied by L\'opez and Stoll, the parity word of
+critical ones-density. We prove that $\Ph(1c_\beta)$ is irrational, that is, its
+$2$-adic expansion is not eventually periodic. The proof is elementary and
+effective: the periodic words attached to the convergents $p_n/q_n$ of $\beta$
+have $\Ph$-values $c_n/(2^{q_n}-3^{p_n})$ whose numerators are small because the
+words are mechanical, while at the convergents with $p_n/q_n>\beta$ these values
+agree with $\Ph(1c_\beta)$ to $2$-adic depth exactly $q_n+q_{n+1}-1$; a Liouville
+comparison between the two closes the argument, using no property of the
+continued fraction of $\beta$ beyond $q_n\to\infty$. Consequences: the same holds
+for $\Ph(c_\beta)$, for $\Ph(0c_\beta)$ and for every shift of $1c_\beta$; and for
+no odd $q\ge 1$ does the generalised $3x+q$ map possess an integer orbit whose
+parity word is $1c_\beta$. The periodic approximants and their approximation
+depths go back to L\'opez and Stoll (2009), who state the corresponding
+$2$-adic question as open; no prior proof is known.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let $T\colon\Zt\to\Zt$ be the $3x+1$ map in its standard form,
+\[
+T(x)=\begin{cases} x/2, & x\equiv 0 \pmod 2,\\[2pt] (3x+1)/2, & x\equiv 1\pmod 2.\end{cases}
+\]
+The \emph{parity vector} of $x\in\Zt$ is the sequence
+$v(x)=(v_0,v_1,\dots)\in\{0,1\}^{\N}$ with $v_i\equiv T^i(x)\pmod 2$. Bernstein
+and Lagarias \cite{BernsteinLagarias1996,Bernstein1994} showed that
+$x\mapsto v(x)$ is a bijection onto $\{0,1\}^{\N}$, indeed a $2$-adic isometry
+once $\{0,1\}^{\N}$ is identified with $\Zt$ through binary expansions; we write
+$\Ph$ for its inverse, so that $\Ph(v)$ is the unique $2$-adic integer whose
+parity vector is $v$. Conjugating $T$ by $\Ph$ turns it into the shift.
+
+Rationality of $\Ph(v)$ corresponds to eventual periodicity of $v$ in one
+direction only. If $v$ is eventually periodic then $\Ph(v)\in\Q$; the converse is
+Lagarias's Periodicity Conjecture \cite[\S 2]{Lagarias1985}, which is open, and
+which asserts that no aperiodic parity vector has a rational $\Ph$-value. Very
+little is known unconditionally in that direction. L\'opez and Stoll
+\cite{LopezStoll2009} studied $\Ph$ on Sturmian parity words and produced a
+$2$-adic series and a generalised continued fraction for the values. They state
+in their abstract that it is unknown whether there exists any aperiodic $v$ with
+an eventually periodic $\Ph(v)$, and that their computed examples suggest that
+$\Ph$ always maps Sturmian words to words of full complexity.
+
+This paper settles one explicit word. Let
+\[
+\beta=\frac{\ln 2}{\ln 3}=\log_3 2 = 0.63092975\ldots,\qquad \alpha=1/\beta=\log_2 3,
+\]
+and let $1c_\beta$ be the Sturmian word of slope $\beta$ and intercept $0$ in the
+notation of \cite{LopezStoll2009}, namely $1c_\beta(j)=\lceil (j+1)\beta\rceil-\lceil
+j\beta\rceil$ for $j\ge 0$. Its ones-density is $\beta$, the critical density for
+the $3x+1$ map: by \eqref{eq:Tn} below, an orbit whose parity word has
+$k_\ell/\ell\to\beta$ satisfies
+$\bigl(3^{k_\ell}/2^{\ell}\bigr)^{1/\ell}\to 3^{\beta}/2=1$, so its
+multiplicative growth rate is exactly $1$.
+
+\begin{theorem}\label{thm:main-intro}
+$\Ph(1c_\beta)\notin\Q$. Equivalently, the $2$-adic expansion of $\Ph(1c_\beta)$
+is not eventually periodic.
+\end{theorem}
+
+The critical density is exactly where the existing methods stop. L\'opez and
+Stoll's irrationality results in \cite{LopezStoll2009} concern the \emph{real}
+function $\Ph_\R$ and hold on $\Q\cap(\beta,1]$, with a dual construction below
+$\beta$; the restriction is forced, because the relevant real series converges if
+and only if $\beta<p/q\le 1$, and their staircase diverges at $x=\beta$. Their
+later preprint \cite{LopezStoll2021} proves that $\Ph$ maps an aperiodic parity
+word whose \emph{lower} ones-density is \emph{strictly} greater than $\beta$ to
+an aperiodic $2$-adic integer, and its Theorem~1 shows that a divergent
+trajectory of a rational $2$-adic integer would have lower ones-density exactly
+$\beta$. The word of Theorem~\ref{thm:main-intro} sits at that single
+excluded density, and the present argument is $2$-adic rather than archimedean.
+
+\medskip
+\noindent\textbf{Method.} Three ingredients, each elementary.
+
+\begin{enumerate}
+\item[(i)] For a finite word $w$ of length $\ell$ with $k$ ones, the periodic
+word $w^\infty$ has $\Ph(w^\infty)=c_w/(2^{\ell}-3^{k})$ with $c_w$ an explicit
+positive integer (Proposition~\ref{prop:periodic}). When $w$ is
+\emph{mechanical}, $c_w\le \ell\max(2^\ell,3^k)$
+(Lemma~\ref{lem:height}); for general $w$ no such bound holds, at any constant
+(Remark~\ref{rem:unbalanced}).
+\item[(ii)] Let $p_n/q_n$ be the convergents of $\beta$ and $w_n$ the mechanical
+word of slope $p_n/q_n$. Then $\Ph(w_n^\infty)$ agrees with $\Ph(1c_\beta)$ to
+$2$-adic depth exactly $q_n-1$ when $p_n/q_n<\beta$, and to depth exactly
+$q_n+q_{n+1}-1$ when $p_n/q_n>\beta$ (Theorem~\ref{thm:depth}). The asymmetry is
+the point: $1c_\beta$ is approached from one side, and the convergents on that
+side see one full continued-fraction level further.
+\item[(iii)] If $\Ph(1c_\beta)=u/v$ then the integer $M_n=u\delta_n-vc_n$ is
+nonzero with $\vt(M_n)$ equal to the depth in (ii), so $|M_n|\ge 2^{q_n+q_{n+1}-1}$,
+while (i) gives $|M_n|\le 4Hq_n2^{q_n}$ with $H=\max(|u|,v)$. Hence
+$q_{n+1}\le 3+\log_2H+\log_2q_n$, which fails for large~$n$
+(Theorem~\ref{thm:main}).
+\end{enumerate}
+
+No property of the continued fraction of $\beta$ is used beyond $q_n\to\infty$:
+no irrationality measure for $\beta$, no bound on its partial quotients. The
+argument is effective, and yields an explicit height below which no rational can
+lie (Corollary~\ref{cor:shadow}).
+
+\medskip
+\noindent\textbf{Credit.} The periodic approximants and their approximation
+depths are not new. For every irrational slope, \cite[Theorem~1]{LopezStoll2009}
+gives a closed $2$-adic series for $\Ph(1c_\beta)$ indexed by consecutive pairs
+of continued-fraction convergents, whose term exponents are $q_{j+1}+q_j-1$;
+these are the depths of Theorem~\ref{thm:depth} at the convergents from above.
+A companion technical note of the author \cite{DeJesusA} derived the depths at
+both parities independently, and more sharply, in the coordinates of the
+accelerated $3x+1$ map. What is new here is ingredient (iii), the Liouville
+comparison, and the irrationality conclusion. No prior proof is known; the
+question is stated as open in L\'opez--Stoll (2009) and treated as open in
+L\'opez--Stoll (2021).
+
+\medskip
+\noindent\textbf{Scope.} Theorem~\ref{thm:main-intro} concerns one explicit word
+of critical density, together with its shifts and the two variants
+$c_\beta,0c_\beta$. It says nothing about divergent orbits of positive integers,
+nothing about the Periodicity Conjecture in general --- which quantifies over all
+aperiodic parity vectors, an uncountable family --- and nothing about the
+Collatz conjecture. The paper is self-contained: every object is defined here,
+and no machinery from \cite{DeJesusA,DeJesusB} is needed to read it.
+
+\section{The conjugacy map}\label{sec:phi}
+
+Throughout, $\vt$ is the $2$-adic valuation on $\Zt$ with $\vt(0)=\infty$, and
+for $v,v'\in\{0,1\}^{\N}$ we write $\lcp(v,v')$ for the length of their longest
+common prefix. For $v\in\{0,1\}^{\N}$ and $m\ge 0$ put
+\[
+k_m(v)=\#\{\,i<m:\ v_i=1\,\},
+\]
+the number of ones among $v_0,\dots,v_{m-1}$; thus $k_0(v)=0$.
+
+The one-step identity $T(x)=(3^{\,v_0}x+v_0)/2$, valid for both parities, gives by
+induction the standard formula
+\begin{equation}\label{eq:Tn}
+T^n(x)=\frac{3^{\,k_n}x+c_n}{2^{\,n}},\qquad
+c_n=c_n(v)=\!\!\sum_{i<n,\ v_i=1}\!\! 3^{\,k_n-k_{i+1}}2^{\,i},
+\end{equation}
+where $v=v(x)$ and $k_m=k_m(v)$. Indeed $c_0=0$ and
+$c_{n+1}=3^{\,v_n}c_n+v_n2^{\,n}$.
+
+\begin{proposition}\label{prop:closed}
+Let $v\in\{0,1\}^{\N}$ contain infinitely many ones. Then the series below
+converges in $\Zt$ and
+\[
+\Ph(v)=-\sum_{i:\,v_i=1} 3^{-k_{i+1}(v)}\,2^{\,i}.
+\]
+\end{proposition}
+
+\begin{proof}
+Each $3^{-k_{i+1}}$ is a $2$-adic unit and $\vt\bigl(3^{-k_{i+1}}2^i\bigr)=i$, so
+the terms tend to $0$ and the series converges. Let $x=\Ph(v)$. Rearranging
+\eqref{eq:Tn} gives $3^{\,k_n}x=2^{\,n}T^n(x)-c_n$, whence
+\[
+x=\frac{2^{\,n}T^n(x)}{3^{\,k_n}}-\frac{c_n}{3^{\,k_n}}
+ =\frac{2^{\,n}T^n(x)}{3^{\,k_n}}-\sum_{i<n,\ v_i=1}3^{-k_{i+1}}2^{\,i}.
+\]
+Since $T^n(x)\in\Zt$ and $3^{-k_n}$ is a unit, the first term has valuation at
+least $n$, so it tends to $0$; letting $n\to\infty$ gives the claim.
+\end{proof}
+
+\begin{proposition}\label{prop:isometry}
+For all $v,v'\in\{0,1\}^{\N}$,
+\[
+\vt\bigl(\Ph(v)-\Ph(v')\bigr)=\lcp(v,v').
+\]
+\end{proposition}
+
+\begin{proof}
+Fix $L\ge 1$. By \eqref{eq:Tn} with $n=L$ we have
+$3^{\,k_L}x\equiv -c_L \pmod{2^{L}}$, so
+$x\equiv -c_L\,3^{-k_L}\pmod{2^{L}}$; and $k_L$, $c_L$ depend only on
+$v_0,\dots,v_{L-1}$. Hence $x\bmod 2^{L}$ is determined by the first $L$ letters
+of $v(x)$. Conversely $v_0,\dots,v_{L-1}$ are determined by $x\bmod 2^{L}$, by
+induction on $L$: $v_0\equiv x\pmod 2$, and $T(x)\bmod 2^{L-1}$ is determined by
+$x \bmod 2^{L}$. So $v\mapsto \Ph(v)\bmod 2^{L}$ is a bijection from
+$\{0,1\}^{L}$ onto $\Z/2^{L}\Z$. Consequently
+$\Ph(v)\equiv\Ph(v')\pmod{2^{L}}$ if and only if $v$ and $v'$ agree in their
+first $L$ letters, which is the assertion.
+\end{proof}
+
+\begin{proposition}\label{prop:shift}
+Let $\sigma$ denote the shift on $\{0,1\}^{\N}$. Then $\Ph(\sigma v)=T(\Ph(v))$,
+and $\Ph(v)$ is odd if and only if $v_0=1$.
+\end{proposition}
+
+\begin{proof}
+The parity vector of $T(x)$ is $\sigma v(x)$ by definition, and $v_0(x)\equiv
+x\pmod 2$.
+\end{proof}
+
+\section{The critical Sturmian word}\label{sec:word}
+
+Let $\beta=\log_32\in(0,1)$ and $\alpha=1/\beta=\log_23$, both irrational. In the
+notation of \cite{LopezStoll2009},
+\[
+1c_\beta(j)=\lceil (j+1)\beta\rceil-\lceil j\beta\rceil,\qquad
+0c_\beta(j)=\lfloor (j+1)\beta\rfloor-\lfloor j\beta\rfloor \qquad (j\ge 0),
+\]
+and $c_\beta$ denotes the characteristic word $c_\beta(j)=\lfloor
+(j+1)\beta\rfloor-\lfloor j\beta\rfloor$ for $j\ge1$. Since $\beta\in(0,1)$ is
+irrational, $1c_\beta=1\,c_\beta$ and $0c_\beta=0\,c_\beta$.
+
+\begin{lemma}\label{lem:ones}
+For $n\ge 0$ we have $k_n(1c_\beta)=\lceil n\beta\rceil$, and for $j\ge 0$ the
+$(j+1)$-st one of $1c_\beta$ occupies position $\lfloor j\alpha\rfloor$.
+\end{lemma}
+
+\begin{proof}
+The first claim is a telescoping sum. For the second, position $i$ carries the
+$(j+1)$-st one exactly when $k_i(1c_\beta)=j$ and $k_{i+1}(1c_\beta)=j+1$, that
+is, $\lceil i\beta\rceil\le j$ and $\lceil (i+1)\beta\rceil\ge j+1$. For $j\ge1$
+the first reads $i\beta\le j$, i.e. $i\le j\alpha$, i.e. $i\le\lfloor
+j\alpha\rfloor$ since $j\alpha\notin\Z$; the second reads $(i+1)\beta>j$, i.e.
+$i+1>j\alpha$, i.e. $i\ge\lfloor j\alpha\rfloor$. Hence $i=\lfloor
+j\alpha\rfloor$. For $j=0$ both conditions force $i=0=\lfloor 0\cdot\alpha\rfloor$.
+\end{proof}
+
+\begin{proposition}\label{prop:xi}
+Let $\displaystyle \Xi_\alpha=\sum_{j\ge0}3^{-(j+1)}2^{\lfloor j\alpha\rfloor}\in\Zt$.
+Then $\Ph(1c_\beta)=-\Xi_\alpha$. In particular $\Ph(1c_\beta)$ is a $2$-adic
+unit.
+\end{proposition}
+
+\begin{proof}
+By Lemma~\ref{lem:ones} the ones of $1c_\beta$ are at the positions $\lfloor
+j\alpha\rfloor$, $j\ge0$, and the one at position $\lfloor j\alpha\rfloor$ is the
+$(j+1)$-st, so $k_{i+1}=j+1$ there. Proposition~\ref{prop:closed} gives the
+formula. The term $j=0$ has valuation $0$ and all others have positive
+valuation, so $\vt(\Xi_\alpha)=0$.
+\end{proof}
+
+The constant $\Xi_\alpha$ is the \emph{$2$-adic Sturmian carry constant} of
+\cite{DeJesusA}; Proposition~\ref{prop:xi} is the dictionary between the two
+normalisations, and we shall not need it again. All statements below are about
+$\Ph$.
+
+\section{Periodic values and their heights}\label{sec:periodic}
+
+For a finite word $w=w_0\cdots w_{\ell-1}\in\{0,1\}^{\ell}$ with $k\ge1$ ones we
+write $w^\infty$ for its infinite periodic repetition and put
+\begin{equation}\label{eq:cw}
+c_w=\sum_{i<\ell,\ w_i=1}3^{\,k-k_{i+1}(w)}\,2^{\,i}\ \in\ \Z_{>0}.
+\end{equation}
+
+\begin{proposition}\label{prop:periodic}
+With the notation above, $2^{\ell}\ne 3^{k}$ and
+\[
+\Ph(w^\infty)=\frac{c_w}{2^{\ell}-3^{k}}.
+\]
+\end{proposition}
+
+\begin{proof}
+$2^\ell=3^k$ is impossible for $k\ge1$ by unique factorisation. Write
+$i=t\ell+r$ with $0\le r<\ell$; periodicity gives $k_{i+1}(w^\infty)=tk+k_{r+1}(w)$.
+Grouping the sum of Proposition~\ref{prop:closed} by periods,
+\[
+\Ph(w^\infty)=-\sum_{t\ge0}\ \sum_{r<\ell,\ w_r=1}3^{-(tk+k_{r+1}(w))}2^{\,t\ell+r}
+=-\Bigl(\sum_{r<\ell,\ w_r=1}3^{-k_{r+1}(w)}2^{\,r}\Bigr)\sum_{t\ge0}\bigl(3^{-k}2^{\ell}\bigr)^{t}.
+\]
+The geometric series converges in $\Zt$ because
+$\vt(3^{-k}2^{\ell})=\ell\ge1$, with sum $(1-3^{-k}2^{\ell})^{-1}=3^{k}/(3^{k}-2^{\ell})$.
+Since $c_w=3^{k}\sum_{r<\ell,\,w_r=1}3^{-k_{r+1}(w)}2^{r}$, multiplying gives
+$\Ph(w^\infty)=-c_w/(3^{k}-2^{\ell})$, which is the stated value.
+\end{proof}
+
+For coprime $1\le p\le q$ let $w_{p,q}$ be the \emph{mechanical word of slope
+$p/q$}: the word of length $q$ whose ones occupy the positions $\lfloor
+jq/p\rfloor$ for $0\le j<p$. It has exactly $p$ ones.
+
+\begin{lemma}\label{lem:height}
+Let $w=w_{p,q}$. Then $0<c_w\le q\cdot\max\bigl(2^{q},3^{p}\bigr)$.
+\end{lemma}
+
+\begin{proof}
+Positivity is clear from \eqref{eq:cw}. For $0\le i<q$,
+\[
+k_{i+1}(w)=\#\{\,0\le j<p:\ \lfloor jq/p\rfloor\le i\,\}
+=\#\{\,0\le j<p:\ j<(i+1)p/q\,\}\ \ge\ (i+1)p/q ,
+\]
+the last step because the count is $\min\bigl(p,\lceil (i+1)p/q\rceil\bigr)$ and
+$(i+1)p/q\le p$. Hence $p-k_{i+1}(w)\le p(q-1-i)/q$ and, with
+$\rho=3^{\,p/q}$,
+\[
+3^{\,p-k_{i+1}(w)}2^{\,i}\ \le\ \rho^{\,q-1-i}\,2^{\,i}\ \le\ \max\bigl(\rho^{\,q-1},2^{\,q-1}\bigr)
+\ \le\ \max\bigl(3^{\,p},2^{\,q}\bigr),
+\]
+where the middle inequality holds because $i\mapsto\rho^{\,q-1-i}2^{\,i}$ is
+monotone, so its maximum over $0\le i\le q-1$ is attained at an endpoint. The sum
+\eqref{eq:cw} has at most $q$ terms.
+\end{proof}
+
+\begin{remark}\label{rem:unbalanced}
+The hypothesis that $w$ be mechanical cannot be dropped, and not merely the
+constant is at stake. Take $w=0^{a}1^{a}$, so $\ell=2a$ and $k=a$. Its ones are
+at $i=a,\dots,2a-1$ with $k_{i+1}(w)=i-a+1$, so by \eqref{eq:cw}
+\[
+c_w=\sum_{t=0}^{a-1}3^{\,a-1-t}2^{\,a+t}=2^{\,a}\sum_{t=0}^{a-1}3^{\,a-1-t}2^{\,t}
+ =2^{\,a}\bigl(3^{\,a}-2^{\,a}\bigr).
+\]
+Here $\max(2^{\ell},3^{k})=4^{a}$, so
+\[
+\frac{c_w}{\ell\cdot\max(2^{\ell},3^{k})}=\frac{3^{a}-2^{a}}{2a\cdot 2^{a}}
+=\frac{(3/2)^{a}-1}{2a}\ \xrightarrow[a\to\infty]{}\ \infty .
+\]
+Thus no bound $c_w\le C\ell\max(2^{\ell},3^{k})$ holds for arbitrary $w$, for any
+constant $C$. Numerically the ratio is $2.83$ at $a=10$, $14.56$ at $a=15$ and
+$41.03$ at $a=18$. For an arbitrary \emph{balanced} $w$ the proof of
+Lemma~\ref{lem:height} goes through with the discrepancy bound
+$|k_{i+1}(w)-(i+1)k/\ell|<1$ in place of the exact count, at the cost of a factor
+$3$.
+\end{remark}
+
+\section{The approximation depth}\label{sec:depth}
+
+\begin{convention}\label{conv:conv}
+$p_n/q_n$ denotes the $n$-th convergent of the continued fraction
+\[
+\beta=[0;1,1,1,2,2,3,1,5,2,23,\dots],
+\]
+indexed from $p_0/q_0=0/1$, so that $p_1/q_1=1/1$ and $p_2/q_2=1/2$. Thus $p_n$
+counts ones and $q_n$ counts letters.
+We abbreviate $w_n=w_{p_n,q_n}$ and $\alpha_n=q_n/p_n$, and write
+$D_n=|q_n\beta-p_n|$, so that the classical estimate $D_n<1/q_{n+1}$ holds.
+\end{convention}
+
+\noindent The first convergents are
+\begin{center}\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}r*{7}{c}@{}}
+\toprule
+$n$ & 1 & 2 & 3 & 4 & 5 & 6 & 7\\
+$p_n/q_n$ & $1/1$ & $1/2$ & $2/3$ & $5/8$ & $12/19$ & $41/65$ & $53/84$\\
+\midrule
+$n$ & 8 & 9 & 10 & 11 & 12 & 13 & 14\\
+$p_n/q_n$ & $\frac{306}{485}$ & $\frac{665}{1054}$ & $\frac{15601}{24727}$ &
+$\frac{31867}{50508}$ & $\frac{79335}{125743}$ & $\frac{111202}{176251}$ &
+$\frac{190537}{301994}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Because the convergents alternate about $\beta$ and $p_1/q_1=1>\beta$, we have
+$p_n/q_n>\beta$ exactly when $n$ is odd. Equivalently, comparing exactly,
+$3^{p_n}>2^{q_n}$ if and only if $n$ is odd. Also $q_{n+1}>q_n$ for $n\ge1$.
+
+\begin{lemma}[floor comparison]\label{lem:floor}
+Let $n\ge 3$ and $j^{*}_n=\min\{\,j\ge1:\ \lfloor j\alpha\rfloor\ne\lfloor
+j\alpha_n\rfloor\,\}$.
+\begin{enumerate}
+\item If $n$ is odd, then $j^{*}_n=p_n+p_{n+1}$, and at that index
+$\lfloor j^{*}_n\alpha\rfloor=q_n+q_{n+1}$ while
+$\lfloor j^{*}_n\alpha_n\rfloor=q_n+q_{n+1}-1$.
+\item If $n$ is even, then $j^{*}_n=p_n$, and at that index
+$\lfloor j^{*}_n\alpha\rfloor=q_n-1$ while
+$\lfloor j^{*}_n\alpha_n\rfloor=q_n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Write $\alpha_n-\alpha=\eta_n$. Since $\alpha_n=q_n/p_n$ and $\alpha=1/\beta$,
+\[
+\eta_n=\frac{q_n}{p_n}-\frac1\beta=\frac{q_n\beta-p_n}{p_n\beta},
+\]
+so $\eta_n<0$ when $n$ is odd and $\eta_n>0$ when $n$ is even, and in both cases
+$|\eta_n|=D_n/(p_n\beta)$.
+
+Set $m_j=jq_n \bmod p_n$, so that $\{j\alpha_n\}=m_j/p_n$; since
+$\gcd(p_n,q_n)=1$ we have $m_j\ge1$ for $1\le j<p_n$, and $m_{p_n}=0$.
+
+\emph{(2), $n$ even.} Over the range $j\le p_n$ used here the two floor
+sequences differ by at most one, since
+$j|\eta_n|\le p_n|\eta_n|=\alpha D_n<\alpha/q_{n+1}<1$; the equivalence below is
+therefore valid. Here $\eta_n>0$, so a mismatch at $j$ means
+$\lfloor j\alpha_n\rfloor>\lfloor j\alpha\rfloor$, which requires
+$\{j\alpha_n\}<j\eta_n$, i.e. $m_j<jp_n\eta_n=jD_n/\beta=j\alpha D_n$. For
+$1\le j<p_n$ this fails, because $m_j\ge1$ while
+$j\alpha D_n<p_n\alpha D_n<p_n\alpha/q_{n+1}\le 1$, using $D_n<1/q_{n+1}$ and
+$p_n\alpha<q_n<q_{n+1}$. At $j=p_n$ it holds, since $m_{p_n}=0$. So
+$j^{*}_n=p_n$. The depths: $p_n\alpha_n=q_n$ exactly, so
+$\lfloor p_n\alpha_n\rfloor=q_n$; and $p_n\alpha=q_n-\alpha D_n$ with
+$0<\alpha D_n<\alpha/q_{n+1}<1$, so $\lfloor p_n\alpha\rfloor=q_n-1$.
+
+\emph{(1), $n$ odd.} Here $\eta_n<0$, so a mismatch at $j$ means
+$\lfloor j\alpha_n\rfloor<\lfloor j\alpha\rfloor$, which happens exactly when
+$\{j\alpha_n\}+j|\eta_n|\ge1$, i.e.
+\begin{equation}\label{eq:mis}
+m_j+j\alpha D_n\ \ge\ p_n .
+\end{equation}
+We use two exact facts about consecutive convergents. First,
+$p_{n+1}q_n-p_nq_{n+1}=(-1)^{n}=-1$, so $p_{n+1}q_n\equiv-1\pmod{p_n}$ and
+\begin{equation}\label{eq:mstar}
+m_{p_{n+1}}=p_n-1,\qquad p_{n+1}\alpha_n=q_{n+1}-\tfrac1{p_n}.
+\end{equation}
+Second, writing $p_m=\beta q_m+(-1)^{m+1}D_m$ and using the classical identity
+$q_{n+1}D_n+q_nD_{n+1}=1$,
+\[
+(p_n+p_{n+1})D_n=\beta(q_n+q_{n+1})D_n+D_n(D_n-D_{n+1})
+=\beta+(D_n-D_{n+1})(\beta q_n+D_n),
+\]
+so, multiplying by $\alpha=1/\beta$ and using $p_n=\beta q_n+D_n$,
+\begin{equation}\label{eq:ident}
+(p_n+p_{n+1})\alpha D_n=1+p_n\alpha\,(D_n-D_{n+1}).
+\end{equation}
+Note $0<p_n\alpha(D_n-D_{n+1})<(q_n+1)D_n\le (q_n+1)/q_{n+1}\le1$, because
+$p_n\alpha=q_n+\alpha D_n<q_n+1$ and $q_{n+1}\ge q_n+1$; so the left side of
+\eqref{eq:ident} lies in $(1,2)$. Subtracting $p_n\alpha D_n$ from
+\eqref{eq:ident} gives moreover
+\begin{equation}\label{eq:pn1}
+p_{n+1}\alpha D_n=1-p_n\alpha D_{n+1}<1 .
+\end{equation}
+Finally, over the range of indices used below the two floor sequences differ by
+at most one: for $j\le p_n+p_{n+1}$,
+\[
+j|\eta_n|=\frac{j\,\alpha D_n}{p_n}\le\frac{(p_n+p_{n+1})\alpha D_n}{p_n}<\frac{2}{p_n}\le 1,
+\]
+since $p_n\ge2$ for $n\ge3$. This is what makes \eqref{eq:mis} an equivalence.
+
+Now no $j\le p_{n+1}$ satisfies \eqref{eq:mis}: since $m_j\le p_n-1$, it would
+force $j\alpha D_n\ge1$, whereas $j\alpha D_n\le p_{n+1}\alpha D_n<1$ by
+\eqref{eq:pn1}. Next, for
+$j=p_{n+1}+i$ with $1\le i\le p_n-1$ we have $m_j=(iq_n\bmod p_n)-1\le p_n-2$ by
+\eqref{eq:mstar}, since $iq_n\not\equiv0\pmod{p_n}$; and
+$j\alpha D_n<(p_n+p_{n+1})\alpha D_n<2$, so
+$m_j+j\alpha D_n<(p_n-2)+2=p_n$ and \eqref{eq:mis} again fails. At
+$j^{*}=p_n+p_{n+1}$, however, $m_{j^{*}}=m_{p_{n+1}}=p_n-1$ and, by
+\eqref{eq:ident},
+\[
+m_{j^{*}}+j^{*}\alpha D_n=(p_n-1)+1+p_n\alpha(D_n-D_{n+1})
+= p_n+p_n\alpha(D_n-D_{n+1})\ >\ p_n ,
+\]
+since $D_n>D_{n+1}$. Hence $j^{*}_n=p_n+p_{n+1}$.
+
+The two depths are now exact. By \eqref{eq:mstar},
+$j^{*}\alpha_n=q_n+p_{n+1}\alpha_n=q_n+q_{n+1}-1/p_n$, and $p_n\ge2$, so
+$\lfloor j^{*}\alpha_n\rfloor=q_n+q_{n+1}-1$. Moreover
+$j^{*}\alpha=j^{*}\alpha_n+j^{*}\alpha D_n/p_n$, and by \eqref{eq:ident}
+$j^{*}\alpha D_n/p_n=1/p_n+\alpha(D_n-D_{n+1})$, whence
+\[
+j^{*}\alpha=q_n+q_{n+1}+\alpha\,(D_n-D_{n+1}),\qquad
+0<\alpha(D_n-D_{n+1})<\alpha D_n<\alpha/q_{n+1}<1 ,
+\]
+so $\lfloor j^{*}\alpha\rfloor=q_n+q_{n+1}$.
+\end{proof}
+
+\begin{theorem}[depth law]\label{thm:depth}
+For every $n\ge3$,
+\[
+\vt\bigl(\Ph(1c_\beta)-\Ph(w_n^\infty)\bigr)=\lcp\bigl(1c_\beta,w_n^\infty\bigr)
+=\begin{cases}
+q_n-1, & n\ \text{even},\\[2pt]
+q_n+q_{n+1}-1, & n\ \text{odd}.
+\end{cases}
+\]
+\end{theorem}
+
+\begin{proof}
+The first equality is Proposition~\ref{prop:isometry}. For the second, both words
+are determined by their sets of one-positions: by Lemma~\ref{lem:ones} the ones
+of $1c_\beta$ are at $\lfloor j\alpha\rfloor$, $j\ge0$, and by periodicity the
+ones of $w_n^\infty$ are at $\lfloor j\alpha_n\rfloor$, $j\ge0$ --- indeed
+$\lfloor (j+p_n)\alpha_n\rfloor=\lfloor j\alpha_n\rfloor+q_n$. Both position
+sequences are strictly increasing, and they agree for $j<j^{*}_n$ by definition
+of $j^{*}_n$. Hence the two words agree at every position below
+$\min\bigl(\lfloor j^{*}_n\alpha\rfloor,\lfloor j^{*}_n\alpha_n\rfloor\bigr)$ and
+differ at that position, one of them carrying a one there and the other a zero.
+So the longest common prefix has length
+$\min\bigl(\lfloor j^{*}_n\alpha\rfloor,\lfloor j^{*}_n\alpha_n\rfloor\bigr)$,
+which Lemma~\ref{lem:floor} evaluates as $q_n+q_{n+1}-1$ for odd $n$ and $q_n-1$
+for even $n$.
+\end{proof}
+
+\begin{remark}
+The two cases differ by a whole continued-fraction level, and only the odd case
+is of any use below: for even $n$ the depth $q_n-1$ is smaller than the
+archimedean size of the approximant, and the comparison of
+Section~\ref{sec:main} is vacuous there. The reason for the asymmetry is that
+$1c_\beta$ is the limit of the mechanical words from one side, so a periodic
+extension taken from that side continues to agree with it for one level longer.
+\end{remark}
+
+\section{Irrationality}\label{sec:main}
+
+\begin{theorem}\label{thm:main}
+$\Ph(1c_\beta)\notin\Q$. More precisely, suppose $\Ph(1c_\beta)=u/v$ with
+$u\in\Z$, $v\ge1$, $\gcd(u,v)=1$, and put $H=\max(|u|,v)$. Then every odd
+$n\ge3$ satisfies
+\begin{equation}\label{eq:key}
+q_{n+1}\ \le\ 3+\log_2 H+\log_2 q_n .
+\end{equation}
+Since $q_{n+1}>q_n$ and $q_n\to\infty$ along odd $n$, this is impossible; a
+contradiction has appeared by the first odd $n\ge 3$ with
+$q_n\ge 2\log_2H+20$.
+\end{theorem}
+
+\begin{proof}
+Assume $\Ph(1c_\beta)=u/v$ as stated. As $\Ph(1c_\beta)\in\Zt$, the denominator
+$v$ is odd. Fix an odd $n\ge3$ and write
+\[
+\delta_n=2^{q_n}-3^{p_n},\qquad c_n=c_{w_n},\qquad
+\Ph(w_n^\infty)=\frac{c_n}{\delta_n}
+\]
+by Proposition~\ref{prop:periodic}. Since $n$ is odd, $3^{p_n}>2^{q_n}$, so
+$\delta_n<0$ and $|\delta_n|=3^{p_n}-2^{q_n}<3^{p_n}=\max(2^{q_n},3^{p_n})$. Put
+\[
+M_n=u\,\delta_n-v\,c_n\ \in\ \Z,\qquad\text{so}\qquad
+\Ph(1c_\beta)-\Ph(w_n^\infty)=\frac{M_n}{v\,\delta_n}.
+\]
+
+\emph{$M_n$ is a nonzero integer of known valuation.} Both $v$ and $\delta_n$ are
+odd, so $\vt(M_n)=\vt\bigl(\Ph(1c_\beta)-\Ph(w_n^\infty)\bigr)$, which
+Theorem~\ref{thm:depth} evaluates as $q_n+q_{n+1}-1$. In particular the valuation
+is finite, so $M_n\ne0$, and therefore
+\begin{equation}\label{eq:lower}
+|M_n|\ \ge\ 2^{\,q_n+q_{n+1}-1}.
+\end{equation}
+
+\emph{Archimedean size.} By Lemma~\ref{lem:height}, $c_n\le q_n\,3^{p_n}$. Hence
+\[
+|M_n|\le |u|\,|\delta_n|+v\,c_n
+\le H\cdot 3^{p_n}+H\cdot q_n\cdot 3^{p_n}
+=H(1+q_n)3^{p_n}\le 2Hq_n\,3^{p_n}.
+\]
+Now $3^{p_n}=2^{\,p_n\alpha}$ and $p_n\alpha-q_n=\alpha(p_n-q_n\beta)=\alpha D_n$,
+with $0<\alpha D_n<\alpha/q_{n+1}\le\alpha/8<0.2$ because $n\ge3$ forces
+$q_{n+1}\ge8$. So $3^{p_n}<2^{\,q_n+0.2}<1.15\cdot 2^{q_n}$ and
+\begin{equation}\label{eq:upper}
+|M_n|\ <\ 2.3\,H q_n 2^{q_n}\ \le\ 4Hq_n2^{q_n}.
+\end{equation}
+
+\emph{Comparison.} Combining \eqref{eq:lower} and \eqref{eq:upper},
+$2^{\,q_n+q_{n+1}-1}<4Hq_n2^{q_n}$, that is $2^{\,q_{n+1}-1}<4Hq_n$, and taking
+logarithms gives \eqref{eq:key}.
+
+Finally, \eqref{eq:key} together with $q_{n+1}>q_n$ gives
+\begin{equation}\label{eq:final}
+q_n-\log_2q_n<3+\log_2H .
+\end{equation}
+Suppose $q_n\ge 2\log_2H+20$ and put $Q=q_n$. Then $\log_2H\le (Q-20)/2$, so the
+right-hand side of \eqref{eq:final} is at most $3+(Q-20)/2=Q/2-7$, while the
+left-hand side exceeds $Q/2-7$ because $Q/2+7>\log_2Q$ for every $Q\ge1$. This
+contradicts \eqref{eq:final}. Since $t\mapsto t-\log_2t$ is increasing for
+$t\ge2$, every odd $n$ with $q_n\ge 2\log_2H+20$ is impossible; as there are
+infinitely many odd $n$ and $q_n\to\infty$, such an $n$ exists.
+\end{proof}
+
+\begin{corollary}\label{cor:shadow}
+$\Ph(1c_\beta)$ is not equal to any $u/v$ in lowest terms with
+$\max(|u|,v)\le 2^{301973}$.
+\end{corollary}
+
+\begin{proof}
+Take $n=13$, so $p_n/q_n=111202/176251$ and $q_{n+1}=301994$; the depth
+of Theorem~\ref{thm:depth} is $q_n+q_{n+1}-1=478244$, a value independently
+confirmed by the exact computation of Appendix~\ref{app:verify}. By
+\eqref{eq:lower} and \eqref{eq:upper},
+$2^{478244}\le|M_{13}|<4H\cdot176251\cdot 2^{176251}$, so
+$H>2^{478244-176251}/705004=2^{301993}/705004>2^{301973}$, since
+$705004<2^{20}$.
+\end{proof}
+
+\begin{remark}
+The argument uses no property of the continued fraction of $\beta$ beyond
+$q_n\to\infty$. In particular it needs no irrationality measure for $\beta$ and
+no bound on its partial quotients, and it is effective: by
+Theorem~\ref{thm:main} the contradiction appears at continued-fraction depth
+$O(\log\log H)$.
+\end{remark}
+
+\section{Consequences}\label{sec:cor}
+
+\begin{corollary}\label{cor:variants}
+$\Ph(c_\beta)$ and $\Ph(0c_\beta)$ are irrational.
+\end{corollary}
+
+\begin{proof}
+By Proposition~\ref{prop:shift}, $\Ph(c_\beta)=T(\Ph(1c_\beta))$ and
+$\Ph(c_\beta)=T(\Ph(0c_\beta))$, since $\sigma(1c_\beta)=\sigma(0c_\beta)=c_\beta$.
+As $1c_\beta$ begins with $1$, the value $\Ph(1c_\beta)$ is odd and
+$\Ph(c_\beta)=\bigl(3\Ph(1c_\beta)+1\bigr)/2$; as $0c_\beta$ begins with $0$, the
+value $\Ph(0c_\beta)$ is even and $\Ph(c_\beta)=\Ph(0c_\beta)/2$. Both relations
+are $\Q$-affine with rational coefficients and invertible, so the three values
+are rational or irrational together. Theorem~\ref{thm:main} decides which.
+\end{proof}
+
+\begin{corollary}\label{cor:shifts}
+$\Ph(\sigma^{k}1c_\beta)$ is irrational for every $k\ge0$.
+\end{corollary}
+
+\begin{proof}
+$\Ph(\sigma^{k}1c_\beta)=T^{k}(\Ph(1c_\beta))$ by Proposition~\ref{prop:shift}. It
+therefore suffices that $T(x)\in\Q$ if and only if $x\in\Q$. If $x\in\Q\cap\Zt$
+then $T(x)\in\Q\cap\Zt$. Conversely, $T$ is two-to-one on $\Zt$: the preimages of
+$y$ are $2y$, which is even, and $(2y-1)/3$, which lies in $\Zt$ because $3$ is a
+unit and is odd; the parity of $x$ selects the branch. Both expressions are
+rational when $y$ is.
+\end{proof}
+
+\begin{corollary}\label{cor:3xq}
+Let $q\ge1$ be odd and let $T_q$ be the generalised map $T_q(n)=n/2$ for $n$ even
+and $T_q(n)=(3n+q)/2$ for $n$ odd. There is no $n_0\in\Z$ whose $T_q$-orbit has
+parity word $1c_\beta$, nor any whose parity word is a shift $\sigma^{k}1c_\beta$.
+\end{corollary}
+
+\begin{proof}
+Suppose $n_0\in\Z$ has $T_q$-orbit $(n_j)_{j\ge0}$ with parity word $w$, that is,
+$n_j$ is odd exactly when $w_j=1$. Put $x_j=n_j/q\in\Q$. Then $x_j$ is odd in
+$\Zt$ exactly when $n_j$ is odd, because $q$ is odd, and
+\[
+x_{j+1}=\frac{n_{j+1}}{q}=\frac{3n_j+w_jq}{2q}=\frac{3x_j+w_j}{2},
+\]
+so $x_{j+1}=T(x_j)$ and the parity vector of $x_0$ is $w$. Hence
+$\Ph(w)=x_0\in\Q$. Conversely, if $\Ph(w)=u/v$ in lowest terms with $v$ odd, then
+$n_j=v\,T^{j}(\Ph(w))$ is an integer $T_v$-orbit with parity word $w$. The
+corollary is therefore equivalent to the irrationality of $\Ph(w)$, which is
+Theorem~\ref{thm:main} for $w=1c_\beta$ and Corollary~\ref{cor:shifts} for its
+shifts.
+\end{proof}
+
+\section{Why the $2$-adic place}\label{sec:place}
+
+The series of Proposition~\ref{prop:xi} has no archimedean meaning at this slope,
+and this is not an accident of presentation. Writing $\lfloor
+j\alpha\rfloor=j\alpha-\{j\alpha\}$ and $2^{\alpha}=3$,
+\[
+3^{-(j+1)}2^{\lfloor j\alpha\rfloor}=\tfrac13\,2^{-\{j\alpha\}}\in\bigl(\tfrac16,\tfrac13\bigr]
+\qquad\text{for every }j\ge0,
+\]
+so the terms do not tend to $0$ and the real series diverges. L\'opez and Stoll
+reach the same point from the other side: their real staircase diverges at
+$x=\beta$, and they call the object at that slope a divergent series.
+
+The same identity $2^{\alpha}=3$ places the evaluation point on the boundary of
+the domain of every relevant archimedean theorem. The Hecke--Mahler series
+$f(z_1,z_2)=\sum_{j\ge0}z_1^{\,j}z_2^{\lfloor j\alpha\rfloor}$ is being evaluated
+at $(z_1,z_2)=(1/3,2)$, where $|z_1z_2^{\alpha}|=\tfrac13\cdot 3=1$ exactly.
+Bugeaud and Laurent \cite{BugeaudLaurent2023} prove transcendence at every
+algebraic point with $0<|z_1|,|z_1z_2^{\theta}|<1$ \emph{strictly}, and give
+explicit irrationality exponents at rational points strictly inside that domain;
+our point lies on its boundary. The results of Luca, Ouaknine and Worrell
+\cite{LucaOuaknineWorrell2022,LucaOuaknineWorrell2025} concern series
+$\sum_n f(\lfloor n\theta+\rho\rfloor)\gamma^{-n}$ with $f$ a polynomial, so with
+coefficients of polynomial growth; here the coefficients $2^{\lfloor
+j\alpha\rfloor}$ grow like $3^{j}$, which is precisely what makes the terms
+$\Theta(1)$.
+
+At the $2$-adic place the same resonance is harmless: $\vt(2^{\lfloor
+j\alpha\rfloor})=\lfloor j\alpha\rfloor\to\infty$ while $3^{-(j+1)}$ is a unit, so
+the series converges, and the approximation problem becomes the comparison
+carried out in Section~\ref{sec:main}. The failure of the archimedean theory here
+is a relocation, not a degeneracy.
+
+It is worth contrasting the situation with the rational base $3/2$. For the
+minimal word of that base, Stephan \cite{Stephan2026} obtains transcendence
+criteria, but the irrationality of the associated constant remains open; there
+the natural place is archimedean. Here it is the $2$-adic place at which the
+argument closes, and the reason is the isometry of
+Proposition~\ref{prop:isometry}, which converts the approximation depth into a
+longest common prefix and so into the combinatorics of Sturmian words
+\cite{Lothaire2002}.
+
+\section{Open problems}\label{sec:open}
+
+\begin{enumerate}
+\item \emph{All irrational slopes.} Is $\Ph(1c_\gamma)$ irrational for every
+irrational $\gamma\in(0,1)$? The present proof needs exactly two inputs at the
+convergents of $\gamma$: a depth law at the convergents approaching from the
+side of the word, and a height bound of the shape $c_{w_n}\le
+q_n\max(2^{q_n},3^{p_n})$ for the mechanical words. Lemma~\ref{lem:height} holds
+verbatim for every slope; the delicate point is the depth law, and the two
+regimes $\gamma>\beta$ and $\gamma<\beta$ behave differently because the
+comparison in Theorem~\ref{thm:main} weighs $2^{q_n}$ against $3^{p_n}$, whose
+ratio changes side at $\gamma=\beta$.
+\item \emph{General intercepts.} The same for the mechanical words of slope
+$\beta$ and intercept $\rho\ne0$.
+\item \emph{An irrationality measure.} Is there $\mu<\infty$ and $C>0$ with
+$|\Ph(1c_\beta)-y|_2\ge C|y|^{-\mu}$ for all integers $y\ge1$? By
+\cite[Theorem~5.2]{DeJesusB} any finite $\mu$ would give an exponential lower
+bound on the least positive integers realising the prefixes of this word.
+\item \emph{Transcendence.} Is $\Ph(1c_\beta)$ transcendental over $\Q$? The
+archimedean analogue is known for the Hecke--Mahler values strictly inside the
+domain \cite{BugeaudLaurent2023}; here one would want a $2$-adic Mahler method
+along the continued-fraction chain.
+\end{enumerate}
+
+None of these, and not Theorem~\ref{thm:main} either, bears on divergent orbits
+of positive integers, on the Periodicity Conjecture in general, or on the
+Collatz conjecture.
+
+\appendix
+
+\section{Verification}\label{app:verify}
+
+The script \texttt{scripts/verify.py} accompanying this paper carries out the
+computations below in exact integer and $2$-adic arithmetic; no floating-point
+value enters any decision. Each command is named with the claim it checks.
+
+\begin{itemize}
+\item \texttt{convergents} --- Convention~\ref{conv:conv}: the continued fraction
+of $\beta$ to $368$ rigorously determined partial quotients, the convergents
+$p_n/q_n$ for $n\le14$, and the side of each, decided by the exact integer
+comparison $3^{p_n}$ against $2^{q_n}$.
+\item \texttt{lcp} --- Theorem~\ref{thm:depth} computed as a longest common
+prefix of the two $0/1$ words.
+\item \texttt{depths} --- Theorem~\ref{thm:depth} computed instead $2$-adically,
+as $\vt$ of the difference of $\Ph(1c_\beta)$ and $c_n/\delta_n$ modulo a power
+of $2$ exceeding the predicted depth. This is independent of the previous item,
+and agreeing values confirm Proposition~\ref{prop:isometry} as well.
+\item \texttt{heights} --- Lemma~\ref{lem:height} for every mechanical word of
+slope $p/q$ with $q\le120$, and the closed form
+$c_w=2^{a}(3^{a}-2^{a})$ of Remark~\ref{rem:unbalanced}.
+\item \texttt{controls} --- the two rational controls described below.
+\item \texttt{shadow} --- the explicit height of Corollary~\ref{cor:shadow}.
+\end{itemize}
+
+\noindent\textbf{Depths.} Theorem~\ref{thm:depth} was verified at every level
+$3\le n\le 14$, that is, out to the convergent $190537/301994$. Each entry was
+computed twice and independently: as a longest common prefix of the two $0/1$
+words, and $2$-adically as $\vt\bigl(\Ph(1c_\beta)-c_n/\delta_n\bigr)$ modulo
+$2^{L+40}$, where $L$ is the predicted depth; the deepest modulus used is
+$2^{478284}$. All twenty-four values agree with the theorem.
+
+\begin{center}\small
+\begin{tabular}{@{}rlrr@{}}
+\toprule
+$n$ & $p_n/q_n$ & predicted depth & computed\\
+\midrule
+ 3 & $2/3$              & $q_3+q_4-1=10$           & 10\\
+ 4 & $5/8$              & $q_4-1=7$                & 7\\
+ 5 & $12/19$            & $q_5+q_6-1=83$           & 83\\
+ 6 & $41/65$            & $q_6-1=64$               & 64\\
+ 7 & $53/84$            & $q_7+q_8-1=568$          & 568\\
+ 8 & $306/485$          & $q_8-1=484$              & 484\\
+ 9 & $665/1054$         & $q_9+q_{10}-1=25780$     & 25780\\
+10 & $15601/24727$      & $q_{10}-1=24726$         & 24726\\
+11 & $31867/50508$      & $q_{11}+q_{12}-1=176250$ & 176250\\
+12 & $79335/125743$     & $q_{12}-1=125742$        & 125742\\
+13 & $111202/176251$    & $q_{13}+q_{14}-1=478244$ & 478244\\
+14 & $190537/301994$    & $q_{14}-1=301993$        & 301993\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Heights.} Lemma~\ref{lem:height} holds with no violation over
+every mechanical word $w_{p,q}$ with $q\le120$; the largest observed value of
+$c_w/\bigl(q\max(2^{q},3^{p})\bigr)$ is $1/3$, attained at $p/q=1/1$.
+
+\noindent\textbf{Controls.} A positive verification of a depth law is only
+meaningful if the same computation fails to produce a contradiction when run
+against a rational target, since the conclusion of Theorem~\ref{thm:main} must
+not be derivable there. Two controls are computed. Taking as target the rational
+$2$-adic integer $\Ph(w_3^\infty)=-5$, the depths
+$\vt\bigl(-5-\Ph(w_n^\infty)\bigr)$ do not grow: they freeze at $10=q_3+q_4-1$.
+Taking instead $\Ph(w_5^\infty)$, they freeze at $83=q_5+q_6-1$. In each case the
+agreement depth is bounded while the archimedean height of the approximants grows
+linearly, so the comparison of Section~\ref{sec:main} yields nothing --- exactly
+as it must not, these targets being rational.
+
+\section*{Acknowledgment}
+
+AI assistance (Anthropic's Claude) was used for adversarial auditing, literature
+search, computation and drafting. All mathematical claims, their framing, and any
+errors are the author's.
+
+\bibliographystyle{amsplain}
+\bibliography{refs}
+
+\end{document}
