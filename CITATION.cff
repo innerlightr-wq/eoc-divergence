@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this formalization, please cite both the software and the paper."
+title: "eoc-divergence: a Lean 4 formalization of the divergence side of the accelerated 3x+1 map"
+authors:
+  - family-names: "De Jesús"
+    given-names: "Elias"
+    orcid: "https://orcid.org/0009-0007-0190-9143"
+    email: "dejesuselias10@gmail.com"
+license: Apache-2.0
+repository-code: "https://github.com/innerlightr-wq/eoc-divergence"
+references:
+  - type: article
+    title: "A Global Occupation Conjecture for the Accelerated 3x + 1 Map: Residue–Time Duality, Divergent-Orbit Sparsity, and the Pointwise Realizer Problem"
+    authors:
+      - family-names: "De Jesús"
+        given-names: "Elias"
+        orcid: "https://orcid.org/0009-0007-0190-9143"
+    year: 2026
+    doi: "10.5281/zenodo.22906673"
