@@ -1,6 +1,6 @@
 # Status
 
-Milestone **M3 of 5** complete. `main` builds; CI enforces `lake build`, the forbidden-construct
+Milestone **M4 of 5** complete. `main` builds; CI enforces `lake build`, the forbidden-construct
 scan, and the axiom audit on every push.
 
 ## Proved
@@ -25,7 +25,13 @@ scan, and the axiom audit on every push.
 | `entropy_certificate` | `50^50 < 2^50·31^31·19^19`, i.e. `H(31/50) < 1` | — |
 | `light_certificate` | `3^31 < 2^50`, i.e. `(31/50)·log₂3 < 1` | — |
 | `heavy_tail_pow` | `tail^50 · (31^31·19^19)^N ≤ (50^50)^N` | — |
-| `exists_window_base` | **one** `θ < 2` bounding both branches | M4/M5 interface |
+| `exists_window_base` | **one** `θ < 2` bounding both branches | M4 interface |
+| `ncard_window_eq` | `Set.ncard` of a window = `Finset.card` | — |
+| `window_card_le_shifts` | two shifts cover a window; no pigeonhole | Garcia–Tal split |
+| `Bset_card_eq_sum_fibres` | fibring by `oddCount` over `{0,…,N}` | — |
+| `fibre_card_le_choose` | heavy fibre `≤ C(N,m)`, for **every** `m` | prefix injectivity |
+| `light_fibre_card_le` | light fibre `≤ 2·3^m`, for **every** `m` | contraction + collision-freeness |
+| `exists_window_sparsity` | `#(A ∩ [a, a+2^N)) ≤ 4(N+1)·θ^N`, `θ < 2` | Garcia–Tal; Curry Thm 2.3 |
 
 Axiom audit for all of the above: `[propext, Classical.choice, Quot.sound]`
 (`U_iter_two_pow_mul` uses only `[propext, Quot.sound]`).
@@ -37,7 +43,7 @@ one, it will appear here as a named hypothesis on the theorems that use it, neve
 
 ## Remaining
 
-M4 `WindowedSparsity` · M5 `Summable` + `LastMaximum` + `Main`.
+M5 `Summable` + `LastMaximum` + `Main`.
 
 The `→` direction is the substantial half: it needs the Garcia–Tal / Curry windowed sparsity
 theorem formalized, which is what makes the headline equivalence unconditional.
@@ -80,3 +86,17 @@ No approved statement was changed, and no hypothesis was added or removed.
 11. `exists_window_base` exports a **single** `θ ≈ 1.9762` for both branches — the max of the
     heavy base `(50^50/(31^31·19^19))^{1/50} ≈ 1.9427` and the light base `3^{31/50} ≈ 1.9762` —
     so M5 sums one ratio `θ/2`. `rpow` appears only inside this theorem and `le_base_pow`.
+
+### M4
+
+**No statement was changed, and no hypothesis was added or removed.**
+
+12. Both fibre bounds hold for **every** `m`, with no heavy/light hypothesis. The split enters
+    once, in `exists_window_sparsity`, only to choose which bound to feed to
+    `exists_window_base`. This keeps the two counting lemmas independently reusable.
+13. Window length is exactly `2^N`, so `[1, 2^N]` carries exactly one element per residue class
+    mod `2^N` and the heavy fibre costs `C(N,m)` with no factor of two. Only the light branch
+    contributes the `2` in the final constant `4(N+1)`.
+14. Classical decidability is scoped to `windowFinset` and `Bset` via `open Classical in`, not
+    opened file-wide, so `Finset.filter` lemmas elsewhere keep their own instances. Note the
+    `open ... in` must precede the docstring, not sit between it and the declaration.

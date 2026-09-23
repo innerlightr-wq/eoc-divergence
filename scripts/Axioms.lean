@@ -35,3 +35,12 @@ at M5 this becomes `Divergence.divergent_iff_zeroConfined`. -/
 #print axioms Divergence.heavy_tail_pow
 #print axioms Divergence.light_pow_le
 #print axioms Divergence.exists_window_base
+
+-- M4
+#print axioms Divergence.ncard_window_eq
+#print axioms Divergence.window_card_le_shifts
+#print axioms Divergence.Bset_card_eq_sum_fibres
+#print axioms Divergence.fibre_card_le_choose
+#print axioms Divergence.choose_le_tail
+#print axioms Divergence.light_fibre_card_le
+#print axioms Divergence.exists_window_sparsity

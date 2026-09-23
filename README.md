@@ -38,8 +38,9 @@ zero-confined seed.
 
 ## Status
 
-**Milestone M3 of 5 complete.** The `←` direction (`divergent_of_zeroConfined`) is proved; the
-raw-map layer and the certified entropy bound behind the `→` direction are in place. See [`docs/STATUS.md`](docs/STATUS.md) for the current ledger.
+**Milestone M4 of 5 complete.** The `←` direction (`divergent_of_zeroConfined`) is proved, and the
+windowed sparsity theorem — the substantial input to the `→` direction — is now formalized rather
+than assumed. See [`docs/STATUS.md`](docs/STATUS.md) for the current ledger.
 
 ## Ledger
 
@@ -49,7 +50,7 @@ raw-map layer and the certified entropy bound behind the `→` direction are in 
 | `Divergence/CycleDrift.lean` | Lemma 4.2 (cycle drift); `←` direction | **proved** |
 | `Divergence/RawMap.lean` | Terras shift; Curry Lemma 2.2 (contraction); bridge | **proved** |
 | `Divergence/BinomialTail.lean` | entropy tail bound; `γ = 31/50` certificates | **proved** |
-| `Divergence/WindowedSparsity.lean` | Garcia–Tal Fundamental Lemma; Curry Thm 2.3 | not started |
+| `Divergence/WindowedSparsity.lean` | Garcia–Tal Fundamental Lemma; Curry Thm 2.3 | **proved** |
 | `Divergence/Summable.lean` | Curry Prop 3.1 / paper Prop 4.9 | not started |
 | `Divergence/LastMaximum.lean` | paper Prop 4.10 | not started |
 | `Divergence/Main.lean` | paper Thm 6.14 | not started |
