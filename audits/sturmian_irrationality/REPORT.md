@@ -1072,6 +1072,74 @@ on the 5-file record. **The fix is one more version carrying all 29 original fil
 `A_addendum.pdf`, 30 in total.** Until then, cite the version DOI of whichever state is meant.
 Full file list in `revisions/2026-09-sturmian-citations/ZENODO.md`.
 
+## Collection-addendum scope — verified against the downloaded PDFs
+
+All 29 files of `10.5281/zenodo.20599453` were downloaded and MD5-verified against the record
+manifest (29/29). Each was then scanned page by page for `Ξ`, `carry constant`, `v₂(Q…)`, `ℓ(D)`
+and `López`/`Stoll`.
+
+**Exactly twelve PDFs contain `Ξ`.** One of them is note (A) itself, already covered by
+`A_addendum.pdf`; the other eleven are the collection-addendum scope.
+
+### The eleven — quoted line and page
+
+| # | note (file) | quoted line | page |
+|---|---|---|---|
+| 1 | *A Bit Analyzer for the Collatz Carry Equation* (`BitAnalyzerCollatzCarryEquation.pdf`) | "Definition 2.1 (Bit analyzer). The bit depth of D is `ℓ(D) = v2(Q(D) + Ξα)`, and the centered…" | p. 2 |
+| 2 | *Adjacent Tower Products in the Collatz Carry Equation* (`AdjacentTowerProductsCollatzCarryEquation.pdf`) | "analyzer is `ℓ(D) = v2(Q(D) + Ξα)`, where `Ξα` is the 2-adic Sturmian carry constant of the second note [1]." | p. 1 |
+| 3 | *Finite Christoffel Products in the Collatz Carry Equation* (`FiniteChristoffelProducts.pdf`) | "quotient `Q(D) = −C(D)/δ`, and bit depth `ℓ(D) = v2(Q(D) + Ξα)` with `Ξα` the archived Sturmian…" | p. 2 |
+| 4 | *Standard-Block Nonsingularity in the Collatz Carry Equation* (`StandardBlockNonsingularity (1).pdf`) | "dition, in which the 2-adic Sturmian carry constant of the companion note [2] pins the only…" | p. 1 |
+| 5 | *Grouped Tower Products in the Collatz Carry Equation* (`GroupedTowerProductsCarry_Equation (1).pdf`) | "`v2(Qa,b + Ξα) = 83 = p5 + p6 − 1`." | p. 1 |
+| 6 | *Tail-Tracking and the Leading-Block Principle* (`TailTrackingLeadingBlockPrinciple.pdf`) | "of the convergents of `α = log2 3`. The bit depth `ℓ(D) = v2(Q(D) + Ξα)` is governed by a…" | p. 1 |
+| 7 | *The Wrap Regime in the Collatz Carry Equation* (`WrapRegimeCollatzCarryEquation.pdf`) | "gorithm computes `ℓ(D) = v2(Q(D) + Ξα)` for every finite product of standard tower blocks:" | p. 1 |
+| 8 | *The Positive-Entropy 2-Adic Carry Law* (`PositiveEntropy2Adic.pdf`) | "Let `Ξα` denote the rigid Sturmian 2-adic carry constant associated to…" | p. 8 |
+| 9 | *Unbalanced Residents … The (7, 11) Shell* (`UnbalancedResidentsCollatzCarryEquation (1).pdf`) | "so `ℓ(D−17) = v2(Q + Ξα) = 2`. The shell's quotients reach `|Q| ≈ 158`…" | p. 3 |
+| 10 | *Unbalanced Residents and Time-Axis Contacts* (`UnbalancedResidentsTime_AxisContactsCCE.pdf`) | "restarted — has computable `ℓ(D) = v2(Q(D) + Ξα)`, with nonsingularity certificates across entire…" | p. 2 |
+| 11 | *The Anatomy of the −17 Cycle: Time-Axis and Finite-Field Structure* (`TimeAxisFiniteFieldStructure.pdf`) | "`ℓ(D−17) = v2(Q + Ξα) = 2`." | p. 5 |
+
+**Every quoted line was located in the downloaded PDF.** All eleven titles match the triage list.
+
+### ⚠ One correction to the reason given for item 2
+
+The Step 5 survey in this report said Adjacent Tower Products "cites (A)'s Theorem 7.1 explicitly",
+and that reason carried into the triage list. **It is wrong, and the error was mine** — a grep for
+the string "Theorem 7.1" matched the note's *own* Theorem 7.1. The only two occurrences of "7.1"
+in that note are:
+
+> p. 4 — "Theorem 7.1 (Standard-factorization ladder). Let `Rn < 0`. For `1 ≤ b ≤ an+2`,"
+> p. 6 — "ladder identities (Thm. 7.1) and the five verified instances;"
+
+both referring to its own numbering. Its actual dependence is the one quoted in the table: it uses
+the bit analyzer `ℓ(D) = v₂(Q(D) + Ξα)` and attributes `Ξα` to "the second note [1]". **The
+attribution requirement is unchanged** — it consumes the carry constant and the first-disagreement
+depth either way — only the stated reason is corrected.
+
+### Cleared — 16 PDFs with zero occurrences of `Ξ`
+
+`CompositeDecomposition.pdf` · `CorrelatedPrimeLayersCollatzCarryEquation.pdf` ·
+`CorridorBracketsBottleneckRatios.pdf` · `FiniteFieldZeroSums.pdf` ·
+`ImprimitiveSplittingForcedLayerZeros.pdf` · `LocalIsolationWallContactsCollatzCarry.pdf` ·
+`modulus_depth_landmarks.pdf` · `NearCritical.pdf` · `ProjectiveClosureCoordinates.pdf` ·
+`ProjectiveNearMisses.pdf` · `ShellMixedBracketTracers.pdf` · `ShellNearMissBottleneck.pdf` ·
+`ShellPureTracer.pdf` · `WallPrimeTracersCCEquation.pdf` · `ZeroSubwindowObstructions.pdf` ·
+`ZeroWindowVarieties.pdf`
+
+Plus `cubic_modulus_threshold_referee_note.md` — the referee note, triaged separately below.
+
+### ⚠ The partition is 1 + 11 + 16 + 1, not 11 + 17 + 1
+
+The triage brief gave the partition as `11 + 17 + 1 = 29`. That arithmetic works only by counting
+note (A) among the "17 cleared", and note (A) is not cleared — it is the note the existing
+`A_addendum.pdf` is about, and it contains `Ξ` 33 times. The checkable partition is:
+
+| class | count | |
+|---|---|---|
+| note (A) — covered by `A_addendum.pdf` | **1** | `AdicSturmianCarryConstant.pdf` |
+| needs the collection addendum | **11** | the table above |
+| cleared, no `Ξ` and no depth law | **16** | the list above |
+| referee note, not a note | **1** | `cubic_modulus_threshold_referee_note.md` |
+| | **29** | ✓ |
+
 ## The 29th file — identified and triaged
 
 The count of 28 notes against 29 files in `20599453` is explained: **28 PDFs and one Markdown

@@ -305,6 +305,35 @@ gutted.
 A concrete consequence: `NearCritical.pdf` is among the missing, and note (A) cites it as its own
 reference [9]. The record hosting note (A) no longer serves the note that (A) depends on.
 
-**Fix:** one more version of the umbrella record carrying all 29 original files plus
-`A_addendum.pdf` — 30 in total. Until then cite the **version** DOI of whichever state is meant:
-`20599453` for the full collection, `22917426` for the current 5-file state.
+**Fix:** one more version of the umbrella record carrying all 29 original files plus both addenda
+— **31 in total**, itemised below. Until then cite the **version** DOI of whichever state is
+meant: `20599453` for the full collection, `22917426` for the current 5-file state.
+
+---
+
+## Upload set for the next umbrella version — **31 files**
+
+The umbrella record's next version must restore the full collection and carry both addenda:
+
+| | count | |
+|---|---|---|
+| originals from `10.5281/zenodo.20599453` | **29** | all 28 note PDFs **and** the referee `.md` |
+| + `A_addendum.pdf` | 1 | citation addendum and correction to note (A) |
+| + `Collection_addendum.pdf` | 1 | citation addendum to the eleven consuming notes |
+| **total** | **31** | |
+
+All 29 originals were downloaded and MD5-verified against the record manifest (29/29 exact), so
+they can be re-uploaded byte-identical. The two addenda are built in this folder:
+
+* `A_addendum.pdf` — 403 241 B, md5 `de6e65cfa6fbbddbb7faf062c38fe685`
+* `Collection_addendum.pdf` — 367 095 B, md5 `b8c8fd0f5cd5406326bc058bdb94f7c2`
+
+### The 29 originals
+
+`AdicSturmianCarryConstant.pdf` · `AdjacentTowerProductsCollatzCarryEquation.pdf` · `BitAnalyzerCollatzCarryEquation.pdf` · `CompositeDecomposition.pdf` · `CorrelatedPrimeLayersCollatzCarryEquation.pdf` · `CorridorBracketsBottleneckRatios.pdf` · `FiniteChristoffelProducts.pdf` · `FiniteFieldZeroSums.pdf` · `GroupedTowerProductsCarry_Equation (1).pdf` · `ImprimitiveSplittingForcedLayerZeros.pdf` · `LocalIsolationWallContactsCollatzCarry.pdf` · `NearCritical.pdf` · `PositiveEntropy2Adic.pdf` · `ProjectiveClosureCoordinates.pdf` · `ProjectiveNearMisses.pdf` · `ShellMixedBracketTracers.pdf` · `ShellNearMissBottleneck.pdf` · `ShellPureTracer.pdf` · `StandardBlockNonsingularity (1).pdf` · `TailTrackingLeadingBlockPrinciple.pdf` · `TimeAxisFiniteFieldStructure.pdf` · `UnbalancedResidentsCollatzCarryEquation (1).pdf` · `UnbalancedResidentsTime_AxisContactsCCE.pdf` · `WallPrimeTracersCCEquation.pdf` · `WrapRegimeCollatzCarryEquation.pdf` · `ZeroSubwindowObstructions.pdf` · `ZeroWindowVarieties.pdf` · `cubic_modulus_threshold_referee_note.md` · `modulus_depth_landmarks.pdf`
+
+### Note on filenames
+
+Uploading the originals under these exact names also clears the cosmetic ` (1)` suffixes the
+September versions introduced (`AdicSturmianCarryConstant (1).pdf` and the rest): the names above
+are the ones the June collection used.
