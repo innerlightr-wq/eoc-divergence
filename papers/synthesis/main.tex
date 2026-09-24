@@ -56,7 +56,7 @@ reports what the resulting programme has established and, more usefully, what it
 has excluded. At the population level the statistics are complete: the confined
 words have a proved exponential rate, a proved two-sided polynomial correction,
 and the record-holding integers sit where random placement at that rate predicts,
-to within a bounded and measured residual. At the structured level the natural
+with a small residual over the measured range. At the structured level the natural
 candidates are gone: periodic confined points are negative rationals, the critical
 Sturmian word has an irrational conjugacy value, words of non-critical density are
 excluded by density alone, and descent at the $3$-adic place cannot accumulate a
@@ -92,14 +92,15 @@ falls. The whole subject sits on the line $R_n=0$.
 exactly and unconditionally, to the existence of one positive odd integer whose
 drift never rises above zero (Theorem~\ref{thm:reduction}). After that reduction
 the \emph{statistics} of such confinement are settled --- an exact exponential
-rate, an exact polynomial correction, and record-holding integers that sit where
-random placement at that rate predicts --- and the \emph{structured} candidates
-are excluded one family at a time: periodic, algebraic, Sturmian, bounded-drift,
-and descent-accessible. What is left is neither a counting problem nor a
-structural one. It is a question about where particular integers lie inside a
-population whose size is already known, and the tools that decided every other
-part of the programme are provably unable to see it. Section~\ref{sec:needed} is
-an attempt to say precisely what a tool that could see it would have to do.
+rate, an exact polynomial correction, and record-holding integers that sit, over
+the computed range, where random placement at that rate predicts --- and the
+\emph{structured} candidates are excluded one family at a time: periodic,
+algebraic, Sturmian, bounded-drift, and descent-accessible. What is left is
+neither a counting problem nor a structural one. It is a question about where
+particular integers lie inside a population whose size is already known, and
+the tools that decided every other part of the programme are provably unable
+to see it. Section~\ref{sec:needed} is an attempt to say precisely what a tool
+that could see it would have to do.
 
 \medskip
 \noindent\textbf{Explicit non-claims.} This note does not prove, and does not
@@ -245,8 +246,8 @@ opposite sign.
 \section{The statistics}\label{sec:statistics}
 
 This section is the part of the programme that is finished. Its conclusion is
-that at the population level, and at the extreme order statistic, the integers
-behave like random placement at the proved rate.
+that at the population level, and --- over the computed range --- at the extreme
+order statistic, the integers behave like random placement at the proved rate.
 
 \begin{theorem}[windowed sparsity]\label{thm:sparsity}
 There is $\theta$ with $1\le\theta<2$ such that every collision-free
@@ -1148,8 +1149,7 @@ Fefferman's official problem description \cite{Fefferman2006}; a Lean
 formalization accompanies it \cite{OpenAINSLean}. On 11~September 2026 the Clay
 Mathematics Institute stated that the problem ``has apparently been settled'',
 adding that the evaluation process ``is deliberately unhurried'' \cite{CMI2026}.
-No prize has been awarded, evaluation continues, and priority and attribution have
-been publicly disputed \cite{Bastian2026}.
+No prize has been awarded and the evaluation continues.
 
 \textbf{None of this touches the statement the comparison below uses.}
 Fefferman's alternatives \textup{(A)} and \textup{(B)}, existence and smoothness,
@@ -1186,8 +1186,8 @@ $[0.061,\,0.087]$, which contains $I_0=0.0793\ldots$, from exact data to $N=346$
 with $24$ distinct record holders \cite{EOCDivergenceRepo}
 (\texttt{audits/record\_holder\_anatomy}). What this does: it says \emph{where}
 the extremal confined integers sit, and says that they sit where random placement
-at the proved rate of Theorem~\ref{thm:rate} predicts, to within a bounded and
-measured residual. What it does not do: it proves nothing whatever about
+at the proved rate of Theorem~\ref{thm:rate} predicts, with a small residual over
+the measured range. What it does not do: it proves nothing whatever about
 \textup{(DE)} --- an approximate law for the position of the frontier is
 compatible with the frontier being bounded, which is the negation of (DE).
 

@@ -61,6 +61,29 @@ the equivalence unconditional. See [`docs/STATUS.md`](docs/STATUS.md) for the le
 **No module introduces an external hypothesis.** Every `Prop` the headline theorem depends on is
 proved in this repository.
 
+## Synthesis paper
+
+> De Jesús, Elias (2026). *After the Reduction: Proved Statistics, Excluded Structure, and the
+> Missing Pointwise Tool in the Accelerated 3x+1 Problem.* Zenodo.
+> [doi:10.5281/zenodo.22944018](https://doi.org/10.5281/zenodo.22944018)
+
+Source, bibliography and self-audit: [`papers/synthesis`](papers/synthesis).
+
+The note draws together three strands: the **proved** confinement statistics (the exponential
+rate `I₀`, formalized here as `Occupation.confined_mass_rate`; its two-sided polynomial
+correction, proved on paper; and the windowed sparsity and summability theorems of the
+`Divergence` library); the
+structural approaches that have been **excluded**, one family at a time — periodic, algebraic,
+Sturmian, bounded-drift and descent-accessible; and what is left, the **open** pointwise realizer
+problem, a question about where particular integers sit inside a population whose size is already
+known.
+
+The extremal approximation is kept separate from the proved part. That the record-holding
+integers sit where random placement at the proved rate predicts is measured over a finite range
+and stated in the note as a **conjecture** (Sharp EOC), whose lower half is at least as hard as
+universal drift exit; it is not a proved conclusion. **The note proves neither the Collatz
+conjecture nor the exclusion of divergent orbits, and claims no progress toward either.**
+
 ## Companion result (occupation side)
 
 A **separate** Lean library, `Occupation`, holds one occupation-side result:
