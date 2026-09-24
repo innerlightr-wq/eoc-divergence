@@ -6,6 +6,7 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage[hidelinks]{hyperref}
+\usepackage{xurl}          % break long URLs in the bibliography
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -395,6 +396,31 @@ tight. The gap between the elementary exponent $1$ and the conjectured
 $I_0=0.0793\ldots$ is the whole of the upper half, and closing any of it requires
 no progress on \textup{(DE)}; see Section~\ref{sec:open}\,(4).
 \end{remark}
+
+\begin{remark}[what the record-holder data actually measures]\label{rem:decomp}
+Write $p_N=p_N(0)$ and put
+\[
+A_N:=p_N\,2^{\,I_0N}N^{3/2},\qquad
+\Delta_N:=\log_2\!\bigl(r_{\min}(N,0)\,p_N\bigr).
+\]
+Then, identically,
+\begin{equation}\label{eq:decomp}
+\log_2 r_{\min}(N,0)\;=\;I_0N+\tfrac32\log_2 N-\log_2 A_N+\Delta_N .
+\end{equation}
+Theorem~\ref{thm:scales} is the statement that $A_N$ is bounded above and below:
+it \emph{is} the $O(1)$ phase, renewal functions, Beatty jump sets and all. So the
+first three terms of \eqref{eq:decomp} are the population count and $\Delta_N$ is
+everything else.
+\end{remark}
+\lab{proved (paper)} for \eqref{eq:decomp}, which is arithmetic. The point of
+writing it out is that the record-holder audit compares $\log_2 r_{\min}(N,0)$
+against $\log_2(1/p_N)$ computed \emph{exactly}, by the transfer recursion of
+Proposition~\ref{prop:density}, and not against the asymptotic
+$I_0N+\frac32\log_2N$. Its residual is therefore exactly $\Delta_N$, and $A_N$ is
+absorbed into the comparison and never enters: \textbf{no part of what
+Proposition~\ref{prop:clustering} or Conjecture~\ref{conj:sharp} measures depends
+on the renewal phase.} What is measured is that $\Delta_N>0$ at all $24$ record
+holders and drifts by no amount the data can distinguish from zero.
 
 \begin{proposition}[clustering]\label{prop:clustering}
 The confined integers are not a Poisson process at the extreme. Two measurements:
@@ -1108,6 +1134,31 @@ Navier--Stokes itself is made, and those results are cited only for their standa
 statements.
 
 \medskip
+\noindent\textbf{0. The status of the comparison problem, and which statement the
+analogy uses.} \lab{cited} throughout; no position is taken here on any of it. On
+8~September 2026 a manuscript \cite{OpenAINS2026} constructed, for every $\nu>0$,
+a force $f\in C_c^{\infty}(\R^3\times(0,\infty);\R^3)$ and smooth $u,p$ on
+$\R^3\times[0,1)$ with
+\[
+u(\cdot,0)=0,\qquad \sup_{0\le t<1}\|u(t)\|_{L^2(\R^3)}<\infty,\qquad
+\limsup_{t\uparrow1}\|u(t)\|_{L^{\infty}(\R^3)}=\infty,
+\]
+stating that this establishes alternatives \textup{(C)} and \textup{(D)} of
+Fefferman's official problem description \cite{Fefferman2006}; a Lean
+formalization accompanies it \cite{OpenAINSLean}. On 11~September 2026 the Clay
+Mathematics Institute stated that the problem ``has apparently been settled'',
+adding that the evaluation process ``is deliberately unhurried'' \cite{CMI2026}.
+No prize has been awarded, evaluation continues, and priority and attribution have
+been publicly disputed \cite{Bastian2026}.
+
+\textbf{None of this touches the statement the comparison below uses.}
+Fefferman's alternatives \textup{(A)} and \textup{(B)}, existence and smoothness,
+say ``Take $f(x,t)$ to be identically zero'' \cite{Fefferman2006}, while the
+construction requires a nonzero force. The \emph{unforced} global regularity
+question is therefore untouched by it and remains open, and it is with that
+unforced problem --- and only with it --- that the analogy is drawn.
+
+\medskip
 \noindent\textbf{1. The exact missing statement.} Three forms, in increasing
 strength, all \lab{open}:
 \begin{itemize}
@@ -1170,9 +1221,17 @@ structure is available, and the confined words are precisely the measure-zero se
 the law describes. That is why Formulation~\ref{form:walk} is \lab{heuristic}.
 
 \medskip
-\noindent\textbf{5. The Navier--Stokes comparison.} \lab{analogy}. The two
-problems have accumulated the same four kinds of statement, in the same order,
-and are missing the same kind.
+\noindent\textbf{5. The Navier--Stokes comparison.} \lab{analogy}, with the
+unforced problem of \textup{(A)}/\textup{(B)}. The two problems have accumulated
+the same four kinds of statement, in the same order, and are missing the same kind.
+
+One structural difference should be stated first, because it is where the analogy
+is weakest. The forced construction of \cite{OpenAINS2026} gets to \emph{choose}
+an external force, and choosing it is most of the work; alternatives \textup{(C)}
+and \textup{(D)} grant exactly that freedom. The accelerated $3x+1$ map is fixed.
+There is no forcing term to select here, hence no counterpart of that freedom and
+no counterpart of the construction that uses it --- which is a further reason the
+comparison is drawn with the unforced statement.
 
 \begin{center}\small
 \begin{tabular}{@{}p{0.29\textwidth}p{0.27\textwidth}p{0.36\textwidth}@{}}
@@ -1274,6 +1333,23 @@ Observation~\ref{obs:cycle}. \lab{open}.
 \item \textbf{Dangerous-window sparsity} for the analytic side: the hypothesis
 that implies low-frequency decay, for every shift and some logarithmic window
 length. \lab{open}.
+\item \textbf{Predicting $\Delta_N$.} Give a formula, or a model, for the residual
+$\Delta_N$ of Remark~\ref{rem:decomp} in terms of \emph{order-sensitive} carry
+statistics of the confined words --- statistics that do not take $r_{\min}$ as an
+input --- and test it at finite depth against the exact $p_N$ of
+Proposition~\ref{prop:density}. \lab{open}. This is a finite-depth question:
+every ingredient is computable at each $N$ and none of it requires an asymptotic
+statement, which is what distinguishes it from the rest of this list. Two cautions
+belong with it. First, the sample is small and strongly correlated --- $24$ record
+holders over $N\le346$ with $n_{\mathrm{eff}}\approx7$, and for $5x-1$ (which is
+not $3x+1$, but is the only other ladder measured) $66$ over $N\le459$ with
+$n_{\mathrm{eff}}\approx3.4$, Remark~\ref{rem:null5} --- so a model that merely
+fits the observed $\Delta_N$ is evidence of very little. Second, and decisively: a
+formula alone would not bear on \textup{(DE)}. Since
+$\log_2 r_{\min}(N,0)=\log_2(1/p_N)+\Delta_N$ with $\log_2(1/p_N)\to\infty$, only
+a \emph{uniform lower bound} $\Delta_N\ge-c$ would give $r_{\min}(N,0)\to\infty$,
+hence \textup{(DE)} by Proposition~\ref{prop:equivalent}\,(b) --- and proving such
+a bound is therefore at least as hard as \textup{(DE)} itself.
 \item \textbf{The $5x-1$ residue law.} For the upper-side frontier of $T_{5,-1}$
 (Section~\ref{sec:needed}(c)), is $r_{\min}(N)\equiv5\ (\mathrm{mod}\ 16)$ for
 every $N$? \lab{verified} at every $N\le459$, over an exact scan of all odd
