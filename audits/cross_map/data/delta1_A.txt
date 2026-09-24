@@ -1,0 +1,40 @@
+q=3 lower-side ladder: depths 1..344, 23 distinct record holders
+  deepest: r_min(344) = 12235060455
+
+     N        r_min(N)  log2 r_min  log2(1/p_N)    Delta1  I*N+1.5log2N
+     1               3      1.5850       1.0000    0.5850        0.0793
+     2               7      2.8074       1.4150    1.3923        1.6586
+     4              27      4.7549       2.2996    2.4553        3.3173
+    37             703      9.4574       8.0230    1.4343       10.7490
+    51           10087     13.3002       9.7075    3.5927       12.5539
+    66           35655     15.1218      11.3269    3.7949       14.3016
+    85          270271     18.0440      13.3204    4.7236       16.3562
+   103          362343     18.4670      15.0865    3.3805       18.1996
+   104          381727     18.5422      15.2165    3.3257       18.2998
+   109          626331     19.2566      15.6860    3.5706       18.7980
+   111         1027431     19.9706      15.9007    4.0699       18.9960
+   115         1126015     20.1028      16.2469    3.8559       19.3899
+   141         8088063     22.9474      18.7311    4.2162       21.8933
+   155        13421671     23.6781      20.0245    3.6536       23.2086
+   181        20638335     24.2988      22.4069    1.8919       25.6064
+   184        26716671     24.6712      22.6549    2.0163       25.8800
+   188        56924955     25.7626      23.0465    2.7161       26.2438
+   194        63728127     25.9254      23.5677    2.3578       26.7877
+   237       217740015     27.6980      27.3692    0.3289       30.6316
+   249      1200991791     30.1616      28.4261    1.7354       31.6903
+   251      1827397567     30.7671      28.6115    2.1556       31.8663
+   273      2788008987     31.3766      30.5201    0.8565       33.7931
+   282     12235060455     33.5103      31.3198    2.1905       34.5772
+
+  Delta1 > 0 at 23 of 23 record holders (for A the published count is 24 of 24)
+  OLS slope of Delta1 vs N : -0.003328   intercept +3.0736
+  Theil-Sen slope          : -0.004322
+  block bootstrap 95% CI   : [-0.018511, +0.008034]   (blocks of  3, 4000 resamples)
+  block bootstrap 95% CI   : [-0.023889, +0.019435]   (blocks of  8, 4000 resamples)
+  block bootstrap 95% CI   : [-0.017192, +0.008951]   (blocks of 16, 4000 resamples)
+  implied growth exponent I(q) + slope = 0.075990   (I(3) = 0.079319)
+
+  Effective sample size: the holders are strongly serially correlated -- consecutive
+  depths share a holder, so the 23 rows are 23 independent draws only if
+  each new holder is independent of the last; lag-1 autocorrelation of Delta1:
+    rho_1 = +0.5710,  n_eff = n(1-rho)/(1+rho) = 6.3
