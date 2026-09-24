@@ -1,6 +1,6 @@
 # Checkpoint 2 — self-audit of `main.tex`
 
-Draft: `papers/synthesis/main.tex`, **15 pp.**, compiles with **0 errors, 0 undefined
+Draft: `papers/synthesis/main.tex`, **16 pp.**, compiles with **0 errors, 0 undefined
 references, 0 undefined citations, 0 font warnings, 0 overfull boxes**. Title A, as approved.
 
 *Revised after Checkpoint 2: §7(a) and §7(c) expanded and the AI declaration made specific.
@@ -190,3 +190,55 @@ and it replaces a vaguer phrase with an enumerated one.
 The three overfull boxes present after the expansion (the largest 174 pt, in the closed-routes
 table) were removed by narrowing two table specifications and splitting one display in
 Theorem 2.2. **The build now has none.**
+
+
+---
+
+# 9. Re-audit of the post-merge addition (Remark 4.8 and §8 item 4)
+
+## 9.1 What was added
+
+**Remark 4.8**, immediately after Conjecture 4.7, separating the conjecture's two halves; and
+**§8 item (4)**, the upper half alone at any exponent `c < 1`, inserted after Sharp EOC so the
+two sit together. Numbering came out as intended: Conj. 4.7, Rem. 4.8, Prop. 4.9; the later §8
+items shift by one and are not cross-referenced by number anywhere.
+
+## 9.2 The claims, checked
+
+| claim | label | check |
+|---|---|---|
+| lower half ⟹ `r_min → ∞` ⟹ (DE) | **proved (paper)** | `2^{I₀N}N^{3/2} → ∞`; (DE) by Prop. 3.4(b), already in the note |
+| lower half is stronger than Open Problem C | **proved (paper)** | OPC asks only that least realizers grow *at all*; an exponential rate is strictly more |
+| Conj. 4.7 is at least as hard as (DE) | **proved (paper)** | immediate from the first row |
+| upper half does **not** imply (DE) | **open** | an upper bound on the least confined integer is consistent with (DE); stated, not asserted as proved |
+| `r_min(N,0) ≤ 2^{N+1} − 1` | **proved (paper)**, **verified** | derived and independently computed — see 9.3 |
+
+## 9.3 The elementary bound was verified, not asserted
+
+For `m = 2^k − 1` the derivation gives `m_j = 3^j 2^{k−j} − 1` with `a_j = 1` for `j < k−1`,
+hence `S_j = j` and confinement `2^j ≤ 3^j` throughout, so depth `≥ k−1`.
+
+**Checked computationally for `k = 2 … 25`** against `anatomy.conf_depth`: the valuation word
+opens with `1^{k−1}` in every case and the depth is `≥ k−1` in every case. The true depths are
+much larger than the bound — `91` at `k = 25` against `24` — and the note says so, so the bound
+is presented as elementary rather than as the best available.
+
+## 9.4 A label violation of my own, caught and fixed
+
+The first draft of the remark used `\lab{proved}`, which is **not in the declared set**
+(`proved (lean)` / `proved (paper)` / `cited` / `verified` / `heuristic` / `conjecture` /
+`open`). Two occurrences, both corrected to `proved (paper)`. The label census is now
+`cited` 16, `conjecture` 2, `heuristic` 6, `open` 15, `proved (lean)` 10, `proved (paper)` 21,
+`verified` 10 — **declared labels only**.
+
+## 9.5 Build
+
+16 pp.; **0 errors, 0 undefined references or citations, 0 overfull boxes.**
+
+## 9.6 One point of substance worth flagging to the reader of this audit
+
+The remark makes the note *less* optimistic than it was, deliberately. Section 4 previously
+presented Conjecture 4.7 as a statistical conjecture supported by data; Remark 4.8 records that
+half of it is **at least as hard as the programme's central open problem**, and says in terms
+that nothing in Section 4 should be read as evidence that it is within reach. That is the
+correct reading and it was not previously stated.
