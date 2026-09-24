@@ -1,0 +1,10 @@
+  q  side   N  hi   recursion == brute enumeration?   total words
+  3  lower   4    6   YES                              7
+  3  lower   6    9   YES                              30
+  3  lower   8   12   YES                              173
+  5  upper   4   17   YES                              1246
+  5  upper   6   21   YES                              22172
+  5  upper   8   26   YES                              551297
+  7  upper   4   19   YES                              1938
+  7  upper   6   24   YES                              50316
+  7  upper   8   30   YES                              1871507

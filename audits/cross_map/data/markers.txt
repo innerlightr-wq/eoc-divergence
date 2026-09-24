@@ -1,0 +1,22 @@
+==========================================================================================
+Conjugacies:  A(-x) = -B(x)   and   D(-x) = -C(x),  checked on every odd |x| < 2^14
+==========================================================================================
+  (3x+1)(-x) = -(3x-1)(x):  violations = 0
+  (5x-1)(-x) = -(5x+1)(x):  violations = 0
+
+==========================================================================================
+Rare-side purely periodic points: enumeration by period, with signs
+==========================================================================================
+  A 3x+1: rare-side purely periodic points with period <= 10: 1750 (1750 negative, 0 positive)
+      predicted sign: negative;  observed: all negative;  reduced heights (period <= 6) up to 1085
+  B 3x-1: rare-side purely periodic points with period <= 10: 1750 (0 negative, 1750 positive)
+      predicted sign: positive;  observed: all positive;  reduced heights (period <= 6) up to 1085
+  C 5x+1: rare-side purely periodic points with period <= 10: 3611208 (0 negative, 3611208 positive)
+      predicted sign: positive;  observed: all positive;  reduced heights (period <= 6) up to 5889077
+  D 5x-1: rare-side purely periodic points with period <= 10: 3611208 (3611208 negative, 0 positive)
+      predicted sign: negative;  observed: all negative;  reduced heights (period <= 6) up to 5889077
+
+Cross-check (separate run): for A = 3x+1, period <= 10, the 1750 admissible WORDS give
+1717 DISTINCT rational points, all negative -- exactly the published count in
+audits/record_holder_anatomy. The 33 extra words are imprimitive (a shorter word
+repeated), and repeat a point already counted at the smaller period.
