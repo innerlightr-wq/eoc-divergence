@@ -116,7 +116,10 @@ hypotheses and no axioms beyond Lean's three standard ones;
 \lab{proved (paper)}, proved by the author on paper and audited, not formalized;
 \lab{cited}, an external result, with reference;
 \lab{verified}, an exact computation over a stated finite range;
-\lab{heuristic}; \lab{conjecture}; \lab{open}. Section~\ref{sec:resources} says
+\lab{heuristic}; \lab{conjecture}; \lab{open}; and, in
+Section~\ref{sec:needed}(i) only, \lab{analogy}, a structural comparison with
+another problem that carries no transfer of technique in either direction.
+Section~\ref{sec:resources} says
 where each machine-checked statement lives and how each computation is
 reproduced.
 
@@ -1090,6 +1093,145 @@ follow.
 what is actually available on this side, and they are of a different nature: they
 constrain $L$ and $S$ through continued-fraction approximations to $\log_2 3$
 rather than through anti-concentration.
+
+\subsection*{(i) Approximate, partial and conditional forms of the missing statement}
+\label{sub:approx}
+
+The three-dimensional Navier--Stokes regularity problem is organised in its
+literature by a familiar hierarchy --- a supercritical global a priori bound,
+partial regularity, blow-up criteria, empirical scaling laws --- with the
+pointwise statement out of reach. This programme has reached the same stage, and
+this subsection records which of its statements sit where. \textbf{The comparison
+is an \lab{analogy} between the \emph{structure} of the two problems and nothing
+more}: no technique is claimed to transfer in either direction, no claim about
+Navier--Stokes itself is made, and those results are cited only for their standard
+statements.
+
+\medskip
+\noindent\textbf{1. The exact missing statement.} Three forms, in increasing
+strength, all \lab{open}:
+\begin{itemize}
+\item \emph{weakest}: $r_{\min}(N,0)\to\infty$, which is \textup{(DE)} by
+Proposition~\ref{prop:equivalent}\,(b) and hence, by Theorem~\ref{thm:reduction},
+the exclusion of divergent orbits;
+\item \emph{natural strong form}: $r_{\min}(N,0)\ge 2^{\varepsilon N}$ for some
+$\varepsilon>0$ --- an exponential realizer floor, Open Problem~C of
+\cite{DeJesusEOC};
+\item \emph{sharp form}: Conjecture~\ref{conj:sharp}, whose lower half implies
+both.
+\end{itemize}
+By Remark~\ref{rem:halves} that lower half is \emph{at least as hard as}
+\textup{(DE)}. So the list is ordered by strength and the sharpest statement is
+not the easiest one; a proof of any of the three would be a proof of (DE).
+
+\medskip
+\noindent\textbf{2. Its approximate form.} \lab{conjecture} for the law,
+\lab{verified} for the data behind it: Conjecture~\ref{conj:sharp},
+\[
+\log_2 r_{\min}(N,0)=I_0N+\tfrac32\log_2 N+O(1),
+\]
+with empirical exponent $0.0737$ and block-bootstrap $95\%$ interval
+$[0.061,\,0.087]$, which contains $I_0=0.0793\ldots$, from exact data to $N=346$
+with $24$ distinct record holders \cite{EOCDivergenceRepo}
+(\texttt{audits/record\_holder\_anatomy}). What this does: it says \emph{where}
+the extremal confined integers sit, and says that they sit where random placement
+at the proved rate of Theorem~\ref{thm:rate} predicts, to within a bounded and
+measured residual. What it does not do: it proves nothing whatever about
+\textup{(DE)} --- an approximate law for the position of the frontier is
+compatible with the frontier being bounded, which is the negation of (DE).
+
+\medskip
+\noindent\textbf{3. Its partial forms.} Each constrains how \emph{rare} a
+counterexample would have to be; none excludes one.
+Windowed sparsity of collision-free orbits, Theorem~\ref{thm:sparsity}
+(\lab{proved (lean)}), in Curry's explicit form \cite{Curry2026} after
+Garc\'ia--Tal \cite{GarciaTal1999}; reciprocal summability along a divergent orbit,
+Theorem~\ref{thm:summable} (\lab{proved (lean)}); and Tao's logarithmic-density
+result, that almost all orbits of the Collatz map attain almost bounded values
+\cite{Tao2022} (\lab{cited}). The last is the strongest of its kind available, and
+it is still a statement about almost all seeds --- while the seeds this programme
+must exclude form, by construction, a set of density zero.
+
+\medskip
+\noindent\textbf{4. Its conditional forms.} Implications that are
+\lab{proved (paper)} from hypotheses that are not available.
+First, the equivalent forms (a)--(d) of Proposition~\ref{prop:equivalent}, together
+with Theorem~\ref{thm:reduction}: reformulating (DE) into any of them is not
+progress, and the list exists to say so. Second, Formulation~\ref{form:walk}, the
+law-of-the-iterated-logarithm form: by Theorem~\ref{thm:density} a divergent orbit
+of a rational $2$-adic integer has parity word of lower density exactly $\beta$ ---
+refereed below $\beta$ \cite{MonksYazinski2004}, and above $\beta$ resting on the
+\textbf{unrefereed preprint} \cite{LopezStoll2021} --- and at that density the drift
+is a zero-mean lattice walk which zero-confinement requires to be one-sided forever;
+\emph{if} individual positive-integer orbits obeyed the law of the iterated
+logarithm at that density, \textup{(DE)} would follow. In both cases the hypothesis is exactly as hard as the conclusion: the walk is
+deterministic and generated by the orbit itself, no independence or martingale
+structure is available, and the confined words are precisely the measure-zero set
+the law describes. That is why Formulation~\ref{form:walk} is \lab{heuristic}.
+
+\medskip
+\noindent\textbf{5. The Navier--Stokes comparison.} \lab{analogy}. The two
+problems have accumulated the same four kinds of statement, in the same order,
+and are missing the same kind.
+
+\begin{center}\small
+\begin{tabular}{@{}p{0.29\textwidth}p{0.27\textwidth}p{0.36\textwidth}@{}}
+\toprule
+Navier--Stokes & what it gives & counterpart here\\
+\midrule
+energy inequality: a global a priori bound, supercritical for the scaling
+& control of the wrong quantity at the wrong scaling
+& the proved statistics: Theorem~\ref{thm:rate}, Theorem~\ref{thm:scales},
+Theorem~\ref{thm:sparsity}\\[3pt]
+partial regularity, Caffarelli--Kohn--Nirenberg \cite{CaffarelliKohnNirenberg1982}
+& the singular set is small
+& sparsity again, and Tao's almost-all result \cite{Tao2022}\\[3pt]
+blow-up criteria: Beale--Kato--Majda \cite{BealeKatoMajda1984}, Serrin
+\cite{Serrin1962}
+& a singularity exists iff some quantity becomes infinite
+& the equivalent forms of \textup{(DE)}, Proposition~\ref{prop:equivalent}\\[3pt]
+empirical scaling laws
+& where the extremes sit, numerically
+& the Sharp EOC law, Conjecture~\ref{conj:sharp}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+There is a fifth row of a different kind. Tao's averaged three-dimensional
+Navier--Stokes equation \cite{TaoAveragedNS2016} (\lab{cited}) keeps the energy
+identity and the harmonic-analysis structure of the true equation and yet blows up
+in finite time, so those features cannot by themselves decide regularity: a proof
+must use finer structure of the actual nonlinearity.
+Theorem~\ref{thm:signobstruction} is the counterpart here --- the aggregate
+identity, the confinement condition and the sign of a denominator are shared by
+$3x+1$ and $3x-1$, which disagree on the answer --- and Remark~\ref{rem:notenough}
+sharpens it: the same obstruction applies to the pair $(5x-1,5x+1)$, which
+\emph{is} settled, so what is missing is more specific than ``finer structure''.
+It is a ceiling.
+
+On the rare side of $3x+1$ persistence creates a \emph{floor} and not a ceiling.
+By the aggregate identity \eqref{eq:aggregate}, $2^{S_n}m_n=3^{n}m_0+C_n>3^{n}m_0$,
+and zero-confinement is $2^{S_n}\le3^{n}$, so
+\[
+m_n\;>\;\frac{3^{n}m_0}{2^{S_n}}\;\ge\;m_0\qquad\text{for every }n\ge1
+\]
+(\lab{proved (paper)}): a hypothetical confined seed never returns below itself.
+This is the exact mirror of the first step of Proposition~\ref{prop:5m1}, where the
+same identity with $r=-1$ and $q>4$ gives $m_n<m_0$ and hands the argument its
+ceiling for free. A ceiling for $3x+1$ would have to be created dynamically, from
+the fine interaction of the $2$-adic digits with archimedean size --- and the caveat
+of \S\ref{sec:needed}(c) applies in full: size tracks drift only while the carries
+are favourable, $m_n\asymp m_02^{-R_n}$ holding only up to the error term of
+Proposition~\ref{prop:drift}.
+
+\medskip
+\noindent\textbf{6.} Both problems have reached the same stage --- approximate,
+partial and conditional statements in hand, and a final pointwise step that needs
+an idea neither field yet has --- and this subsection records that stage precisely
+for the accelerated $3x+1$ problem, for no other purpose. \textbf{Nothing here is
+progress toward \textup{(DE)} or toward the Collatz conjecture, nothing here bears
+on the Navier--Stokes problem, and the analogy transfers no technique in either
+direction.}
 
 \section{Open problems}\label{sec:open}
 

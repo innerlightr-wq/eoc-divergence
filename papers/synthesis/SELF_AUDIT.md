@@ -333,3 +333,93 @@ Unchanged and re-read: the abstract's closing sentence, the Introduction's "Expl
 paragraph, and the closing line of §8. The new §7(c) adds one of its own — that the table is
 negative, does not bound or constrain (DE), and is a re-derivation of Theorems 4.3 and 3.5 in a
 family rather than a new tool.
+
+---
+
+# 11. §7(i) — self-audit of the new subsection only
+
+`main.tex`, **21 pp.**, compiles with **0 errors, 0 undefined references, 0 undefined citations,
+0 BibTeX warnings, 0 overfull boxes**. §§1–10 above stand unchanged; this section audits only
+§7(i), "Approximate, partial and conditional forms of the missing statement", and the four
+references and one label kind it adds.
+
+## 11.1 What changed
+
+| file | change |
+|---|---|
+| `main.tex` §1 | the `Labels` paragraph now declares `analogy`, scoped explicitly to §7(i) |
+| `main.tex` §7 | **new final subsection (i)**, after (h); nothing before it was touched |
+| `refs.bib` | four new entries: Tao (averaged NS), Caffarelli–Kohn–Nirenberg, Beale–Kato–Majda, Serrin |
+
+## 11.2 Length, against the brief's target
+
+The brief asked for about 1–1.5 pages. The subsection typesets to **90 lines, ≈ 1.76 pages**
+(pp. 16–18), measured against 51 lines on a full page. It is over target, and this is recorded
+rather than fixed by cutting: the six mandated items include a four-row table, the averaged
+Navier–Stokes paragraph and the floor/ceiling derivation, and two rounds of tightening (seven
+passages compressed, two bullet lists converted to prose) took it from 91 lines to 90. Further
+reduction would mean dropping mandated content or the caveats, which are the part of the
+subsection most worth keeping.
+
+## 11.3 One placement judgement, recorded
+
+The brief says the Navier–Stokes paragraph should go "as the first part of this subsection" if §7
+has none — and §7 had none, `grep -ci "navier|stokes|blowup"` returning 0 — but the content list
+puts the Navier–Stokes comparison at position 5. **Both were honoured**: the subsection opens with
+a short framing paragraph naming the analogy and its scope, and the full comparison, table and
+averaged-equation discussion sit at position 5 as listed. If the intent was that the whole
+Navier–Stokes treatment lead the subsection, that is a one-block move.
+
+## 11.4 Every citation, verified against Crossref
+
+| key | DOI | Crossref returns |
+|---|---|---|
+| `TaoAveragedNS2016` | `10.1090/jams/838` | Tao; *J. Amer. Math. Soc.* **29** (3), 601–674 |
+| `CaffarelliKohnNirenberg1982` | `10.1002/cpa.3160350604` | Caffarelli, Kohn, Nirenberg; *Comm. Pure Appl. Math.* **35** (6), 771–831, 1982 |
+| `BealeKatoMajda1984` | `10.1007/BF01212349` | Beale, Kato, Majda; *Comm. Math. Phys.* **94** (1), 61–66, 1984 |
+| `Serrin1962` | `10.1007/BF00253344` | Serrin; *Arch. Rational Mech. Anal.* **9** (1), 187–195, 1962 |
+| `Tao2022` | `10.1017/fmp.2022.8` | already in `refs.bib`; not re-added |
+
+**One discrepancy resolved, not hidden.** Crossref gives the JAMS paper's `issued` date as
+2015-06-30, the online-first date; the print volume 29, issue 3 is dated 2016. The entry uses
+**2016**, which is the standard citation and the year the brief specifies. Author given names were
+also pulled from Crossref and match the entries. The Serrin reference the brief asked to "confirm"
+is the 1962 *Arch. Rational Mech. Anal.* paper, confirmed exactly.
+
+## 11.5 Every number, traced
+
+The subsection introduces **no new numerical figure**. The four it quotes —
+`0.0737`, the interval `[0.061, 0.087]`, `I₀ = 0.0793…`, and `N = 346` with 24 distinct record
+holders — are the figures of Conjecture 4.8, already traced in §2 of this audit to
+`audits/record_holder_anatomy/REPORT.md` §§2.2 and 5.3. Everything else in the subsection is
+symbolic (`ε`, `c`, `β`) or a cross-reference.
+
+## 11.6 Cross-references and labels
+
+All eighteen cross-references are `\ref`/`\cite`, none typed as a literal number, and LaTeX reports
+**0 undefined**: `prop:equivalent`, `thm:reduction`, `conj:sharp`, `rem:halves`, `thm:rate`,
+`thm:scales`, `thm:sparsity`, `thm:summable`, `thm:density`, `form:walk`,
+`thm:signobstruction`, `rem:notenough`, `prop:5m1`, `prop:drift`, `eq:aggregate`, `sec:needed`,
+plus `DeJesusEOC` and `EOCDivergenceRepo`.
+
+Printed numbering as it now stands (for checking against the brief, which assumed a different
+merge state): Theorem **3.2** (reduction), Proposition **3.4** (equivalent forms), Theorem **4.1**
+(sparsity), Theorem **4.2** (summability), Theorem **4.4** (rate), Theorem **4.6** (three scales),
+Conjecture **4.8** (Sharp EOC), Remark **4.9** (which half is hard), Theorem **5.4** (density),
+Theorem **7.2** (sign obstruction), Remark **7.3**, Proposition **7.5** (`5x−1`), Formulation
+**7.7** (the walk). The brief's "Conjecture 4.7 / Remark 4.8" are these 4.8 / 4.9.
+
+Label census (raw `\lab` occurrences, each kind counted once more for the §1 declaration):
+`proved (paper)` 30, `cited` 19, `verified` 17, `open` 17, `proved (lean)` 12, `heuristic` 10,
+`conjecture` 3, `analogy` 3. **One new kind, `analogy`**, declared in §1 and used exactly twice in
+the body, both in §7(i); it is defined there as a structural comparison carrying no transfer of
+technique in either direction.
+
+## 11.7 Non-claims
+
+All existing non-claims are untouched: the abstract's closing sentence, the Introduction's
+"Explicit non-claims" paragraph, §7(c)'s over-reading warning and the closing line of §8. §7(i)
+adds two of its own — in its opening paragraph and in its final sentence — stating that nothing in
+it is progress toward (DE) or the Collatz conjecture, that nothing in it bears on the Navier–Stokes
+problem, and that the analogy transfers no technique in either direction. The Navier–Stokes results
+are cited only for their standard statements, and no claim is made about that problem.
