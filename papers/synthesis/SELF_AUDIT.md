@@ -423,3 +423,95 @@ adds two of its own — in its opening paragraph and in its final sentence — s
 it is progress toward (DE) or the Collatz conjecture, that nothing in it bears on the Navier–Stokes
 problem, and that the analogy transfers no technique in either direction. The Navier–Stokes results
 are cited only for their standard statements, and no claim is made about that problem.
+
+---
+
+# 12. Navier–Stokes status, the `Δ_N` decomposition, and the new open problem
+
+`main.tex`, **22 pp.**, compiles with **0 errors, 0 undefined references, 0 undefined citations,
+0 BibTeX warnings, 0 overfull boxes**. §§1–11 above stand unchanged; this section audits only the
+three changes below and the five references they add.
+
+## 12.1 What changed
+
+| § | change |
+|---|---|
+| preamble | `\usepackage{xurl}`, to break the one long URL in the bibliography (see 12.5) |
+| 4 | **Remark 4.10**, the exact decomposition (2) and what the record-holder audit therefore measures |
+| 7(i) | **new part 0**, the status of the Navier–Stokes problem as of September 2026, and the statement the analogy uses |
+| 7(i) part 5 | reframed as an analogy with the **unforced** problem (A)/(B), with the structural difference stated first |
+| 8 | new open problem, predicting `Δ_N` |
+| `refs.bib` | five entries: the OpenAI manuscript, its Lean repository, the CMI statement, Fefferman's problem description, one press report |
+
+## 12.2 Every Navier–Stokes claim, against a primary source
+
+Each was read directly, not taken from a summary.
+
+| claim in the note | source, and what it actually says |
+|---|---|
+| manuscript dated 8 September 2026 | the PDF's own `CreationDate` is `Tue Sep 8 15:06:26 2026`; 166 pp. |
+| the displayed statement of the construction | Theorem 1.1 of \[OpenAINS2026\], read verbatim: `f ∈ C_c^∞(ℝ³×(0,∞);ℝ³)`, `u(·,0)=0`, `sup_{0≤t<1}‖u(t)‖_{L²}<∞`, `limsup_{t↑1}‖u(t)‖_{L^∞}=∞` |
+| "establishes alternatives (C) and (D)" | its own words: *"This establishes alternative (C) in the Millennium problem statement for Navier–Stokes as stated by Fefferman in \[13\]. Compact support also yields the corresponding construction on `T³ = ℝ³/ℤ³`, establishing alternative (D)"* |
+| a Lean formalization accompanies it | the repository `openai/NavierStokesAndEuler`, which states the two theorems it formalizes and is built with Lean 4.34.0-rc2 and Mathlib. **The manuscript itself does not mention Lean** — `grep -ni "lean\|formaliz"` over its text returns nothing — so the note attributes the formalization to the repository, not to the paper |
+| CMI, 11 September 2026, "has apparently been settled", "deliberately unhurried" | the CMI announcement page, both phrases quoted verbatim; it does **not** say the prize has been awarded, and it does **not** use the labels (A)–(D) |
+| (A) and (B) take `f ≡ 0` | Fefferman's official problem description, read directly: (A) and (B) each say *"Take `f(x,t)` to be identically zero"*, while (C) and (D) supply *"a smooth `f(x,t)`"* |
+| priority and attribution publicly disputed | a press report of 14 September 2026 |
+
+**Two things deliberately not done.** The note does not repeat the substance of the priority
+dispute, does not name the parties to it and takes no position on it; the citation exists so a
+reader can follow it up, and the bib entry says it is cited *only* for the existence of the dispute.
+And the note nowhere asserts that the Millennium Prize has been resolved — it reports CMI's wording
+and stops.
+
+## 12.3 The claim the note makes in its own voice
+
+Exactly one, and it is an inference from two primary sources rather than a report: **the unforced
+global regularity question is untouched and remains open.** It follows from (A)/(B) requiring
+`f ≡ 0` and the construction requiring a nonzero force. Nothing else in part 0 is the note's own
+assertion; everything else is `cited`.
+
+## 12.4 The decomposition, checked
+
+With `A_N := p_N 2^{I₀N} N^{3/2}` and `Δ_N := log₂(r_min(N,0)·p_N)`,
+
+```
+I₀N + (3/2)log₂N − log₂A_N + Δ_N
+  = I₀N + (3/2)log₂N − log₂p_N − I₀N − (3/2)log₂N + log₂r_min + log₂p_N = log₂ r_min ,
+```
+
+so (2) is an identity, as the label says. `Δ_N` coincides with the audit's `Δ₁`, since
+`Δ₁ = log₂r_min − log₂(1/p_N) = log₂(r_min·p_N)`; that is why the remark can say the audit's
+residual *is* `Δ_N` and the renewal phase never enters. Theorem 4.6 gives `A_N ≍ 1` two-sided,
+which is what "bounded above and below" reports.
+
+The §8 item's decisive clause was checked rather than asserted: from
+`log₂r_min = log₂(1/p_N) + Δ_N` with `log₂(1/p_N) → ∞`, a uniform `Δ_N ≥ −c` gives
+`r_min ≥ 2^{−c}/p_N → ∞`, which is (DE) by Proposition 3.4(b). A formula for `Δ_N` without such a
+bound gives nothing.
+
+## 12.5 Build, and one preamble change
+
+The long press-report URL produced a single overfull box of 64 pt in the bibliography.
+`\usepackage{xurl}` (present in this TeX installation) fixed it; the build is back to **0 overfull
+boxes**. This is the only preamble change and it affects nothing but line breaking inside `\url`.
+
+## 12.6 Numbering, labels, length
+
+Inserting Remark 4.10 shifts the two statements after it: clustering is now **Proposition 4.11**
+and the `5x−1` null **Remark 4.12**. All references to them are `\ref`, so the note is consistent;
+§10.6 of this audit lists the earlier numbering and is left as the record of that revision.
+
+Label census: `proved (paper)` 31, `cited` 20, `open` 18, `verified` 17, `proved (lean)` 12,
+`heuristic` 10, `conjecture` 3, `analogy` 3 (one of which is the §1 declaration). No new kind.
+
+§7(i) is now **112 typeset lines ≈ 2.2 pages** (pp. 16–18), up from 1.76: part 0 is new material
+the brief required, and it is roughly half a page of it. The subsection is correspondingly further
+from the original 1–1.5 page target, which is recorded here rather than fixed by cutting the
+sourcing.
+
+## 12.7 Non-claims
+
+Unchanged and re-read. §7(i)'s two non-claims still stand and now carry more weight: the analogy is
+explicitly with the unforced problem, the structural difference (the forced construction chooses a
+force; the accelerated map is fixed) is stated before the table rather than after it, and part 0
+opens by saying that no position is taken on any of the reported Navier–Stokes status.
