@@ -1,0 +1,14 @@
+X=   4194305  map A  depth 20  P(a=1)=0.46246719  mean a=2.000364
+X=   4194305  map A  depth 40  P(a=1)=0.32589388  mean a=1.953145
+X=   4194305  map B  depth 20  P(a=1)=0.52333832  mean a=1.937876
+X=   4194305  map B  depth 40  P(a=1)=0.63289785  mean a=1.666623
+X=  67108865  map A  depth 20  P(a=1)=0.48703641  mean a=2.001744
+X=  67108865  map A  depth 40  P(a=1)=0.38677105  mean a=1.972869
+X=  67108865  map B  depth 20  P(a=1)=0.50814736  mean a=1.978834
+X=  67108865  map B  depth 40  P(a=1)=0.58580092  mean a=1.789242
+X= 268435457  map A  depth 20  P(a=1)=0.49279714  mean a=2.001344
+X= 268435457  map A  depth 40  P(a=1)=0.41255479  mean a=1.981312
+X= 268435457  map B  depth 20  P(a=1)=0.50452899  mean a=1.988322
+X= 268435457  map B  depth 40  P(a=1)=0.56605250  mean a=1.839307
+X= 268435457  map B  depth 20  P(a=1)=0.50452899  mean a=1.988322
+X= 268435457  map B  depth 40  P(a=1)=0.56605250  mean a=1.839307

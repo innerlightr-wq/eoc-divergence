@@ -1,0 +1,30 @@
+==============================================================================
+O5a  Haar reference (exact LIL target: limsup = +1, liminf = -1)
+==============================================================================
+  Haar word, seed 20260924
+      n          running max     running min     (S_n-2n)/n
+           100   +0.161840      +0.161840      +0.040000
+          1000   +0.168059      -0.597293      -0.020000
+         10000   +0.485131      -0.762571      +0.013000
+        100000   +0.664143      -0.762571      +0.005670
+       1000000   +0.664143      -0.762571      -0.000598
+      10000000   +0.664143      -0.762571      -0.000453
+
+==============================================================================
+O5b  integer orbits of A and B: how long is an orbit, actually?
+==============================================================================
+  A: seeds < 10^12, orbit length to capture: mean 93.69, median 91, max 265
+     at n = 265:  ln ln n = 1.7191,  sqrt(4 n lnln n) = 42.69  -- the LIL normalizer is barely defined
+  B: seeds < 10^12, orbit length to capture: mean 82.33, median 78, max 259
+     at n = 259:  ln ln n = 1.7150,  sqrt(4 n lnln n) = 42.15  -- the LIL normalizer is barely defined
+
+==============================================================================
+O5c  integer orbits of C (exact big-integer arithmetic, 20000 steps)
+==============================================================================
+  200 seeds < 10^9, 20000 steps each (envelope accumulated from n>=100; ln ln 20000 = 2.2929)
+    running max of (S_n-2n)/sqrt(4n lnln n): median +0.764168, max +2.192193
+    running min                            : median -0.749845, min -1.919688
+  (a single Haar word of the same length, for comparison:)
+  Haar, 20000 letters
+      n          running max     running min     (S_n-2n)/n
+         20000   +1.035788      -1.215669      +0.014600

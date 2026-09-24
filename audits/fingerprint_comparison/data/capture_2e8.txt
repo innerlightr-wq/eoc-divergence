@@ -1,0 +1,28 @@
+map A  CAPTURE  q=3 r=+1  X=200000001  odd seeds=100000000  budget=5000
+  cycle 1 captured  :      100000000   frac 1.000000000
+  escaped past 2^100:              0   frac 0.000000000   mean steps to escape 0.0000
+  uncaptured bounded:              0   frac 0.000000000   (nonzero => unlisted cycle)
+  steps to capture  : mean 64.348867  sd 26.515620  max 358
+  mean S/steps      : 1.994502   (Haar 2)
+  log2(max/x)       : mean 1.185915  sd 1.431494 ;  /log2(x) mean 0.045537
+
+map B  CAPTURE  q=3 r=-1  X=200000001  odd seeds=100000000  budget=5000
+  cycle 1 captured  :       32678364   frac 0.326783640
+  cycle 2 captured  :       32484460   frac 0.324844600
+  cycle 3 captured  :       34837176   frac 0.348371760
+  escaped past 2^100:              0   frac 0.000000000   mean steps to escape 0.0000
+  uncaptured bounded:              0   frac 0.000000000   (nonzero => unlisted cycle)
+  steps to capture  : mean 52.587033  sd 23.500828  max 302
+  mean S/steps      : 2.028496   (Haar 2)
+  log2(max/x)       : mean 1.187167  sd 1.431755 ;  /log2(x) mean 0.045589
+
+map C  CAPTURE  q=5 r=+1  X=20000001  odd seeds=10000000  budget=3000
+  cycle 1 captured  :          11512   frac 0.001151200
+  cycle 2 captured  :          18277   frac 0.001827700
+  cycle 3 captured  :           4408   frac 0.000440800
+  escaped past 2^100:        9965803   frac 0.996580300   mean steps to escape 234.1457
+  uncaptured bounded:              0   frac 0.000000000   (nonzero => unlisted cycle)
+  steps to capture  : mean 38.240372  sd 26.686771  max 263
+  mean S/steps      : 2.815399   (Haar 2)
+  log2(max/x)       : mean 3.466455  sd 4.150929 ;  /log2(x) mean 0.158587
+DONE
