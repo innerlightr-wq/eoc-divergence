@@ -1,6 +1,6 @@
 # Checkpoint 2 — self-audit of `main.tex`
 
-Draft: `papers/synthesis/main.tex`, **16 pp.**, compiles with **0 errors, 0 undefined
+Draft: `papers/synthesis/main.tex`, **18 pp.**, compiles with **0 errors, 0 undefined
 references, 0 undefined citations, 0 font warnings, 0 overfull boxes**. Title A, as approved.
 
 *Revised after Checkpoint 2: §7(a) and §7(c) expanded and the AI declaration made specific.
@@ -242,3 +242,86 @@ presented Conjecture 4.7 as a statistical conjecture supported by data; Remark 4
 half of it is **at least as hard as the programme's central open problem**, and says in terms
 that nothing in Section 4 should be read as evidence that it is within reach. That is the
 correct reading and it was not previously stated.
+---
+
+# 10. Cross-map revision — self-audit of the changed sections only
+
+`main.tex`, **18 pp.**, compiles with **0 errors, 0 undefined references, 0 undefined citations,
+0 overfull boxes**. §§1–9 above stand unchanged; this section re-audits only what this revision
+touched. Source for every new figure: `audits/cross_map/` (PR #18) and `audits/fingerprint_comparison/`
+(PR #17).
+
+## 10.1 What changed
+
+| § | change |
+|---|---|
+| 4 | Remark 4.5, `I(q) = D(β_q‖½)/β_q`, and its `r`-independence |
+| 4 | Remark 4.10, the same null model run on `5x−1` |
+| 5 | Remark 5.2, the Liouville argument for other multipliers |
+| 7(b) | Remark 7.3, reframing Theorem 7.2 |
+| 7(c) | **new subsection** "The growth side": Lemma 7.4, Proposition 7.5, the seven-map table |
+| 7(d)–(h) | relabelled from (c)–(g); the one manual cross-reference ("the height formulation (c)") updated to (d) |
+| 8 | new open problem: the `5x−1` residue law |
+| 9 | the two new audits added to the resources list; the brittle count "four audits" replaced by "the audits listed below" |
+
+## 10.2 Labels
+
+Census after the revision: `proved (paper)` 26, `cited` 17, `verified` 15, `open` 14,
+`proved (lean)` 10, `heuristic` 9, `conjecture` 2. No new label kind was introduced.
+
+**All six new numbered statements carry a label**: Lemma 7.4 and Proposition 7.5
+`proved (paper)`; Remark 4.5 `proved (paper)` + `verified`; Remark 4.10 `verified` +
+`heuristic`; Remark 5.2 `proved (paper)` + `verified`; Remark 7.3 `proved (paper)` for the
+conjugacy and `heuristic` for the reading.
+
+**One label chosen deliberately.** Remark 4.10 is split: the measurements are `verified`, but the
+*reading* that `5x−1`'s ladder really departs from the null — rather than the departure being an
+artefact of a short, strongly correlated ladder — is `heuristic`, and so is the trapped-orbit
+mechanism offered for it. `n_eff ≈ 3.4` is stated inside the remark in bold, not in a footnote.
+
+## 10.3 Every new figure, against its source
+
+| figure | in the note | source |
+|---|---|---|
+| `I(3)=0.0793186128`, `I(5)=0.0323008158`, `I(7)=0.1698737154` | Rem. 4.5 | `audits/cross_map/data/rates.txt` |
+| rate verified to `N = 500` for `q = 3,5,7` | Rem. 4.5 | same |
+| 66 holders, depth 459, `r_min(459)=848 537 873 557` | Rem. 4.10 | `data/delta1_D.txt` |
+| slope `+0.0211`, Theil–Sen `+0.0219`, CIs at blocks 3/8/16 | Rem. 4.10 | same |
+| `n_eff = 3.4`, lag-one `0.90` | Rem. 4.10 | same |
+| 23 holders, `Δ₁ = 2.19` at `N = 282`, slope `−0.0033`, exponent `0.076`, `n_eff = 6.3` | Rem. 4.10 | `data/delta1_A.txt` |
+| depths `10, 83, 568` at `q = 3`; shells for `q = 5, 7` | Rem. 5.2 | `data/sturmian.txt` |
+| `Ξ↑ = 2Ξ↓ − 1/q` mod `2^2000` | Rem. 5.2 | same |
+| shelter column, cycle search over odd seeds `≤ 20 001` | §7(c) table | `data/criterion.txt` |
+| `r_min ≡ 5 (mod 16)` at every `N ≤ 459`; 65 of 66 `≡ 21 (mod 32)` | §8 | `data/residues_D.txt` |
+| backward step ratio `2^{⌈α_q⌉}/q = 8/5` | §8 | `data/descent.txt` |
+
+## 10.4 Three things corrected during drafting
+
+* **The aggregate identity was cited too loosely.** Lemma 7.4's justification and Proposition 7.5's
+  proof first wrote `\eqref{eq:aggregate}` as if the displayed identity were already stated for
+  general `(q,r)`. It is stated for `3x+1`. Both now say that the *induction* giving (1) does not use
+  the values of `q` and `r`, and write the general identity out.
+* **`m_n ≍ m_0 2^{−R_n}` needed its caveat, and the caveat is not cosmetic.** The comparison holds
+  only up to `E_N` of Proposition 2.1, which is `O(1)` only while orbit values are large — and it
+  fails at exactly the point the section is about: the fixed point `m = 1` of `T_{5,−1}` has
+  `R_n → −∞` while the orbit is constant. §7(c) now says this and says that the proof of
+  Proposition 7.5 runs through the exact identity instead.
+* **"Reproducing" was too strong for the `3x+1` control.** The control scan is five times shorter
+  than the one behind Conjecture 4.8 and returns 23 holders where the published scan returns 24;
+  the text now says "consistent with", states the ratio, and says what the control is for
+  (calibrating the instrument, so the slope contrast is measured rather than assumed).
+
+## 10.5 Two places where the new material is deliberately weaker than it could look
+
+* The `(3,+5)` row of the §7(c) table says "open" in the same sense as `(3,+1)`, and the text now
+  adds that "open" there means only that neither mechanism decides the row, **with no claim about
+  the literature** for `3x+5`.
+* Remark 5.2 records that the general-slope extension's range is `γ < 2/log₂q` and states plainly
+  that **the general-slope case was not checked for `q ≠ 3`**; only the critical slope was.
+
+## 10.6 Non-claims
+
+Unchanged and re-read: the abstract's closing sentence, the Introduction's "Explicit non-claims"
+paragraph, and the closing line of §8. The new §7(c) adds one of its own — that the table is
+negative, does not bound or constrain (DE), and is a re-derivation of Theorems 4.3 and 3.5 in a
+family rather than a new tool.

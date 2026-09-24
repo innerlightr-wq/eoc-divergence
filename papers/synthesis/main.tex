@@ -285,6 +285,29 @@ Dvoretzky and Motzkin \cite{DvoretzkyMotzkin1947} (\lab{cited}) applied at the
 integral anchor $s_N=\lfloor N\alpha\rfloor$. No probability, no central limit
 theorem, no tilting.
 
+\begin{remark}[the rate as a relative entropy, and what it depends on]\label{rem:rateq}
+In parity coordinates confinement is a bound on the ones-density at the critical
+value $\beta=1/\alpha$, and the parity word is i.i.d.\ Bernoulli$(\tfrac12)$ under
+Haar measure, so the rate is the relative entropy
+$D(\beta\,\|\,\tfrac12)=1-H_2(\beta)$ per parity symbol. A word of $N$ accelerated
+steps carries $\approx\alpha N$ parity symbols, so per accelerated step
+\[
+I(q)\;=\;\alpha_q\,D\!\left(\beta_q\,\middle\|\,\tfrac12\right)
+      \;=\;\frac{D\!\left(\beta_q\,\middle\|\,\tfrac12\right)}{\beta_q},
+\qquad \alpha_q=\log_2 q,\quad \beta_q=\frac1{\log_2 q},
+\]
+for the family $T_{q,r}$ of Section~\ref{sec:needed}(c) --- \emph{independently of
+$r$}, since $r$ does not enter the letter law. Thus $I(3)=0.0793186128\ldots$,
+$I(5)=0.0323008158\ldots$, $I(7)=0.1698737154\ldots$.
+\end{remark}
+\lab{proved (paper)}, as a derivation of the $q=3$ form of Theorem~\ref{thm:rate};
+\lab{verified} against the exact integer transfer recursion to $N=500$ for
+$q=3,5,7$ in \texttt{audits/cross\_map}, the recursion itself being checked against
+a direct enumeration of the admissible words. The formula is \emph{one-sided}: for
+$q>4$ the rare side is the upper one and $I(q)$ is the rate of
+\emph{anti}-confinement, while the mass of the typical side tends to a positive
+constant, so $I(q)$ must not be read as the rate of the lower side there.
+
 \begin{theorem}[three scales]\label{thm:scales}
 The polynomial correction to the rate of Theorem~\ref{thm:rate} is exactly
 $N^{-3/2}$, two-sided, for both the unweighted count of confined words and the
@@ -389,6 +412,31 @@ cannot move $\Delta_1$ at all, because $r_{\min}(N,0)$ is always a chain root
 (that is part (L4) of Theorem~\ref{thm:descent}), so the thinned null differs from
 the unthinned one by the constant $\log_2(3/2)$ exactly.
 
+\begin{remark}[the same null on $5x-1$]\label{rem:null5}
+The null model was also run on $T_{5,-1}$, where the rare side is the upper one
+and where, by Proposition~\ref{prop:5m1}, $r_{\min}(N)\to\infty$ is a
+\emph{theorem} rather than a conjecture. An exact scan of every odd $m<10^{12}$
+gives $66$ record holders to depth $459$, the deepest
+$r_{\min}(459)=848\,537\,873\,557$. As for $3x+1$, $\Delta_1>0$ at every holder
+($66$ of $66$); \emph{unlike} $3x+1$, it grows --- least-squares slope $+0.0211$
+per unit $N$, Theil--Sen $+0.0219$, and block-bootstrap $95\%$ intervals excluding
+zero at block lengths $3$, $8$ and $16$. The identical pipeline on $3x+1$ over
+$m<2\cdot10^{11}$ returns $23$ holders, $\Delta_1=2.19$ bits at $N=282$, slope
+$-0.0033$, every interval containing zero, and growth exponent $0.076$ --- all
+consistent with the values behind Conjecture~\ref{conj:sharp}, which rest on a scan
+five times longer, so the instrument is calibrated and the contrast in the slope is
+measured rather than assumed. \textbf{The effective sample size is $n_{\mathrm{eff}}\approx3.4$ for
+$5x-1$} (lag-one autocorrelation $0.90$; $6.3$ for $3x+1$), so the intervals must
+not be read as if there were $66$ independent observations.
+\end{remark}
+\lab{verified} for the measurements, over the stated ranges. \lab{heuristic} for
+the reading that the departure is a feature of $5x-1$ rather than an artefact of a
+short and strongly correlated ladder. A mechanism is available and is likewise
+\lab{heuristic}: on the rare side of $5x-1$ a persistent seed's orbit is trapped in
+$[1,m_0]$ by the first step of Proposition~\ref{prop:5m1}'s proof, a constraint the
+word-counting null cannot see, and one to which $3x+1$ --- whose rare side is the
+growth side --- has no analogue.
+
 \medskip
 \noindent\textbf{What Section~\ref{sec:statistics} amounts to.} The size of the
 confined population is known exactly at leading order, at polynomial order, and
@@ -462,6 +510,25 @@ being the smallest compatible with confinement at every length. An extension to
 every irrational slope, with $n_0=3$ uniformly and margin
 $c(\gamma)=2-\max(1,\gamma\log_2 3)\ge 2-\log_2 3>0$, is
 \lab{proved (paper)}, \emph{in preparation}.
+
+\begin{remark}[other multipliers]\label{rem:sturmianq}
+The Liouville argument does not use the value of the multiplier: for $T_{q,1}$ with
+$q$ odd, $q\ge3$, it applies verbatim to the critical Sturmian constant of slope
+$\beta_q=1/\log_2 q$, because $q$ cancels exactly between the carry bound
+$C_n<2q_nq^{\,q_n-1}$ and $q_n\alpha_q=p_n+|R_n|$, leaving only the irrationality of
+$\alpha_q$ and $q_n\to\infty$ as inputs.
+\end{remark}
+\lab{proved (paper)}, by the argument of \cite{DeJesusSturmian} with $q$ in place of
+$3$: the re-derivation of the depth law in \texttt{audits/sturmian\_irrationality} is
+stated for a general irrational slope, and the wall and carry bounds scale with $q$
+as above. \lab{verified} in \texttt{audits/cross\_map} at every shell inside the
+computed modulus for $q=3,5,7$, reproducing the depths $10,83,568$ at $q=3$. Two scope
+notes. Where a general-slope extension applies its margin is
+$2-\max(1,\gamma\log_2 q)$, so the range is $\gamma<2/\log_2 q$, which always
+contains the critical slope $1/\log_2 q$; the general-slope case was \emph{not}
+checked for $q\ne3$. And for $q>4$ the extremal rare-side word is the upper
+mechanical word, whose constant satisfies $\Xi^{\uparrow}=2\Xi^{\downarrow}-1/q$
+(\lab{verified} modulo $2^{2000}$ for $q=5,7$), so it needs no separate argument.
 
 \begin{remark}[credit for the general-slope statement]\label{rem:credit}
 For irrational $\gamma<\beta$ the irrationality of $\Ph(1c_\gamma)$ is an
@@ -724,7 +791,132 @@ sensitivity from the backward side: the backward fixed point of $3x+1$ is $-1$ a
 of $3x-1$ is $+1$, so the strict decrease $p<m$ of (L1) is unconditional in the
 first case and fails at exactly one point in the second.
 
-\subsection*{(c) Border versus height}
+\begin{remark}[what the obstruction does \emph{not} explain]\label{rem:notenough}
+Theorem~\ref{thm:signobstruction} remains true as stated, and it does exclude the
+ingredients it lists. It is not, however, an explanation of the difficulty. The
+pair $(5x-1,\,5x+1)$ has the same sign structure: $x\mapsto-x$ conjugates $5x-1$ on
+the positive integers to $5x+1$ on the negative ones exactly as it conjugates
+$3x-1$ to $3x+1$; the two systems again share the aggregate identity, the
+confinement condition and the $S_k$ combinatorics, and again disagree on the
+positive side. The identical obstruction therefore applies to that pair --- and yet
+the $5x-1$ question is \emph{settled}, by Proposition~\ref{prop:5m1} below. What
+settles it is the archimedean \emph{magnitude} $m_n<m_0$ together with
+well-ordering: Criterion~\ref{crit:three}(ii) and (iii), with (i) absent. So the
+difficulty of (DE) is not that the sign is hard to see. It is that for $3x+1$ the
+rare side is the \emph{growth} side, where no bounded orbit is available and
+pigeonhole cannot be run. That is precisely why Criterion~\ref{crit:three}(i) ---
+$2$-adic integrality at unboundedly many depths --- is not a formality here: it is
+what the growth side forces.
+\end{remark}
+\lab{proved (paper)} for the conjugacy, and for the fact that
+Proposition~\ref{prop:5m1} settles the $5x-1$ case; \lab{heuristic} for the reading
+of \emph{why} \textup{(DE)} is hard, which is an interpretation of the table in (c)
+and not a theorem.
+
+\subsection*{(c) The growth side}
+
+The obstruction of (b) concerns a pair of systems. Placing that pair inside the
+larger family
+\[
+T_{q,r}(x)=\frac{qx+r}{2^{\,\vt(qx+r)}},\qquad q\ \text{odd},\ q\ge3,\quad
+r\ \text{odd},
+\]
+(\lab{cited} \cite{Lagarias1985} for the family) isolates what is special about
+$3x+1$. Write $\alpha_q=\log_2 q$ and $R_n=S_n-n\alpha_q$. Under Haar measure on
+$\Zt^{\times}$ the letter $\vt(qx+r)$ is geometric$(\tfrac12)$ with mean $2$,
+\emph{for every odd $q$ and every odd $r$} \lab{proved (paper)}; so $R_n$ drifts at
+$2-\alpha_q$ and the \emph{rare} side --- the one an orbit must fight to stay on ---
+is
+\[
+R_n\le0\ \ (2^{S_n}\le q^n)\quad\text{if } q<4,\qquad
+R_n\ge0\ \ (2^{S_n}\ge q^n)\quad\text{if } q>4,
+\]
+with $q=4$ excluded because $q$ is odd. Say $m_0$ \emph{persists} if its orbit is on
+the rare side at every $n\ge1$; zero-confinement is persistence for $T_{3,1}$. Since
+$m_n\asymp m_02^{-R_n}$, the rare side is the \emph{growth} side when $q<4$ and the
+\emph{shrinking} side when $q>4$ --- but only up to the error term $E_N$ of
+Proposition~\ref{prop:drift}, which is $O(1)$ only while the orbit values are large.
+The comparison fails exactly where it would be most convenient: the fixed point
+$m=1$ of $T_{5,-1}$ has word $2^{\infty}$, so $R_n\to-\infty$ while the orbit is
+constant, the error term cancelling the drift term exactly. The proof below
+therefore runs through the exact identity and never through $R_n$.
+
+\begin{lemma}[sign alignment]\label{lem:signalign}
+A positive cycle of $T_{q,r}$ of length $L$ and valuation total $S$ satisfies
+$\operatorname{sign}(S/L-\alpha_q)=\operatorname{sign}(r)$. Hence a positive cycle
+lies on the rare side if and only if $\operatorname{sign}(r)=\operatorname{sign}(q-4)$.
+\end{lemma}
+\lab{proved (paper)}. The induction that gives \eqref{eq:aggregate} does not use the
+values of $q$ and $r$: for every odd $q$ and odd $r$,
+$2^{\,S_n}m_n=q^{\,n}m_0+r\,C_n$ with $C_n=\sum_{i<n}q^{\,n-1-i}2^{\,S_i}\ge q^{\,n-1}>0$.
+At a period this reads $m(2^{S}-q^{L})=r\,C_L$; positivity of $m$ and $C_L$ fixes the sign, and
+$2^{S}\ne q^{L}$ by unique factorisation. For $(q,r)=(3,1)$ this is
+Theorem~\ref{thm:cycledrift}, and for $(3,-1)$ it is the computation inside the
+proof of Theorem~\ref{thm:signobstruction}.
+
+\begin{proposition}[$5x-1$]\label{prop:5m1}
+No positive odd integer persists under $T_{5,-1}$: there is no odd $m_0\ge1$ with
+$2^{S_n}\ge5^{\,n}$ for every $n\ge1$.
+\end{proposition}
+
+\begin{proof}
+Here $q=5>4$, so persistence means $2^{S_n}\ge5^n$, and $r=-1$, so the identity of
+Lemma~\ref{lem:signalign} reads $2^{S_n}m_n=5^{\,n}m_0-C_n$ with $C_n>0$ for $n\ge1$.
+Hence
+\[
+m_n=\frac{5^{\,n}m_0-C_n}{2^{S_n}}<\frac{5^{\,n}m_0}{2^{S_n}}\le m_0 ,
+\]
+so the orbit consists of positive odd integers below $m_0$ and, by pigeonhole, is
+eventually periodic, with period $L$ and cycle total $S_{\mathrm{cyc}}$. Taking
+$n=n_0+kL$, persistence gives
+$k\bigl(S_{\mathrm{cyc}}-L\alpha_5\bigr)\ge n_0\alpha_5-S_{n_0}$ for every $k$,
+whence $S_{\mathrm{cyc}}/L\ge\alpha_5$. But the cycle is positive and $r<0$, so
+Lemma~\ref{lem:signalign} gives $S_{\mathrm{cyc}}/L<\alpha_5$. Contradiction.
+\end{proof}
+\lab{proved (paper)}. Both hypotheses are used, and neither can be dropped: $r<0$
+puts the carry on the favourable side of \eqref{eq:aggregate}, and $q>4$ makes
+persistence an \emph{upper} bound on $q^n/2^{S_n}$. For $r>0$ and $q>4$ the carry
+term is positive and boundedness is \emph{not} forced --- with $t_i=2^{S_i}/q^{\,i}\ge1$,
+persistence gives $m_n=\bigl(m_0+q^{-1}\sum_{i<n}t_i\bigr)/t_n\ge(m_0+n/q)/t_n$ ---
+but that case needs no argument, because a cycle already shelters there.
+
+Two mechanisms therefore decide the question, and they are complementary.
+\emph{Shelter}: some positive cycle lies on the rare side, exactly when
+$\operatorname{sign}(r)=\operatorname{sign}(q-4)$, and persistence holds, witnessed by
+a cycle element. \emph{Pigeonhole}: persistence forces $m_n<m_0$ and hence eventual
+periodicity, exactly when $r<0$ and $q>4$; combined with the failure of shelter it
+makes persistence impossible. The one sign combination with neither is $q<4$ and
+$r>0$ --- where the rare side is the growth side.
+
+\begin{center}\small
+\begin{tabular}{@{}llccl@{}}
+\toprule
+map & $(q,r)$ & shelter & pigeonhole & persistence on the rare side\\
+\midrule
+$3x+1$ & $(3,+1)$ & no  & no  & \textbf{open} --- this is \textup{(DE)}\\
+$3x-1$ & $(3,-1)$ & yes & --- & true, witnessed by $m=1$\\
+$5x+1$ & $(5,+1)$ & yes & --- & true, witnessed by $m=3$\\
+$5x-1$ & $(5,-1)$ & no  & yes & \textbf{false}, Proposition~\ref{prop:5m1}\\
+$3x+5$ & $(3,+5)$ & no  & no  & \textbf{open}, the same class as $3x+1$\\
+$7x+1$ & $(7,+1)$ & yes & --- & true, witnessed by $m=1$\\
+$7x-1$ & $(7,-1)$ & no  & yes & \textbf{false}, by the proof above verbatim\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\lab{proved (paper)} for the shelter and pigeonhole columns of every row, and for the
+verdict in every row but the two marked open; \lab{verified} for the shelter column
+against an exact cycle search over odd seeds $\le20\,001$ in all seven cases
+(\texttt{audits/cross\_map}). ``Open'' in the first and fifth rows means only that
+neither mechanism decides the row; for $(3,+1)$ that statement is \textup{(DE)}, and
+for $(3,+5)$ no claim is made about the literature.
+\textbf{The content of the table is negative and should not be over-read.} It does not bound, estimate or otherwise constrain (DE); it says
+only that of the seven maps, the two whose rare side is the growth side are the two
+that are open, and that the other five are settled by one of two elementary
+mechanisms. It is a re-derivation of Theorem~\ref{thm:cycledrift} and
+Theorem~\ref{thm:marker} in a family, not a new tool.
+
+\subsection*{(d) Border versus height}
 
 \begin{formulation}[the price of agreement]\label{form:border}
 Every exclusion in Section~\ref{sec:excluded} has one shape. If a $2$-adic target
@@ -813,7 +1005,7 @@ has been extracted, and almost all of them are realized by no integer at all. Th
 height is the only quantity in the problem that distinguishes an integer from a
 $2$-adic limit of integers.
 
-\subsection*{(d) The $\sqrt n$ formulation}
+\subsection*{(e) The $\sqrt n$ formulation}
 
 \begin{formulation}[the one-sided walk]\label{form:walk}
 By Theorem~\ref{thm:density}, a divergent orbit of a rational $2$-adic integer has
@@ -832,7 +1024,7 @@ reformulation does contribute is a scale: it says the obstruction is of size
 $\sqrt n$ in the drift, which is what Theorem~\ref{thm:scales}'s $N^{-3/2}$ is
 measuring on the ensemble side.
 
-\subsection*{(e) The only integer-specific features}
+\subsection*{(f) The only integer-specific features}
 
 \begin{observation}\label{obs:integer}
 The only features an integer possesses that a general element of $\Zt$ does not
@@ -853,14 +1045,14 @@ statement of that kind available here is either vacuous (the constraint is
 automatic) or equivalent to (DE) itself.
 Form (d) of Proposition~\ref{prop:equivalent} is exactly the statement
 that the zero tail is what is missing, and it is equivalent to (DE) rather than a
-route to it; the height formulation (c) is the size, and it is likewise
+route to it; the height formulation (d) is the size, and it is likewise
 equivalent. A genuinely new ingredient would have to be a \emph{quantitative law}
 for how the terminating tail propagates into the parity digits --- how many
 parity digits of $m$ are constrained by the fact that $m<2^{B}$, as a function of
 $B$ and of the depth. Nothing of this kind is known here, and the programme
 contains no candidate for it.
 
-\subsection*{(f) The signed ladder of targets}
+\subsection*{(g) The signed ladder of targets}
 
 \begin{proposition}[the ladder]\label{prop:ladder}
 Let \textup{(PosPC)} be the assertion that $K$ contains no positive rational.
@@ -882,7 +1074,7 @@ condition at \emph{every} index. So (PosPC) is (DE) asserted simultaneously for
 the whole family $3x+v$, and it is the natural signed target sitting strictly
 between (DE) and a classical conjecture.
 
-\subsection*{(g) The cycle side}
+\subsection*{(h) The cycle side}
 
 \begin{observation}\label{obs:cycle}
 Cycle exclusion is an anti-concentration statement modulo $2^{S}-3^{L}$: a
@@ -940,6 +1132,17 @@ Observation~\ref{obs:cycle}. \lab{open}.
 \item \textbf{Dangerous-window sparsity} for the analytic side: the hypothesis
 that implies low-frequency decay, for every shift and some logarithmic window
 length. \lab{open}.
+\item \textbf{The $5x-1$ residue law.} For the upper-side frontier of $T_{5,-1}$
+(Section~\ref{sec:needed}(c)), is $r_{\min}(N)\equiv5\ (\mathrm{mod}\ 16)$ for
+every $N$? \lab{verified} at every $N\le459$, over an exact scan of all odd
+$m<10^{12}$, with $65$ of the $66$ distinct record holders also
+$\equiv21\ (\mathrm{mod}\ 32)$; \lab{open} as a statement. The $3x+1$ analogue
+(L4) of Theorem~\ref{thm:descent} is proved \emph{through} (L1), and (L1) has no
+counterpart here: for $q>4$ the persistence-preserving backward step multiplies
+the seed by $2^{\lceil\alpha_q\rceil}/q>1$ instead of contracting it, so the
+descent route to a residue law is unavailable. The congruence is only partly
+forced --- $S_1\ge3$ requires $m\equiv5\ (\mathrm{mod}\ 8)$, which splits into
+$5$ and $13$ modulo $16$, and the class $13$ is admissible yet never least.
 \end{enumerate}
 
 \noindent None of these, and nothing else in this note, bears on the Collatz
@@ -948,7 +1151,7 @@ conjecture.
 \section{Formal and computational resources}\label{sec:resources}
 
 \noindent\textbf{Repositories.} \texttt{eoc-divergence} \cite{EOCDivergenceRepo}
-holds three independent Lean~4 libraries and four audits;
+holds three independent Lean~4 libraries and the audits listed below;
 \texttt{eoc-lean-verification} \cite{EOCLeanRepo} holds the analytic side.
 
 \medskip
@@ -968,7 +1171,12 @@ cycle lemma; it is not imported by \texttt{Divergence}.
 \texttt{audits/sturmian\_irrationality}, including the general-slope phase;
 \texttt{audits/record\_holder\_anatomy}, which produced
 Propositions~\ref{prop:density}, \ref{prop:clustering}, \ref{prop:l4prime} and
-Theorem~\ref{thm:signobstruction}. Each carries its own report with every claim
+Theorem~\ref{thm:signobstruction}; \texttt{audits/fingerprint\_comparison}, which
+established the letter law used in Section~\ref{sec:needed}(c) and the sign
+alignment of Lemma~\ref{lem:signalign}; and \texttt{audits/cross\_map}, which
+produced Proposition~\ref{prop:5m1}, the table of Section~\ref{sec:needed}(c),
+Remarks~\ref{rem:rateq}, \ref{rem:null5} and \ref{rem:sturmianq}, and the $5x-1$
+record scan. Each carries its own report with every claim
 labelled and every computation scripted.
 
 \medskip
