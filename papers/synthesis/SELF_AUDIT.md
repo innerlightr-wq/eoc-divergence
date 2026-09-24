@@ -1,6 +1,6 @@
 # Checkpoint 2 — self-audit of `main.tex`
 
-Draft: `papers/synthesis/main.tex`, **18 pp.**, compiles with **0 errors, 0 undefined
+Draft: `papers/synthesis/main.tex`, **19 pp.**, compiles with **0 errors, 0 undefined
 references, 0 undefined citations, 0 font warnings, 0 overfull boxes**. Title A, as approved.
 
 *Revised after Checkpoint 2: §7(a) and §7(c) expanded and the AI declaration made specific.
@@ -246,8 +246,8 @@ correct reading and it was not previously stated.
 
 # 10. Cross-map revision — self-audit of the changed sections only
 
-`main.tex`, **18 pp.**, compiles with **0 errors, 0 undefined references, 0 undefined citations,
-0 overfull boxes**. §§1–9 above stand unchanged; this section re-audits only what this revision
+`main.tex`, **19 pp.** after rebasing onto the merged #14, compiles with **0 errors, 0 undefined
+references, 0 undefined citations, 0 overfull boxes**. §§1–9 above stand unchanged; this section re-audits only what this revision
 touched. Source for every new figure: `audits/cross_map/` (PR #18) and `audits/fingerprint_comparison/`
 (PR #17).
 
@@ -264,10 +264,18 @@ touched. Source for every new figure: `audits/cross_map/` (PR #18) and `audits/f
 | 8 | new open problem: the `5x−1` residue law |
 | 9 | the two new audits added to the resources list; the brittle count "four audits" replaced by "the audits listed below" |
 
+Numbering after the rebase onto the merged #14 (all cross-references are `\ref`, so these resolve
+automatically): Remark **4.5** (the rate), Conjecture **4.8** (sharp EOC), Remark **4.9** (#14's,
+which half is hard), Proposition **4.10** (clustering), Remark **4.11** (the `5x−1` null),
+Remark **5.2** (other multipliers), Remark **7.3** (reframing), Lemma **7.4** (sign alignment),
+Proposition **7.5** (`5x−1`).
+
 ## 10.2 Labels
 
-Census after the revision: `proved (paper)` 26, `cited` 17, `verified` 15, `open` 14,
-`proved (lean)` 10, `heuristic` 9, `conjecture` 2. No new label kind was introduced.
+Census after the revision, with #14 merged in: `proved (paper)` 28, `cited` 17, `verified` 16,
+`open` 16, `proved (lean)` 10, `heuristic` 9, `conjecture` 2. No new label kind was introduced.
+(Before the rebase onto #14 the same count was 26 / 17 / 15 / 14 / 10 / 9 / 2; the differences
+are #14's own labels, not this revision's.)
 
 **All six new numbered statements carry a label**: Lemma 7.4 and Proposition 7.5
 `proved (paper)`; Remark 4.5 `proved (paper)` + `verified`; Remark 4.10 `verified` +
