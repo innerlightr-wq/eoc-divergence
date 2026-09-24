@@ -1,0 +1,21 @@
+========================================================================
+F1  valuation law over all odd residues mod 2^20 (exact counts)
+========================================================================
+A (3x+1)   P(a=1)=1/2, P(a=10)=1/1024, P(a=11)=1/2048, P(a=12)=1/4096, P(a=13)=1/8192, P(a=14)=1/16384
+           geometric(1/2) exactly for 1<=k<19: True;  truncated mean = 1.999960  (exact limit 2)
+B (3x-1)   P(a=1)=1/2, P(a=10)=1/1024, P(a=11)=1/2048, P(a=12)=1/4096, P(a=13)=1/8192, P(a=14)=1/16384
+           geometric(1/2) exactly for 1<=k<19: True;  truncated mean = 1.999960  (exact limit 2)
+C (5x+1)   P(a=1)=1/2, P(a=10)=1/1024, P(a=11)=1/2048, P(a=12)=1/4096, P(a=13)=1/8192, P(a=14)=1/16384
+           geometric(1/2) exactly for 1<=k<19: True;  truncated mean = 1.999960  (exact limit 2)
+
+========================================================================
+F3  word -> residue-class correspondence, n=4 letters, letters<=4, mod 2^18
+========================================================================
+A (3x+1)   words seen:  256;  violations of the exact count 2^(m-1-S): 0
+B (3x-1)   words seen:  256;  violations of the exact count 2^(m-1-S): 0
+C (5x+1)   words seen:  256;  violations of the exact count 2^(m-1-S): 0
+
+========================================================================
+F2  x -> -x conjugates A to B, checked on every odd |x| < 2^14
+========================================================================
+           A(-x) = -B(x) and equal valuations: violations = 0

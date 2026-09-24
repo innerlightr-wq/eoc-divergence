@@ -1,0 +1,29 @@
+==============================================================================
+O1a  per-step drift increment  Delta = alpha - a,  EXACT (Phase 0, F1')
+==============================================================================
+  letter a:  mean 2  var 2  mu3 6  mu4 38
+  A (3x+1)   alpha = 1.5849625007   mean -0.4150374993   var 2.0000000000   skew -2.1213203436   exkurt +6.5000000000
+  B (3x-1)   alpha = 1.5849625007   mean -0.4150374993   var 2.0000000000   skew -2.1213203436   exkurt +6.5000000000
+  C (5x+1)   alpha = 2.3219280949   mean +0.3219280949   var 2.0000000000   skew -2.1213203436   exkurt +6.5000000000
+  -> variance, skewness and excess kurtosis are IDENTICAL across the three maps;
+     only the mean differs, by exactly log2(5/3) = 0.7369655942.
+
+==============================================================================
+O1b  finite-N shape of the normalized drift, EXACT vs Gaussian vs Edgeworth
+==============================================================================
+  The law of S_N does not involve q at all, so the normalized drift
+  Z_N = (D_N - N(alpha-2)) / sqrt(2N) = (2N - S_N)/sqrt(2N) is the SAME
+  random variable for A, B and C.  One table therefore serves all three.
+
+     N     sup|F_N - Phi|   sup|F_N - Edgeworth1|   ratio   N^(1/2)*sup|F-Phi|
+      2   9.870633e-02        2.204590e-02     0.223   0.139592
+      4   7.015810e-02        2.803929e-02     0.400   0.140316
+      8   4.973822e-02        1.262100e-02     0.254   0.140681
+     16   3.521599e-02        5.558079e-03     0.158   0.140864
+     32   2.491767e-02        2.652113e-03     0.106   0.140956
+     64   1.762519e-02        1.266461e-03     0.072   0.141001
+    128   1.246492e-02        6.147563e-04     0.049   0.141024
+    256   8.814745e-03        3.016474e-04     0.034   0.141036
+    512   6.233219e-03        1.486188e-04     0.024   0.141042
+   1024   4.407641e-03        7.360521e-05     0.017   0.141045
+  The Edgeworth correction uses gamma1 = -2.121320, which is map-independent.
