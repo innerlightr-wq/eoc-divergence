@@ -4,6 +4,14 @@
 Labels: **PROVED** (proof written out, here or in a cited source) · **CITED** ·
 **VERIFIED** (exact computation, stated range) · **HEURISTIC** · **OPEN**.
 
+>  **CORRECTED 2026-09-25.** The `5x-1` record ladder first published here was
+>  computed over a sieved population that omitted half of the admissible seeds, and
+>  was wrong from `N = 2` onward. It has been rescanned and every statistic derived
+>  from it regenerated; Items 3 and 5, the `A`-vs-`D` table and insight 3 below carry
+>  the corrected figures. The diagnosis, the blast radius, the fix and the regression
+>  test are in [`CORRECTION_2026-09-25.md`](CORRECTION_2026-09-25.md). **The `3x+1`
+>  ladder is unaffected and was re-verified, not assumed.**
+
 Phase 0 is in [`PHASE0.md`](PHASE0.md), committed before Phase 1. Raw outputs are in
 [`data/`](data/); programs in [`scripts/`](scripts/). Every decision is made in exact arithmetic
 (Python integers / `Fraction`, or C `unsigned __int128` behind a `2^100` guard); floating point
@@ -44,7 +52,7 @@ P0″, are in `PHASE0.md`.
 | 4 | signed marker | rare-side periodic points **negative** | **positive** | **positive** | **negative** |
 | 5 | descent L1 (well-ordering) | **holds**, step decreases | holds, but backward fixed point at `+1` | **fails**: step increases | **fails**: step increases |
 | 5 | descent L2 (chain length) | `v₃(m+1)` | `v₃(m−1)` | `v₅(3m+1)` | `v₅(3m−1)` — all **PROVED**, **VERIFIED** |
-| 5 | descent L4 (residue law) | `≡ 3, 7 (mod 12)` (**CITED**, formalized) | vacuous | vacuous | `≡ 5 (mod 16)` at every `N ≤ 459` (**VERIFIED**, not proved) |
+| 5 | descent L4 (residue law) | `≡ 3, 7 (mod 12)` (**CITED**, formalized) | vacuous | vacuous | `≡ 5 (mod 8)` at every `N ≤ 459` (**PROVED** from `S₁ ≥ 3`); nothing finer — the `mod 16` law is **RETRACTED** |
 | 6 | Sturmian irrationality | **holds** (**CITED**) | same constant as A | **holds**, same proof | same constant as C, up to `Ξ↑ = 2Ξ↓ − 1/q` |
 
 ---
@@ -116,29 +124,56 @@ recursion itself:
 
 ## Item 3 — `D`'s record ladder against the exact mass (`data/delta1_D.txt`)
 
-The scan covers **every odd `m < 10^12`** in the class `m ≡ 5 (mod 16)` forced by the first letter,
-8 workers, exact `__int128`. Result: **66 distinct record holders, depths `1 … 459`, deepest
-`r_min(459) = 848 537 873 557`.** (A cross-check at `X = 5·10^7` reproduces the fingerprint audit's
-`N = 264` at `39 090 837`, and the same program run on `A` reproduces the published `N = 236` at
-`63 728 127`.)
+> **Rescanned 2026-09-25.** The first version of this item scanned the class
+> `m ≡ 5 (mod 16)`, which is **half** of the admissible seeds; the correct class is
+> `m ≡ 5 (mod 8)`. Every figure below is from the complete rescan. See
+> [`CORRECTION_2026-09-25.md`](CORRECTION_2026-09-25.md).
+
+The scan covers **every odd `m < 10^12`** in the class `m ≡ 5 (mod 8)` forced by the first letter
+(`v₂(5m−1) ≥ A[1]+1 = 3`), 8 workers, exact `__int128`, overflow guard fired 0 times. Result:
+**93 distinct record holders, depths `1 … 459`, deepest `r_min(459) = 848 537 873 557`.**
+
+The ladder is confirmed by three independent implementations (Section 4 of the correction note):
+the patched C scanner, an unsieved pure-Python orbit scan, and a pure-Python Terras–Everett *class*
+tree that enumerates residue classes and never iterates a seed's orbit. All agree entry for entry
+on every shared range; in particular the `m < 2^32` prefix of this ladder, **74 holders**, is
+reproduced exactly by a scanner with no sieve at all.
+
+A fourth check needed no new computation. `audits/fingerprint_comparison`, whose scanner sieves
+nothing, already held a `5x-1` ladder to `X = 5·10^7` (`data/records_2x2.txt`, its §6): **52
+holders**, `5, 13, 21, 45, 77, 269, …`. The corrected ladder restricted to that `X` reproduces
+those 52 **exactly**; the old one gave 35, beginning `5, 21, 533, 789, …`. **The refutation was
+already in the repository and the two audits were never compared** — the cross-check the first
+version of this item claimed against that file compared only the single deepest entry, which the
+sieve happens not to move.
 
 Against the exact rare-side mass, `Δ₁(N) = log₂ r_min(N) − log₂(1/p_N)`:
 
-| `N` | `r_min(N)` | `log₂ r_min` | `log₂(1/p_N)` | `Δ₁` |
-|---|---|---|---|---|
-| 16 | 533 | 9.0580 | 5.1518 | 3.9062 |
-| 100 | 284 501 | 18.1181 | 10.6098 | **7.5083** |
-| 237 | 39 090 837 | 25.2203 | 16.6008 | **8.6195** |
-| 401 | 39 980 551 349 | 35.2186 | 22.9288 | **12.2897** |
-| 454 | 848 537 873 557 | 39.6262 | 24.8835 | **14.7427** |
+| `N` | `r_min(N)` | `log₂ r_min` | `log₂(1/p_N)` | `Δ₁` | was |
+|---|---|---|---|---|---|
+| 2 | 13 | 3.7004 | 2.4150 | 1.2854 | `r_min = 21` |
+| 13 | 21 | 4.3923 | 4.7880 | **−0.3957** | — |
+| 16 | 45 | 5.4919 | 5.1518 | 0.3400 | `533`, `Δ₁ = 3.9062` |
+| 100 | 142 445 | 17.1200 | 10.6098 | **6.5103** | `284 501`, `7.5083` |
+| 237 | 39 090 837 | 25.2203 | 16.6008 | **8.6195** | unchanged |
+| 401 | 39 980 551 349 | 35.2186 | 22.9288 | **12.2897** | unchanged |
+| 454 | 848 537 873 557 | 39.6262 | 24.8835 | **14.7427** | unchanged |
 
-* `Δ₁ > 0` at **66 of 66** holders — the same sign as `A`'s published 24 of 24.
-* But it **grows**: OLS slope `+0.021080`, Theil–Sen `+0.021928`, block-bootstrap 95 % CI
-  `[+0.0160, +0.0233]` (blocks of 3), `[+0.0118, +0.0234]` (blocks of 8), `[+0.0084, +0.0253]`
-  (blocks of 16) — bounded away from zero at every block size.
-* Implied growth exponent `I(5) + slope = 0.0534`, against the null `I(5) = 0.0323`.
-* Serial correlation is severe: `ρ₁ = +0.90`, `n_eff = n(1−ρ)/(1+ρ) = 3.4`. **The bootstrap
-  intervals should not be read as if there were 66 independent observations.**
+* `Δ₁ > 0` at **92 of 93** holders. The single exception is the newly visible
+  `N = 13`, `r_min = 21`, `Δ₁ = −0.396`. (The first version reported 66 of 66; the
+  exception lives in the class the old scan never looked at.)
+* It still **grows**: OLS slope `+0.022401`, Theil–Sen `+0.022357`, block-bootstrap 95 % CI
+  `[+0.0172, +0.0253]` (blocks of 3), `[+0.0126, +0.0254]` (blocks of 8), `[+0.0088, +0.0245]`
+  (blocks of 16) — bounded away from zero at every block size, as before.
+* Implied growth exponent `I(5) + slope = 0.0547`, against the null `I(5) = 0.0323`.
+* Serial correlation is severe: `ρ₁ = +0.938`, `n_eff = n(1−ρ)/(1+ρ) = 3.0`. **The bootstrap
+  intervals should not be read as if there were 93 independent observations.**
+
+**What the correction changed, and what it did not.** The holder count rises `66 → 93`, the sign
+count becomes `92/93`, the slope moves `+0.0211 → +0.0224` and `n_eff` `3.4 → 3.0`. The
+*qualitative* reading — `Δ₁` positive almost everywhere, growing, every bootstrap interval
+excluding zero, in contrast to `A` — is unchanged. The `p_N` column is unchanged at every `N`:
+the mass recursion was never involved.
 
 ### The control: the same pipeline on `A` (`data/delta1_A.txt`)
 
@@ -148,14 +183,14 @@ recursion and the identical fit were run on `A` over every odd `m < 2·10^{11}`:
 | | **A** `3x+1` (lower side) | **D** `5x−1` (upper side) |
 |---|---|---|
 | scan range | `m < 2·10^{11}` | `m < 10^{12}` |
-| distinct holders | **23**, depths `1…344`, deepest `r_min(344) = 12 235 060 455` | **66**, depths `1…459`, deepest `r_min(459) = 848 537 873 557` |
-| `Δ₁ > 0` | 23 of 23 | 66 of 66 |
-| `Δ₁` range (median) | `0.33 … 4.72` (**2.72**); `2.19` at `N = 282` | `1.98 … 14.74` (**8.55**) |
-| OLS slope | **`−0.003328`** | **`+0.021080`** |
-| Theil–Sen slope | `−0.004322` | `+0.021928` |
-| bootstrap 95 % CI (blocks 3 / 8 / 16) | `[−0.019, +0.008]` / `[−0.024, +0.019]` / `[−0.017, +0.009]` — **contains 0 throughout** | `[+0.016, +0.023]` / `[+0.012, +0.023]` / `[+0.008, +0.025]` — **excludes 0 throughout** |
-| implied growth exponent | `0.0760` (null `I(3) = 0.0793`) | `0.0534` (null `I(5) = 0.0323`) |
-| `ρ₁`, `n_eff` | `+0.571`, `6.3` | `+0.901`, `3.4` |
+| distinct holders | **23**, depths `1…344`, deepest `r_min(344) = 12 235 060 455` | **93**, depths `1…459`, deepest `r_min(459) = 848 537 873 557` |
+| `Δ₁ > 0` | 23 of 23 | 92 of 93 |
+| `Δ₁` range (median) | `0.33 … 4.72` (**2.72**); `2.19` at `N = 282` | `−0.40 … 14.74` (**7.95**) |
+| OLS slope | **`−0.003328`** | **`+0.022401`** |
+| Theil–Sen slope | `−0.004322` | `+0.022357` |
+| bootstrap 95 % CI (blocks 3 / 8 / 16) | `[−0.019, +0.008]` / `[−0.024, +0.019]` / `[−0.017, +0.009]` — **contains 0 throughout** | `[+0.017, +0.025]` / `[+0.013, +0.025]` / `[+0.009, +0.025]` — **excludes 0 throughout** |
+| implied growth exponent | `0.0760` (null `I(3) = 0.0793`) | `0.0547` (null `I(5) = 0.0323`) |
+| `ρ₁`, `n_eff` | `+0.571`, `6.3` | `+0.938`, `3.0` |
 
 The `A` column reproduces `audits/record_holder_anatomy` independently: 23 holders where the deeper
 scan finds 24, `Δ₁ = 2.19` bits at `N = 282` against the published `1.9–2.5`, a growth exponent of
@@ -177,8 +212,10 @@ a persistent seed's whole orbit is trapped in `[1, m₀]`. The word a small seed
 therefore not free: the orbit must fit inside the interval below the seed. The null model counts
 words with their dyadic densities and has no such constraint, so it should under-predict `r_min`, and
 increasingly with `N`. `A` has no analogue of this constraint — its rare side is the growth side, and
-a confined orbit is unbounded. This is offered as a mechanism, not a proof; the `n_eff ≈ 3.4` caveat
+a confined orbit is unbounded. This is offered as a mechanism, not a proof; the `n_eff ≈ 3.0` caveat
 applies to the measurement it explains.
+
+**The `A` column was re-verified after the correction, not assumed.** For `q < 4` the first-step sieve is exact (`S₁ ≤ A[1] = 1` with `S₁ ≥ 1` forces `v₂(3m+1) = 1`), and the patched scanner re-run over the whole range `[1, 2·10^11)` reproduces **all eight** committed `data/scan_A_raw/part_*.txt` files **byte for byte**, guard firing 0 times; independently, [`../pointwise_discovery`](../pointwise_discovery), whose scanner sieves nothing at all, reproduces the `A` ladder entry for entry.
 
 ## Item 4 — the signed marker, as one statement (`data/markers.txt`)
 
@@ -236,12 +273,23 @@ upper side (`q > 4`) the constraint is a lower bound and needs
 persistence-preserving move (`a ≥ 3`) is *not* the move carrying the `q`-adic chain (`a = 1`), so the
 two halves of the descent machinery decouple, whereas for `A` they are the same move.
 
-**L4 has an empirical analogue for `D`, not a proved one.** Over all `N ≤ 459`,
-`r_min(N) ≡ 5 (mod 16)` without exception, and 65 of the 66 distinct holders are `≡ 21 (mod 32)`
-(the exception is the first, `m = 5`). **VERIFIED**, not proved: `A`'s L4 is proved *through* L1, and
-L1 is unavailable here. The residue is only partly forced — `S₁ ≥ 3` requires `m ≡ 5 (mod 8)`, which
-splits into `5` and `13 (mod 16)`, and the class `13` is admissible (`m = 13` is persistent for about
-nine steps) yet never least.
+**L4 has NO empirical analogue for `D`. RETRACTED 2026-09-25.** The first version of this item
+reported `r_min(N) ≡ 5 (mod 16)` without exception over all `N ≤ 459`, with 65 of 66 holders
+`≡ 21 (mod 32)`. **That was an artefact of the sieve**: the scan only ever visited
+`m ≡ 5 (mod 16)`. On the complete rescan the census is
+
+```
+  mod  8:  1/ 8 classes occupied  {5: 93}          <- the PROVED part, still exact
+  mod 16:  2/16 classes occupied  {5: 27, 13: 66}  <- the retracted "law"
+  mod 32:  4/32 classes occupied  {5: 1, 13: 38, 21: 26, 29: 28}
+```
+
+so a **majority** of the holders sit in the class the old scan omitted, and `r_min(2) = 13` is
+already a counterexample. What survives is exactly the part that was **PROVED** rather than
+observed: `S₁ ≥ A[1]+1 = 3` forces `m ≡ 5 (mod 8)`, and all 93 holders satisfy it. The claim that
+"the class `13` is admissible yet never least" is withdrawn — `13` is least at `N = 2`, and is the
+modal class overall. `A`'s L4 is proved *through* L1, and L1 is unavailable here, so there was never
+a proof to lean on.
 
 **L7.** The lockstep statement has no clean analogue: a forward step with the persistence-preserving
 letter `a = 3` sends `3m − 1 ↦ (15m − 11)/8`, and `15m − 11 ≡ −1 (mod 5)`, so the 5-adic budget is
@@ -307,17 +355,27 @@ for `q = 5` and `q = 7`. So `C` and `D` need no separate argument.
    is what the growth side forces. **PROVED.**
 3. **`D`'s record frontier departs from the random-placement null, and `A`'s does not.** Measured by
    one pipeline on both maps: `A`'s `Δ₁` has slope `−0.003` with every bootstrap interval containing
-   zero, `D`'s has slope `+0.021` with every interval excluding it. The pipeline reproduces `A`'s
+   zero, `D`'s has slope `+0.022` with every interval excluding it. The pipeline reproduces `A`'s
    published `Δ₁ ≈ 2.2` bits, growth exponent `0.076` and `n_eff ≈ 6`, so the contrast is measured.
    Because P0 makes the qualitative statement a theorem for `D`, this is a clean quantitative
    question with no conjectural overhang — and the natural mechanism (a persistent `D`-orbit is
    trapped below its seed; an `A`-orbit is not) is one the null model cannot see. **VERIFIED** for
-   the measurement, **HEURISTIC** for the mechanism, with `n_eff ≈ 3.4` stated.
+   the measurement, **HEURISTIC** for the mechanism, with `n_eff ≈ 3.0` stated.
+   *(Figures from the corrected rescan; the conclusion is unchanged from the first version, the
+   numbers moved slightly. See [`CORRECTION_2026-09-25.md`](CORRECTION_2026-09-25.md).)*
 4. **The descent machinery decouples for `q > 4`.** For `A` the backward `a = 1` step both preserves
    confinement (L1) and carries the 3-adic chain (L2). For `C` and `D` the persistence-preserving
    move is `a ≥ 3` and *increases* the seed, while the chain-carrying move is still `a = 1`; the two
    are different moves. **PROVED.**
-5. **Everything else is re-derivation.** The rate `I(q) = D(β‖½)/β`, the signed marker, the Sturmian
+5. **A sieve that is exact on one side of the family is not exact on the other.** For `q < 4` the
+   first-step condition is an upper bound and pins the first letter exactly, so one residue class
+   mod 4 carries every candidate. For `q > 4` it is a lower bound, every letter `d ≥ A[1]+1` is
+   admissible, and the candidates form one class mod `2^{A[1]+1}` — twice as large. Sieving as if
+   the two sides were symmetric silently halves the population, and the half that is lost is
+   exactly the seeds whose first valuation is *larger* than the minimum. This cost this audit its
+   `D` ladder and one retracted residue law. **PROVED**, and recorded here because the asymmetry is
+   the same one that makes `3x+1` hard: the rare side is a bound in a different direction.
+6. **Everything else is re-derivation.** The rate `I(q) = D(β‖½)/β`, the signed marker, the Sturmian
    depth law and the Liouville argument all transfer with `q` appearing only through `α` — in the
    Liouville argument it cancels exactly. Nothing in items 2, 4 or 6 is new beyond the observation
    that the `q`-dependence is that shallow.

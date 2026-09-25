@@ -446,18 +446,28 @@ the unthinned one by the constant $\log_2(3/2)$ exactly.
 The null model was also run on $T_{5,-1}$, where the rare side is the upper one
 and where, by Proposition~\ref{prop:5m1}, $r_{\min}(N)\to\infty$ is a
 \emph{theorem} rather than a conjecture. An exact scan of every odd $m<10^{12}$
-gives $66$ record holders to depth $459$, the deepest
-$r_{\min}(459)=848\,537\,873\,557$. As for $3x+1$, $\Delta_1>0$ at every holder
-($66$ of $66$); \emph{unlike} $3x+1$, it grows --- least-squares slope $+0.0211$
-per unit $N$, Theil--Sen $+0.0219$, and block-bootstrap $95\%$ intervals excluding
+gives $93$ record holders to depth $459$, the deepest
+$r_{\min}(459)=848\,537\,873\,557$. As for $3x+1$, $\Delta_1>0$ at nearly every
+holder ($92$ of $93$; the exception is $N=13$, $\Delta_1=-0.40$);
+\emph{unlike} $3x+1$, it grows --- least-squares slope $+0.0224$
+per unit $N$, Theil--Sen $+0.0224$, and block-bootstrap $95\%$ intervals excluding
 zero at block lengths $3$, $8$ and $16$. The identical pipeline on $3x+1$ over
 $m<2\cdot10^{11}$ returns $23$ holders, $\Delta_1=2.19$ bits at $N=282$, slope
 $-0.0033$, every interval containing zero, and growth exponent $0.076$ --- all
 consistent with the values behind Conjecture~\ref{conj:sharp}, which rest on a scan
 five times longer, so the instrument is calibrated and the contrast in the slope is
-measured rather than assumed. \textbf{The effective sample size is $n_{\mathrm{eff}}\approx3.4$ for
-$5x-1$} (lag-one autocorrelation $0.90$; $6.3$ for $3x+1$), so the intervals must
-not be read as if there were $66$ independent observations.
+measured rather than assumed. \textbf{The effective sample size is $n_{\mathrm{eff}}\approx3.0$ for
+$5x-1$} (lag-one autocorrelation $0.94$; $6.3$ for $3x+1$), so the intervals must
+not be read as if there were $93$ independent observations.
+
+\emph{These $5x-1$ figures are from a rescan of 2026-09-25.} The first version of
+this remark reported $66$ holders, $66$ of $66$ positive, and slope $+0.0211$,
+from a scan that sieved to $m\equiv5\ (\mathrm{mod}\ 16)$ --- half of the seeds
+admissible at the first step, which are $m\equiv5\ (\mathrm{mod}\ 8)$. The
+qualitative reading survives the correction unchanged; the numbers moved. The
+$p_N$ column did not move at any $N$, the exact mass recursion never having been
+involved, and the $3x+1$ column is unaffected and was re-verified. See
+\texttt{audits/cross\_map/CORRECTION\_2026-09-25.md}.
 \end{remark}
 \lab{verified} for the measurements, over the stated ranges. \lab{heuristic} for
 the reading that the departure is a feature of $5x-1$ rather than an artefact of a
@@ -1342,25 +1352,40 @@ every ingredient is computable at each $N$ and none of it requires an asymptotic
 statement, which is what distinguishes it from the rest of this list. Two cautions
 belong with it. First, the sample is small and strongly correlated --- $24$ record
 holders over $N\le346$ with $n_{\mathrm{eff}}\approx7$, and for $5x-1$ (which is
-not $3x+1$, but is the only other ladder measured) $66$ over $N\le459$ with
-$n_{\mathrm{eff}}\approx3.4$, Remark~\ref{rem:null5} --- so a model that merely
+not $3x+1$, but is the only other ladder measured) $93$ over $N\le459$ with
+$n_{\mathrm{eff}}\approx3.0$, Remark~\ref{rem:null5} --- so a model that merely
 fits the observed $\Delta_N$ is evidence of very little. Second, and decisively: a
 formula alone would not bear on \textup{(DE)}. Since
 $\log_2 r_{\min}(N,0)=\log_2(1/p_N)+\Delta_N$ with $\log_2(1/p_N)\to\infty$, only
 a \emph{uniform lower bound} $\Delta_N\ge-c$ would give $r_{\min}(N,0)\to\infty$,
 hence \textup{(DE)} by Proposition~\ref{prop:equivalent}\,(b) --- and proving such
 a bound is therefore at least as hard as \textup{(DE)} itself.
-\item \textbf{The $5x-1$ residue law.} For the upper-side frontier of $T_{5,-1}$
-(Section~\ref{sec:needed}(c)), is $r_{\min}(N)\equiv5\ (\mathrm{mod}\ 16)$ for
-every $N$? \lab{verified} at every $N\le459$, over an exact scan of all odd
-$m<10^{12}$, with $65$ of the $66$ distinct record holders also
-$\equiv21\ (\mathrm{mod}\ 32)$; \lab{open} as a statement. The $3x+1$ analogue
-(L4) of Theorem~\ref{thm:descent} is proved \emph{through} (L1), and (L1) has no
-counterpart here: for $q>4$ the persistence-preserving backward step multiplies
-the seed by $2^{\lceil\alpha_q\rceil}/q>1$ instead of contracting it, so the
-descent route to a residue law is unavailable. The congruence is only partly
-forced --- $S_1\ge3$ requires $m\equiv5\ (\mathrm{mod}\ 8)$, which splits into
-$5$ and $13$ modulo $16$, and the class $13$ is admissible yet never least.
+\item \textbf{\textup{RETRACTED}: the $5x-1$ residue law.} An earlier version of
+this note asked whether $r_{\min}(N)\equiv5\ (\mathrm{mod}\ 16)$ for the
+upper-side frontier of $T_{5,-1}$, and recorded it as \lab{verified} at every
+$N\le459$. \textbf{The statement is false, and the supporting computation was
+defective.} It fails already at $N=2$: $5\cdot13-1=64$, so $S_1=6\ge3$ and
+$m=13$ is rare-side persistent, whence $r_{\min}(2)=13\equiv13\
+(\mathrm{mod}\ 16)$, not the $21$ that was reported.
+
+The cause is a sieve. For $q>4$ the condition at $n=1$ is $S_1\ge A[1]+1$, a
+\emph{lower} bound, so every first letter $d\ge A[1]+1$ is admissible and the
+seeds form one class modulo $2^{A[1]+1}$ --- for $T_{5,-1}$ exactly the
+$m\equiv5\ (\mathrm{mod}\ 8)$ that the previous wording itself derived. The
+scanner sieved instead to the single class with $v_2(5m-1)=3$ \emph{exactly},
+$m\equiv5\ (\mathrm{mod}\ 16)$, and so never visited $m\equiv13\
+(\mathrm{mod}\ 16)$. The clause "the class $13$ is admissible yet never least"
+was the artefact of that omission. A complete rescan of every odd $m<10^{12}$
+finds $93$ record holders in place of $66$, of which $66$ --- a clear majority ---
+lie in the class $13\ (\mathrm{mod}\ 16)$, and $13$ is itself least at $N=2$.
+\lab{verified} for the refutation; the residue question is \lab{open} again, with
+no empirical pattern behind it. What survives unchanged is the \emph{proved}
+partial constraint $S_1\ge3\Rightarrow m\equiv5\ (\mathrm{mod}\ 8)$, and the
+observation that the $3x+1$ analogue (L4) of Theorem~\ref{thm:descent} is proved
+\emph{through} (L1), which has no counterpart here: for $q>4$ the
+persistence-preserving backward step multiplies the seed by
+$2^{\lceil\alpha_q\rceil}/q>1$ instead of contracting it, so the descent route to
+a residue law is unavailable.
 \end{enumerate}
 
 \noindent None of these, and nothing else in this note, bears on the Collatz
@@ -1391,11 +1416,25 @@ cycle lemma; it is not imported by \texttt{Divergence}.
 Propositions~\ref{prop:density}, \ref{prop:clustering}, \ref{prop:l4prime} and
 Theorem~\ref{thm:signobstruction}; \texttt{audits/fingerprint\_comparison}, which
 established the letter law used in Section~\ref{sec:needed}(c) and the sign
-alignment of Lemma~\ref{lem:signalign}; and \texttt{audits/cross\_map}, which
+alignment of Lemma~\ref{lem:signalign}; \texttt{audits/cross\_map}, which
 produced Proposition~\ref{prop:5m1}, the table of Section~\ref{sec:needed}(c),
 Remarks~\ref{rem:rateq}, \ref{rem:null5} and \ref{rem:sturmianq}, and the $5x-1$
-record scan. Each carries its own report with every claim
-labelled and every computation scripted.
+record scan; and \texttt{audits/pointwise\_discovery} (verdict \textsc{d}, no
+usable pointwise signal), which measured the finite-height question of
+Observation~\ref{obs:integer} directly and found nothing beyond
+Terras--Everett, and whose reproduction of the controls exposed the $5x-1$ sieve
+defect. Each carries its own report with every claim labelled and every
+computation scripted.
+
+\medskip
+\noindent\textbf{One correction to a published control.} The $5x-1$ record ladder
+of \texttt{audits/cross\_map} was computed over a sieved population omitting half
+of the admissible seeds; it was wrong from $N=2$, and \emph{the residue question
+that rested on it is retracted in Section~\ref{sec:open}, item~11}. The scanner is
+fixed, the full range rescanned, every derived statistic regenerated, and a
+regression test added; see \texttt{audits/cross\_map/CORRECTION\_2026-09-25.md}.
+The $3x+1$ ladder is unaffected --- for $q<4$ the same sieve is exact --- and this
+was re-verified rather than assumed.
 
 \medskip
 \noindent\textbf{Reproducibility.} All arithmetic reported here is exact: integer

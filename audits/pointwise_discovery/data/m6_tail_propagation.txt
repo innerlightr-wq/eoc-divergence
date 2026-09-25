@@ -1,0 +1,66 @@
+M6 - does the terminating binary tail show up in deep parity data?
+
+Two diagnostics from the brief's section 10, on the complete n-confined cohort
+below 2^36 (no sampling):
+
+ (a) LOW BITS vs LATE LETTERS.  chi^2 test of independence between m mod 32
+     (16 odd classes) and the letter a_k, for k well past the depth that
+     m mod 32 determines.  Terras-Everett says the two are independent under
+     Haar; finite height is exactly the extra information, so a departure here
+     would BE the missing law.
+
+ (b) BLOCK ENTROPY.  empirical entropy of letter blocks of length 1,2,3 in the
+     integer cohort against the exactly-sampled generic confined words.  A
+     36-bit integer's depth-180 word carries at most 36 bits of information,
+     whereas a generic confined word of that length carries far more; if that
+     compression were visible in any low-order statistic it would show here.
+
+cohort: every odd m < 2^36 that is 140-confined; 83587 seeds
+
+(a)  chi^2 independence of (m mod 32) and the letter a_k
+         k      chi2   dof       z   (z = (chi2-dof)/sqrt(2 dof); |z|>4 would be a signal)
+         1   83587.0    60 7624.94   <- determined by m mod 32
+         2   83587.0    60 7624.94   <- determined by m mod 32
+         3   62722.9    60 5720.32   <- determined by m mod 32
+         4    2682.4    60  239.39
+         6     285.6    60   20.59
+        10      62.7    60    0.25
+        20      33.7    60   -2.40
+        50      17.2    60   -3.91
+       100       8.7    60   -4.69
+       139       5.8    60   -4.95
+
+(b)  block entropy of the letter sequence, bits per block
+       L   integers  generic words  difference
+       1    1.44169        1.44248    -0.00079
+       2    2.88665        2.88827    -0.00162
+       3    4.33308        4.33557    -0.00249
+
+     (the generic sample here is K = 20896 words drawn from the same
+      exact dyadic law, at the same depth)
+
+(a') chi^2 of (m mod 32) vs a_k, chain roots only, dof from non-empty cells
+         k      chi2   dof       z
+         4    1838.4     6  528.97
+         6     176.1    12   33.50
+        10      41.2    15    4.78
+        20      29.7    15    2.69
+        50      15.7    15    0.13
+       100      15.5    15    0.09
+       139      11.4    15   -0.65
+
+(b') block entropy with the L1/L2 chain correlation removed
+       L  all integers  chain roots    generic   root-gen
+       1       1.44169      1.44182    1.44211   -0.00029
+       2       2.88665      2.88693    2.88748   -0.00055
+       3       4.33308      4.33349    4.33444   -0.00095
+     matched sizes: roots 55665, generic 55665
+
+(b'') noise floor: four INDEPENDENT generic samples of the same size
+        L     seed 777     seed 991    seed 1234    seed 5150    spread
+        1      1.44211      1.44205      1.44197      1.44195   0.00016
+        2      2.88748      2.88732      2.88719      2.88714   0.00033
+        3      4.33444      4.33411      4.33404      4.33394   0.00050
+
+      The chain-root vs generic gaps are 2-3x this spread, and are
+      settled decisively by m8 against the EXACT letter law.

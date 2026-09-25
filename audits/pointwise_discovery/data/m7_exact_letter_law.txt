@@ -1,0 +1,22 @@
+M7 - the letter law at depth k under the confined ensemble, EXACTLY.
+
+With  fwd[k][S] = #{confined prefixes of length k with total S}  and the
+backward table  g_{k}(S)  of words.Table,
+
+    P(a_k = d)  =  sum_S  fwd[k][S] * g_{k+1}(S+d)  /  num_n          (exact)
+
+so both the integer cohort and the sampler can be tested against an exact
+rational null with no Monte Carlo anywhere on the null side.
+
+    k  exact P(a=1) |   integers     chi2  dof       z |      roots       z |   sampler       z
+   10      0.712783 |   0.712647      6.7    5    0.55 |   0.714866    1.28 |  0.708950    0.90
+   30      0.668728 |   0.669829     25.8    7    5.03 |   0.670852    3.05 |  0.667600    0.70
+   60      0.643168 |   0.643330     14.1    8    1.52 |   0.644013   -0.73 |  0.647900   -0.76
+   90      0.623123 |   0.625121     11.6    8    0.90 |   0.627881    0.82 |  0.623050   -1.15
+  120      0.598074 |   0.601469     20.4    9    2.69 |   0.602192    1.86 |  0.603150    0.09
+  139      0.545507 |   0.545898     31.3   10    4.77 |   0.547274   -0.92 |  0.543450    1.67
+
+integers: 83587 words (55665 chain roots); sampler: 20000 words.
+z = (chi2 - dof)/sqrt(2 dof) against the EXACT rational law.
+Note the integer cohort's words are correlated through the L1/L2 chains,
+so its nominal chi2 is anticonservative; the chain-root column is not.

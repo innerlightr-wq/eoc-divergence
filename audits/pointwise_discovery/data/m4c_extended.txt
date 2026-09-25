@@ -1,0 +1,19 @@
+M4c  every odd m < 2^36 that is n-confined, against 2x10^4 generic
+     confined words sampled from the exact dyadic law.
+     Under H0 the two cohorts have identical word law - including S.
+     t = Welch t;  d = mean difference in sd units of the generic cohort.
+
+   n  integers mean delta  max|t|  max|d|    t(S)   worst statistic
+ 140     83587      182.9    2.29  0.0180   -2.19   slope32_0
+ 160     23528      214.6    3.54  0.0342   -3.54   S
+ 180      6820      246.2    4.63  0.0648   -3.41   slope32_0
+ 200      2124      277.8    3.27  0.0748   -0.78   D_max
+
+     Bonferroni threshold over all statistics x depths: |t| > 3.7 at 5%.
+
+M4c(b)  stratified by seed bit length within the n=140 cohort
+        (each stratum has the same word law under H0)
+   bits    count mean delta  max|t|   worst statistic
+ 28-31      2474      187.6    5.73   n_a4
+ 32-33      7793      185.3    2.68   slope32_0
+ 34-36     73151      182.5    2.37   argmax_D

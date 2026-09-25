@@ -1,0 +1,56 @@
+M4  real 32-bit integers vs exactly-sampled generic confined words.
+    Under H0 the two cohorts have IDENTICAL word law (see module docstring).
+    t = Welch t of the difference; d = difference in sd units of the
+    generic cohort.  Null: t = 0 for every statistic, including S.
+
+n= 100  integers= 72804  generic= 20000  mean delta(int)=123.9   #|t|>4 = 1
+      delta          t=+7230.09  d=+84.0558 sd   int=  123.9065  gen=    1.4457
+      argmax_D       t=   -2.37  d=-0.0190 sd   int=    0.5865  gen=    0.5905
+      slope16_0      t=   -1.80  d=-0.0144 sd   int=    1.3077  gen=    1.3093
+      n_a2           t=   -1.80  d=-0.0144 sd   int=   22.9393  gen=   22.9977
+      n_a3           t=   +1.78  d=+0.0142 sd   int=    7.9935  gen=    7.9589
+      slope8         t=   +1.75  d=+0.0140 sd   int=    1.7379  gen=    1.7331
+      slope8_0       t=   -1.67  d=-0.0133 sd   int=    1.2233  gen=    1.2251
+      mean_a         t=   +1.66  d=+0.0132 sd   int=    1.5346  gen=    1.5341
+
+n= 120  integers= 19950  generic= 20000  mean delta(int)=155.6   #|t|>4 = 2
+      delta          t=+5341.95  d=+107.3153 sd   int=  155.5641  gen=    1.4299
+      D_max          t=   -4.48  d=-0.0447 sd   int=   12.0991  gen=   12.2393
+      slope8_0       t=   -3.87  d=-0.0390 sd   int=    1.2195  gen=    1.2249
+      D_mean         t=   -3.20  d=-0.0319 sd   int=    6.0798  gen=    6.1401
+      argmax_D       t=   -2.69  d=-0.0271 sd   int=    0.5763  gen=    0.5819
+      n_a4           t=   +2.45  d=+0.0244 sd   int=    3.4008  gen=    3.3609
+      lead1          t=   +2.37  d=+0.0237 sd   int=    4.2956  gen=    4.2260
+      slope16_0      t=   -2.23  d=-0.0223 sd   int=    1.3055  gen=    1.3080
+
+n= 140  integers=  5235  generic= 20000  mean delta(int)=186.8   #|t|>4 = 2
+      delta          t=+3402.23  d=+129.3066 sd   int=  186.8424  gen=    1.4340
+      n_a4           t=   +4.09  d=+0.0626 sd   int=    4.0915  gen=    3.9806
+      D_max          t=   -3.82  d=-0.0604 sd   int=   13.0472  gen=   13.2490
+      slope32_0      t=   +3.60  d=+0.0545 sd   int=    1.3853  gen=    1.3806
+      n_a3           t=   -2.89  d=-0.0453 sd   int=   11.2686  gen=   11.4004
+      S              t=   -2.81  d=-0.0445 sd   int=  216.3943  gen=  216.5521
+      D_end          t=   +2.81  d=+0.0445 sd   int=    4.6057  gen=    4.4479
+      mean_a         t=   -2.81  d=-0.0445 sd   int=    1.5457  gen=    1.5468
+
+n= 160  integers=  1489  generic= 20000  mean delta(int)=218.8   #|t|>4 = 1
+      delta          t=+2123.84  d=+150.1261 sd   int=  218.7996  gen=    1.4502
+      n_a5p          t=   +3.09  d=+0.0881 sd   int=    2.6078  gen=    2.4895
+      n_a3           t=   -2.95  d=-0.0755 sd   int=   12.8469  gen=   13.0831
+      slope32_0      t=   +2.64  d=+0.0678 sd   int=    1.3846  gen=    1.3788
+      slope8_0       t=   -2.58  d=-0.0685 sd   int=    1.2120  gen=    1.2216
+      n_a1           t=   +2.42  d=+0.0692 sd   int=  103.1263  gen=  102.8554
+      contacts1      t=   -2.16  d=-0.0556 sd   int=   10.1135  gen=   10.5000
+      lead1          t=   +2.13  d=+0.0561 sd   int=    4.4486  gen=    4.2827
+
+n= 180  integers=   454  generic= 20000  mean delta(int)=250.3   #|t|>4 = 2
+      delta          t=+1274.47  d=+172.4948 sd   int=  250.2602  gen=    1.4365
+      run1_max       t=   -4.78  d=-0.1810 sd   int=    9.5727  gen=   10.0382
+      D_max          t=   -2.78  d=-0.1366 sd   int=   14.6189  gen=   15.1268
+      contacts1      t=   -2.24  d=-0.0990 sd   int=    9.8018  gen=   10.4820
+      contacts0      t=   -2.20  d=-0.0930 sd   int=    3.0220  gen=    3.2638
+      last0          t=   -2.15  d=-0.0969 sd   int=    0.2393  gen=    0.2770
+      t11            t=   +2.00  d=+0.1195 sd   int=   74.1101  gen=   73.3778
+      slope32_0      t=   +1.90  d=+0.0802 sd   int=    1.3831  gen=    1.3762
+
+n=200: only 157 integers, skipped

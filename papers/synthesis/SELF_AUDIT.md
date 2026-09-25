@@ -289,18 +289,23 @@ mechanism offered for it. `n_eff ≈ 3.4` is stated inside the remark in bold, n
 
 ## 10.3 Every new figure, against its source
 
+> **Four rows below were superseded on 2026-09-25** and are marked. They traced
+> correctly to their source at the time; the *source* was defective. See §13.
+> This section is left as written, because an audit log that is rewritten after
+> the fact records nothing.
+
 | figure | in the note | source |
 |---|---|---|
 | `I(3)=0.0793186128`, `I(5)=0.0323008158`, `I(7)=0.1698737154` | Rem. 4.5 | `audits/cross_map/data/rates.txt` |
 | rate verified to `N = 500` for `q = 3,5,7` | Rem. 4.5 | same |
-| 66 holders, depth 459, `r_min(459)=848 537 873 557` | Rem. 4.10 | `data/delta1_D.txt` |
-| slope `+0.0211`, Theil–Sen `+0.0219`, CIs at blocks 3/8/16 | Rem. 4.10 | same |
-| `n_eff = 3.4`, lag-one `0.90` | Rem. 4.10 | same |
+| ~~66 holders, depth 459~~, `r_min(459)=848 537 873 557` **— SUPERSEDED §13: 93 holders** | Rem. 4.10 | `data/delta1_D.txt` |
+| ~~slope `+0.0211`, Theil–Sen `+0.0219`~~, CIs at blocks 3/8/16 **— SUPERSEDED §13: `+0.0224`, `+0.0224`** | Rem. 4.10 | same |
+| ~~`n_eff = 3.4`, lag-one `0.90`~~ **— SUPERSEDED §13: `3.0`, `0.94`** | Rem. 4.10 | same |
 | 23 holders, `Δ₁ = 2.19` at `N = 282`, slope `−0.0033`, exponent `0.076`, `n_eff = 6.3` | Rem. 4.10 | `data/delta1_A.txt` |
 | depths `10, 83, 568` at `q = 3`; shells for `q = 5, 7` | Rem. 5.2 | `data/sturmian.txt` |
 | `Ξ↑ = 2Ξ↓ − 1/q` mod `2^2000` | Rem. 5.2 | same |
 | shelter column, cycle search over odd seeds `≤ 20 001` | §7(c) table | `data/criterion.txt` |
-| `r_min ≡ 5 (mod 16)` at every `N ≤ 459`; 65 of 66 `≡ 21 (mod 32)` | §8 | `data/residues_D.txt` |
+| ~~`r_min ≡ 5 (mod 16)` at every `N ≤ 459`; 65 of 66 `≡ 21 (mod 32)`~~ **— RETRACTED §13; false at `N = 2`** | §8 | `data/residues_D.txt` |
 | backward step ratio `2^{⌈α_q⌉}/q = 8/5` | §8 | `data/descent.txt` |
 
 ## 10.4 Three things corrected during drafting
@@ -515,3 +520,117 @@ Unchanged and re-read. §7(i)'s two non-claims still stand and now carry more we
 explicitly with the unforced problem, the structural difference (the forced construction chooses a
 force; the accelerated map is fixed) is stated before the table rather than after it, and part 0
 opens by saying that no position is taken on any of the reported Navier–Stokes status.
+
+---
+
+# 13. The `5x-1` sieve correction (2026-09-25)
+
+A defect was found in `audits/cross_map/scripts/scan_rare.c` while the controls of
+that audit were being reproduced in `audits/pointwise_discovery`, whose scanner
+sieves nothing. It is recorded in full in
+`audits/cross_map/CORRECTION_2026-09-25.md`. This section audits only what changed
+in `main.tex`.
+
+## 13.1 The defect, in one line
+
+For `q > 4` the rare-side condition at `n = 1` is `S₁ ≥ A[1]+1`, a **lower** bound,
+so the admissible seeds form one class modulo `2^{A[1]+1}`; the scanner sieved to
+one class modulo `2^{A[1]+2}` — the seeds with `v₂(qm+r)` equal to `A[1]+1`
+**exactly** — and so visited half of them. For `q < 4` the same condition is an
+upper bound that forces `v₂ = 1` exactly, so the sieve was already right there.
+**The `3x+1` ladder, and everything built on it, is unaffected**; this was checked
+and not assumed (§13.4).
+
+## 13.2 What changed in the note
+
+| § | change |
+|---|---|
+| Remark 4.10 (`the same null on 5x-1`) | every `5x-1` figure regenerated from the complete rescan: `66 → 93` holders, `66/66 → 92/93` positive, OLS `+0.0211 → +0.0224`, Theil–Sen `+0.0219 → +0.0224`, `n_eff 3.4 → 3.0`, lag-one `0.90 → 0.94`; a sentence added saying the earlier figures were defective and what survives |
+| §8 item 10 (`Predicting Δ_N`) | the `5x-1` caution's figures regenerated (`66`/`3.4` → `93`/`3.0`) |
+| §8 item 11 (`the 5x-1 residue law`) | **RETRACTED** — the statement is false at `N = 2` |
+| §10 (resources) | the `cross_map` entry now names the correction note |
+
+No other section refers to the `5x-1` ladder. Proposition 7.6 (`5x-1`), the
+shelter/pigeonhole table of §7(c), Theorem 7.2 and Remark 7.3 are **proofs**, not
+scans, and are untouched.
+
+## 13.3 The retraction, checked against the note's own words
+
+The retracted item asked whether `r_min(N) ≡ 5 (mod 16)` for every `N`, labelled
+**verified** at every `N ≤ 459`. It is false at `N = 2`: `5·13 − 1 = 64`, so
+`S₁ = 6 ≥ 3` and `13` is rare-side persistent, so `r_min(2) = 13 ≡ 13 (mod 16)`.
+
+Two things are worth recording because they bear on how the error survived review.
+
+1. **The note's algebra was right and its data was wrong.** The same item states
+   that "`S₁ ≥ 3` requires `m ≡ 5 (mod 8)`, which splits into `5` and `13` modulo
+   16". That is exactly the correct sieve. The clause that followed — "the class
+   `13` is admissible yet never least" — was not a measurement of the class 13; it
+   was a restatement of the fact that the scan never looked at it. A **verified**
+   label was attached to a scan whose population was narrower than the statement
+   being tested, and the narrowing was visible in the same sentence.
+2. **The refutation was already in the repository.**
+   `audits/fingerprint_comparison/data/records_2x2.txt` holds a `5x-1` ladder to
+   `X = 5·10^7` computed by a scanner that sieves nothing: 52 holders, beginning
+   `5, 13, 21, 45, 77, …`. The `cross_map` ladder gave 35 on the same range,
+   beginning `5, 21, 533, 789, …`. Two audits in this repository disagreed about
+   the same map from `N = 2` onward and were never compared. The cross-check
+   `cross_map` did claim against that file compared only the single deepest entry
+   — which the sieve happens not to move. **A cross-check against another dataset
+   has to compare the whole object, not its extreme.**
+3. **The retraction does not weaken any other claim.** The residue question is
+   returned to **open** with no empirical pattern behind it. What survives is the
+   *proved* part, `S₁ ≥ 3 ⟹ m ≡ 5 (mod 8)`, and the *proved* observation that
+   (L1) has no `q > 4` counterpart.
+
+## 13.4 The `3x+1` claim was verified, not assumed
+
+Two independent checks, both recorded in the correction note:
+
+* the patched scanner, re-run over the **whole** `3x+1` range `[1, 2·10^11)` with
+  the same 8-way chunking, reproduces **all eight** committed
+  `data/scan_A_raw/part_*.txt` files **byte for byte**, with the overflow guard
+  firing 0 times in every worker;
+* `audits/pointwise_discovery`, whose scanner has **no sieve at all**, reproduces
+  the published `3x+1` ladder entry for entry — 23 holders, deepest
+  `r_min(282) = 12 235 060 455`.
+
+## 13.5 Labels
+
+The retracted item carries **verified** for the refutation and **open** for the
+question. No new **proved (paper)**, **proved (lean)** or **cited** label was
+introduced anywhere by this change. Remark 4.10 keeps its **verified** /
+**heuristic** split, with the figures replaced.
+
+## 13.6 Non-claims
+
+The correction changes a control measurement and a retracted question. **It does
+not touch (DE), Open Problem C, the Collatz conjecture, any Lean theorem, the
+`3x+1` record data, or the `p_N` values** — the exact mass recursion was never
+involved, and its published numbers are reproduced unchanged by the regenerated
+`delta1_D.txt`.
+
+## 13.7 The corrected figures, traced to source
+
+| figure | in the note | source |
+|---|---|---|
+| `93` holders, depth `459`, `r_min(459) = 848 537 873 557` | Rem. 4.10, §8 item 10 | `audits/cross_map/data/delta1_D.txt` |
+| `Δ₁ > 0` at `92` of `93`; the exception `N = 13`, `Δ₁ = −0.40` | Rem. 4.10 | same |
+| OLS `+0.0224`, Theil–Sen `+0.0224`, CIs at blocks 3/8/16 | Rem. 4.10 | same |
+| `n_eff = 3.0`, lag-one `0.94` | Rem. 4.10, §8 item 10 | same |
+| `r_min(2) = 13`, reported as `21` | §8 item 11 | `audits/cross_map/data/delta1_D.txt`, and pinned as a literal in `scripts/test_sieve.py` |
+| `66` of the `93` holders `≡ 13 (mod 16)` | §8 item 11 | `audits/cross_map/data/residues_D.txt` |
+| `m ≡ 5 (mod 8)` at all `93` holders (the proved part) | §8 item 11 | same |
+
+**A figure this note never carried, and now can.** The corrected `cross_map`
+ladder restricted to `X = 5·10^7` reproduces, entry for entry, the 52 holders that
+`audits/fingerprint_comparison` had already recorded with an unsieved scanner.
+
+**What did not move.** The `p_N` column of `delta1_D.txt` is identical at every `N`
+to the version it replaces — the mass recursion is independent of the scan — and
+every `3x+1` figure in the note is untouched.
+
+## 13.8 Build
+
+`make` in `papers/synthesis`: **0 errors, 0 undefined references, 0 undefined
+citations, 0 overfull boxes**, 22 pp.
