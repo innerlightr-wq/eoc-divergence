@@ -1,0 +1,15 @@
+PASS V1 aggregate identity 2^{S_n} m_n = q^n m_0 + r C_n  (7 maps, odd m0<4000, n<=25; violations 0)
+PASS V2 realizer(w) is least odd in the class mod 2^{S+1}  (16000 word/seed pairs, 4 maps; violations 0)
+PASS V3 class occupancy 2^{B-1-S} exact at X = 2^B  (B=16, n=2,4,6; violations 0)
+PASS V4a num_2 = 3 and the 2-confined odd m<16 are {7,11,15}  (num_2=3, set=[7, 11, 15])
+PASS V4b num_14 = 168807  (got 168807)
+PASS V4c log2(1/p_N) - I0 N - 1.5 log2 N reproduces the audit table  N=10:-1.822 N=20:-2.371 N=50:-2.876 N=100:-3.075 N=150:-3.169 N=200:-3.202 N=250:-3.283 N=300:-3.277
+PASS V4d I0 = 0.0793186128  (0.0793186128)
+PASS V5 num_N = #{odd m < 2^{A[N]+1} : N-confined}  (N=2..12; violations 0)
+PASS V6 3x+1 record ladder below 4e4 = [3,7,27,703,10087,35655]  ([3, 7, 27, 703, 10087, 35655])
+PASS V7 m -> -m conjugates 3x-1 on Z>0 to 3x+1 on Z<0 (identical words)  (odd m<4000, depth 40; violations 0)
+PASS V8a 3x-1: m=1 is rare-side confined to depth 2000
+PASS V8b 5x+1: m=3 persists to depth 2000
+PASS V8c 5x-1: no odd m<20000 persists past depth 600
+
+FAILURES: none

@@ -1,0 +1,20 @@
+M4b  extreme-value envelope check.  z = (max delta in bin - [log2 K_bin + 0.833]) / 1.850
+     Null: z is standard Gumbel-ish, mean 0, |z| > 4 would be an envelope.
+
+dataset            K   min z   max z  most negative bin
+3x+1_n20       40000   -1.85    6.92  run1_max bin 3 (K=8979): max delta 10.53 vs predicted 13.97
+3x+1_n40       40000   -1.72    2.07  D_end bin 0 (K=3048): max delta 9.22 vs predicted 12.41
+3x+1_n60       40000   -1.76    3.84  contacts1 bin 5 (K=2911): max delta 9.08 vs predicted 12.34
+3x+1_n100      20000   -1.95    1.79  slope16 bin 2 (K=1161): max delta 7.40 vs predicted 11.01
+3x+1_n120      20000   -2.06    2.53  t11 bin 8 (K=1617): max delta 7.69 vs predicted 11.49
+3x+1_n140      20000   -1.88    1.35  contacts1 bin 12 (K=1367): max delta 7.77 vs predicted 11.25
+3x+1_n150      20000   -1.69    1.81  argmax_D bin 1 (K=945): max delta 7.58 vs predicted 10.72
+3x+1_n160      20000   -1.61    1.90  logZ bin 12 (K=1250): max delta 8.14 vs predicted 11.12
+3x+1_n180      20000   -1.78    3.92  n_a3 bin 4 (K=2243): max delta 8.68 vs predicted 11.96
+3x+1_n200      20000   -1.77    2.72  slope32 bin 9 (K=1542): max delta 8.15 vs predicted 11.42
+3x+1_n250      20000   -2.06    4.09  D_mean bin 5 (K=1245): max delta 7.30 vs predicted 11.11
+3x+1_n300      20000   -1.88    1.46  contacts1 bin 6 (K=1179): max delta 7.55 vs predicted 11.04
+
+     Trivial exact envelopes, for the record:  0 < delta <= S+1  (r >= 1),
+     and log2 r(w) < S+1 (the class modulus).  No non-trivial envelope was
+     found in any feature.
