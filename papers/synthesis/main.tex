@@ -66,7 +66,9 @@ programme can address it: we give a proved obstruction showing that the aggregat
 identity, the confinement condition and the sign of a denominator cannot together
 separate the positive integers from the rest, because the $3x-1$ system agrees on
 all three and disagrees on the answer. We state the three conditions any candidate
-tool must satisfy, the controls it must fail, and seven open problems.
+tool must satisfy, the controls it must fail, and ten open problems --- together
+with one question, asked in an earlier version of this note, that is retracted
+here as false.
 \textbf{Nothing here bears on the Collatz conjecture, and no claim of progress
 toward it is made or implied.}
 \end{abstract}
@@ -448,26 +450,33 @@ and where, by Proposition~\ref{prop:5m1}, $r_{\min}(N)\to\infty$ is a
 \emph{theorem} rather than a conjecture. An exact scan of every odd $m<10^{12}$
 gives $93$ record holders to depth $459$, the deepest
 $r_{\min}(459)=848\,537\,873\,557$. As for $3x+1$, $\Delta_1>0$ at nearly every
-holder ($92$ of $93$; the exception is $N=13$, $\Delta_1=-0.40$);
-\emph{unlike} $3x+1$, it grows --- least-squares slope $+0.0224$
-per unit $N$, Theil--Sen $+0.0224$, and block-bootstrap $95\%$ intervals excluding
-zero at block lengths $3$, $8$ and $16$. The identical pipeline on $3x+1$ over
-$m<2\cdot10^{11}$ returns $23$ holders, $\Delta_1=2.19$ bits at $N=282$, slope
-$-0.0033$, every interval containing zero, and growth exponent $0.076$ --- all
-consistent with the values behind Conjecture~\ref{conj:sharp}, which rest on a scan
-five times longer, so the instrument is calibrated and the contrast in the slope is
-measured rather than assumed. \textbf{The effective sample size is $n_{\mathrm{eff}}\approx3.0$ for
-$5x-1$} (lag-one autocorrelation $0.94$; $6.3$ for $3x+1$), so the intervals must
-not be read as if there were $93$ independent observations.
+holder ($92$ of $93$; the exception is $N=13$, $\Delta_1=-0.40$). Where $3x+1$
+shows no trend, the $5x-1$ data \emph{appear} to grow: least-squares slope
+$+0.0224$ per unit $N$, Theil--Sen $+0.0224$, and block-bootstrap $95\%$ intervals
+excluding zero at block lengths $3$, $8$ and $16$. The identical pipeline on
+$3x+1$ over $m<2\cdot10^{11}$ returns $23$ holders, $\Delta_1=2.19$ bits at
+$N=282$, slope $-0.0033$, every interval containing zero, and growth exponent
+$0.076$ --- all consistent with the values behind Conjecture~\ref{conj:sharp},
+which rest on a scan five times longer, so the instrument is calibrated and the
+contrast between the two columns is measured rather than assumed.
+
+\textbf{That contrast is suggestive only, and the reason is the sample.} The
+$93$ rows are not $93$ independent observations: consecutive depths share a
+holder, the lag-one autocorrelation of $\Delta_1$ is $0.94$, and
+\textbf{the effective sample size is $n_{\mathrm{eff}}\approx3.0$} ($6.3$ for
+$3x+1$). At that effective size the bootstrap intervals carry far less
+information than their width suggests, and a growing $\Delta_1$ and a bounded one
+are not separated by this data. Nothing below rests on the trend.
 
 \emph{These $5x-1$ figures are from a rescan of 2026-09-25.} The first version of
 this remark reported $66$ holders, $66$ of $66$ positive, and slope $+0.0211$,
 from a scan that sieved to $m\equiv5\ (\mathrm{mod}\ 16)$ --- half of the seeds
 admissible at the first step, which are $m\equiv5\ (\mathrm{mod}\ 8)$. The
-qualitative reading survives the correction unchanged; the numbers moved. The
-$p_N$ column did not move at any $N$, the exact mass recursion never having been
-involved, and the $3x+1$ column is unaffected and was re-verified. See
-\texttt{audits/cross\_map/CORRECTION\_2026-09-25.md}.
+correction moved every $5x-1$ number and did not reverse the direction of the
+apparent trend --- which, given $n_{\mathrm{eff}}\approx3.0$, is not itself
+evidence for the trend. The $p_N$ column did not move at any $N$, the exact mass
+recursion never having been involved, and the $3x+1$ column is unaffected and was
+re-verified. See \texttt{audits/cross\_map/CORRECTION\_2026-09-25.md}.
 \end{remark}
 \lab{verified} for the measurements, over the stated ranges. \lab{heuristic} for
 the reading that the departure is a feature of $5x-1$ rather than an artefact of a

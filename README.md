@@ -65,7 +65,10 @@ proved in this repository.
 
 > De Jesús, Elias (2026). *After the Reduction: Proved Statistics, Excluded Structure, and the
 > Missing Pointwise Tool in the Accelerated 3x+1 Problem.* Zenodo.
-> [doi:10.5281/zenodo.22944018](https://doi.org/10.5281/zenodo.22944018)
+> [doi:10.5281/zenodo.22925398](https://doi.org/10.5281/zenodo.22925398)
+
+The DOI above is the **concept** DOI: it represents all versions and always resolves to the
+latest. (`10.5281/zenodo.22944018`, cited here previously, is the version DOI of one deposit.)
 
 Source, bibliography and self-audit: [`papers/synthesis`](papers/synthesis).
 

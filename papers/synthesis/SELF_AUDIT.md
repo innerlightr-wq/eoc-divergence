@@ -634,3 +634,48 @@ every `3x+1` figure in the note is untouched.
 
 `make` in `papers/synthesis`: **0 errors, 0 undefined references, 0 undefined
 citations, 0 overfull boxes**, 22 pp.
+
+## 13.9 Two wording fixes, and a DOI fix (follow-up)
+
+Made after §13 was written, before the corrected note was deposited.
+
+1. **The `5x-1` contrast is now hedged in the text, not only in the label.**
+   Remark 4.10 previously said *"unlike `3x+1`, it grows"* and, of the
+   correction, *"the qualitative reading survives the correction unchanged"* —
+   both assertive, with the `heuristic` label carrying the hedge afterwards. It
+   now says the `5x-1` data **appear** to grow, and a bolded sentence states that
+   the contrast is **suggestive only**, that the 93 rows are not 93 independent
+   observations, that `n_eff ≈ 3.0`, that at that effective size a growing `Δ₁`
+   and a bounded one **are not separated by this data**, and that nothing later
+   rests on the trend. The correction paragraph now says only that the rescan did
+   not reverse the direction of the apparent trend, and adds that this is not
+   itself evidence for it. The label line is unchanged.
+
+   *Why this was worth doing.* The remark is the one place in the note where a
+   measured contrast could be mistaken for an established one, and `n_eff ≈ 3.0`
+   is small enough that the distinction matters. The reading was always labelled
+   `heuristic`; a reader who stops at the end of the remark now sees that too.
+
+2. **The abstract's open-problem count was wrong and is now exact.** It said
+   "seven open problems"; §8 has eleven numbered items. The count was wrong
+   before this correction cycle as well — it is not an artefact of the
+   retraction. The abstract now reads "ten open problems — together with one
+   question, asked in an earlier version of this note, that is retracted here as
+   false", which is items 1–10 plus item 11 exactly.
+
+3. **`README.md` cited a version DOI for this note.** `10.5281/zenodo.22944018`
+   is the version DOI of a single deposit; the concept DOI, which represents all
+   versions and resolves to the latest, is `10.5281/zenodo.22925398` (confirmed
+   against the Zenodo public API). The README now cites the concept DOI and says
+   which is which.
+
+   **Not changed, deliberately:** the Revision 7 citation at the top of the README
+   (`10.5281/zenodo.22906673`, concept `10.5281/zenodo.20569293`) is *also* a
+   version DOI, but it is version-pinned on purpose — the README gives the sha256
+   of the exact deposited PDF included at `docs/eoc_rev7.pdf`, and a concept DOI
+   would break that pin. The Curry citation (`10.5281/zenodo.22087163`) is a
+   third-party version DOI, which is the right thing to cite for a specific file
+   that was read.
+
+Build after these changes: **0 errors, 0 undefined references, 0 undefined
+citations, 0 overfull boxes**, 22 pp.
