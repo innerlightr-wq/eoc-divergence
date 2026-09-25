@@ -1,0 +1,28 @@
+========================================================================================
+CONTROL 1 — rational slope: the word is periodic, Phi is rational, M = 0 exactly
+========================================================================================
+  slope 2/3: word periodic=True  Phi = c_W/(2^l-3^k) = 10/-1   M = u*delta - v*c_W = 0   -> SILENT (M=0)
+  slope 5/8: word periodic=True  Phi = c_W/(2^l-3^k) = 842/13   M = u*delta - v*c_W = 0   -> SILENT (M=0)
+  slope 12/19: word periodic=True  Phi = c_W/(2^l-3^k) = 4436782/-7153   M = u*delta - v*c_W = 0   -> SILENT (M=0)
+  slope 41/65: word periodic=True  Phi = c_W/(2^l-3^k) = 1075848852916425415018/420491770248316829   M = u*delta - v*c_W = 0   -> SILENT (M=0)
+
+========================================================================================
+CONTROL 2 — Thue-Morse: aperiodic but NOT Sturmian; the method must be silent
+========================================================================================
+  Thue-Morse initial squares with half-length L < 2048: NONE
+  -> I1 has no input: the method is SILENT on Thue-Morse, as required.
+
+  (second guard) the height bound needs BALANCE.  Remark 4.3's family w = 0^a 1^a:
+     a=  6: c_W/(ell*max(2^ell,3^k)) =     0.8659   OK
+     a= 10: c_W/(ell*max(2^ell,3^k)) =     2.8333   EXCEEDS 1 -> unbounded, bound FAILS
+     a= 14: c_W/(ell*max(2^ell,3^k)) =    10.3903   EXCEEDS 1 -> unbounded, bound FAILS
+     a= 18: c_W/(ell*max(2^ell,3^k)) =    41.0248   EXCEEDS 1 -> unbounded, bound FAILS
+
+========================================================================================
+CONTROL 3 — a balanced word whose PERIODIZATION is not balanced
+========================================================================================
+     W=0110 (l=4,k=2) balanced but W^inf NOT balanced;  conj of Christoffel? None
+     W=1001 (l=4,k=2) balanced but W^inf NOT balanced;  conj of Christoffel? None
+     W=01110 (l=5,k=3) balanced but W^inf NOT balanced;  conj of Christoffel? False
+     W=10001 (l=5,k=2) balanced but W^inf NOT balanced;  conj of Christoffel? False
+  such words exist (4 found) -> I2 is genuinely load-bearing, not automatic.

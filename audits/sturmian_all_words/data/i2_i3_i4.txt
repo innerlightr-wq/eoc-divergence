@@ -1,0 +1,36 @@
+============================================================================================
+I3 — height bound over ALL conjugates of Christoffel words
+============================================================================================
+  max over p/q with q<=40 and all conjugates of  c_W / (ell*max(2^ell,3^k))
+     = 0.439399   attained at p/q = 12/19, W = 0101101101011011011
+  => C = 1 suffices on this range (paper's Lemma 4.2 constant, now for ALL conjugates)
+
+============================================================================================
+I2 + I4 — initial squares of Sturmian words: roots, heights, Liouville margin
+============================================================================================
+
+  SLOPE log_3 2 (critical)   gamma=0.630930   c(gamma)=2-max(1,g*log2 3)=1.0000
+    intercept 0     : L=8(k=5) conj=Y c_W/(8max)=0.4111 margin=8.0=1.000*L | L=65(k=41) conj=Y c_W/(65max)=0.4486 margin=65.0=1.000*L | L=485(k=306) conj=Y c_W/(485max)=0.4544 margin=485.0=1.000*L
+    intercept 1/2   : L=485(k=306) conj=Y c_W/(485max)=0.2626 margin=485.0=1.000*L | L=569(k=359) conj=Y c_W/(569max)=0.2631 margin=569.0=1.000*L | L=1054(k=665) conj=Y c_W/(1054max)=0.2629 margin=1054.0=1.000*L
+    intercept rand  : L=252(k=159) conj=Y c_W/(252max)=0.2671 margin=252.0=1.000*L | L=485(k=306) conj=Y c_W/(485max)=0.2662 margin=485.0=1.000*L | L=1054(k=665) conj=Y c_W/(1054max)=0.2668 margin=1054.0=1.000*L
+    intercept rand2 : L=401(k=253) conj=Y c_W/(401max)=0.3546 margin=401.0=1.000*L | L=569(k=359) conj=Y c_W/(569max)=0.3563 margin=569.0=1.000*L | L=1054(k=665) conj=Y c_W/(1054max)=0.3560 margin=1054.0=1.000*L
+
+  SLOPE 1/phi   gamma=0.618034   c(gamma)=2-max(1,g*log2 3)=1.0000
+    intercept 0     : L=89(k=55) conj=Y c_W/(89max)=0.2533 margin=89.0=1.000*L | L=233(k=144) conj=Y c_W/(233max)=0.1306 margin=233.0=1.000*L | L=610(k=377) conj=Y c_W/(610max)=0.0518 margin=610.0=1.000*L
+    intercept 1/2   : L=34(k=21) conj=Y c_W/(34max)=0.1995 margin=34.0=1.000*L | L=144(k=89) conj=Y c_W/(144max)=0.1106 margin=144.0=1.000*L | L=610(k=377) conj=Y c_W/(610max)=0.0298 margin=610.0=1.000*L
+    intercept rand  : L=89(k=55) conj=Y c_W/(89max)=0.1527 margin=89.0=1.000*L | L=377(k=233) conj=Y c_W/(377max)=0.0505 margin=377.0=1.000*L | L=610(k=377) conj=Y c_W/(610max)=0.0313 margin=610.0=1.000*L
+    intercept rand2 : L=144(k=89) conj=Y c_W/(144max)=0.1048 margin=144.0=1.000*L | L=377(k=233) conj=Y c_W/(377max)=0.0457 margin=377.0=1.000*L | L=987(k=610) conj=Y c_W/(987max)=0.0175 margin=987.0=1.000*L
+
+  SLOPE sqrt2-1   gamma=0.414214   c(gamma)=2-max(1,g*log2 3)=1.0000
+    intercept 0     : L=29(k=12) conj=Y c_W/(29max)=0.0491 margin=29.0=1.000*L | L=169(k=70) conj=Y c_W/(169max)=0.0084 margin=169.0=1.000*L | L=985(k=408) conj=Y c_W/(985max)=0.0014 margin=985.0=1.000*L
+    intercept 1/2   : L=408(k=169) conj=Y c_W/(408max)=0.0016 margin=408.0=1.000*L | L=985(k=408) conj=Y c_W/(985max)=0.0006 margin=985.0=1.000*L | L=1393(k=577) conj=Y c_W/(1393max)=0.0005 margin=1393.0=1.000*L
+    intercept rand  : L=169(k=70) conj=Y c_W/(169max)=0.0037 margin=169.0=1.000*L | L=408(k=169) conj=Y c_W/(408max)=0.0015 margin=408.0=1.000*L | L=816(k=338) conj=Y c_W/(816max)=0.0008 margin=816.0=1.000*L
+    intercept rand2 : L=99(k=41) conj=Y c_W/(99max)=0.0129 margin=99.0=1.000*L | L=169(k=70) conj=Y c_W/(169max)=0.0075 margin=169.0=1.000*L | L=985(k=408) conj=Y c_W/(985max)=0.0013 margin=985.0=1.000*L
+
+  SLOPE [0;1,97,1,...]   gamma=0.989860   c(gamma)=2-max(1,g*log2 3)=0.4311
+    intercept 0     : L=197(k=195) conj=Y c_W/(197max)=0.0102 margin=84.9=0.431*L | L=493(k=488) conj=Y c_W/(493max)=0.0041 margin=212.5=0.431*L | L=1282(k=1269) conj=Y c_W/(1282max)=0.0016 margin=552.7=0.431*L
+    intercept 1/2   : L=98(k=97) conj=Y c_W/(98max)=0.0102 margin=42.3=0.431*L | L=296(k=293) conj=Y c_W/(296max)=0.0034 margin=127.6=0.431*L | L=1282(k=1269) conj=Y c_W/(1282max)=0.0008 margin=552.7=0.431*L
+    intercept rand  : L=493(k=488) conj=Y c_W/(493max)=0.0020 margin=212.5=0.431*L | L=789(k=781) conj=Y c_W/(789max)=0.0013 margin=340.1=0.431*L | L=1282(k=1269) conj=Y c_W/(1282max)=0.0008 margin=552.7=0.431*L
+    intercept rand2 : L=197(k=195) conj=Y c_W/(197max)=0.0051 margin=84.9=0.431*L | L=296(k=293) conj=Y c_W/(296max)=0.0034 margin=127.6=0.431*L | L=493(k=488) conj=Y c_W/(493max)=0.0020 margin=212.5=0.431*L
+
+  I2 failures: 0 / 48      I3 failures (ratio>1): 0 / 48
