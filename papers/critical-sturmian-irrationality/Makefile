@@ -2,7 +2,7 @@
 
 PAPER = main
 
-.PHONY: all clean verify verify-deep verify-slopes-deep
+.PHONY: all clean verify verify-deep verify-slopes-deep verify-words-deep
 
 all: $(PAPER).pdf
 
@@ -25,6 +25,11 @@ verify-deep:
 # 50000 used by `verify`.  Needs a few minutes.
 verify-slopes-deep:
 	python3 scripts/verify.py slopes 400000
+
+# Section 9's square search over many random intercepts per slope.
+# Needs a few minutes.
+verify-words-deep:
+	python3 scripts/verify.py squares-random 4000
 
 clean:
 	rm -f $(PAPER).aux $(PAPER).log $(PAPER).bbl $(PAPER).blg $(PAPER).out

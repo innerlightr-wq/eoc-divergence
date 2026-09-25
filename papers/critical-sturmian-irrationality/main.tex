@@ -26,8 +26,8 @@
 
 \begin{document}
 
-\title[The critical Sturmian word has irrational conjugacy value]
-{The $3x+1$ conjugacy map sends the critical Sturmian word\\ to an irrational
+\title[Every Sturmian word has irrational conjugacy value]
+{The $3x+1$ conjugacy map sends every Sturmian word\\ to an irrational
 2-adic integer}
 
 \author{Elias De Jes\'us}
@@ -38,7 +38,7 @@
 
 \subjclass[2020]{Primary 11J72; Secondary 11B83, 68R15, 11A55}
 \keywords{$3x+1$ problem, conjugacy map, Sturmian word, 2-adic integers,
-irrationality, continued fractions}
+irrationality, continued fractions, initial powers}
 
 \begin{abstract}
 Let $T$ be the $3x+1$ map on the $2$-adic integers and let $\Ph$ be the
@@ -59,9 +59,24 @@ parity word is $1c_\beta$. The periodic approximants and their approximation
 depths go back to L\'opez and Stoll (2009), who state the corresponding
 $2$-adic question as open; no prior proof at this slope is known. The same
 argument, made uniform, shows $\Ph(1c_\gamma)\notin\Q$ with an explicit height
-bound for every irrational $\gamma\in(0,1)$; below $\ln 2/\ln 3$ irrationality
-was known (Monks--Yazinski), above it the only previous argument is
-unpublished.
+bound for every irrational $\gamma\in(0,1)$.
+
+A second and independent argument then removes the restriction to intercept $0$
+and gives $\Ph(s)\notin\Q$ for \emph{every} Sturmian word $s$: every irrational
+slope, every intercept, both mechanical words, so that $\Ph$ maps the whole
+Sturmian subshift $X_\gamma$ into the irrationals. It compares $s$ not with the
+convergents of its slope but with an initial square of $s$ itself, and rests on
+two quoted facts --- that every Sturmian word begins in infinitely many squares
+(Allouche--Davison--Queff\'elec--Zamboni) and that the primitive root of such a
+square is a cyclic permutation of a standard word
+(Berth\'e--Holton--Zamboni) --- together with the same height bound and Liouville
+comparison, with margin $2-\max(1,\gamma\log_23)\ge2-\log_23$.
+
+What is new is the critical slope $\ln2/\ln3$, at every intercept, and one
+elementary effective $2$-adic proof valid for all Sturmian words at once. Away
+from that slope the conclusion for a word of ones-density $\gamma\ne\ln2/\ln3$
+already follows from density results: Monks--Yazinski below, refereed, and
+L\'opez--Stoll (2021) above, unpublished.
 \end{abstract}
 
 \maketitle
@@ -107,6 +122,15 @@ multiplicative growth rate is exactly $1$.
 $\Ph(1c_\beta)\notin\Q$. Equivalently, the $2$-adic expansion of $\Ph(1c_\beta)$
 is not eventually periodic.
 \end{theorem}
+
+\begin{theorem}\label{thm:allwords-intro}
+$\Ph(s)\notin\Q$ for every Sturmian word $s$: every irrational slope
+$\gamma\in(0,1)$, every intercept, and both mechanical words.
+\end{theorem}
+
+Theorem~\ref{thm:main-intro} is the case of the critical slope at intercept $0$;
+Theorem~\ref{thm:allwords-intro} is proved in Section~\ref{sec:allwords} by a
+second argument, independent of the first.
 
 The critical density is exactly where the existing methods stop. L\'opez and
 Stoll's irrationality results in \cite{LopezStoll2009} concern the \emph{real}
@@ -154,6 +178,18 @@ argument is effective, and yields an explicit height below which no rational can
 lie (Corollary~\ref{cor:shadow}).
 
 \medskip
+\noindent\textbf{Method, second argument.} Ingredients (i) and (iii) are reused
+verbatim; ingredient (ii), the depth law, is replaced. A Sturmian word $s$
+begins in infinitely many squares $WW$ with $|W|\to\infty$
+(Theorem~\ref{thm:squares}), and the primitive root $W$ of such a square is a
+cyclic permutation of a standard word (Theorem~\ref{thm:roots}), so
+$W^{\infty}$ is balanced and (i) applies to it with the constant $3$ of
+Remark~\ref{rem:unbalanced}. Since $s$ and $W^{\infty}$ share the prefix $WW$,
+(iii) runs with depth $2\ell$ against height $\max(2^{\ell},3^{k})$, and the
+surplus is $c(\gamma)\ell$ with $c(\gamma)=2-\max(1,\gamma\log_23)\ge2-\log_23$.
+No continued fraction is used at all, and no intercept is privileged.
+
+\medskip
 \noindent\textbf{Credit.} The periodic approximants and their approximation
 depths are not new. For every irrational slope, \cite[Theorem~1]{LopezStoll2009}
 gives a closed $2$-adic series for $\Ph(1c_\beta)$ indexed by consecutive pairs
@@ -179,6 +215,21 @@ an unpublished preprint; Theorem~\ref{thm:allslopes} gives an elementary and
 effective $2$-adic proof instead. Only at $\gamma=\beta$ is the statement itself
 new.
 
+The same division of credit governs Section~\ref{sec:allwords}. Its two
+combinatorial inputs are quoted, not proved here: that every Sturmian word
+begins in infinitely many squares is \cite[Theorem~1]{ADQZ2001} (see also
+\cite{DamanikKillipLenz2000}), and that the primitive root of such a square is a
+cyclic permutation of a standard word is
+\cite[Proposition~3.2]{BertheHoltonZamboni2006}. What that section contributes is
+the height bound for cyclic permutations of standard words
+(Lemma~\ref{lem:conjheight}, one line from Remark~\ref{rem:unbalanced}), the
+Liouville comparison, and the observation that these two published facts are
+exactly what the comparison needs. For a word of ones-density $\gamma\ne\beta$
+the irrationality conclusion was, again, already available from the density
+results quoted above, since a Sturmian word of slope $\gamma$ has ones-density
+exactly $\gamma$; what is new is the critical slope at every intercept, and a
+single elementary effective proof covering all Sturmian words uniformly.
+
 \medskip
 \noindent\textbf{Scope.} Theorem~\ref{thm:main-intro} concerns one explicit word
 of critical density, together with its shifts and the two variants
@@ -189,8 +240,13 @@ $\Ph(1c_\gamma)\notin\Q$ with an explicit height bound
 the Credit paragraph and in Section~\ref{sec:allslopes}, the statement there is
 new only at $\gamma=\beta$, the contribution below $\beta$ being the
 effectivity and the contribution above $\beta$ being an elementary and
-effective proof in place of an unpublished archimedean one. All of this stays at
-intercept $0$. It says nothing about divergent orbits of positive integers,
+effective proof in place of an unpublished archimedean one.
+Section~\ref{sec:allwords} then removes the restriction to intercept $0$
+altogether, by the second argument, and obtains
+Theorem~\ref{thm:allwords-intro}: $\Ph$ maps the whole Sturmian subshift
+$X_\gamma$ --- an uncountable set, against the countably many words per slope
+reached by the first argument --- into the irrationals
+(Corollary~\ref{cor:subshift}). It says nothing about divergent orbits of positive integers,
 nothing about the Periodicity Conjecture in general --- which quantifies over all
 aperiodic parity vectors, an uncountable family --- and nothing about the
 Collatz conjecture. The paper is self-contained: every object is defined here,
@@ -975,14 +1031,199 @@ Theorem~\ref{thm:allslopes} in place of Theorem~\ref{thm:main}, the three proofs
 go through unchanged.
 \end{proof}
 
-\begin{remark}
-The intercept is not generalised. Everything above is at intercept $0$; for the
-mechanical words of slope $\gamma$ and intercept $\rho\ne0$ the one-positions
-are no longer $\lfloor j\alpha_\gamma\rfloor$ and the exact identities in the
-proof of Lemma~\ref{lem:floor} --- in particular
-$m_{p_{n+1}}=p_n-1$ and
+\begin{remark}\label{rem:intercept}
+\emph{The depth law} is not generalised to other intercepts. Everything in this
+section is at intercept $0$; for the mechanical words of slope $\gamma$ and
+intercept $\rho\ne0$ the one-positions are no longer
+$\lfloor j\alpha_\gamma\rfloor$ and the exact identities in the proof of
+Lemma~\ref{lem:floor} --- in particular $m_{p_{n+1}}=p_n-1$ and
 $(p_n+p_{n+1})\alpha_\gamma D_n=1+p_n\alpha_\gamma(D_n-D_{n+1})$ --- have no
-counterpart. That case remains open.
+counterpart. The \emph{irrationality} conclusion at $\rho\ne0$ is nevertheless
+available: Section~\ref{sec:allwords} obtains it for every intercept by a
+different route, at the cost of the weaker height floor recorded in
+Remark~\ref{rem:tworoutes}. What remains open is the quantitative statement, a
+depth law at general intercept; see Section~\ref{sec:open}\,(1).
+\end{remark}
+
+\section{All Sturmian words}\label{sec:allwords}
+
+Section~\ref{sec:allslopes} settles every irrational slope at intercept $0$.
+The restriction to intercept $0$ is forced by the method: the depth law rests on
+two exact identities that hold only when the ones sit at
+$\lfloor j\alpha_\gamma\rfloor$. This section removes the restriction by a
+different route, which uses no depth law at all. Instead of comparing the word
+with the periodic words attached to the convergents of its slope, we compare it
+with the periodic word attached to an \emph{initial square} of the word itself.
+
+For irrational $\gamma\in(0,1)$ and $\rho\in[0,1)$ the two mechanical words of
+slope $\gamma$ and intercept $\rho$ are
+\[
+ s_{\gamma,\rho}(j)=\lfloor (j+1)\gamma+\rho\rfloor-\lfloor j\gamma+\rho\rfloor
+ \qquad\text{and}\qquad
+ s'_{\gamma,\rho}(j)=\lceil (j+1)\gamma+\rho\rceil-\lceil j\gamma+\rho\rceil
+\]
+for $j\ge0$; both are Sturmian, every Sturmian word arises this way, and
+$1c_\gamma=s'_{\gamma,0}$, $0c_\gamma=s_{\gamma,0}$. We write $X_\gamma$ for the
+Sturmian subshift of slope $\gamma$, the set of all of them.
+
+\begin{theorem}\label{thm:allwords}
+Let $\gamma\in(0,1)$ be irrational, let $\rho\in[0,1)$, and let $s$ be either
+mechanical word of slope $\gamma$ and intercept $\rho$. Then $\Ph(s)\notin\Q$.
+More precisely, if $\Ph(s)=u/v$ in lowest terms with $H=\max(|u|,v)$, then every
+half-length $\ell$ of an initial square of $s$ satisfies
+\begin{equation}\label{eq:wordskey}
+c(\gamma)\,\ell\ \le\ \log_2H+\log_2(2+3\ell)+\log_23 ,
+\end{equation}
+where $c(\gamma)=2-\max(1,\gamma\log_23)\ge 2-\log_23=0.41503\ldots$,
+and such $\ell$ are unbounded.
+\end{theorem}
+
+The proof needs two facts about initial repetitions in Sturmian words. Both are
+quoted; neither is ours.
+
+\begin{theorem}[Allouche--Davison--Queff\'elec--Zamboni]\label{thm:squares}
+Every Sturmian word begins in infinitely many squares. Consequently its initial
+critical exponent --- the supremum of the real $r>0$ for which arbitrarily long
+prefixes $u$ have $u^{r}$ a prefix --- is at least $2$.
+\end{theorem}
+
+This is \cite[Theorem~1]{ADQZ2001}; see also \cite{DamanikKillipLenz2000}, and
+\cite[\S1]{BertheHoltonZamboni2006}, where it is quoted in this form and where
+the exact value of the initial critical exponent is computed from the Ostrowski
+expansion of the intercept. There are \emph{no exceptional slopes or
+intercepts}. Since a word has at most one prefix of each length, ``infinitely
+many squares'' gives infinitely many distinct half-lengths, so the half-lengths
+are unbounded, which is what \eqref{eq:wordskey} needs. The exponent $2$ cannot
+be improved in general: \cite[Theorem~1.1]{BertheHoltonZamboni2006} characterises
+the slopes admitting a Sturmian word of initial critical exponent exactly $2$.
+It is enough here because $2>\max(1,\gamma\log_23)$ for every
+$\gamma\in(0,1)$, with the margin $c(\gamma)$ of \eqref{eq:wordskey}.
+
+\begin{theorem}[Berth\'e--Holton--Zamboni]\label{thm:roots}
+If a Sturmian word begins in $w^{r}$ with $r\ge2$, $|w|\ge2$ and $w$ primitive,
+then $w$ is a cyclic permutation of a standard word. In particular $w^{\infty}$
+is balanced.
+\end{theorem}
+
+This is \cite[Proposition~3.2]{BertheHoltonZamboni2006}, which produces an
+$m\ge0$ with $w$ a cyclic permutation of
+$\tau_{i_1}\circ\cdots\circ\tau_{i_m}(01)$, where $\tau_0:0\mapsto0,\,1\mapsto01$
+and $\tau_1:0\mapsto10,\,1\mapsto1$. Applying these morphisms to the standard
+pair $(0,1)$ yields standard pairs, and the concatenation of a standard pair is a
+standard word \cite[Ch.~2]{Lothaire2002}. If $w$ is not primitive, $w=v^{t}$ and
+the word begins in $v^{2t}$, so primitivity costs nothing.
+
+The hypothesis of Theorem~\ref{thm:roots} is doing real work, and it is not
+implied by balance of $w$ alone: the balanced words $0110$, $1001$, $01110$ and
+$10001$ have unbalanced periodizations, and none is a cyclic permutation of a
+standard word. What Lemma~\ref{lem:conjheight} needs is balance of $w^{\infty}$,
+which is what Theorem~\ref{thm:roots} supplies.
+
+\begin{lemma}\label{lem:conjheight}
+Let $W$ be a cyclic permutation of a standard word, $|W|=\ell$, with $k\ge1$
+ones. Then $0<c_W\le 3\,\ell\max\bigl(2^{\ell},3^{k}\bigr)$.
+\end{lemma}
+
+\begin{proof}
+Positivity is clear from \eqref{eq:cw}. By Theorem~\ref{thm:roots} the word
+$W^{\infty}$ is balanced, so $|k_{i+1}(W)-(i+1)k/\ell|<1$ and hence
+$k-k_{i+1}(W)<k(\ell-1-i)/\ell+1$. With $\rho=3^{\,k/\ell}$,
+\[
+3^{\,k-k_{i+1}(W)}2^{\,i}\ <\ 3\,\rho^{\,\ell-1-i}2^{\,i}
+\ \le\ 3\max\bigl(\rho^{\,\ell-1},2^{\,\ell-1}\bigr)\ \le\ 3\max\bigl(3^{k},2^{\ell}\bigr),
+\]
+the middle step because $i\mapsto\rho^{\,\ell-1-i}2^{\,i}$ is monotone, so its
+maximum over $0\le i\le\ell-1$ is attained at an endpoint. The sum \eqref{eq:cw}
+has at most $\ell$ terms.
+\end{proof}
+
+This is the estimate sketched at the end of Remark~\ref{rem:unbalanced}, applied
+where it is needed. The constant $3$ is not optimal: over every cyclic
+permutation of every standard word of length at most $40$ the true value of
+$c_W/\bigl(\ell\max(2^{\ell},3^{k})\bigr)$ never exceeds $0.4394$, attained at
+slope $12/19$ (Appendix~\ref{app:verify}), so $C=1$ appears to suffice. Nothing
+below depends on the constant.
+
+\begin{proof}[Proof of Theorem~\ref{thm:allwords}]
+Suppose $\Ph(s)=u/v$ in lowest terms and put $H=\max(|u|,v)$. Since
+$\Ph(s)\in\Zt$, the denominator $v$ is odd. Let $WW$ be an initial square of $s$
+with $W$ primitive, $|W|=\ell$ and $k$ ones, and set $\delta=2^{\ell}-3^{k}$,
+which is odd because $\ell\ge1$. Put
+\[
+M=u\,\delta-v\,c_W\ \in\ \Z .
+\]
+
+If $M=0$ then $\Ph(s)=u/v=c_W/\delta=\Ph(W^{\infty})$ by
+Proposition~\ref{prop:periodic}, and $\Ph$ is a bijection, so $s=W^{\infty}$.
+That contradicts the aperiodicity of $s$, which holds because $\gamma$ is
+irrational. Hence $M\ne0$ and $|M|\ge1$.
+
+Both $s$ and $W^{\infty}$ begin with $WW$, so $\lcp(s,W^{\infty})\ge2\ell$. Now
+$\Ph(s)-\Ph(W^{\infty})=M/(v\delta)$ with $v$ and $\delta$ odd, so
+$\vt(M)=\vt\bigl(\Ph(s)-\Ph(W^{\infty})\bigr)$, which is
+$\lcp(s,W^{\infty})\ge2\ell$ by Proposition~\ref{prop:isometry}. Since $M$ is a
+nonzero integer, $|M|\ge2^{\,2\ell}$.
+
+In the other direction $W$ is a cyclic permutation of a standard word by
+Theorem~\ref{thm:roots}, so Lemma~\ref{lem:conjheight} gives
+\[
+|M|\ \le\ H\bigl(|\delta|+c_W\bigr)\ \le\ H\bigl(2^{\ell}+3^{k}+3\ell\max(2^{\ell},3^{k})\bigr)
+\ \le\ H\,(2+3\ell)\max\bigl(2^{\ell},3^{k}\bigr),
+\]
+whence $2\ell\le\log_2H+\log_2(2+3\ell)+\max\bigl(\ell,k\log_23\bigr)$. Finally
+$W$ is a factor of a Sturmian word of slope $\gamma$, so $|k-\gamma\ell|\le1$ and
+$\max(\ell,k\log_23)\le\max(1,\gamma\log_23)\,\ell+\log_23$. Rearranging gives
+\eqref{eq:wordskey}. By Theorem~\ref{thm:squares} there are such $\ell$
+arbitrarily large, while $c(\gamma)\ge2-\log_23>0$ because $\gamma<1$; so
+\eqref{eq:wordskey} fails for all large $\ell$, and no such $u/v$ exists.
+\end{proof}
+
+\begin{corollary}\label{cor:subshift}
+For every irrational $\gamma\in(0,1)$, $\Ph(X_\gamma)\cap\Q=\emptyset$.
+\end{corollary}
+
+\begin{proof}
+$X_\gamma$ is exactly the set of mechanical words of slope $\gamma$ over all
+intercepts, so this is Theorem~\ref{thm:allwords} restated.
+\end{proof}
+
+Theorem~\ref{thm:main} and Theorem~\ref{thm:allslopes} are the case $\rho=0$,
+and Corollary~\ref{cor:shifts} the case $\rho\in\{\,\{j\gamma\}:j\ge0\,\}$; those
+are countably many words per slope, while $X_\gamma$ is uncountable.
+Corollary~\ref{cor:allvariants} extends verbatim: for no odd $q\ge1$ does the
+generalised map $T_q$ possess an integer orbit whose parity word is any Sturmian
+word.
+
+\begin{remark}\label{rem:tworoutes}
+The two routes are independent and their strengths differ. The depth law of
+Section~\ref{sec:allslopes} exploits the continued fraction of $\gamma$ and
+gives, at intercept $0$, the height floor of Corollary~\ref{cor:allshadow}, of
+order $2^{\,q_n+q_{n+1}-1}$. Theorem~\ref{thm:allwords} gives, at every
+intercept, a floor of order $2^{\,c(\gamma)\ell}$ with $\ell$ running over the
+half-lengths of the initial squares. At intercept $0$ those half-lengths are the
+convergent and semiconvergent denominators of $\gamma$, and the first bound is
+the stronger of the two; away from intercept $0$ only the second is available.
+\end{remark}
+
+\begin{remark}\label{rem:multiplier}
+Two different quantities are written $q$ in this paper and should not be
+confused. In Corollary~\ref{cor:3xq} and Corollary~\ref{cor:allvariants} the
+letter $q$ is the \emph{additive} constant of the map $T_q(n)=(3n+q)/2$, whose
+multiplier is still $3$; no logarithm of $q$ enters, and the range ``$q\ge1$
+odd'' is unaffected by anything in this section. Elsewhere $q_n$ denotes a
+convergent denominator.
+
+It is worth recording what would change for a different \emph{multiplier}.
+Nothing in this paper treats one, but if the argument of
+Theorem~\ref{thm:allwords} were run for the conjugacy map of a $qx+1$ map with
+$q$ odd, the margin in \eqref{eq:wordskey} would become
+$2-\max(1,\gamma\log_2q)$, which is positive for every $\gamma\in(0,1)$ if and
+only if $\log_2q\le2$, that is only for $q=3$. For $q\ge5$ it vanishes at
+$\gamma=2/\log_2q<1$ and is negative above it, so the initial-square route would
+fail at the large slopes. The same threshold appears in the last sentence of the
+remark following Theorem~\ref{thm:allslopes}, where the two rates meet at
+$\theta=2$, that is at $\gamma=2/\log_23=1.2618\ldots$, which is not a slope
+\emph{because the multiplier is $3$}.
 \end{remark}
 
 \section{Why the $2$-adic place}\label{sec:place}
@@ -1030,21 +1271,31 @@ longest common prefix and so into the combinatorics of Sturmian words
 \section{Open problems}\label{sec:open}
 
 \begin{enumerate}
-\item \emph{General intercepts.} For $\rho\in[0,1)$ let
-$1c_{\gamma,\rho}(j)=\lceil (j+1)\gamma+\rho\rceil-\lceil j\gamma+\rho\rceil$.
-Is $\Ph(1c_{\gamma,\rho})$ irrational for every irrational $\gamma\in(0,1)$ and
-every $\rho$? Section~\ref{sec:allslopes} settles $\rho=0$ only, and the
+\item \emph{A depth law at general intercept.} The qualitative question asked
+here in an earlier version --- is $\Ph(1c_{\gamma,\rho})$ irrational for every
+irrational $\gamma$ and every $\rho$? --- is \emph{settled} by
+Theorem~\ref{thm:allwords}. What remains open is the quantitative statement.
+Let $1c_{\gamma,\rho}(j)=\lceil (j+1)\gamma+\rho\rceil-\lceil j\gamma+\rho\rceil$
+and let $w_n$ be the periodic word attached to the convergent $p_n/q_n$ at a
+matched intercept. Is there an explicit $L_n(\gamma,\rho)$ with
+$\lcp\bigl(1c_{\gamma,\rho},w_n^\infty\bigr)=L_n(\gamma,\rho)$ and
+$L_n\ge q_n+q_{n+1}-O(1)$ for infinitely many $n$, uniformly in $\rho$? The
 obstruction is precise. The ones of $1c_{\gamma,\rho}$ no longer sit at
-$\lfloor j\alpha_\gamma\rfloor$, so the quantity
-$m_j=jq_n\bmod p_n$ of Lemma~\ref{lem:floor} acquires a shift, and with it the
-two exact identities on which that proof turns --- $m_{p_{n+1}}=p_n-1$ from
+$\lfloor j\alpha_\gamma\rfloor$, so the quantity $m_j=jq_n\bmod p_n$ of
+Lemma~\ref{lem:floor} acquires a shift, and with it the two exact identities on
+which that proof turns --- $m_{p_{n+1}}=p_n-1$ from
 $p_{n+1}q_n\equiv-1\pmod{p_n}$, and
 $(p_n+p_{n+1})\alpha_\gamma D_n=1+p_n\alpha_\gamma(D_n-D_{n+1})$ --- lose their
-right-hand sides. The first mismatch index $j^{*}_n$ is then no longer
-$p_n+p_{n+1}$, and there is at present no replacement for the depth law
-$q_n+q_{n+1}-1$. The height bound (Lemma~\ref{lem:height}) and the Liouville
-comparison (Theorem~\ref{thm:allmain}) survive unchanged, so a depth law at
-general intercept would close this case immediately.
+right-hand sides, and the first mismatch index $j^{*}_n$ is no longer
+$p_n+p_{n+1}$. The natural replacement is the first entry time of the orbit
+$\{\,j\gamma+\rho\,\}$ into an interval of length $jD_n$ at the partition
+endpoint, which the three-distance theorem and the Ostrowski expansion of $\rho$
+compute; \cite{BertheHoltonZamboni2006} carries out exactly that kind of
+computation for the initial critical exponent. The height bound
+(Lemma~\ref{lem:height}) and the Liouville comparison
+(Theorem~\ref{thm:allmain}) survive unchanged, so such a depth law would restore
+at every intercept the sharper height floor of Corollary~\ref{cor:allshadow},
+which Theorem~\ref{thm:allwords} does not give.
 \item \emph{An irrationality measure.} Is there $\mu<\infty$ and $C>0$ with
 $|\Ph(1c_\gamma)-y|_2\ge C|y|^{-\mu}$ for all integers $y\ge1$, for a given
 irrational $\gamma\in(0,1)$? Theorem~\ref{thm:allmain} bounds the height of a
@@ -1061,12 +1312,14 @@ domain \cite{BugeaudLaurent2023}; here one would want a $2$-adic Mahler method
 along the continued-fraction chain.
 \end{enumerate}
 
-None of these, and neither Theorem~\ref{thm:main} nor
-Theorem~\ref{thm:allslopes}, bears on divergent orbits of positive integers, on
-the Periodicity Conjecture in general, or on the Collatz conjecture. The
-Periodicity Conjecture quantifies over all aperiodic parity vectors; the words
-$1c_\gamma$ form a one-parameter family among them, and outside the critical
-density the conclusion for that family was already available
+None of these, and none of Theorem~\ref{thm:main},
+Theorem~\ref{thm:allslopes} and Theorem~\ref{thm:allwords}, bears on divergent
+orbits of positive integers, on the Periodicity Conjecture in general, or on the
+Collatz conjecture. The Periodicity Conjecture quantifies over all aperiodic
+parity vectors; the Sturmian words form a two-parameter family among them ---
+uncountable, but of measure zero in the space of all parity vectors --- and
+outside the critical density the conclusion for that family was already
+available
 (\cite[Theorem~2.7(b)]{MonksYazinski2004} below $\beta$,
 \cite[Theorem~1]{LopezStoll2021} above it).
 
@@ -1104,6 +1357,23 @@ convergent of every test slope; and the exact height floor of
 Corollary~\ref{cor:allshadow} at each of them.
 \item \texttt{slopecontrols} --- the rational-slope control for
 Section~\ref{sec:allslopes}, described below.
+\item \texttt{squares} --- Theorem~\ref{thm:squares} at four slopes
+($\beta$, $1/\phi$, $\sqrt2-1$ and $[0;1,97,1,\dots]$) and six intercepts each,
+including intercepts not of the form $\{j\gamma\}$, and for both the lower and
+the upper mechanical word.
+\item \texttt{squares-random} --- the same over many random intercepts per
+slope; it reports how many produce no initial square at all.
+\item \texttt{roots} --- Theorem~\ref{thm:roots}: each initial-square root is
+checked to be a cyclic permutation of the standard word of its own slope, by
+exact set membership among all $\ell$ rotations.
+\item \texttt{conjheight} --- Lemma~\ref{lem:conjheight} over \emph{every}
+cyclic permutation of \emph{every} standard word of length at most $40$; it
+reports the true maximum of $c_W/(\ell\max(2^\ell,3^k))$.
+\item \texttt{wordskey} --- the surplus $2\ell-\max(\ell,k\log_23)$ of
+\eqref{eq:wordskey} at each square found, against $c(\gamma)\ell$, together with
+the discrepancy bound $|k-\gamma\ell|\le1$.
+\item \texttt{wordcontrols} --- the controls for Section~\ref{sec:allwords},
+described below.
 \end{itemize}
 
 \noindent\textbf{Depths.} Theorem~\ref{thm:depth} was verified at every level
@@ -1210,6 +1480,41 @@ convergent and is even, the two words coincide there, and
 $M_4=u\delta_4-vc_4=319\cdot13-13\cdot319=0$ exactly, so the lower bound
 $|M_n|\ge2^{q_n+q_{n+1}-1}$ is vacuous. Equivalently, $q_n\to\infty$ along odd
 $n$ fails, the continued fraction of $5/8$ being finite.
+
+\medskip
+\noindent\textbf{All Sturmian words.} Slopes and intercepts are carried as
+integers over $2^{512}$, so every floor is an integer shift; the script reports
+the minimum distance of $j\gamma+\rho$ to $\Z$ over the range used, in units of
+$2^{-512}$. That margin was at least $496$ bits in every run, against a
+representation error of at most $j\le2^{13}$ units, which certifies every floor.
+
+Initial squares were found at every one of the $48$ slope/intercept/parity
+combinations of \texttt{squares}, and at every one of $1800$ random intercepts
+across three slopes in \texttt{squares-random}, with none failing; the smallest
+``largest half-length below $1200$'' observed was $169$. The half-lengths are
+the convergent and semiconvergent denominators of the slope. All $48$
+initial-square roots tested by \texttt{roots} are cyclic permutations of
+standard words, with no exception. Over every cyclic permutation of every
+standard word of length at most $40$, \texttt{conjheight} finds
+$c_W/\bigl(\ell\max(2^{\ell},3^{k})\bigr)\le0.439399$, attained at slope
+$12/19$ with $W=0101101101011011011$; the bound of
+Lemma~\ref{lem:conjheight} with $C=3$ is never approached. In
+\texttt{wordskey} the surplus $2\ell-\max(\ell,k\log_23)$ agreed with
+$c(\gamma)\ell$ to three decimals at every square, and $|k-\gamma\ell|\le1$
+held throughout.
+
+\medskip
+\noindent\textbf{Controls for Section~\ref{sec:allwords}.} Three, all of which
+must leave the argument silent. At a rational slope the word is periodic, so
+$\Ph$ of it is rational and $M=u\delta-vc_W=0$ exactly; this was checked at
+$p/q=2/3,5/8,12/19,41/65$ in exact rational arithmetic, with the periodicity
+verified over eight periods. The Thue--Morse word is aperiodic but not
+Sturmian, and it begins in \emph{no} square at all below half-length $2048$, so
+Theorem~\ref{thm:squares} has no input and the method never starts. Finally, for
+$W=0^{a}1^{a}$ --- balanced, but with unbalanced periodization --- the ratio
+$c_W/(\ell\max(2^{\ell},3^{k}))$ takes the values $0.87,2.83,10.39,41.02$ at
+$a=6,10,14,18$ and diverges, confirming that Lemma~\ref{lem:conjheight} cannot
+be extended past Theorem~\ref{thm:roots}.
 
 \section*{Acknowledgment}
 

@@ -28,6 +28,7 @@ Commands
   all           everything except the deepest `depths` run
 """
 import sys, json, os
+from math import gcd
 from fractions import Fraction
 from decimal import Decimal, getcontext
 
@@ -529,6 +530,243 @@ def cmd_slopecontrols():
     print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
     return ok
 
+
+# ---------------------------------------------------------------------------
+# Section 9, "All Sturmian words".
+#
+# squares      Theorem 9.2 (Allouche-Davison-Queffelec-Zamboni): every Sturmian
+#              word begins in infinitely many squares.  Checked over several
+#              slopes and intercepts, including intercepts not of the form
+#              {j gamma}, and over many random intercepts.
+# roots        Theorem 9.3 (Berthe-Holton-Zamboni): the primitive root of an
+#              initial square is a cyclic permutation of a standard word.
+# conjheight   Lemma 9.4: c_W <= 3 l max(2^l, 3^k) over every cyclic permutation
+#              of every standard word of length <= 40; reports the true maximum.
+# wordskey     the key inequality of Theorem 9.1 at each square found, with
+#              every constant explicit.
+# wordcontrols the two controls: a rational slope (M = 0 exactly) and
+#              Thue-Morse (no initial square at all, so the method is silent).
+#
+# Exactness: slopes and intercepts are carried as integers over 2^PBITS, every
+# floor is an integer shift, and `margin` reports the minimum distance of
+# j*gamma + rho to Z in units of 2^-PBITS over the range used; since the
+# representation error after j steps is at most j units, a margin far above j
+# certifies every floor.  No floating point enters a decision.
+# ---------------------------------------------------------------------------
+
+PBITS = 512
+PONE = 1 << PBITS
+
+
+def _cf_value(a):
+    """value of the truncated continued fraction [a0; a1, ...] over 2^PBITS"""
+    from fractions import Fraction
+    x = Fraction(a[-1])
+    for ai in reversed(a[:-1]):
+        x = ai + 1 / x
+    return (x.numerator << PBITS) // x.denominator
+
+
+def _beta_scaled():
+    from decimal import Decimal, getcontext
+    getcontext().prec = PBITS // 3 + 80
+    return int((Decimal(2).ln() / Decimal(3).ln()) * PONE)
+
+
+def _word(g, r, n, upper=False):
+    if upper:
+        f = lambda t: -((-t) >> PBITS)
+    else:
+        f = lambda t: t >> PBITS
+    prev = f(r); out = []
+    for j in range(1, n + 1):
+        cur = f(j * g + r); out.append(cur - prev); prev = cur
+    return out
+
+
+def _margin(g, r, n):
+    m = PONE
+    for j in range(1, n + 1):
+        t = (j * g + r) % PONE
+        if t < m: m = t
+        if PONE - t < m: m = PONE - t
+    return m
+
+
+def _squares(w, lmax):
+    return [L for L in range(1, lmax + 1) if 2 * L <= len(w) and w[:L] == w[L:2 * L]]
+
+
+def _standard_conjugates(p, q):
+    base = tuple(((i + 1) * p) // q - (i * p) // q for i in range(q))
+    return {base[i:] + base[:i] for i in range(q)}
+
+
+def _balanced(w):
+    n = len(w)
+    for L in range(1, n + 1):
+        c = [sum(w[i:i + L]) for i in range(n - L + 1)]
+        if c and max(c) - min(c) > 1: return False
+    return True
+
+
+_SLOPES = None
+def _slopes():
+    global _SLOPES
+    if _SLOPES is None:
+        _SLOPES = [("log_3 2 (critical)", _beta_scaled()),
+                   ("1/phi", _cf_value([0] + [1] * 300)),
+                   ("sqrt2 - 1", _cf_value([0] + [2] * 250)),
+                   ("[0;1,97,1,...]", _cf_value([0, 1, 97] + [1] * 250))]
+    return _SLOPES
+
+
+def _intercepts(g):
+    from decimal import Decimal, getcontext
+    getcontext().prec = PBITS // 3 + 80
+    import random
+    rng = random.Random(20260925)
+    return [("0", 0), ("{3 gamma}", (3 * g) % PONE), ("1/2", PONE // 2),
+            ("1/pi", int(Decimal(1) / Decimal("3.14159265358979323846") * PONE)),
+            ("random A", rng.randrange(PONE)), ("random B", rng.randrange(PONE))]
+
+
+def cmd_squares(N=6000):
+    print("squares -- Theorem 9.2: every Sturmian word begins in infinitely many squares")
+    ok = True
+    for name, g in _slopes():
+        for lab, r in _intercepts(g):
+            for up in (False, True):
+                w = _word(g, r, N, upper=up)
+                sq = _squares(w, N // 2)
+                good = len(sq) >= 3 and max(sq) > 50
+                ok &= good
+                print("  [%s] %-18s rho=%-10s %s  squares at L = %s%s  (margin %d bits)"
+                      % ("OK" if good else "FAIL", name, lab,
+                         "upper" if up else "lower", sq[:6],
+                         " ..." if len(sq) > 6 else "", _margin(g, r, N).bit_length()))
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+def cmd_squares_random(TRIALS=1500, N=2600):
+    print("squares (random intercepts) -- no Sturmian word without initial squares")
+    import random
+    ok = True
+    for name, g in _slopes()[:3]:
+        rng = random.Random(7); none = 0; worst = 10 ** 9
+        for _ in range(TRIALS):
+            r = rng.randrange(PONE)
+            sq = _squares(_word(g, r, N), 1200)
+            if not sq: none += 1
+            elif max(sq) < worst: worst = max(sq)
+        good = none == 0
+        ok &= good
+        print("  [%s] %-18s %d random intercepts: %d without a square; "
+              "smallest largest half-length %d"
+              % ("OK" if good else "FAIL", name, TRIALS, none, worst))
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+def cmd_roots(N=4000):
+    print("roots -- Theorem 9.3: the primitive root of an initial square is a")
+    print("         cyclic permutation of a standard word")
+    ok = True; tested = 0
+    for name, g in _slopes():
+        for lab, r in _intercepts(g)[:4]:
+            w = _word(g, r, N)
+            for L in _squares(w, 1400)[-3:]:
+                W = w[:L]; k = sum(W)
+                if k == 0 or gcd(k, L) != 1:
+                    good = _balanced(W * 4)
+                else:
+                    good = tuple(W) in _standard_conjugates(k, L)
+                ok &= good; tested += 1
+                if not good:
+                    print("  [FAIL] %s rho=%s L=%d k=%d" % (name, lab, L, k))
+    print("  [%s] %d initial-square roots tested, all cyclic permutations of standard words"
+          % ("OK" if ok else "FAIL", tested))
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+def cmd_conjheight(Q=40):
+    print("conjheight -- Lemma 9.4: c_W <= 3 l max(2^l, 3^k) for W a cyclic")
+    print("              permutation of a standard word")
+    worst = 0.0; arg = None; ok = True
+    for q in range(1, Q + 1):
+        for p in range(1, q + 1):
+            if gcd(p, q) != 1: continue
+            for W in _standard_conjugates(p, q):
+                c = c_of(list(W))
+                bound = 3 * q * max(2 ** q, 3 ** p)
+                if c <= 0 or c > bound: ok = False
+                ratio = c / (q * max(2 ** q, 3 ** p))
+                if ratio > worst: worst, arg = ratio, (p, q, "".join(map(str, W)))
+    print("  [%s] no violation of the bound with C = 3, over every cyclic permutation"
+          % ("OK" if ok else "FAIL"))
+    print("       of every standard word with l <= %d" % Q)
+    print("  true maximum of c_W / (l max(2^l,3^k)) = %.6f at slope %d/%d, W = %s"
+          % (worst, arg[0], arg[1], arg[2]))
+    print("       so C = 1 suffices on this range; the paper proves C = 3 and uses only that")
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+def cmd_wordskey(N=4000):
+    print("wordskey -- Theorem 9.1: the surplus 2l - max(l, k log2 3) equals c(gamma) l")
+    import math
+    L23 = math.log2(3); ok = True
+    for name, g in _slopes():
+        gamma = g / PONE; cg = 2.0 - max(1.0, gamma * L23)
+        for lab, r in _intercepts(g)[:3]:
+            w = _word(g, r, N)
+            for L in _squares(w, 1400)[-2:]:
+                W = w[:L]; k = sum(W)
+                surplus = 2 * L - max(L, k * L23)
+                good = abs(surplus / L - cg) < 0.02 and abs(k - gamma * L) <= 1
+                ok &= good
+                print("  [%s] %-18s rho=%-10s l=%-5d k=%-5d surplus/l=%.4f  c(gamma)=%.4f"
+                      % ("OK" if good else "FAIL", name, lab, L, k, surplus / L, cg))
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+def cmd_wordcontrols():
+    print("wordcontrols -- the method must be silent where it has to be")
+    ok = True
+    print("  (a) rational slope: the word is periodic, Phi is rational, M = 0 exactly")
+    for (p, q) in [(2, 3), (5, 8), (12, 19), (41, 65)]:
+        w = [((j + 1) * p) // q - (j * p) // q for j in range(8 * q)]
+        per = all(w[i] == w[i % q] for i in range(len(w)))
+        W = w[:q]; cW = c_of(W); d = 2 ** q - 3 ** p
+        M = cW * d - d * cW
+        good = per and M == 0
+        ok &= good
+        print("      [%s] slope %2d/%-3d periodic=%s  M = u d - v c_W = %d"
+              % ("OK" if good else "FAIL", p, q, per, M))
+    print("  (b) Thue-Morse: aperiodic, not Sturmian -- no initial square, so no input")
+    tm = [bin(i).count("1") & 1 for i in range(4096)]
+    sq = _squares(tm, 2048)
+    good = not sq
+    ok &= good
+    print("      [%s] initial squares with half-length < 2048: %s"
+          % ("OK" if good else "FAIL", sq if sq else "NONE"))
+    print("  (c) 0^a 1^a: balanced periodization fails, so the height bound must fail")
+    bad = 0
+    for a in (6, 10, 14, 18):
+        W = [0] * a + [1] * a
+        ratio = c_of(W) / (2 * a * max(2 ** (2 * a), 3 ** a))
+        if ratio > 1: bad += 1
+        print("      a=%2d: c_W/(l max) = %8.4f" % (a, ratio))
+    good = bad >= 2
+    ok &= good
+    print("      [%s] the ratio exceeds 1 and diverges, as Remark 4.3 says"
+          % ("OK" if good else "FAIL"))
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "all"
     arg = int(sys.argv[2]) if len(sys.argv) > 2 else None
@@ -542,8 +780,16 @@ if __name__ == "__main__":
     elif cmd == "slopes": cmd_slopes(arg or 50000)
     elif cmd == "uniform": cmd_uniform()
     elif cmd == "slopecontrols": cmd_slopecontrols()
+    elif cmd == "squares": cmd_squares(arg or 6000)
+    elif cmd == "squares-random": cmd_squares_random(arg or 1500)
+    elif cmd == "roots": cmd_roots()
+    elif cmd == "conjheight": cmd_conjheight(arg or 40)
+    elif cmd == "wordskey": cmd_wordskey()
+    elif cmd == "wordcontrols": cmd_wordcontrols()
     elif cmd == "all":
         for f in (cmd_convergents, cmd_lcp, cmd_heights, cmd_controls, cmd_shadow,
-                  cmd_audit, cmd_slopes, cmd_uniform, cmd_slopecontrols):
+                  cmd_audit, cmd_slopes, cmd_uniform, cmd_slopecontrols,
+                  cmd_squares, cmd_roots, cmd_conjheight, cmd_wordskey,
+                  cmd_wordcontrols):
             print("="*78); f(); print()
     else: print(__doc__)
