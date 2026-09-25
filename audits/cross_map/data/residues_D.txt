@@ -1,16 +1,16 @@
-D = 5x-1, upper side: 66 distinct record holders, deepest depth 459
-  holders: [5, 21, 533, 789, 1205, 5205, 8341, 10677, 14357, 18837, 51733, 82773] ...
-  mod   4:  1/ 4 classes occupied  {1: 66}
-  mod   8:  1/ 8 classes occupied  {5: 66}
-  mod  16:  1/16 classes occupied  {5: 66}
-  mod  32:  2/32 classes occupied  {5: 1, 21: 65}
-  mod   3:  3/ 3 classes occupied  {0: 25, 1: 20, 2: 21}
-  mod   5:  5/ 5 classes occupied  {0: 15, 1: 10, 2: 14, 3: 17, 4: 10}
-  mod  12:  3/12 classes occupied  {1: 20, 5: 21, 9: 25}
-  mod  15: 15/15 classes occupied  {0: 7, 1: 2, 2: 5, 3: 3, 4: 3, 5: 5, 6: 6, 7: 4, 8: 6, 9: 4, 10: 3, 11: 2, 12: 5, 13: 8, 14: 3}
-  mod  20:  5/20 classes occupied  {1: 10, 5: 15, 9: 10, 13: 17, 17: 14}
-  mod  24:  3/24 classes occupied  {5: 21, 13: 20, 21: 25}
-  mod  40:  5/40 classes occupied  {5: 15, 13: 17, 21: 10, 29: 10, 37: 14}
+D = 5x-1, upper side: 93 distinct record holders, deepest depth 459
+  holders: [5, 13, 21, 45, 77, 269, 349, 397, 509, 1205, 3021, 4061] ...
+  mod   4:  1/ 4 classes occupied  {1: 93}
+  mod   8:  1/ 8 classes occupied  {5: 93}
+  mod  16:  2/16 classes occupied  {5: 27, 13: 66}
+  mod  32:  4/32 classes occupied  {5: 1, 13: 38, 21: 26, 29: 28}
+  mod   3:  3/ 3 classes occupied  {0: 34, 1: 35, 2: 24}
+  mod   5:  5/ 5 classes occupied  {0: 16, 1: 22, 2: 20, 3: 16, 4: 19}
+  mod  12:  3/12 classes occupied  {1: 35, 5: 24, 9: 34}
+  mod  15: 15/15 classes occupied  {0: 8, 1: 5, 2: 5, 3: 3, 4: 9, 5: 4, 6: 12, 7: 10, 8: 6, 9: 6, 10: 4, 11: 5, 12: 5, 13: 7, 14: 4}
+  mod  20:  5/20 classes occupied  {1: 22, 5: 16, 9: 19, 13: 16, 17: 20}
+  mod  24:  3/24 classes occupied  {5: 24, 13: 35, 21: 34}
+  mod  40:  5/40 classes occupied  {5: 16, 13: 16, 21: 22, 29: 19, 37: 20}
   over every N (mod 8): {5: 459}
-  over every N (mod 16): {5: 459}
-  over every N (mod 40): {5: 67, 13: 158, 21: 60, 29: 69, 37: 105}
+  over every N (mod 16): {5: 156, 13: 303}
+  over every N (mod 40): {5: 71, 13: 74, 21: 95, 29: 109, 37: 110}

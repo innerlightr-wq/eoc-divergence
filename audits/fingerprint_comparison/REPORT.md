@@ -231,6 +231,13 @@ The fourth row is a **control on the explanation**, run after the criterion was 
 was not part of the brief, and its ladder was predicted to be non-degenerate before it was computed.
 It is. **VERIFIED**
 
+> **Note added 2026-09-25.** This row's `5x−1` ladder is **correct** and needed no change:
+> `records2.c` steps by 2 over every odd seed and sieves nothing. It is also, as it turns out, the
+> thing that refutes the `5x−1` ladder that `audits/cross_map` published — the two disagreed from
+> `N = 2` and were never compared. The corrected `cross_map` ladder restricted to `X = 5·10^7`
+> reproduces these 52 holders exactly. See
+> [`../cross_map/CORRECTION_2026-09-25.md`](../cross_map/CORRECTION_2026-09-25.md) §4.
+
 ---
 
 # 7. O5 — the LIL envelope (`data/o5_lil.txt`)
