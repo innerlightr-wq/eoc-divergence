@@ -1,0 +1,17 @@
+Lemma A -- boundary form of C_n, exhaustive over {1,2}-words
+  words tested                : 65534
+  boundary form evaluates to C: 0 mismatches
+  term count == r+2           : 0 mismatches
+  monomials pairwise distinct : 0 violations
+  coefficient multiset        : {-2: 212993, -1: 65534, 1: 65534, 2: 212993}
+
+Lemma C/D -- margin-switch tradeoff, exhaustive over zero-confined words
+  kappa = (alpha-1)(2-alpha) = 0.2427814   2*kappa = 0.4855627
+  zero-confined words tested  : 34125
+  violations of r+1 >= 2*kappa*n/W - (alpha-1): 0
+
+mechanical extremal word a_j = floor(j*alpha) - floor((j-1)*alpha)
+  predicted switch density 2(2-alpha) = 0.8300750
+  n=   1000  max margin=0.9986  r/n=0.8300000
+  n=  10000  max margin=0.9994  r/n=0.8300000
+  n= 100000  max margin=1.0000  r/n=0.8300700

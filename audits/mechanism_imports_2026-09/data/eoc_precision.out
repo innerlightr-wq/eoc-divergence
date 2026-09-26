@@ -1,0 +1,22 @@
+bit-loss lemma -- does any mod-2^K class survive one step intact?
+     K  odd classes    classes whose images differ mod 2^K
+     6           32                                     32
+     8          128                                    128
+    10          512                                    512
+    12         2048                                   2048
+    14         8192                                   8192
+  every class splits: no finite 2-adic membership is inheritance-stable.
+
+precision budget -- the first L valuations are fixed by m mod 2^{S_L+1}
+  70000 (m,L) pairs: 0 failures of sufficiency at modulus 2^(S_L+1)
+
+minimal automaton -- odd residues mod 2^N quotiented by L-step futures
+    N   2^(N-1) L=1      L=2      L=4      L=6      L=8      L=10     L=12    
+   10       512 10      46      256     466     511     512     512    
+   12      2048 12      67      562     1486    1981    2047    2048   
+   14      8192 14      92      1093    4096    7099    8100    8191   
+   16     32768 16      121     1941    9949    22819   30827   32647  
+  saturation at the full 2^(N-1) states: no merging survives.
+
+pinning lemma -- r(w_N(m)) = m for all N >= bitlength(m)
+  odd m in [3,4000]: 0 violations; max first-pin step 10 (always <= bitlength(m))
