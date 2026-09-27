@@ -1,46 +1,67 @@
 # Provenance table for A1–A9
 
-For each statement: exact content, assumptions, proof/script file, computational cross-check and
-its tested range, status, and the commit containing it. **Status is one of: paper proof (argument
-written out, not machine-checked) / finite verification only / Lean-verified.** Nothing below is
-Lean-verified.
+Status vocabulary, used strictly: **reported paper proof** (argument written out in this package,
+not independently re-reviewed line by line, not machine-checked) · **finite computational
+verification** · **LEAN-VERIFIED**. No statement is upgraded to "reviewed" merely for appearing in
+`CONSOLIDATED_RECORD.md`.
 
-Commits, both local only and never pushed:
-- `eoc-divergence` `research/harden-missing-formula-audit`, base `9a1748a`: `b57b152` (script
-  hardening), `59a38ef` (note correction), `af47845` (this record).
-- `eoc-lean-verification` `research/carry-domination-lemma`, base `14dea46`: `5155bc8` (A4a).
+Nine statements is not nine novel results: correctness, programme role and literature novelty are
+separate questions and no priority search was conducted.
 
-**Lean baseline recorded**: revision `14dea46`, toolchain `leanprover/lean4:v4.34.0-rc1`,
-dependency manifest unchanged, verified in an isolated worktree that excluded the ordinary
-checkout's 3 tracked modifications. `lake build EOC.ShellWeyl` succeeded (3294 jobs, 0 errors)
-before adding the new module and again after. A full-project build was **not** run.
-
-| # | statement | assumptions | proof text | script | cross-check and range | status |
+| # | statement | assumptions | proof source | verification artifact | tested range / evidence | status |
 |---|---|---|---|---|---|---|
-| A1 | `t*_w ≡ −((3x_w+1)/2)·3^{−(N+1)} (mod 2^K)`; `K = ⌊(N+1)α − S⌋ ≥ 1` | zero-confined `w`, `x_w` odd (terminal parity) | `AUDIT_CORRECTIONS.md` §A1 | `a1_independent_offset.py`, `per_cylinder_survival.py` | 3,241 cylinders (`N ≤ 12`, `B ∈ {6,…,14}`), 0 offset disagreements; 311,844 cylinders in the repo script; `K<1` in 0 of 12,447 words | paper proof |
-| A2 | `T_w = (P_hi + Q_hi + c) mod 2^d`, `c ∈ {0,1}`; `r_w mod 2^B = (P_lo+Q_lo) mod 2^B` | any split index `j`, `a+b = s` | `PREFIX_SUFFIX_FINDINGS.md` §2 | `carry_split.py` | 33,948,325 `(w,j)` checks at `B,N = (12,8),(16,11),(20,13),(16,15),(20,18)`, 0 violations | paper proof |
-| A3 | `r_{uv} ≡ 3^{−j}(2^a r_v − C_u) (mod 2^{a+b+1})` | `|u|=j`, `S_u=a`, `S_v=b` | `PREFIX_SUFFIX_FINDINGS.md` §1 | `verify_claims.py` | 14,405 word/split checks, all zero-confined words of length 2–10, 0 mismatches | paper proof |
-| A4a | `H(t) ≤ H₀(t)+H₀(t−1)` (two-class domination) | `T i = Z i + c i`, `c i ∈ {0,1}` | — | `EOC/CarryDomination.lean` | Lean kernel; axioms `propext, Classical.choice, Quot.sound` only | **LEAN-VERIFIED** — `eoc-lean-verification` `research/carry-domination-lemma` @ `5155bc8` |
-| A4b | `\|H₀(t)−L/q\| ≤ R` uniformly in `t`; `σ = min(1,τ)` | product class `U×V`, Parseval + Cauchy–Schwarz | `CARRY_ROBUST_AUDIT.md` §1 | `carry_robust.py` | all residues `t`, all `j = 2…N−2`, `B,N = (20,13),(20,18)`: 0 domination and 0 `R` violations | paper proof |
-| A5 | `L_s ≥ C(s−1,N−1)/N` | `N ≤ s ≤ αN` | `THIN_BAND_LEMMA.md` §1 | `verify_combinatorial.py` | 32 shells, `N = 6…14`, 0 violations; ratio → 1.213 at the top shell | paper proof |
-| A6 | `H_s^thin/(L_s/q) ≤ 2^{−γB+O(log B)}`, `γ = 0.054816179871361` | `κ=13/20`, `δ=1/10`, `j=⌊N/2⌋`, `B ≤ s ≤ ⌊αN⌋` | `THIN_BAND_LEMMA.md` §1 | `thin_band.py` | exact binomial bound `0.691825 / 0.0375106 / 0.000161790 / 1.72629e−09` at `B = 100/200/320/640`, argmax the top shell; monotonicity at 399 points, 0 violations | paper proof; **remainder not made explicit** |
-| A7 | for `ℓ ≥ 3`, family is a singleton iff `b = ℓ` | `S_m ≤ αm+A`, `A ≥ 0`, `ℓ ≤ b ≤ αℓ+A` | `CLOSING_RECORD.md` §1 | `closing.py` | 186 nonempty families, `ℓ = 3…9`, `A ∈ {0,½,1,2,3}`, 35 singletons, 0 mismatches | paper proof |
-| A8 | `v₂(r_v−r_{v'}) = S_L + min(v_{L+1},v'_{L+1})`; collision ⟹ `t < B−a` | one class (`b` fixed), `H = 2^{B−a}` | `CLOSING_RECORD.md` §4 | `lcp_lemma.py` | lcp law and the implication: 0 violations | paper proof |
-| A9 | `P_LCP + Σ_z n_z² = n²+n`, `Σn_z² ≤ qn`, capacity `≤ nH/2`; so `n+1 > q+H/2` ⟹ LCP-rejection loses | distinct odd `y_v` in `[0,qH)` | `CLOSING_RECORD.md` §4, this file's note below | `lcp_obstruction.py` | `n_z ≤ q` and the equivalence: 0 violations; `n+1 > q+H/2` in every tested bulk class; `P_LCP/capacity = 4.50–21.15` | paper proof |
+| A1 | independent failure offset `t*_w ≡ −((3x_w+1)/2)·3^{−(N+1)} (mod 2^K)`; `K ≥ 1` | zero-confined `w`; `x_w` odd | audit_AUDIT_CORRECTIONS.md §A1 | scripts/a1_independent_offset.py | 3,241 cylinders, `N ≤ 12`, `B ∈ {6..14}`; 0 offset disagreements | reported paper proof |
+| A2 | `T_w = (P_hi+Q_hi+c) mod 2^d`, `c ∈ {0,1}` | any split `j` | PREFIX_SUFFIX_FINDINGS.md §2 | scripts/carry_split.py | 33,948,325 `(w,j)` checks, 0 violations | reported paper proof |
+| A3 | `r_{uv} ≡ 3^{−j}(2^a r_v − C_u) (mod 2^{a+b+1})` | `|u|=j`, `S_u=a`, `S_v=b` | PREFIX_SUFFIX_FINDINGS.md §1 | scripts/verify_claims.py | 14,405 checks, words of length 2–10, 0 mismatches | reported paper proof |
+| A4a | `H(t) ≤ H₀(t)+H₀(t−1)` | `T = Z + c`, `c ∈ {0,1}` | CARRY_ROBUST_AUDIT.md §1 | `EOC/CarryDomination.lean` | Lean kernel; axioms `propext, Classical.choice, Quot.sound` | **LEAN-VERIFIED** |
+| A4b | `|H₀(t)−L/q| ≤ R = √(E_A E_B)/q` uniformly in `t`; `σ = min(1,τ)` | product class; Parseval + Cauchy–Schwarz | CARRY_ROBUST_AUDIT.md §1 | scripts/carry_robust.py | all `t`, all `j = 2..N−2`, `B,N=(20,13),(20,18)`; 0 violations | reported paper proof |
+| A4b′ | real corollary: supplied `#{Z=t} ≤ Lq+R` ⟹ `#{T=t} ≤ 2Lq+2R` | `hZ` supplied externally | FORMALIZATION_STATUS.md | `EOC/CarryDomination.lean` | Lean kernel | **LEAN-VERIFIED** (conditional on `hZ`) |
+| A5 | `L_s ≥ C(s−1,N−1)/N` | `N ≤ s ≤ αN` | THIN_BAND_LEMMA.md §1 | scripts/verify_combinatorial.py | 32 shells, `N = 6..14`, 0 violations | reported paper proof |
+| A6 | `H_s^thin/(L_s/q) ≤ 2^{−γB+O(log B)}`, `γ = 0.054816179871361` | `κ=13/20`, `δ=1/10`, `j=⌊N/2⌋` | THIN_BAND_LEMMA.md §1 | scripts/thin_band.py | exact finite bound at `B=100/200/320/640`; monotonicity at 399 points | reported paper proof; `C`, `B₀` **existential only** (see SCOPE_CORRECTION.md) |
+| A7 | for `ℓ ≥ 3`: singleton iff `b = ℓ` | `S_m ≤ αm+A`, `A ≥ 0`, `ℓ ≤ b ≤ αℓ+A` | CLOSING_RECORD.md §1 | scripts/closing.py | 186 families, `ℓ=3..9`, `A ∈ {0,½,1,2,3}`, 0 mismatches | reported paper proof; **not formalized** |
+| A8 | `v₂(r_v−r_{v'}) = S_L+min`; collision ⟹ `t < B−a` | one class (`b` fixed), `H = 2^{B−a}` | CLOSING_RECORD.md §4 | scripts/lcp_lemma.py | 0 violations of either | reported paper proof |
+| A9-generic | `P + Σn_z² = n²+n`, `Σn_z² ≤ qn`, `n(n+1) ≤ P+qn`, and `q+h<n+1 ⟹ nh < P` | `n_z ≤ q`, `0 < n` | CLOSING_RECORD.md §4 | `EOC/Occupancy.lean` | Lean kernel; axioms as above | **LEAN-VERIFIED** (generic occupancy; **no Collatz instantiation**) |
+| A9-Collatz | the instantiation `z` = low-residue class, `h = H/2` | needs A8 + distinctness + oddness | CLOSING_RECORD.md §4 | scripts/lcp_obstruction.py | `n_z ≤ q` and the equivalence: 0 violations; `P/capacity = 4.50–21.15` | reported paper proof; **not formalized** |
 
-**A9, subtraction-free form** (preferred for formalization, avoids truncated `ℕ` subtraction):
-```
-P_LCP + Σ_z n_z² = n² + n ,   Σ_z n_z² ≤ q·n   ⟹   n(n+1) ≤ P_LCP + q·n ,
-```
-and with capacity `Σ_x h(x)² ≤ nH/2`, the conclusion is `nH/2 < P_LCP` whenever `n(n+1) > qn + nH/2`,
-i.e. `n+1 > q + H/2`.
+## Preserved paths and hashes (md5, first 12 hex)
 
-## Open, and not established by any of A1–A9
+Preserved under `audits/realizer_placement_2026-09/` in `eoc-divergence`, branch
+`research/harden-missing-formula-audit`. Scratch originals were **copied, not moved or modified**
+in this round.
+
+| preserved file | md5 | scratch original | identical? |
+|---|---|---|---|
+| `CONSOLIDATED_RECORD.md` | `871f046a5e8a` | `871f046a5e8a` | yes |
+| `CLOSING_RECORD.md` | `3430f134006f` | `3430f134006f` | yes |
+| `PREFIX_SUFFIX_FINDINGS.md` | `df965eee1cae` | `df965eee1cae` | yes |
+| `CARRY_ROBUST_AUDIT.md` | `f87c38dace06` | `f87c38dace06` | yes |
+| `BULK_THIN_DECOMPOSITION.md` | `85e23457145a` | `85e23457145a` | yes |
+| `THIN_BAND_LEMMA.md` | `552c3a6833ee` | `552c3a6833ee` | yes |
+| `BASELINE_VALIDATION.md` | `20ee1d7d831a` | `20ee1d7d831a` | yes |
+| `FORMALIZATION_STATUS.md` | `6ee3aaa46ecf` | `6ee3aaa46ecf` | yes |
+| `DEPENDENCY_PLAN.md` | `20fbe44dc964` | `20fbe44dc964` | yes |
+| `SCOPE_CORRECTION.md` | `0d133e604799` | `0d133e604799` | yes |
+
+**Editorial-version caveat.** `CONSOLIDATED_RECORD.md` was corrected in place in the scratch
+directory in the previous round (the A6 remainder-scope wording and the novelty caveat) *before*
+being copied, so **no pristine pre-correction original survives on disk**. The preserved file is the
+corrected version; the correction itself is described in `SCOPE_CORRECTION.md`. All other records
+were copied unmodified.
+
+## Commits (all local; nothing pushed)
+
+- `eoc-divergence` `research/harden-missing-formula-audit`, base `9a1748a`: `b57b152` (script
+  repairs) → `59a38ef` (note correction) → `af47845` (package) → `245c383` (A4a status) → this.
+- `eoc-lean-verification` `research/carry-domination-lemma`, base `14dea46`: `5155bc8` (A4a) → this.
+
+## Open, and established by none of the above
 
 ```
 (*)  Σ_{a ∈ bulk} L_{s,a}·√(χ_{U,a} χ_{V,a}) ≤ C(B+1)^p · L_s · q^{1/25}
 ```
 `C, p` independent of `B` and of the permitted shell; suffix constrained only by `S_v(m) ≤ αm + A`,
 `A = αj − a`. **Weighted**: a few unfavourable classes are acceptable if their weights are
-controlled, and a favourable representative class establishes nothing. No improvement to the
-exceptional-set exponent has been obtained.
+controlled, and a favourable representative class establishes nothing. Conditional payoff (exponent
+`0.949651926715094`, improvement `0.000303600473237`) is **conditional on (*)**.
+
+**No exceptional-set exponent improvement has been obtained.**
