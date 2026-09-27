@@ -118,11 +118,11 @@ print("(2)+(3) PER-CYLINDER EXACTNESS, THE CONVERSE, AND THE SURVIVAL FORMULA")
 print("=" * 78)
 print(f"  {'M':>9} {'cylinders':>10} {'2^K | n_w':>10} {'of those exact':>15}"
       f" {'not div':>9} {'of those exact':>15} {'formula fails':>14}")
-tot_cyl = tot_form = 0
+tot_cyl = tot_form = tot_off = 0
 for B in (12, 14, 16, 18, 20):
     M = (1 << B) - 1
     S = survivors(M, 200)
-    ncyl = ndiv = ndiv_ex = nnd = nnd_ex = nform = 0
+    ncyl = ndiv = ndiv_ex = nnd = nnd_ex = nform = noffset = 0
     depths = 0
     for N in range(0, len(S) - 1):
         if not S[N] or not S[N + 1]:
@@ -132,10 +132,17 @@ for B in (12, 14, 16, 18, 20):
         cyl = defaultdict(list)
         for m0, mN, Sc in S[N]:
             cyl[(Sc, m0 & ((1 << (Sc + 1)) - 1))].append(m0)
+        # carry C_N per cylinder, from the exact identity 2^{S_N} m_N = 3^N m_0 + C_N
+        carry = {}
+        for m0, mN, Sc in S[N]:
+            carry[(Sc, m0 & ((1 << (Sc + 1)) - 1))] = (mN << Sc) - 3 ** N * m0
         for (Sc, r), lst in cyl.items():
             K = Kcap(N, Sc)
+            assert K >= 1, "K must be >= 1 on a confined word"
             mod = 1 << (Sc + 1)
             lst.sort()
+            r0 = lst[0] % mod
+            Cw = carry[(Sc, r)]
             n = len(lst)
             # the admissible indices t must be contiguous 0..n-1
             t0 = lst[0] // mod
@@ -149,22 +156,32 @@ for B in (12, 14, 16, 18, 20):
             else:
                 nnd += 1
                 nnd_ex += exact
-            # the closed-form survival count
+            # the closed-form survival count.  The offset t*_w is predicted INDEPENDENTLY,
+            # from the closed form below, with no reference to the observed failure labels:
+            #   m_N(t) = x_w + 2*3^N*t  and  3*m_N(t)+1 = 2*(y + 3^(N+1) t),  y = (3x_w+1)/2,
+            # so v_2(3 m_N(t)+1) > K  <=>  t = -y*3^(-(N+1))  (mod 2^K).
+            num = 3 ** N * r0 + Cw
+            assert num % (1 << Sc) == 0, "x_w not integral"
+            x = num >> Sc
+            assert x % 2 == 1, "x_w not odd: terminal parity broken"
+            y = (3 * x + 1) // 2
+            tstar = (-y * pow(3, -(N + 1), 1 << K)) % (1 << K)
+            nfail_pred = ((n - 1 - tstar) // (1 << K) + 1) if tstar < n else 0
+            pred = n - nfail_pred
             if fails:
-                cls = {t % (1 << K) for t in fails}
-                assert len(cls) == 1, f"failures not one class mod 2^K: {sorted(cls)}"
-                ts = cls.pop()
-                pred = n - ((n - 1 - ts) // (1 << K) + 1) if ts < n else n
-            else:
-                pred = n
+                # the observed failures must lie in the predicted class (a real check now)
+                if {t % (1 << K) for t in fails} != {tstar}:
+                    noffset += 1
             if pred != n - len(fails):
                 nform += 1
     tot_cyl += ncyl
     tot_form += nform
+    tot_off += noffset
     print(f"  2^{B}-1 {ncyl:>12,} {ndiv:>10,} {ndiv_ex:>15,} {nnd:>9,} {nnd_ex:>15}"
           f" {nform:>14}   ({depths} depths)")
 print()
 print(f"  TOTAL cylinders checked: {tot_cyl:,}   survival-formula failures: {tot_form}")
+print(f"  INDEPENDENTLY predicted offset t*_w disagreeing with observation: {tot_off}")
 print("  'of those exact' in the divisible column should equal the divisible count,")
 print("  and in the non-divisible column should be 0: divisibility is exactly the")
 print("  condition for the symbolic hazard to hold on the nose.")

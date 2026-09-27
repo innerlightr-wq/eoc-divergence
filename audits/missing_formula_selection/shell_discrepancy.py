@@ -45,7 +45,7 @@ import math
 from fractions import Fraction
 
 
-def shells(N, verify_cap=400000):
+def shells(N, verify_cap=None):
     """all zero-confined words of length N, reduced to per-shell (S -> list of r_w).
 
     Depth-first over (k, S_k, C_k) with C_{k+1} = 3 C_k + 2^{S_k}; the confinement
@@ -55,12 +55,13 @@ def shells(N, verify_cap=400000):
     """
     pow3 = [3 ** j for j in range(N + 2)]
     out = {}
+    wordof = {}
     nwords = 0
     # inverse of 3^N modulo 2^{S+1}, one per shell, computed once
     inv = {}
-    stack = [(0, 0, 0)]          # (k, S_k, C_k)
+    stack = [(0, 0, 0, ())]      # (k, S_k, C_k, word so far)
     while stack:
-        k, S, C = stack.pop()
+        k, S, C, w = stack.pop()
         if k == N:
             nwords += 1
             if S not in inv:
@@ -68,16 +69,17 @@ def shells(N, verify_cap=400000):
             q = 1 << (S + 1)
             r = ((1 << S) - C) * inv[S] % q
             out.setdefault(S, []).append(r)
+            wordof[r] = tuple(w)
             continue
         Cn = 3 * C + (1 << S)     # C_{k+1}, independent of the next letter
         a = 1
         while (1 << (S + a)) <= pow3[k + 1]:
-            stack.append((k + 1, S + a, Cn))
+            stack.append((k + 1, S + a, Cn, w + (a,)))
             a += 1
     # forward verification that each realizer really has valuation word w
     checked = mismatch = 0
     total = sum(len(v) for v in out.values())
-    step = max(1, total // verify_cap)
+    step = 1 if verify_cap is None else max(1, total // verify_cap)
     idx = 0
     for S, rs in out.items():
         for r in rs:
@@ -85,16 +87,19 @@ def shells(N, verify_cap=400000):
             if idx % step:
                 continue
             m, Ssum, ok = r, 0, True
+            fwd = []
             for j in range(1, N + 1):
                 x = 3 * m + 1
                 a = (x & -x).bit_length() - 1
+                fwd.append(a)
                 Ssum += a
                 m = x >> a
                 if (1 << Ssum) > pow3[j]:      # must stay zero-confined
                     ok = False
                     break
             checked += 1
-            if not ok or Ssum != S:
+            # FULL-WORD equality, not merely (length, total valuation); plus terminal parity.
+            if not ok or Ssum != S or tuple(fwd) != wordof[r] or m % 2 == 0:
                 mismatch += 1
     return out, nwords, checked, mismatch
 
