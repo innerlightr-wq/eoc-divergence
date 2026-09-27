@@ -1,0 +1,309 @@
+% ---------------------------------------------------------------------------
+% PROPOSED v2 SECTION.  Draft only -- not part of the paper.
+% Insert after Section 7 (Consequences) and before Section 8 (Why the 2-adic
+% place), i.e. as the new Section 8, renumbering what follows.
+%
+% Requires: the macros already in main.tex (\Zt \Z \Q \N \vt \lcp \Ph) and the
+% bibliography key MonksYazinski2004, which is ALREADY PRESENT in refs.bib and
+% is currently uncited.  No new bibliography entry is needed.
+%
+% Consequential edits elsewhere, if this section is adopted:
+%   * Section 9 (Open problems), item 1 "All irrational slopes" must be DELETED;
+%     it is answered here.  Item 2 (general intercepts) stands unchanged.
+%   * The abstract and the Introduction's "Scope" paragraph should be widened,
+%     and the "Credit" paragraph should gain the Monks-Yazinski sentence.
+%   * Convention 5.1 is currently stated for beta; it is generalised in 8.1.
+% ---------------------------------------------------------------------------
+
+\section{All irrational slopes}\label{sec:allslopes}
+
+Theorem~\ref{thm:main} concerns one slope. The argument in fact needs nothing
+about $\beta$ at all, and this section proves the corresponding statement for
+every irrational slope. We begin by saying precisely what is, and what is not,
+new in that generality.
+
+\medskip
+\noindent\textbf{What is known.} Write $\gamma\in(0,1)$ for an irrational slope
+and recall that $k_n(1c_\gamma)=\lceil n\gamma\rceil$, so that $1c_\gamma$ has
+ones-density exactly $\gamma$. Monks and Yazinski
+\cite[Theorem~2.7(b)]{MonksYazinski2004} proved that if $x\in\Q\cap\Zt$ has a
+$T$-orbit which is not eventually cyclic --- equivalently, whose orbit set is
+infinite --- then
+\[
+\liminf_{n\to\infty}\frac{k_n(v(x))}{n}\ \ge\ \beta .
+\]
+Since a word is eventually periodic if and only if its $\Ph$-value has an
+eventually cyclic orbit, this gives at once: \emph{if $v$ is aperiodic and
+$\liminf k_n(v)/n<\beta$, then $\Ph(v)\notin\Q$.} In particular
+$\Ph(1c_\gamma)\notin\Q$ for every irrational $\gamma<\beta$. The deduction is
+made explicitly by L\'opez and Stoll \cite[p.~6]{LopezStoll2021}. Above $\beta$
+the corresponding statement --- if $v$ is aperiodic and $\liminf k_n(v)/n>\beta$
+then $\Ph(v)\notin\Q$ --- is the first half of
+\cite[Theorem~1]{LopezStoll2021}, proved there by an archimedean argument about
+accumulation points of the orbit of a real-valued $\Ph_\R(v)$; that preprint is
+unpublished. At $\gamma=\beta$ both statements are vacuous, which is why
+Theorem~\ref{thm:main} needed a different proof.
+
+\medskip
+\noindent\textbf{What this section adds.} Theorem~\ref{thm:allslopes} below
+proves $\Ph(1c_\gamma)\notin\Q$ for \emph{every} irrational $\gamma\in(0,1)$ by
+the single $2$-adic argument of Sections~\ref{sec:depth}--\ref{sec:main}, with
+$n_0=3$ uniformly in $\gamma$ and with explicit constants. At $\gamma=\beta$ it
+is Theorem~\ref{thm:main}. For $\gamma>\beta$ it is an elementary and effective
+substitute for the argument of \cite{LopezStoll2021}. For $\gamma<\beta$ the
+qualitative statement is \cite{MonksYazinski2004}, and what is new is the
+effective height bound of Corollary~\ref{cor:allshadow}, which that density
+argument does not provide. The three regimes are proved here by one
+inequality, with no case distinction.
+
+\subsection*{Notation}
+
+\begin{convention}\label{conv:gamma}
+Let $\gamma\in(0,1)$ be irrational and $\alpha_\gamma=1/\gamma>1$. Let
+$p_n/q_n$ be the convergents of $\gamma=[0;a_1,a_2,\dots]$, indexed from
+$p_0/q_0=0/1$, so $p_1/q_1=1/a_1$, and put $D_n=|q_n\gamma-p_n|$,
+$w_n=w_{p_n,q_n}$, $\alpha_n=q_n/p_n$. We use throughout the classical facts
+$D_n<1/q_{n+1}$, $q_{n+1}D_n+q_nD_{n+1}=1$, $p_{n+1}q_n-p_nq_{n+1}=(-1)^n$,
+$D_{n+1}<D_n$, $q_{n+1}>q_n$ for $n\ge1$, and
+$p_n=\gamma q_n+(-1)^{n+1}D_n$; in particular $p_n/q_n>\gamma$ if and only if
+$n$ is odd. For $\gamma=\beta$ this is Convention~\ref{conv:conv} and
+$\alpha_\beta=\alpha=\log_23$. Finally set
+\[
+\theta=\gamma\log_23,\qquad \kappa=\max(1,\theta)-1,\qquad
+c(\gamma)=2-\max(1,\theta)=1-\kappa .
+\]
+\end{convention}
+
+\noindent Note $\theta=1$ exactly when $\gamma=\beta$, that $c(\gamma)=1$ for
+$\gamma\le\beta$, and that $c$ decreases on $[\beta,1)$ to the limit
+$2-\log_23=0.41503\ldots>0$, which is not attained.
+
+\subsection*{The depth law at a general slope}
+
+Lemma~\ref{lem:ones} and Lemma~\ref{lem:height} are already stated for an
+arbitrary slope and an arbitrary mechanical word respectively, and their proofs
+use no property of $\beta$; we use them below without further comment. The only
+input of Lemma~\ref{lem:floor} that is not a continued-fraction identity is the
+bound $\alpha D_n<1$, and it is free:
+
+\begin{lemma}\label{lem:autothreshold}
+For every irrational $\gamma\in(0,1)$ and every $n\ge1$ we have
+$q_{n+1}>\alpha_\gamma$, and hence
+$\alpha_\gamma D_n<\alpha_\gamma/q_{n+1}<1$.
+\end{lemma}
+
+\begin{proof}
+From $\gamma=[0;a_1,a_2,\dots]$ we get $\alpha_\gamma=1/\gamma=[a_1;a_2,a_3,\dots]$,
+so $a_1<\alpha_\gamma<a_1+1$. Now $q_1=a_1$ and $q_2=a_2q_1+q_0=a_2a_1+1\ge
+a_1+1>\alpha_\gamma$. Since $(q_m)_{m\ge1}$ is strictly increasing,
+$q_{n+1}\ge q_2>\alpha_\gamma$ for all $n\ge1$. The second assertion is
+$D_n<1/q_{n+1}$.
+\end{proof}
+
+\begin{theorem}[depth law, every irrational slope]\label{thm:alldepth}
+Let $\gamma\in(0,1)$ be irrational. For every $n\ge 3$,
+\[
+\vt\bigl(\Ph(1c_\gamma)-\Ph(w_n^\infty)\bigr)=\lcp\bigl(1c_\gamma,w_n^\infty\bigr)
+=\begin{cases}
+q_n-1, & n\ \text{even},\\[2pt]
+q_n+q_{n+1}-1, & n\ \text{odd},
+\end{cases}
+\]
+and the first index at which the two one-position sequences disagree is
+$j^{*}_n=p_n$ for $n$ even and $j^{*}_n=p_n+p_{n+1}$ for $n$ odd.
+\end{theorem}
+
+\begin{proof}
+The proofs of Lemma~\ref{lem:floor} and Theorem~\ref{thm:depth} apply verbatim
+with $\beta$ replaced by $\gamma$ and $\alpha$ by $\alpha_\gamma$. Every step
+there is either one of the continued-fraction identities of
+Convention~\ref{conv:gamma} or an instance of one of the following three facts,
+which are the only places where a property of the slope was used.
+
+\emph{(i) The side.} $\eta_n=\alpha_n-\alpha_\gamma=(q_n\gamma-p_n)/(p_n\gamma)$
+is negative for $n$ odd and positive for $n$ even, with
+$|\eta_n|=\alpha_\gamma D_n/p_n$. This is the alternation of the convergents,
+valid for every irrational $\gamma\in(0,1)$ with the indexing of
+Convention~\ref{conv:gamma}.
+
+\emph{(ii) $\alpha_\gamma D_n<1$.} This is Lemma~\ref{lem:autothreshold}, for
+all $n\ge1$. It is what is needed at each of the four places where the original
+proof wrote $\alpha D_n<\alpha/q_{n+1}<1$: the ``differ by at most one'' bounds
+in both cases, the evaluation $\lfloor p_n\alpha_\gamma\rfloor=q_n-1$ for $n$
+even, the estimate $p_n\alpha_\gamma=q_n+\alpha_\gamma D_n<q_n+1$ giving
+$(p_n+p_{n+1})\alpha_\gamma D_n<2$ for $n$ odd, and the evaluation
+$\lfloor j^{*}\alpha_\gamma\rfloor=q_n+q_{n+1}$.
+
+\emph{(iii) $p_n\ge2$ for $n\ge3$.} Indeed $p_1=1$, $p_2=a_2$,
+$p_3=a_3a_2+1\ge2$, and $p_{n+1}=a_{n+1}p_n+p_{n-1}\ge p_n$ for $n\ge2$. This
+is what makes $j|\eta_n|<2/p_n\le1$ for $j\le p_n+p_{n+1}$, and what gives
+$\lfloor j^{*}\alpha_n\rfloor=\lfloor q_n+q_{n+1}-1/p_n\rfloor=q_n+q_{n+1}-1$.
+
+Finally the two one-position sequences are strictly increasing because
+$\alpha_\gamma>1$ and $\alpha_n=q_n/p_n>1$ for $n\ge2$, and they differ because
+$w_n^\infty$ is periodic while $1c_\gamma$ is not, $\gamma$ being irrational.
+\end{proof}
+
+\noindent In particular the threshold $n\ge3$ is uniform in $\gamma$: no step
+above introduces a bound depending on the slope or on its partial quotients.
+
+\subsection*{The Liouville step, uniformly in the slope}
+
+At $\gamma=\beta$ the proof of Theorem~\ref{thm:main} used the coincidence
+$\alpha_\beta=\log_23$ to write $3^{p_n}=2^{\,q_n+\alpha D_n}$ with
+$\alpha D_n<0.2$, so that the archimedean size of the approximants was
+$2^{q_n}$ up to a bounded factor. For a general slope the two powers $2^{q_n}$
+and $3^{p_n}$ part exponentially --- their ratio is
+$2^{(\theta-1)q_n+O(1)}$ --- and the point of the next theorem is that the
+depth law still outruns the larger of them, by a margin bounded below
+independently of $\gamma$.
+
+\begin{theorem}\label{thm:allmain}
+Let $\gamma\in(0,1)$ be irrational and suppose $\Ph(1c_\gamma)=u/v$ with
+$u\in\Z$, $v\ge1$, $\gcd(u,v)=1$; put $H=\max(|u|,v)$. Then every odd $n\ge3$
+satisfies
+\begin{equation}\label{eq:allkey}
+q_{n+1}-\kappa\, q_n\ <\ \log_2H+\log_2q_n+2+\log_23
+\end{equation}
+and therefore
+\begin{equation}\label{eq:allfinal}
+c(\gamma)\,q_n-\log_2q_n\ <\ \log_2H+2+\log_23 .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+As $\Ph(1c_\gamma)\in\Zt$, the denominator $v$ is odd. Fix an odd $n\ge3$, put
+$\delta_n=2^{q_n}-3^{p_n}$, $c_n=c_{w_n}$, so that
+$\Ph(w_n^\infty)=c_n/\delta_n$ by Proposition~\ref{prop:periodic}, and set
+\[
+G_n=\max\bigl(2^{q_n},3^{p_n}\bigr),\qquad
+M_n=u\,\delta_n-v\,c_n\in\Z,\qquad
+\Ph(1c_\gamma)-\Ph(w_n^\infty)=\frac{M_n}{v\,\delta_n}.
+\]
+
+\emph{Lower bound.} Both $v$ and $\delta_n$ are odd, so
+$\vt(M_n)=\vt\bigl(\Ph(1c_\gamma)-\Ph(w_n^\infty)\bigr)=q_n+q_{n+1}-1$ by
+Theorem~\ref{thm:alldepth}. The valuation is finite, so $M_n\ne0$ and
+\begin{equation}\label{eq:alllower}
+|M_n|\ \ge\ 2^{\,q_n+q_{n+1}-1}.
+\end{equation}
+
+\emph{Upper bound.} The powers $2^{q_n}$ and $3^{p_n}$ are distinct positive
+integers, so $|\delta_n|<G_n$; and $c_n\le q_nG_n$ by Lemma~\ref{lem:height},
+which is stated for an arbitrary mechanical word and makes no assumption on
+which power is the larger. Hence
+\begin{equation}\label{eq:allupper}
+|M_n|\ \le\ |u|\,|\delta_n|+v\,c_n\ <\ H(1+q_n)G_n\ \le\ 2Hq_n\,G_n .
+\end{equation}
+
+\emph{The size of $G_n$.} Since $n$ is odd, $p_n=\gamma q_n+D_n$ with
+$0<D_n<1/q_{n+1}\le1$, so
+\[
+\log_2G_n=\max\bigl(q_n,\ p_n\log_23\bigr)
+\le\max\bigl(q_n,\ \theta q_n+\log_23\bigr)
+\le\max(1,\theta)\,q_n+\log_23=(1+\kappa)q_n+\log_23 .
+\]
+
+\emph{Comparison.} Combining \eqref{eq:alllower} and \eqref{eq:allupper},
+\[
+q_n+q_{n+1}-1\ <\ 1+\log_2H+\log_2q_n+\log_2G_n
+\ \le\ 1+\log_2H+\log_2q_n+(1+\kappa)q_n+\log_23 ,
+\]
+and cancelling $q_n$ gives \eqref{eq:allkey}. Finally $q_{n+1}>q_n$ for $n\ge1$,
+so $q_{n+1}-\kappa q_n>(1-\kappa)q_n=c(\gamma)q_n$, which turns
+\eqref{eq:allkey} into \eqref{eq:allfinal}.
+\end{proof}
+
+\begin{theorem}\label{thm:allslopes}
+$\Ph(1c_\gamma)\notin\Q$ for every irrational $\gamma\in(0,1)$. More precisely,
+with $H$ as in Theorem~\ref{thm:allmain}, every odd $n\ge3$ satisfies
+\begin{equation}\label{eq:allfire}
+q_n\ <\ 5\log_2H+22 ,
+\end{equation}
+which is impossible because $q_n\to\infty$ along the odd indices.
+\end{theorem}
+
+\begin{proof}
+Put $c_0=2-\log_23=0.41503\ldots$, so that $c(\gamma)>c_0$ for every
+$\gamma\in(0,1)$, because $\theta=\gamma\log_23<\log_23$. Suppose some odd
+$n\ge3$ had $q_n\ge5\log_2H+22$. Then $q_n\ge22$, and the function
+$Q\mapsto Q/\log_2Q$ attains its minimum at $Q=\mathrm e$ and increases
+thereafter, so
+\[
+\frac{q_n}{\log_2q_n}\ \ge\ \frac{22}{\log_222}=4.9334\ldots\ >\ 4.8189\ldots=\frac{2}{c_0},
+\]
+whence $\log_2q_n\le\tfrac{c_0}{2}q_n$ and
+\[
+c(\gamma)q_n-\log_2q_n\ \ge\ c_0q_n-\tfrac{c_0}{2}q_n=\tfrac{c_0}{2}q_n
+\ \ge\ \tfrac{c_0}{2}\bigl(5\log_2H+22\bigr)
+=1.0375\ldots\log_2H+4.5654\ldots
+\]
+which exceeds $\log_2H+2+\log_23=\log_2H+3.5849\ldots$, contradicting
+\eqref{eq:allfinal}. So no odd $n\ge3$ has $q_n\ge5\log_2H+22$; but $q_n$ is
+unbounded along the odd indices, and the contradiction is reached at the first
+odd $n$ with $q_n\ge5\log_2H+22$.
+\end{proof}
+
+\begin{remark}
+Three remarks on the constants. First, for $\gamma\le\beta$ one has
+$c(\gamma)=1$ and the same computation gives the sharper
+$q_n<2\log_2H+8$. Second, at $\gamma=\beta$ one has $\kappa=0$ and
+\eqref{eq:allkey} reads $q_{n+1}<\log_2H+\log_2q_n+3.585$, against
+$q_{n+1}\le3+\log_2H+\log_2q_n$ in Theorem~\ref{thm:main}; the published
+constant is better only because the proof there knows that $q_4=8$ for $\beta$.
+Third, the margin in Theorem~\ref{thm:allslopes} is structural rather than
+numerical: Regime~$3^{p_n}>2^{q_n}$ costs the comparison a factor
+$2^{(\theta-1)q_n}$, and $\theta-1<\log_23-1<1\le q_{n+1}/q_n$ for every
+$\gamma\in(0,1)$. The two rates would meet only at $\theta=2$, that is at
+$\gamma=2/\log_23=1.2618\ldots$, which is not a slope.
+\end{remark}
+
+\begin{corollary}\label{cor:allshadow}
+Let $\gamma\in(0,1)$ be irrational and $n\ge3$ odd. Then $\Ph(1c_\gamma)$ is not
+equal to any $u/v$ in lowest terms with
+\[
+\max(|u|,v)\ \le\ \frac{2^{\,q_n+q_{n+1}-1}}{(1+q_n)\max\bigl(2^{q_n},3^{p_n}\bigr)} .
+\]
+\end{corollary}
+
+\begin{proof}
+Immediate from \eqref{eq:alllower} and \eqref{eq:allupper}.
+\end{proof}
+
+\noindent For $\gamma=1/\varphi=(\sqrt5-1)/2$ and $n=25$, where
+$p_n/q_n=75025/121393$ and $q_{n+1}=196418$, the bound excludes every height up
+to $2^{196400}$; for $\gamma=e-2$ and $n=13$, where $p_n/q_n=12993/18089$ and
+$q_{n+1}=190435$, it excludes every height up to $2^{187915}$. These values,
+and the depths on which they rest, were computed in exact integer arithmetic.
+
+\subsection*{Consequences}
+
+\begin{corollary}\label{cor:allvariants}
+Let $\gamma\in(0,1)$ be irrational. Then $\Ph(c_\gamma)$, $\Ph(0c_\gamma)$ and
+$\Ph(\sigma^{k}1c_\gamma)$ for every $k\ge0$ are irrational. Moreover, for no
+odd $q\ge1$ does the generalised map $T_q$ possess an integer orbit whose parity
+word is $1c_\gamma$ or any shift of it.
+\end{corollary}
+
+\begin{proof}
+The proofs of Corollaries~\ref{cor:variants}, \ref{cor:shifts} and
+\ref{cor:3xq} use only that $1c_\gamma$ begins with $1$, that $0c_\gamma$ begins
+with $0$, and that $\sigma(1c_\gamma)=\sigma(0c_\gamma)=c_\gamma$. The first two
+hold because $\lceil\gamma\rceil=1$ and $\lfloor\gamma\rfloor=0$ for
+$\gamma\in(0,1)$; the third because for $j\ge1$ and irrational $\gamma$,
+$\lceil(j+1)\gamma\rceil-\lceil j\gamma\rceil
+=\bigl(\lfloor(j+1)\gamma\rfloor+1\bigr)-\bigl(\lfloor j\gamma\rfloor+1\bigr)
+=\lfloor(j+1)\gamma\rfloor-\lfloor j\gamma\rfloor$. With
+Theorem~\ref{thm:allslopes} in place of Theorem~\ref{thm:main}, the three proofs
+go through unchanged.
+\end{proof}
+
+\begin{remark}
+The intercept is not generalised. Everything above is at intercept $0$; for the
+mechanical words of slope $\gamma$ and intercept $\rho\ne0$ the one-positions
+are no longer $\lfloor j\alpha_\gamma\rfloor$ and the exact identities in the
+proof of Lemma~\ref{lem:floor} --- in particular
+$m_{p_{n+1}}=p_n-1$ and
+$(p_n+p_{n+1})\alpha_\gamma D_n=1+p_n\alpha_\gamma(D_n-D_{n+1})$ --- have no
+counterpart. That case remains open.
+\end{remark}

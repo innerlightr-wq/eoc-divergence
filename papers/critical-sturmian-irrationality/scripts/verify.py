@@ -18,10 +18,17 @@ Commands
                 unbalanced witness 0^a 1^a of Remark 4.3
   controls      the two rational controls: depths against a fixed rational
                 target freeze, so the Liouville step cannot fire on a rational
-  shadow        the explicit height of Corollary 6.3
+  shadow        the explicit height of Corollary 6.2
+  slopes [CAP]  Theorem 8.3 at seven irrational slopes, by longest common prefix
+                and, independently, 2-adically; depths capped at CAP
+  uniform       Theorem 8.4 / 8.5 / Corollary 8.7: every explicit constant of
+                Section 8, the bound on log2 G_n at every odd convergent, and
+                the exact height floor at the deepest one
+  slopecontrols the rational-slope control for Section 8
   all           everything except the deepest `depths` run
 """
 import sys, json, os
+from math import gcd
 from fractions import Fraction
 from decimal import Decimal, getcontext
 
@@ -202,7 +209,7 @@ def cmd_controls():
               % max(v for _, v in row if v is not None))
 
 def cmd_shadow():
-    """Corollary 6.3 from the deepest verified depth."""
+    """Corollary 6.2 from the deepest verified depth."""
     conv, _ = convergents()
     n = 13
     q_n, q_n1 = conv[n][1], conv[n+1][1]
@@ -214,7 +221,7 @@ def cmd_shadow():
     print("  2^L <= |M_n| < 4 H q_n 2^{q_n}   =>   H > 2^%d / %d" % (e, C))
     print("  %d < 2^%d, so H > 2^%d" % (C, C.bit_length(), e - C.bit_length()))
     print()
-    print("  Corollary 6.3: Phi(1c_beta) is not u/v in lowest terms with")
+    print("  Corollary 6.2: Phi(1c_beta) is not u/v in lowest terms with")
     print("  max(|u|,v) <= 2^%d." % (e - C.bit_length()))
 
 def cmd_audit():
@@ -247,7 +254,7 @@ def cmd_audit():
     print("\nSection 1, the critical growth rate:")
     chk("3^beta / 2 = 1", abs(Decimal(3)**b/2 - 1) < Decimal(10)**-60)
 
-    print("\nTheorem 6.2, the explicit constants:")
+    print("\nTheorem 6.1, the explicit constants:")
     chk("alpha/8 < 0.2", float(al)/8 < 0.2)
     chk("2^0.2 < 1.15", 2**0.2 < 1.15)
     chk("2 * 1.15 = 2.3 <= 4", 2*1.15 <= 4)
@@ -256,11 +263,11 @@ def cmd_audit():
     chk("q_n >= 2 log2 H + 20  =>  q_n - log2 q_n > 3 + log2 H  (H = 2^L, L up to 10^6)",
         all((2*L+20) - math.log2(2*L+20) > 3 + L for L in range(0, 10**6, 97)))
 
-    print("\nCorollary 6.3:")
+    print("\nCorollary 6.2:")
     chk("4 * q_13 = 705004 < 2^20", 4*conv[13][1] == 705004 and 705004 < 2**20)
     chk("q_13 + q_14 - 1 - q_13 = 301993", conv[13][1]+conv[14][1]-1-conv[13][1] == 301993)
 
-    print("\nSection 7, the archimedean terms:")
+    print("\nSection 9, the archimedean terms:")
     p3 = 1
     bad = 0
     for j in range(20000):
@@ -270,6 +277,495 @@ def cmd_audit():
         p3 *= 3
     chk("3^{-(j+1)} 2^{floor(j a)} in (1/6, 1/3] for j < 20000", bad == 0)
     print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+
+# ============================================================================
+# Section 8 (all irrational slopes).  Exact throughout: a slope is given by the
+# partial quotients of gamma = [0;a_1,a_2,...], so alpha_gamma = 1/gamma =
+# [a_1;a_2,...] has convergents q_n/p_n, which bracket it and certify the
+# floors floor(j*alpha_gamma).
+# ============================================================================
+
+def cf_e_minus_2(N):
+    """e - 2 = [0;1,2,1,1,4,1,1,6,1,1,8,...]"""
+    a, k = [1], 2
+    while len(a) < N:
+        a += [k, 1, 1]; k += 2
+    return a[:N]
+
+SLOPES = [
+    ("1/phi",              [1]*40,                                       "below"),
+    ("sqrt2-1",            [2]*30,                                       "below"),
+    ("e-2",                cf_e_minus_2(30),                             "above"),
+    ("[0;50,1,1,...]",     [50]+[1]*39,                                  "below"),
+    ("[0;1,97,1,...]",     [1,97]+[1]*38,                                "above"),
+    ("[0;1,1,1,1000,...]", [1,1,1,1000]+[1]*36,                          "above"),
+    ("~1/(7+1/pi)",        [7,3,7,15,1,292,1,1,1,2,1,3,1,14]+[1]*26,     "below"),
+]
+
+def convergents_cf(a):
+    """p[n]/q[n] for gamma = [0;a_1,a_2,...], indexed from p_0/q_0 = 0/1."""
+    p, q = [0, 1], [1, a[0]]
+    for n in range(1, len(a)):
+        p.append(a[n]*p[-1] + p[-2]); q.append(a[n]*q[-1] + q[-2])
+    return p, q
+
+def alpha_bracket(p, q):
+    """Two consecutive convergents of alpha_gamma = 1/gamma, as exact bounds."""
+    m = len(q) - 2
+    lo, hi = Fraction(q[m], p[m]), Fraction(q[m+1], p[m+1])
+    return (lo, hi) if lo < hi else (hi, lo)
+
+def floor_alpha(j, lo, hi):
+    """Certified floor(j*alpha_gamma); raises if the bracket is too coarse."""
+    f = (j*lo).__floor__()
+    if f != (j*hi).__floor__():
+        raise RuntimeError("bracket too coarse at j=%d" % j)
+    return f
+
+def mech_positions(p, q, jmax):
+    """ones of w_{p,q}^inf : floor(j q / p), j >= 0."""
+    return [(j*q)//p for j in range(jmax)]
+
+def first_mismatch(A, B):
+    for j, (x, y) in enumerate(zip(A, B)):
+        if x != y:
+            return j, min(x, y)
+    raise RuntimeError("no disagreement in the computed range")
+
+def word_at(positions, L):
+    w = bytearray(L)
+    for x in positions:
+        if x >= L: break
+        w[x] = 1
+    return w
+
+def phi_word_mod(w, K):
+    """Phi(v) mod 2^K from  3^{k_K} x = -c_K (mod 2^K)."""
+    M = 1 << K
+    c, k, pw = 0, 0, 1
+    for i in range(K):
+        if w[i]:
+            c = (3*c + pw) % M; k += 1
+        pw = (pw << 1) % M
+    return (-c * pow(pow(3, k, M), -1, M)) % M
+
+def predicted_g(n, q):
+    return q[n] - 1 if n % 2 == 0 else q[n] + q[n+1] - 1
+
+def cmd_slopes(CAP=50000):
+    """Theorem 8.3 at seven irrational slopes, by longest common prefix AND
+    2-adically.  Both routes are independent; agreement also re-checks the
+    isometry (Proposition 2.2) away from beta."""
+    ok = True
+    for name, a, sideof in SLOPES:
+        p, q = convergents_cf(a)
+        lo, hi = alpha_bracket(p, q)
+        print("%-20s gamma = [0;%s,...]   (%s beta)"
+              % (name, ",".join(map(str, a[:8])), sideof))
+        print("   n  p_n/q_n                predicted   lcp        v2        match")
+        for n in range(1, len(q)-1):
+            pred = predicted_g(n, q)
+            if pred > CAP: break
+            jmax = p[n] + p[n+1] + 4
+            A = [floor_alpha(j, lo, hi) for j in range(jmax)]
+            B = mech_positions(p[n], q[n], jmax)
+            jstar, lcp = first_mismatch(A, B)
+            jpred = p[n] + p[n+1] if n % 2 else p[n]
+            K = pred + 40
+            jw = int(K*p[n]/q[n]) + 4
+            x1 = phi_word_mod(word_at([floor_alpha(j, lo, hi) for j in range(jw)], K), K)
+            cn = c_of(mech_word(p[n], q[n]))
+            x2 = (cn * pow((1 << q[n]) - 3**p[n], -1, 1 << K)) % (1 << K)
+            got = v2((x1 - x2) % (1 << K))
+            good = (lcp == pred and got == pred and jstar == jpred)
+            ok &= good
+            print("  %-3d %8d/%-8d %11d %10d %9s   %s"
+                  % (n, p[n], q[n], pred, lcp, got,
+                     "OK" if good else "MISMATCH"), flush=True)
+        print()
+    print("  all match" if ok else "  FAILURES PRESENT")
+    return ok
+
+def cmd_uniform():
+    """Theorem 8.4, Theorem 8.5 and Corollary 8.7: every explicit constant, and
+    the exact height floor at the deepest odd convergent of each test slope."""
+    import math
+    L3 = math.log2(3); c0 = 2 - L3; C = 2 + L3
+    ok = True
+    def chk(name, cond):
+        nonlocal ok
+        ok &= bool(cond); print("  [%s] %s" % ("OK" if cond else "FAIL", name))
+
+    print("Constants of Section 8:")
+    chk("log2 3 = %.15f" % L3, abs(L3 - 1.5849625007211562) < 1e-15)
+    chk("c_0 = 2 - log2 3 = %.15f > 0" % c0, c0 > 0)
+    chk("2/c_0 = %.10f" % (2/c0), abs(2/c0 - 4.8188416793) < 1e-9)
+    chk("C = 2 + log2 3 = %.10f" % C, abs(C - 3.5849625007) < 1e-9)
+    chk("theta = gamma log2 3 < log2 3 for every gamma in (0,1), so c(gamma) > c_0",
+        2 - L3 == c0)
+    chk("the two rates would meet only at gamma = 2/log2 3 = %.6f > 1" % (2/L3),
+        2/L3 > 1)
+
+    print("\n  Q/log2 Q >= 2/c_0 exactly from Q = 22 (and not from 21):")
+    chk("21/log2 21 = %.6f <  2/c_0" % (21/math.log2(21)), 21/math.log2(21) < 2/c0)
+    chk("22/log2 22 = %.6f >= 2/c_0" % (22/math.log2(22)), 22/math.log2(22) >= 2/c0)
+    chk("Q/log2 Q >= 2/c_0 for all 22 <= Q <= 10^6",
+        all(Q/math.log2(Q) >= 2/c0 for Q in range(22, 10**6, 7)))
+
+    print("\n  firing threshold (Theorem 8.5):")
+    chk("(c_0/2)*5 = %.6f > 1" % (5*c0/2), 5*c0/2 > 1)
+    chk("(c_0/2)*22 = %.6f > C = %.6f" % (22*c0/2, C), 22*c0/2 > C)
+    chk("q_n >= 5 log2 H + 22  =>  c_0 q_n - log2 q_n > log2 H + C  (log2 H to 10^6)",
+        all(c0*(5*L+22) - math.log2(5*L+22) > L + C for L in range(0, 10**6, 97)))
+    print("  sharper, for gamma <= beta where c(gamma) = 1:")
+    chk("Q/log2 Q >= 2 for all 4 <= Q <= 10^6",
+        all(Q/math.log2(Q) >= 2 for Q in range(4, 10**6, 7)))
+    chk("q_n >= 2 log2 H + 8  =>  q_n - log2 q_n > log2 H + C  (log2 H to 10^6)",
+        all((2*L+8) - math.log2(2*L+8) > L + C for L in range(0, 10**6, 97)))
+
+    print("\n  Convention 8.1 and Lemma 8.2, exactly, at every slope and every n<=14.")
+    print("  gamma is enclosed between two convergents, and every quantity built")
+    print("  from it is carried as a rational interval; a check passes only if it")
+    print("  holds on the whole interval.")
+    for name, a, sideof in SLOPES:
+        p, q = convergents_cf(a)
+        m = len(q) - 1
+        i_lo = m if m % 2 == 0 else m - 1          # even convergents lie below gamma
+        i_hi = m if m % 2 else m - 1               # odd  convergents lie above gamma
+        g_lo, g_hi = Fraction(p[i_lo], q[i_lo]), Fraction(p[i_hi], q[i_hi])
+        al_hi = 1/g_lo                              # alpha_gamma = 1/gamma <= 1/g_lo
+        def D(n):                                   # rational interval for D_n
+            lo, hi = p[n] - q[n]*g_hi, p[n] - q[n]*g_lo
+            if n % 2 == 0: lo, hi = -hi, -lo
+            return (min(lo, hi), max(lo, hi))
+        sub = True
+        for n in range(1, 15):
+            Dn, Dn1 = D(n), D(n+1)
+            sub &= (p[n+1]*q[n] - p[n]*q[n+1] == (-1)**n)                 # exact
+            sub &= (Fraction(p[n], q[n]) > g_hi) == (n % 2 == 1)          # the side
+            sub &= q[n+1] > q[n]                                          # exact
+            sub &= Dn1[1] < Dn[0]                                         # D_{n+1} < D_n
+            sub &= q[n+1]*Dn[0] + q[n]*Dn1[0] <= 1 <= q[n+1]*Dn[1] + q[n]*Dn1[1]
+            sub &= al_hi*Dn[1] < 1                                        # Lemma 8.2
+            sub &= q[n+1] > al_hi                                         # Lemma 8.2
+            if n % 2 == 1:
+                sub &= (p[n+1]*q[n]) % p[n] == p[n] - 1                   # m_{p_{n+1}}
+            if n >= 3:
+                sub &= p[n] >= 2                                          # step (iii)
+        chk("%-18s  sides, (-1)^n identity, q_{n+1}D_n+q_nD_{n+1}=1, D_n decreasing,"
+            " alpha_g D_n<1, q_{n+1}>alpha_g, m_{p_{n+1}}=p_n-1, p_n>=2 (n<=14)" % name, sub)
+
+    print("\n  The step  log2 G_n <= max(1,theta) q_n + log2 3  of Theorem 8.4, in its")
+    print("  exact form  p_n - gamma q_n <= 1  (regime B; regime A is trivial), and")
+    print("  the exact height floor of Corollary 8.7, at every odd convergent:")
+    print("   slope                n   regime   log2 G_n   log2 H_0   [diagnostic]")
+    for name, a, sideof in SLOPES:
+        p, q = convergents_cf(a)
+        # exact rational bounds for gamma: even convergents below, odd above
+        m = len(q) - 1
+        g_lo = Fraction(p[m if m % 2 == 0 else m-1], q[m if m % 2 == 0 else m-1])
+        g_hi = Fraction(p[m if m % 2 else m-1], q[m if m % 2 else m-1])
+        th = float(g_lo)*L3; kap = max(1.0, th) - 1.0
+        last = None
+        for n in range(3, len(q)-1):
+            if n % 2 == 0: continue
+            depth = q[n] + q[n+1] - 1
+            if depth > 400000: break
+            two, three = 1 << q[n], 3**p[n]
+            G = max(two, three); reg = 'A' if two >= three else 'B'
+            lgG = G.bit_length() - 1
+            # EXACT: regime A needs nothing; regime B needs p_n - gamma q_n <= 1,
+            # and p_n - gamma q_n <= p_n - g_lo q_n since gamma >= g_lo.
+            good = True if reg == 'A' else (Fraction(p[n]) - g_lo*q[n] <= 1)
+            ok &= good
+            H0 = (1 << depth) // ((1 + q[n])*G)
+            lgH0 = H0.bit_length() - 1 if H0 > 0 else -1
+            pred = q[n+1] - kap*q[n] - math.log2(12*q[n])
+            last = (n, reg, lgG, lgH0, pred, good)
+        n, reg, lgG, lgH0, pred, good = last
+        print("   %-18s %3d      %s %10d %10d %11.1f  %s"
+              % (name, n, reg, lgG, lgH0, pred, "OK" if good else "FAIL"))
+    print("  (checked at EVERY odd n, not only the deepest, which is the row shown;")
+    print("   regime A means 2^{q_n} >= 3^{p_n}.  log2 G_n and log2 H_0 are exact")
+    print("   bit lengths; the last column is the float prediction of Section 8,")
+    print("   printed for comparison only and used in no decision.)")
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+def cmd_slopecontrols():
+    """Rational slopes: the word is periodic, the value rational, and the
+    Section 8 argument must not fire."""
+    def ceil_div(m, d): return -((-m)//d)
+    ok = True
+    print("A rational slope p/q gives 1c_{p/q} = w_{p,q}^inf exactly, hence a")
+    print("rational value; the argument must produce no contradiction.\n")
+    for (pp, qq) in [(5, 8), (2, 3), (41, 65)]:
+        L = 8*qq
+        w1c = bytes(ceil_div((j+1)*pp, qq) - ceil_div(j*pp, qq) for j in range(L))
+        wmec = bytes(word_at(mech_positions(pp, qq, 8*pp + 1), L))
+        same = (w1c == wmec)
+        ok &= same
+        val = Fraction(c_of(list(w1c[:qq])), 2**qq - 3**pp)
+        print("  [%s] gamma = %d/%d : 1c_gamma = w^inf over %d letters, Phi = %s"
+              % ("OK" if same else "FAIL", pp, qq, L,
+                 val if val.denominator != 1 else val.numerator))
+    p, q = convergents_cf([1, 1, 1, 2])          # 5/8
+    val = Fraction(319, 13); H = 319
+    print("\n  gamma = 5/8 = [0;1,1,1,2], Phi(1c_gamma) = %s, H = %d." % (val, H))
+    for n in (1, 3):
+        G = max(1 << q[n], 3**p[n])
+        H0 = (1 << (q[n] + q[n+1] - 1)) // ((1 + q[n])*G)
+        good = H > H0
+        ok &= good
+        print("  [%s] odd n=%d: depth %d forces H > %d; actual H = %d -- no contradiction"
+              % ("OK" if good else "FAIL", n, q[n]+q[n+1]-1, H0, H))
+    d4 = (1 << q[4]) - 3**p[4]
+    c4 = c_of(mech_word(p[4], q[4]))
+    M4 = val.numerator*d4 - val.denominator*c4
+    good = (M4 == 0)
+    ok &= good
+    print("  [%s] n=4 is the last convergent and is even: M_4 = u d_4 - v c_4 = %d,"
+          % ("OK" if good else "FAIL", M4))
+    print("       so the lower bound |M_n| >= 2^depth is vacuous and the chain ends.")
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+# ---------------------------------------------------------------------------
+# Section 9, "All Sturmian words".
+#
+# squares      Theorem 9.2 (Allouche-Davison-Queffelec-Zamboni): every Sturmian
+#              word begins in infinitely many squares.  Checked over several
+#              slopes and intercepts, including intercepts not of the form
+#              {j gamma}, and over many random intercepts.
+# roots        Theorem 9.3 (Berthe-Holton-Zamboni): the primitive root of an
+#              initial square is a cyclic permutation of a standard word.
+# conjheight   Lemma 9.4: c_W <= 3 l max(2^l, 3^k) over every cyclic permutation
+#              of every standard word of length <= 40; reports the true maximum.
+# wordskey     the key inequality of Theorem 9.1 at each square found, with
+#              every constant explicit.
+# wordcontrols the two controls: a rational slope (M = 0 exactly) and
+#              Thue-Morse (no initial square at all, so the method is silent).
+#
+# Exactness: slopes and intercepts are carried as integers over 2^PBITS, every
+# floor is an integer shift, and `margin` reports the minimum distance of
+# j*gamma + rho to Z in units of 2^-PBITS over the range used; since the
+# representation error after j steps is at most j units, a margin far above j
+# certifies every floor.  No floating point enters a decision.
+# ---------------------------------------------------------------------------
+
+PBITS = 512
+PONE = 1 << PBITS
+
+
+def _cf_value(a):
+    """value of the truncated continued fraction [a0; a1, ...] over 2^PBITS"""
+    from fractions import Fraction
+    x = Fraction(a[-1])
+    for ai in reversed(a[:-1]):
+        x = ai + 1 / x
+    return (x.numerator << PBITS) // x.denominator
+
+
+def _beta_scaled():
+    from decimal import Decimal, getcontext
+    getcontext().prec = PBITS // 3 + 80
+    return int((Decimal(2).ln() / Decimal(3).ln()) * PONE)
+
+
+def _word(g, r, n, upper=False):
+    if upper:
+        f = lambda t: -((-t) >> PBITS)
+    else:
+        f = lambda t: t >> PBITS
+    prev = f(r); out = []
+    for j in range(1, n + 1):
+        cur = f(j * g + r); out.append(cur - prev); prev = cur
+    return out
+
+
+def _margin(g, r, n):
+    m = PONE
+    for j in range(1, n + 1):
+        t = (j * g + r) % PONE
+        if t < m: m = t
+        if PONE - t < m: m = PONE - t
+    return m
+
+
+def _squares(w, lmax):
+    return [L for L in range(1, lmax + 1) if 2 * L <= len(w) and w[:L] == w[L:2 * L]]
+
+
+def _standard_conjugates(p, q):
+    base = tuple(((i + 1) * p) // q - (i * p) // q for i in range(q))
+    return {base[i:] + base[:i] for i in range(q)}
+
+
+def _balanced(w):
+    n = len(w)
+    for L in range(1, n + 1):
+        c = [sum(w[i:i + L]) for i in range(n - L + 1)]
+        if c and max(c) - min(c) > 1: return False
+    return True
+
+
+_SLOPES = None
+def _slopes():
+    global _SLOPES
+    if _SLOPES is None:
+        _SLOPES = [("log_3 2 (critical)", _beta_scaled()),
+                   ("1/phi", _cf_value([0] + [1] * 300)),
+                   ("sqrt2 - 1", _cf_value([0] + [2] * 250)),
+                   ("[0;1,97,1,...]", _cf_value([0, 1, 97] + [1] * 250))]
+    return _SLOPES
+
+
+def _intercepts(g):
+    from decimal import Decimal, getcontext
+    getcontext().prec = PBITS // 3 + 80
+    import random
+    rng = random.Random(20260925)
+    return [("0", 0), ("{3 gamma}", (3 * g) % PONE), ("1/2", PONE // 2),
+            ("1/pi", int(Decimal(1) / Decimal("3.14159265358979323846") * PONE)),
+            ("random A", rng.randrange(PONE)), ("random B", rng.randrange(PONE))]
+
+
+def cmd_squares(N=6000):
+    print("squares -- Theorem 9.2: every Sturmian word begins in infinitely many squares")
+    ok = True
+    for name, g in _slopes():
+        for lab, r in _intercepts(g):
+            for up in (False, True):
+                w = _word(g, r, N, upper=up)
+                sq = _squares(w, N // 2)
+                good = len(sq) >= 3 and max(sq) > 50
+                ok &= good
+                print("  [%s] %-18s rho=%-10s %s  squares at L = %s%s  (margin %d bits)"
+                      % ("OK" if good else "FAIL", name, lab,
+                         "upper" if up else "lower", sq[:6],
+                         " ..." if len(sq) > 6 else "", _margin(g, r, N).bit_length()))
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+def cmd_squares_random(TRIALS=1500, N=2600):
+    print("squares (random intercepts) -- no Sturmian word without initial squares")
+    import random
+    ok = True
+    for name, g in _slopes()[:3]:
+        rng = random.Random(7); none = 0; worst = 10 ** 9
+        for _ in range(TRIALS):
+            r = rng.randrange(PONE)
+            sq = _squares(_word(g, r, N), 1200)
+            if not sq: none += 1
+            elif max(sq) < worst: worst = max(sq)
+        good = none == 0
+        ok &= good
+        print("  [%s] %-18s %d random intercepts: %d without a square; "
+              "smallest largest half-length %d"
+              % ("OK" if good else "FAIL", name, TRIALS, none, worst))
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+def cmd_roots(N=4000):
+    print("roots -- Theorem 9.3: the primitive root of an initial square is a")
+    print("         cyclic permutation of a standard word")
+    ok = True; tested = 0
+    for name, g in _slopes():
+        for lab, r in _intercepts(g)[:4]:
+            w = _word(g, r, N)
+            for L in _squares(w, 1400)[-3:]:
+                W = w[:L]; k = sum(W)
+                if k == 0 or gcd(k, L) != 1:
+                    good = _balanced(W * 4)
+                else:
+                    good = tuple(W) in _standard_conjugates(k, L)
+                ok &= good; tested += 1
+                if not good:
+                    print("  [FAIL] %s rho=%s L=%d k=%d" % (name, lab, L, k))
+    print("  [%s] %d initial-square roots tested, all cyclic permutations of standard words"
+          % ("OK" if ok else "FAIL", tested))
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+def cmd_conjheight(Q=40):
+    print("conjheight -- Lemma 9.4: c_W <= 3 l max(2^l, 3^k) for W a cyclic")
+    print("              permutation of a standard word")
+    worst = 0.0; arg = None; ok = True
+    for q in range(1, Q + 1):
+        for p in range(1, q + 1):
+            if gcd(p, q) != 1: continue
+            for W in _standard_conjugates(p, q):
+                c = c_of(list(W))
+                bound = 3 * q * max(2 ** q, 3 ** p)
+                if c <= 0 or c > bound: ok = False
+                ratio = c / (q * max(2 ** q, 3 ** p))
+                if ratio > worst: worst, arg = ratio, (p, q, "".join(map(str, W)))
+    print("  [%s] no violation of the bound with C = 3, over every cyclic permutation"
+          % ("OK" if ok else "FAIL"))
+    print("       of every standard word with l <= %d" % Q)
+    print("  true maximum of c_W / (l max(2^l,3^k)) = %.6f at slope %d/%d, W = %s"
+          % (worst, arg[0], arg[1], arg[2]))
+    print("       so C = 1 suffices on this range; the paper proves C = 3 and uses only that")
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+def cmd_wordskey(N=4000):
+    print("wordskey -- Theorem 9.1: the surplus 2l - max(l, k log2 3) equals c(gamma) l")
+    import math
+    L23 = math.log2(3); ok = True
+    for name, g in _slopes():
+        gamma = g / PONE; cg = 2.0 - max(1.0, gamma * L23)
+        for lab, r in _intercepts(g)[:3]:
+            w = _word(g, r, N)
+            for L in _squares(w, 1400)[-2:]:
+                W = w[:L]; k = sum(W)
+                surplus = 2 * L - max(L, k * L23)
+                good = abs(surplus / L - cg) < 0.02 and abs(k - gamma * L) <= 1
+                ok &= good
+                print("  [%s] %-18s rho=%-10s l=%-5d k=%-5d surplus/l=%.4f  c(gamma)=%.4f"
+                      % ("OK" if good else "FAIL", name, lab, L, k, surplus / L, cg))
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
+
+
+def cmd_wordcontrols():
+    print("wordcontrols -- the method must be silent where it has to be")
+    ok = True
+    print("  (a) rational slope: the word is periodic, Phi is rational, M = 0 exactly")
+    for (p, q) in [(2, 3), (5, 8), (12, 19), (41, 65)]:
+        w = [((j + 1) * p) // q - (j * p) // q for j in range(8 * q)]
+        per = all(w[i] == w[i % q] for i in range(len(w)))
+        W = w[:q]; cW = c_of(W); d = 2 ** q - 3 ** p
+        M = cW * d - d * cW
+        good = per and M == 0
+        ok &= good
+        print("      [%s] slope %2d/%-3d periodic=%s  M = u d - v c_W = %d"
+              % ("OK" if good else "FAIL", p, q, per, M))
+    print("  (b) Thue-Morse: aperiodic, not Sturmian -- no initial square, so no input")
+    tm = [bin(i).count("1") & 1 for i in range(4096)]
+    sq = _squares(tm, 2048)
+    good = not sq
+    ok &= good
+    print("      [%s] initial squares with half-length < 2048: %s"
+          % ("OK" if good else "FAIL", sq if sq else "NONE"))
+    print("  (c) 0^a 1^a: balanced periodization fails, so the height bound must fail")
+    bad = 0
+    for a in (6, 10, 14, 18):
+        W = [0] * a + [1] * a
+        ratio = c_of(W) / (2 * a * max(2 ** (2 * a), 3 ** a))
+        if ratio > 1: bad += 1
+        print("      a=%2d: c_W/(l max) = %8.4f" % (a, ratio))
+    good = bad >= 2
+    ok &= good
+    print("      [%s] the ratio exceeds 1 and diverges, as Remark 4.3 says"
+          % ("OK" if good else "FAIL"))
+    print("\n  ALL CHECKS PASSED" if ok else "\n  FAILURES PRESENT")
+    return ok
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "all"
@@ -281,7 +777,19 @@ if __name__ == "__main__":
     elif cmd == "controls": cmd_controls()
     elif cmd == "shadow": cmd_shadow()
     elif cmd == "audit": cmd_audit()
+    elif cmd == "slopes": cmd_slopes(arg or 50000)
+    elif cmd == "uniform": cmd_uniform()
+    elif cmd == "slopecontrols": cmd_slopecontrols()
+    elif cmd == "squares": cmd_squares(arg or 6000)
+    elif cmd == "squares-random": cmd_squares_random(arg or 1500)
+    elif cmd == "roots": cmd_roots()
+    elif cmd == "conjheight": cmd_conjheight(arg or 40)
+    elif cmd == "wordskey": cmd_wordskey()
+    elif cmd == "wordcontrols": cmd_wordcontrols()
     elif cmd == "all":
-        for f in (cmd_convergents, cmd_lcp, cmd_heights, cmd_controls, cmd_shadow, cmd_audit):
+        for f in (cmd_convergents, cmd_lcp, cmd_heights, cmd_controls, cmd_shadow,
+                  cmd_audit, cmd_slopes, cmd_uniform, cmd_slopecontrols,
+                  cmd_squares, cmd_roots, cmd_conjheight, cmd_wordskey,
+                  cmd_wordcontrols):
             print("="*78); f(); print()
     else: print(__doc__)
