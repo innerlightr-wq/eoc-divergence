@@ -1,0 +1,36 @@
+alpha         = 1.584962500721156
+1/alpha       = 0.6309297535714575
+I0 (Lean def) = 0.07931861277485547
+alpha*(1-H2(1/alpha)) = 0.0793186127748557
+  |diff| = 2.359e-16   (the two forms agree)
+
+H2(1/alpha)   = 0.9499555271883304
+1 - I0/alpha  = 0.9499555271883305
+  |diff| = 1.110e-16   (Lean one_sub_I0_div_alpha_eq)
+
+=== brief's proposed constants ===
+            I0: claimed 0.0793186128  actual 0.0793186128  diff 2.51e-11
+   H2(1/alpha): claimed 0.9499555270  actual 0.9499555272  diff 1.88e-10
+     1-I0*0.65: claimed 0.9484429020  actual 0.9484429017  diff 3.04e-10
+
+=== baseline (Lean, UNCONDITIONAL) exponent = 1 - I0/alpha = 0.949955527188 ===
+     kappa       1-I0*kappa  MAX gain I0*(kappa-1/alpha)
+      0.65   0.948442901696               0.001512625492
+      0.70   0.944476971058               0.005478556131
+      0.80   0.936545109780               0.013410417408
+      0.90   0.928613248503               0.021342278686
+      1.00   0.920681387225               0.029274139963
+      1.20   0.904817664670               0.045137862518
+      1.50   0.881022080838               0.068933446351
+
+   eta=0.001, kappa=0.65: exponent = 0.949442901696  (brief: 0.949442902, diff 3.04e-10)
+   net gain vs baseline  = 0.000512625492
+   eta ceiling I0*(kappa-1/alpha) = 0.001512625492
+
+=== N = ceil(kappa*B): is N >= A*log2 X with A = kappa satisfied? ===
+       B  N=ceil(.65B)  A*log2X=.65B  N>=A*B?        s range  d=s+1-B max
+      20            13         13.00     True        [13,21]            2
+      40            26         26.00     True        [26,42]            3
+      80            52         52.00     True        [52,83]            4
+     160           104        104.00     True      [104,165]            6
+     320           208        208.00     True      [208,330]           11

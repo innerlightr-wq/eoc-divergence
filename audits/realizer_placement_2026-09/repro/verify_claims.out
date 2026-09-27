@@ -1,0 +1,59 @@
+==============================================================================
+V1. The sigma calibration, and its kappa-independence
+==============================================================================
+  Claim: D_s <= C(B+1)^c L_s 2^{-sigma d_s} => eta = (1-sigma)(alpha*kappa-1),
+         and eta < I0(kappa-1/alpha)  <=>  sigma > 1 - I0/alpha = H2(1/alpha).
+  Derivation: alpha*kappa-1 = alpha*(kappa-1/alpha), so the condition
+     (1-sigma)*alpha*(kappa-1/alpha) < I0*(kappa-1/alpha)
+  divides by (kappa-1/alpha) > 0 giving (1-sigma)*alpha < I0, i.e. sigma > 1-I0/alpha.
+  => threshold sigma* = 1 - I0/alpha = 0.949955527188
+     H2(1/alpha)                    = 0.949955527188   |diff| = 1.11e-16
+     assessment claims 0.949955527 -> diff 1.88e-10
+  CHECK kappa-independence numerically:
+     kappa   alpha*k-1   I0(k-1/a)  sigma* from ratio
+      0.65    0.030226    0.001513     0.949955527188
+      0.70    0.109474    0.005479     0.949955527188
+      0.80    0.267970    0.013410     0.949955527188
+      0.90    0.426466    0.021342     0.949955527188
+      0.99    0.569113    0.028481     0.949955527188
+      1.20    0.901955    0.045138     0.949955527188
+      2.00    2.169925    0.108593     0.949955527188
+  All equal 1-I0/alpha: the required saving exponent does NOT depend on kappa.
+  My earlier report said 'needs exactly 2^-d', i.e. sigma=1.  CORRECTED: sigma>0.949956
+  suffices, because the target permits eta>0.  Illustrative (NOT proved):
+     kappa=0.9, sigma=0.96: eta=0.017059, exponent=0.945672 IMPROVES (baseline 0.949956)
+     kappa=0.99, sigma=0.96: eta=0.022765, exponent=0.944239 IMPROVES (baseline 0.949956)
+     kappa=0.65, sigma=0.96: eta=0.001209, exponent=0.949652 IMPROVES (baseline 0.949956)
+
+==============================================================================
+V2. The gcd(u,6)=1 qualification
+==============================================================================
+  m_N(t) = x_w + 2*3^N t, so m_N mod u determines t mod u only if gcd(2*3^N,u)=1.
+     u  gcd(u,6)  2*3^N mod u invertible?                        consequence
+     3         3                    False m_N mod u is CONSTANT on the cylinder
+     5         1                     True             informative test valid
+     7         1                     True             informative test valid
+     9         3                    False m_N mod u is CONSTANT on the cylinder
+    11         1                     True             informative test valid
+    15         3                    False m_N mod u is CONSTANT on the cylinder
+  So my u=3 and u=9 rows were 0 for a TRIVIAL reason (constant feature), not by CRT.
+  The CRT argument is supported only for gcd(u,6)=1; u=5,7,11 are the valid instances.
+
+==============================================================================
+V3. The concatenation law for exact realizers
+==============================================================================
+  Claim: r_{uv} = 3^{-j} (2^a r_v - C_u)  (mod 2^{a+b+1}),  |u|=j, S_u=a, S_v=b.
+  Derivation: 3^j m_0 + C_u = 2^a m_j and m_j = r_v (mod 2^{b+1}) give
+     3^j m_0 = 2^a m_j - C_u = 2^a r_v - C_u + 2^{a+b+1} t.
+  word/split checks over all zero-confined words of length 2..10: 14,405   mismatches: 0
+  (the assessment reported 14,405 checks; I get 14,405)
+
+==============================================================================
+V4. Full-modulus character factorization within a fixed (j,a) class
+==============================================================================
+  From V3, e(g r_{uv}/2^{a+b+1}) = e(-g 3^{-j} C_u /2^{a+b+1}) * e(g 3^{-j} 2^a r_v /2^{a+b+1}),
+  a product of a PREFIX factor and a SUFFIX factor.  If the admissible (u,v) pairs form a
+  product set at fixed (j,a), the full-modulus Weyl sum factors exactly.  Checked:
+  product-set (j,a) classes examined: 124 (factorization checked structurally below)
+  additive split of the exponent (r_uv = A_v + B_u mod 2^(a+b+1)): 5,756 checks, 0 mismatches
+  => the FULL-MODULUS character genuinely factors as (prefix factor)*(suffix factor).

@@ -1,0 +1,25 @@
+    26    9   7   12,640    11  1,256,492  12,943,360 154,829,382     0   0.028571
+    26   10   7    6,255    10    310,507   3,202,560  37,747,232     0   0.032957
+    26   11   7    2,864     9     66,178     733,184   7,868,955     0   0.038609
+    26   12   7    1,181     8     11,715     151,168   1,336,647     0   0.040113
+    26   13   7      415     7      1,599      26,560     166,235     0   0.034774
+    27    9   8   21,662    11  1,846,124  22,181,888 448,200,794     0   0.042494
+    27   10   8   11,084    10    488,398   5,675,008 116,307,215     0   0.051015
+    27   11   8    5,264     9    112,908   1,347,584  25,948,466     0   0.061404
+    27   12   8    2,258     8     21,896     289,024   4,725,567     0   0.071278
+    27   13   8      827     7      3,345      52,928     635,649     0   0.069474
+    27   14   8      218     6        344       6,976      42,022     0   0.116307
+    28    9   9   21,662    11    931,926  22,181,888 448,200,794     0   0.042494
+    28   10   9   11,084    10    248,130   5,675,008 116,307,215     0   0.051015
+    28   11   9    5,264     9     58,484   1,347,584  25,948,466     0   0.061404
+    28   12   9    2,258     8     12,014     289,024   4,725,567     0   0.071278
+    28   13   9      827     7      1,971      52,928     635,649     0   0.069474
+    28   14   9      218     6        266       6,976      42,022     0   0.116307
+  violations of 'collision => t < B-a': 0
+
+  READING: the constraint is VALID but WEAK here -- the excluded fraction of pairs is
+  ~1e-2 or less, because short common prefixes are typical, so the lcp-restricted bound
+  is barely below the trivial |V|^2 and far above the true sum h^2.  The lemma supplies
+  real arithmetic information (it kills exactly the long-shared-prefix pairs) but does
+  NOT by itself deliver (*): it removes a vanishing fraction of the pair count, whereas
+  (*) needs sum h^2 near |V|^2/q.  Recorded as a precise negative.

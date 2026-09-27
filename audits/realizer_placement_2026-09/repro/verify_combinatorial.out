@@ -1,0 +1,45 @@
+  Proof checked: with e_i = d_i - s/N (sum 0), rotate just after a maximiser m of the
+  partial sums T_k. Then every new partial sum is T_. - T_m <= 0, so S'_k <= (s/N)k <= alpha k
+  because s <= alpha N. Each rotation class has <= N members and contributes >= 1 confined word.
+    N    s   L_s (exact)    C(s-1,N-1)/N    ratio  holds
+   10   10             1            0.10   10.000   True
+   10   12            42            5.50    7.636   True
+   10   14           303           71.50    4.238   True
+   10   15           476          200.20    2.378   True
+   14   14             1            0.07   14.000   True
+   14   16            88            7.50   11.733   True
+   14   21        17,637         5537.14    3.185   True
+   14   22        17,637        14535.00    1.213   True
+  shells checked: 32   violations: 0
+
+==============================================================================
+C2. Delta for the singleton-prefix class a=j, j=N/2, s=alpha N
+==============================================================================
+  alpha*H2(1/alpha)                      = 1.505643888   (= h)
+  (alpha-1/2)*H2((1/2)/(alpha-1/2))      = 1.080158212
+  Delta                                  = 0.425485676   (claimed 0.425486)
+  |diff| = 3.24e-07
+
+    kappa Delta*kappa (suppression/B)   d/B = alpha*kappa-1   net exponent/B  harmless?
+     0.65                    0.276566              0.030226        -0.246340        YES
+     0.70                    0.297840              0.109474        -0.188366        YES
+     0.80                    0.340389              0.267970        -0.072419        YES
+     0.90                    0.382937              0.426466         0.043529         NO
+     1.00                    0.425486              0.584963         0.159477         NO
+  => at kappa=0.65 the a=j singleton-prefix class is asymptotically harmless by pure
+     combinatorics (net -0.246340/B); at kappa=0.90 it is not (net +0.043529/B).
+
+==============================================================================
+C3. The suffix pair-counting form and the capacity bound
+==============================================================================
+  Claim: for a < B, with M_v = 2^{b+1}, H = 2^{B-a}, y_v = 3^{-j} r_v mod M_v,
+         Q_hi(v) = floor(y_v / H)  and  q = M_v/H = 2^{s+1-B}.
+  Also sum_x h(x)^2 = #{(v,v') : floor(y_v/H) = floor(y_v'/H)} <= (H/2) * |V|,
+  since the y_v are distinct odd residues and each interval holds <= H/2 odd values.
+  classes checked: 86   Q_hi/q-form violations: 0   y_v even: 0   capacity-bound violations: 0
+
+  Required: delta_U + delta_V < 2(1-sigma*) = 0.100088946
+  and delta_U + delta_V = 2(1 - tau_eff), so this is the SAME condition as tau_eff > sigma*.
+  Interpretation correction: a finite tau_eff below sigma* is compatible with a uniform
+  exponent tau at constant cost C >= q^(tau - tau_eff); e.g. q=256, tau=0.96, tau_eff=0.830
+  gives C >= 2.056.

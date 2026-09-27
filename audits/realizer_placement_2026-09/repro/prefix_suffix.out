@@ -1,0 +1,38 @@
+
+==============================================================================
+kappa = 0.65 (pre-registered default):  B=20, N=13, X=2^20
+==============================================================================
+  words of length N: 17,637   with an interior split at a>=B: 0   (j,a,s) classes: 0
+  (SPLIT) violations: 0   non-product (j,a,s) classes: 0   q_v non-injective classes: 0   [of 0 classes]
+     s   j    a   d        #U      #V    actual        main |actual-main|   C-S bound   trivial
+
+  TOTAL over split classes: actual=0  main=0.000  |signed error|=0.000
+  Cauchy-Schwarz bound (sum of per-class): 0.000
+  TRIVIAL bound (sum of #U*#V):            0
+
+==============================================================================
+kappa = 0.90 (stress test recommended by the assessment):  B=20, N=18, X=2^20
+==============================================================================
+  words of length N: 1,900,470   with an interior split at a>=B: 1,899,102   (j,a,s) classes: 96
+  (SPLIT) violations: 0   non-product (j,a,s) classes: 0   q_v non-injective classes: 0   [of 96 classes]
+     s   j    a   d        #U      #V    actual        main |actual-main|   C-S bound   trivial
+    21  17   20   2       760       1       207     190.000        17.000      18.695       760
+    22  16   20   3     2,595       1       349     324.375        24.625      62.469     2,595
+    22  17   20   3       760       1       105      95.000        10.000      24.536       760
+    22  17   21   3       760       1        96      95.000         1.000      24.536       760
+    23  15   20   4     6,167       1       384     385.438         1.438      74.460     6,167
+    23  16   20   4     2,595       2       281     324.375        43.375      80.819     5,190
+    23  16   21   4     2,595       1       169     162.188         6.812      59.154     2,595
+    23  17   20   4       760       1        46      47.500         1.500      22.749       760
+    23  17   21   4       760       1        40      47.500         7.500      22.749       760
+    23  17   22   4       760       1        50      47.500         2.500      22.749       760
+    24  14   20   5     9,592       1       265     299.750        34.750      74.570     9,592
+    24  15   20   5     6,167       3       545     578.156        33.156     119.795    18,501
+    24  15   21   5     6,167       1       166     192.719        26.719      71.509     6,167
+    24  16   20   5     2,595       3       227     243.281        16.281      88.252     7,785
+  ... 82 more classes
+
+  TOTAL over split classes: actual=12,259  main=12303.240  |signed error|=44.240
+  Cauchy-Schwarz bound (sum of per-class): 9090.731
+  TRIVIAL bound (sum of #U*#V):            1,899,102
+  saving of C-S over trivial: factor 208.91  = 2^7.707
