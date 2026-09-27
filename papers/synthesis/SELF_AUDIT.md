@@ -669,6 +669,13 @@ Made after §13 was written, before the corrected note was deposited.
    against the Zenodo public API). The README now cites the concept DOI and says
    which is which.
 
+   Re-checked 2026-09-27: the concept record now has three versions — `10.5281/zenodo.22925399`
+   (v1, 2026-09-23), `10.5281/zenodo.22944018` (2026-09-24) and `10.5281/zenodo.22961534` (v2.3,
+   2026-09-25, the current one, to which the concept DOI resolves). All three carry
+   `conceptrecid 22925398`. **v2.3 is the version containing this retraction**, so
+   anything citing the retracted §8 item 11 specifically should cite `10.5281/zenodo.22961534`
+   rather than the concept DOI.
+
    **Not changed, deliberately:** the Revision 7 citation at the top of the README
    (`10.5281/zenodo.22906673`, concept `10.5281/zenodo.20569293`) is *also* a
    version DOI, but it is version-pinned on purpose — the README gives the sha256

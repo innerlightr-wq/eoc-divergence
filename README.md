@@ -61,14 +61,29 @@ the equivalence unconditional. See [`docs/STATUS.md`](docs/STATUS.md) for the le
 **No module introduces an external hypothesis.** Every `Prop` the headline theorem depends on is
 proved in this repository.
 
-## Synthesis paper
+## Papers
+
+Two papers are developed in this repository. Both are deposited; the repository holds their
+sources, their verification scripts, and the audits behind them.
+
+| paper | location | record |
+|---|---|---|
+| *After the Reduction: Proved Statistics, Excluded Structure, and the Missing Pointwise Tool in the Accelerated 3x+1 Problem* --- the programme synthesis note | [`papers/synthesis`](papers/synthesis) | [doi:10.5281/zenodo.22925398](https://doi.org/10.5281/zenodo.22925398) |
+| *The 3x+1 conjugacy map sends the critical Sturmian word to an irrational 2-adic integer* | [`papers/critical-sturmian-irrationality`](papers/critical-sturmian-irrationality) | [doi:10.5281/zenodo.22920056](https://doi.org/10.5281/zenodo.22920056) (version 1; an extension to every irrational slope is in preparation) |
+
+Neither paper claims progress toward the Collatz conjecture.
+
+### After the Reduction
 
 > De Jesús, Elias (2026). *After the Reduction: Proved Statistics, Excluded Structure, and the
 > Missing Pointwise Tool in the Accelerated 3x+1 Problem.* Zenodo.
 > [doi:10.5281/zenodo.22925398](https://doi.org/10.5281/zenodo.22925398)
 
 The DOI above is the **concept** DOI: it represents all versions and always resolves to the
-latest. (`10.5281/zenodo.22944018`, cited here previously, is the version DOI of one deposit.)
+latest. Cite it unless you need a specific deposit. The current version is **v2.3**,
+[doi:10.5281/zenodo.22961534](https://doi.org/10.5281/zenodo.22961534); the earlier version DOIs are
+`10.5281/zenodo.22944018` and `10.5281/zenodo.22925399` (v1). For content specific to v2.3 — for
+instance the retracted Open Problem 11 — cite `10.5281/zenodo.22961534`.
 
 Source, bibliography and self-audit: [`papers/synthesis`](papers/synthesis).
 
