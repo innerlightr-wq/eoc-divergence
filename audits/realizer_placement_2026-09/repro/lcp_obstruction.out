@@ -1,0 +1,22 @@
+  26   11    2,864    128    512    True                     ok         7,838,768        733,184   10.69       True
+  26   12    1,181    128    256    True                     ok         1,244,774        151,168    8.23       True
+  26   13      415    128    128    True                     ok           119,520         26,560    4.50       True
+  27    9   21,662    256   2048    True                     ok       463,718,434     22,181,888   20.91       True
+  27   10   11,084    256   1024    True                     ok       120,028,636      5,675,008   21.15       True
+  27   11    5,264    256    512    True                     ok        26,367,376      1,347,584   19.57       True
+  27   12    2,258    256    256    True                     ok         4,522,774        289,024   15.65       True
+  27   13      827    256    128    True                     ok           473,044         52,928    8.94       True
+  28    9   21,662    512   2048    True                     ok       458,172,962     22,181,888   20.66       True
+  28   10   11,084    512   1024    True                     ok       117,191,132      5,675,008   20.65       True
+  28   11    5,264    512    512    True                     ok        25,019,792      1,347,584   18.57       True
+  28   12    2,258    512    256    True                     ok         3,944,726        289,024   13.65       True
+  28   13      827    512    128    True                     ok           261,332         52,928    4.94       True
+
+  n_z > q violations: 0    't<B-a <=> y!=y mod H' violations: 0
+
+  Representative class from the closing record (s=27, a=12):
+    n=2258 q=256 H=256:  n+1-q=2003, P_LCP >= 4,522,774, capacity nH/2 = 289,024, ratio 15.65
+    n+1 = 2259 > q + H/2 = 384  -> LCP-rejection PROVABLY cannot beat capacity here
+    n^2/q = 19916.265625  (uniform reference collision mass)
+    chi_V (actual)   = 0.099403
+    chi_V (capacity) = 13.511957   overshoot factor 135.93

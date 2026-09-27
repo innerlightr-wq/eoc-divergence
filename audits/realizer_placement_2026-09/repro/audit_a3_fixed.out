@@ -1,0 +1,16 @@
+  period used        feature   max |P(fail|class) - P(fail)|   verdict
+  2^K only (WRONG)   m_N mod 3                      0.000e+00   EXACTLY uninformative
+  2^K only (WRONG)   m_N mod 5                      8.750e-01   informative
+  2^K only (WRONG)   m_N mod 7                      8.750e-01   informative
+  2^K only (WRONG)   m_N mod 9                      2.500e-01   informative
+  u * 2^K (JOINT)    m_N mod 3                      0.000e+00   EXACTLY uninformative
+  u * 2^K (JOINT)    m_N mod 5                      0.000e+00   EXACTLY uninformative
+  u * 2^K (JOINT)    m_N mod 7                      0.000e+00   EXACTLY uninformative
+  u * 2^K (JOINT)    m_N mod 9                      0.000e+00   EXACTLY uninformative
+
+  Conclusion (DERIVED HERE): a feature m_N mod u (u odd) is exactly uninformative about
+  the failure event only when the lift sample covers a complete period of the joint
+  modulus u*2^K.  Over a complete 2^K-period there is exactly ONE failing t, so its
+  residue mod u is determined and the feature IS informative.  Real cylinders truncated
+  at a height cutoff essentially never cover a joint period, so the note's unqualified
+  sentence overclaims.

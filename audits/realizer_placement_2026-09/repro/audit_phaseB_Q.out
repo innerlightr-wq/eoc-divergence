@@ -1,0 +1,20 @@
+kappa = 13/20 = 0.65;  eta ceiling I0*(kappa-1/alpha) = 0.001512625
+baseline exponent 1-I0/alpha = 0.949955527188
+
+   B    N        words          A_{N,M}           (X/2)p_N            Q    log2 Q         direct A  agree
+  12    8          173              185           183.5000     1.008174   0.01175              185    yes
+  16   11        2,652            1,864          1873.7500     0.994797  -0.00753             1864    yes
+  20   13       17,637           23,315         23305.5000     1.000408   0.00059            23315    yes
+  24   16      312,455          259,555        259343.5000     1.000816   0.00118          skipped      -
+  28   19    5,936,673        2,955,232       2955259.7500     0.999991  -0.00001          skipped      -
+
+=== growth diagnostic: is log2 Q consistent with eta*B for eta>0? ===
+   B     log2 Q    log2Q / B   vs eta ceiling
+  12    0.01175     0.000979           within
+  16   -0.00753    -0.000470           within
+  20    0.00059     0.000029           within
+  24    0.00118     0.000049           within
+  28   -0.00001    -0.000000           within
+
+A negative log2 Q means Q < 1, i.e. the count is BELOW the complete-cylinder main term;
+the target A <= C*(X/2)p_N then holds with C = 1 at that (B,N).

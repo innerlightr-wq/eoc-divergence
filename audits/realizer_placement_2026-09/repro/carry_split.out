@@ -1,0 +1,17 @@
+=== verification of the generalized split, over ALL interior split points ===
+     B    N      words  (w,j) checks  T_w violations  low-bit violations  c=1 fraction  a<B fraction
+    12    8        173           595               0                   0        0.4891        1.0000
+    16   11      2,652        19,220               0                   0        0.4518        1.0000
+    20   13     17,637        96,540               0                   0        0.5272        1.0000
+    16   15    108,950     1,525,286               0                   0        0.3643        0.7736
+    20   18  1,900,470    32,307,684               0                   0        0.4111        0.7919
+
+  0 violations at every split point, including all a < B, confirms that the ONLY
+  prefix/suffix coupling in the top block is the single carry bit c in {0,1}.
+
+=== consequence: a two-term factorization of the shell Weyl sum ===
+  V(g) = sum_{u,v} e(g(P_hi+Q_hi+c)/2^d)
+       = sum_{c0 in {0,1}} e(g c0/2^d) * sum_{(u,v): c(u,v)=c0} e(g P_hi/2^d) e(g Q_hi/2^d)
+  The inner sum is a product ONLY on the set {c = c0}, which is a threshold condition
+  P_lo + Q_lo >= 2^B.  So the coupling is now a single low-bit threshold, not a general
+  correlation: exactly the object an off-diagonal estimate would have to handle.
