@@ -178,7 +178,24 @@ against 1.62). The contrast a selection mechanism would need does not exist.
 
 This is not a search limitation. Part (b) *forces* it: `a_N` is a bijective function
 of `t mod 2^K` and of nothing else, so any 2-adic feature at that precision merely
-re-encodes the label, and every non-2-adic feature is exactly uninformative.
+re-encodes the label, and a feature is informative only insofar as it reveals
+`t mod 2^K`.
+
+> **Correction (scope of the last clause).** An earlier form of this paragraph asserted
+> that *every* non-2-adic feature is exactly uninformative. That overclaims. For odd `u`
+> with `gcd(u,6) = 1`, `m_N(t) = x_w + 2·3^N t` makes `m_N mod u` determine `t mod u`, so
+> exact uninformativeness needs the lift sample to cover a complete period of the **joint**
+> modulus `u·2^K` — not of `2^K`. Over a single `2^K` period there is exactly one failing
+> `t`, so its residue mod `u` is determined and the feature *is* informative. Verified: the
+> deviation is exactly 0 over a `u·2^K` period for `u = 3,5,7,9`, and 0.875 for `u = 5,7`
+> over a `2^K` period. Concretely, for `w = (1)` and `M = 15` the seeds are `3,7,11,15`
+> with next odd states `5,11,17,23` and following valuations `4,1,2,1`; at `K = 2` only
+> the first fails, and `m_1 ≡ 0 (mod 5)` selects exactly it. The feature is informative
+> only through the truncation, and reveals nothing beyond `t` itself. `u = 3` and `u = 9`
+> are uninformative for a different and trivial reason: `2·3^N ≡ 0 (mod u)`, so `m_N mod u`
+> is *constant* on the cylinder — consistent with §2.4's statement that `m mod 3`
+> restricts nothing. **This does not affect the measurements of (d)**, which are
+> barrier-conditioned and held-out; only the universal claim was wrong.
 
 **(e) Where the drift lives.** With `ν` the barrier-state distribution of the integer
 survivors and `h̄ = E_ν[1 − 2^{−K}]`, split
