@@ -69,7 +69,7 @@ sources, their verification scripts, and the audits behind them.
 | paper | location | record |
 |---|---|---|
 | *After the Reduction: Proved Statistics, Excluded Structure, and the Missing Pointwise Tool in the Accelerated 3x+1 Problem* --- the programme synthesis note | [`papers/synthesis`](papers/synthesis) | [doi:10.5281/zenodo.22925398](https://doi.org/10.5281/zenodo.22925398) |
-| *The 3x+1 conjugacy map sends the critical Sturmian word to an irrational 2-adic integer* | [`papers/critical-sturmian-irrationality`](papers/critical-sturmian-irrationality) | [doi:10.5281/zenodo.22920056](https://doi.org/10.5281/zenodo.22920056) (version 1; an extension to every irrational slope is in preparation) |
+| *The 3x+1 conjugacy map sends the critical Sturmian word to an irrational 2-adic integer* | [`papers/critical-sturmian-irrationality`](papers/critical-sturmian-irrationality) | [doi:10.5281/zenodo.22920055](https://doi.org/10.5281/zenodo.22920055) --- Later versions extend the result to every irrational slope and to every Sturmian word; files are under restricted access until the review period ends (October 2026). |
 
 Neither paper claims progress toward the Collatz conjecture.
 
