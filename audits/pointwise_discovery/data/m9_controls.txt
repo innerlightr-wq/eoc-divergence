@@ -1,0 +1,39 @@
+M9 - the same exact letter-law test on the control maps.
+
+* 3x-1  is the SIGN control: m -> -m conjugates it to 3x+1 on the negatives,
+  and it has positive rare-side cycles ({1}, {5,7}, {17,...}).  A positive
+  fraction of its confined integers is therefore CAPTURED by a cycle, whose
+  deep letters follow the cycle word and not the generic confined law.
+  This is a known effect that the test MUST detect - it is the power
+  calibration for the whole pipeline.
+* 5x-1  is the structural twin of 3x+1: same sign misalignment, opposite drift,
+  and no positive rare-side cycle.  It should behave like 3x+1: null.
+
+3x-1 (sign control, cycles present):  5143 integers < 2^32, 140-persistent
+     d    exact Pbar     observed    boot SE         z
+     1     0.6446538    0.6447071  0.0003649      0.15
+     2     0.2305292    0.2302061  0.0004713     -0.69
+     3     0.0812727    0.0809297  0.0002942     -1.17
+     4     0.0284757    0.0290242  0.0001713      3.20
+     5     0.0098970    0.0096775  0.0001079     -2.03
+     6     0.0034109    0.0034180  0.0000639      0.11
+     7     0.0011663    0.0013708  0.0000425      4.82
+     8     0.0003955    0.0004472  0.0000232      2.23
+     9     0.0001330    0.0001653  0.0000153      2.11
+    10     0.0000661    0.0000542  0.0000082     -1.45
+   max |z| = 4.82
+
+5x-1 (structural twin of 3x+1):  406761 integers < 2^32, 140-persistent
+     d    exact Pbar     observed    boot SE         z
+     1     0.4139163    0.3290707  0.0001822   -465.69
+     2     0.2433031    0.3676709  0.0002871    433.14
+     3     0.1436946    0.1202094  0.0000671   -350.01
+     4     0.0840718    0.0794133  0.0000448   -103.90
+     5     0.0488582    0.0401958  0.0000275   -314.48
+     6     0.0282531    0.0283315  0.0000159      4.92
+     7     0.0162710    0.0193768  0.0000173    179.34
+     8     0.0093292    0.0064808  0.0000107   -266.31
+     9     0.0053285    0.0034867  0.0000075   -243.99
+    10     0.0069741    0.0057642  0.0000092   -132.17
+   max |z| = 465.69
+

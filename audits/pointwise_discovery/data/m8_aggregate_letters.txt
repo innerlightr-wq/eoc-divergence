@@ -1,0 +1,24 @@
+M8 - the decisive form of the letter-law test.
+
+Aggregate letter frequency over all depths,  Pbar(d) = (1/n) sum_k P(a_k = d),
+computed EXACTLY from the transfer tables, against the chain-root integer
+cohort.  The error bar is a word-level bootstrap, so within-word correlation
+(which confinement certainly creates) is handled, and chain correlation is
+removed by the root restriction.
+
+chain-root cohort: 55665 words of length 140, every odd m < 2^36 that is
+140-confined with 3 not dividing m+1.  Word-level bootstrap, B = 500.
+
+  d   exact Pbar(d)     observed    boot SE        z
+  1       0.6446538    0.6447832  0.0001145     1.13
+  2       0.2305292    0.2303570  0.0001520    -1.13
+  3       0.0812727    0.0813322  0.0000881     0.68
+  4       0.0284757    0.0285018  0.0000566     0.46
+  5       0.0098970    0.0098411  0.0000328    -1.70
+  6       0.0034109    0.0034338  0.0000204     1.12
+  7       0.0011663    0.0011642  0.0000119    -0.17
+  8       0.0003955    0.0003942  0.0000074    -0.18
+  9       0.0001330    0.0001250  0.0000040    -1.98
+ 10       0.0000661    0.0000675  0.0000029     0.49
+
+max |z| = 1.98 over 10 letter values.

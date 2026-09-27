@@ -1,0 +1,30 @@
+Then
+    3 m_N(t) + 1 = (3 x_w + 1) + 2*3^(N+1)*t = 2*( y + 3^(N+1) t ),   y := (3 x_w + 1)/2,
+using that x_w is odd so 3x_w+1 is even.  Hence
+    v_2(3 m_N(t)+1) = 1 + v_2( y + 3^(N+1) t ),
+so, for a next-valuation cap K,
+    FAILURE  <=>  v_2(3 m_N(t)+1) > K  <=>  y + 3^(N+1) t = 0 (mod 2^K)
+             <=>  t = t*_w := -y * 3^(-(N+1))  (mod 2^K).
+K from zero confinement at step N+1: 2^(S+a) <= 3^(N+1), so
+    K = K(N,S) = max{a : 2^(S+a) <= 3^(N+1)} = floor((N+1)*alpha - S).
+Confinement gives S <= floor(N*alpha), hence (N+1)*alpha - S >= alpha > 1, so K >= 1 ALWAYS.
+This is asserted, not assumed.
+
+==============================================================================
+A1. K >= 1 on every confined word, and the closed-form realizer realises w exactly
+==============================================================================
+  confined words N=1..12: 12,447   K<1: 0   word/parity mismatches: 0
+
+==============================================================================
+A1. INDEPENDENT offset prediction vs direct iteration, with edge-case census
+==============================================================================
+  (w,B) cylinder cases checked: 3,241
+  predicted-vs-observed failure COUNT mismatches: 0
+  observed failure class != predicted t*_w:        0
+  edge-case census (all reached, none skipped):
+     no_fail_tstar_ge_n     2,437
+     exactly_one            617
+     multiple               187
+     tstar_outside          2,437
+     extinction_next        405
+     n_eq_1                 2,504

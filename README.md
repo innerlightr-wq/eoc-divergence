@@ -68,10 +68,39 @@ sources, their verification scripts, and the audits behind them.
 
 | paper | location | record |
 |---|---|---|
-| *After the Reduction: Proved Statistics, Excluded Structure, and the Missing Pointwise Tool in the Accelerated 3x+1 Problem* --- the programme synthesis note | [`papers/synthesis`](papers/synthesis) | [doi:10.5281/zenodo.22925399](https://doi.org/10.5281/zenodo.22925399) |
+| *After the Reduction: Proved Statistics, Excluded Structure, and the Missing Pointwise Tool in the Accelerated 3x+1 Problem* --- the programme synthesis note | [`papers/synthesis`](papers/synthesis) | [doi:10.5281/zenodo.22925398](https://doi.org/10.5281/zenodo.22925398) |
 | *The 3x+1 conjugacy map sends the critical Sturmian word to an irrational 2-adic integer* | [`papers/critical-sturmian-irrationality`](papers/critical-sturmian-irrationality) | [doi:10.5281/zenodo.22920056](https://doi.org/10.5281/zenodo.22920056) (version 1; an extension to every irrational slope is in preparation) |
 
 Neither paper claims progress toward the Collatz conjecture.
+
+### After the Reduction
+
+> De Jesús, Elias (2026). *After the Reduction: Proved Statistics, Excluded Structure, and the
+> Missing Pointwise Tool in the Accelerated 3x+1 Problem.* Zenodo.
+> [doi:10.5281/zenodo.22925398](https://doi.org/10.5281/zenodo.22925398)
+
+The DOI above is the **concept** DOI: it represents all versions and always resolves to the
+latest. Cite it unless you need a specific deposit. The current version is **v2.3**,
+[doi:10.5281/zenodo.22961534](https://doi.org/10.5281/zenodo.22961534); the earlier version DOIs are
+`10.5281/zenodo.22944018` and `10.5281/zenodo.22925399` (v1). For content specific to v2.3 — for
+instance the retracted Open Problem 11 — cite `10.5281/zenodo.22961534`.
+
+Source, bibliography and self-audit: [`papers/synthesis`](papers/synthesis).
+
+The note draws together three strands: the **proved** confinement statistics (the exponential
+rate `I₀`, formalized here as `Occupation.confined_mass_rate`; its two-sided polynomial
+correction, proved on paper; and the windowed sparsity and summability theorems of the
+`Divergence` library); the
+structural approaches that have been **excluded**, one family at a time — periodic, algebraic,
+Sturmian, bounded-drift and descent-accessible; and what is left, the **open** pointwise realizer
+problem, a question about where particular integers sit inside a population whose size is already
+known.
+
+The extremal approximation is kept separate from the proved part. That the record-holding
+integers sit where random placement at the proved rate predicts is measured over a finite range
+and stated in the note as a **conjecture** (Sharp EOC), whose lower half is at least as hard as
+universal drift exit; it is not a proved conclusion. **The note proves neither the Collatz
+conjecture nor the exclusion of divergent orbits, and claims no progress toward either.**
 
 ## Companion result (occupation side)
 

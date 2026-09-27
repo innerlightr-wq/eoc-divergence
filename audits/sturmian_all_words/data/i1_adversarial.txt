@@ -1,0 +1,18 @@
+slope log_3 2    4000 random intercepts, N=2600, L<= 1200
+   intercepts with NO square prefix at all      : 0
+   smallest 'largest square half-length'        : 252
+   smallest best-exponent over 64<=L<=1200    : 2.1160
+   (I4 needs e > max(1, gamma*log2 3); for these slopes that is 1.0)
+
+slope 1/phi      4000 random intercepts, N=2600, L<= 1200
+   intercepts with NO square prefix at all      : 0
+   smallest 'largest square half-length'        : 233
+   smallest best-exponent over 64<=L<=1200    : 2.4711
+   (I4 needs e > max(1, gamma*log2 3); for these slopes that is 1.0)
+
+slope sqrt2-1    4000 random intercepts, N=2600, L<= 1200
+   intercepts with NO square prefix at all      : 0
+   smallest 'largest square half-length'        : 70
+   smallest best-exponent over 64<=L<=1200    : 2.1196
+   (I4 needs e > max(1, gamma*log2 3); for these slopes that is 1.0)
+

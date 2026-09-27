@@ -1,0 +1,32 @@
+==============================================================================
+Control 1 -- shuffling a confined word of A destroys the confinement
+==============================================================================
+  holder        depth   shuffles still confined to that depth (of 2000)   median shuffled depth
+            27     36      174                                         2
+           703     50      206                                         2
+         10087     65       87                                         2
+        270271    102       55                                         2
+        626331    110       61                                         2
+       1126015    140      145                                         2
+      13421671    180       56                                         3
+      26716671    187       38                                         2
+      63728127    236       16                                         2
+
+==============================================================================
+Control 2 -- least realizer r(D) of the record holders' own words (exact)
+==============================================================================
+  holder         27  depth  36  S =   56  r(D) =           27  (equals the holder: True)  log2 r = 4.755  S - log2 r = 51.245
+  holder        703  depth  50  S =   77  r(D) =          703  (equals the holder: True)  log2 r = 9.457  S - log2 r = 67.543
+  holder      10087  depth  65  S =  102  r(D) =        10087  (equals the holder: True)  log2 r = 13.300  S - log2 r = 88.700
+  holder     270271  depth 102  S =  161  r(D) =       270271  (equals the holder: True)  log2 r = 18.044  S - log2 r = 142.956
+  holder     626331  depth 110  S =  173  r(D) =       626331  (equals the holder: True)  log2 r = 19.257  S - log2 r = 153.743
+  holder    1126015  depth 140  S =  217  r(D) =      1126015  (equals the holder: True)  log2 r = 20.103  S - log2 r = 196.897
+
+==============================================================================
+Control 3 -- shuffled Haar words: confinement depth, all three maps
+==============================================================================
+  A (confinement): Haar words, depth reached -- median 1, mean 2.430; shuffled: median 1, mean 2.545
+  B (confinement): Haar words, depth reached -- median 1, mean 2.430; shuffled: median 1, mean 2.545
+  C (anti-confinement): Haar words, depth reached -- median 0, mean 1.817; shuffled: median 0, mean 1.770
+  (a shuffle of a Haar word is again a Haar word in law, so these must agree:
+   the control is calibrating the test, not testing the maps.)

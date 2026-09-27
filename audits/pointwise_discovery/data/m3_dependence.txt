@@ -1,0 +1,72 @@
+M3  Spearman rho(feature, delta) with S partialled out (within-S ranks).
+    Null: rho = 0.  SE = 1/sqrt(K-3).  Top 6 features by |rho| per dataset.
+
+3x+1_n20     K= 40000  SE=0.0050  4SE=0.0200   #|rho|>4SE = 0
+     n_a3=+0.010  n_a4=-0.009  lead1=-0.008  t11=-0.006  run1_max=-0.006  last0=-0.005
+3x+1_n40     K= 40000  SE=0.0050  4SE=0.0200   #|rho|>4SE = 0
+     lead1=-0.010  n_a4=-0.009  t11=-0.007  contacts0=+0.006  n_a1=-0.006  run1_max=-0.005
+3x+1_n60     K= 40000  SE=0.0050  4SE=0.0200   #|rho|>4SE = 0
+     argmax_D=-0.010  run1_max=+0.008  n_a2=-0.006  n_a3=+0.005  slope8_0=-0.005  lead1=+0.005
+3x+1_n100    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     slope32=+0.021  last0=-0.010  t11=+0.010  D_mean=+0.009  contacts0=-0.008  logZ=-0.008
+3x+1_n120    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     slope32=+0.012  D_mean=+0.010  lead1=+0.009  slope8_0=-0.009  run1_max=-0.009  slope16_0=-0.008
+3x+1_n140    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     slope8_0=-0.015  run1_max=-0.011  contacts0=-0.008  last0=-0.007  n_a2=+0.006  lead1=-0.005
+3x+1_n150    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     last0=-0.014  D_mean=+0.008  n_a5p=-0.008  contacts0=-0.008  logZ=-0.007  t11=-0.007
+3x+1_n160    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     n_a5p=-0.012  n_a1=-0.010  slope32_0=+0.008  last0=-0.007  run1_max=+0.007  slope16=+0.006
+3x+1_n180    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     run1_max=+0.018  slope8_0=-0.014  n_a3=-0.011  slope32=-0.011  n_a4=+0.009  D_max=+0.008
+3x+1_n200    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     lead1=+0.022  argmax_D=-0.012  run1_max=+0.011  slope8=+0.011  slope16_0=-0.010  slope8_0=-0.010
+3x+1_n250    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     n_a4=+0.015  last0=+0.011  slope16_0=+0.011  slope16=+0.010  t11=+0.010  logC_minus_S=+0.008
+3x+1_n300    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     D_mean=+0.019  logZ=-0.019  logC_minus_S=-0.019  contacts1=-0.017  D_max=+0.015  last0=-0.014
+3x-1_n20     K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     run1_max=+0.012  slope16_0=-0.010  argmax_D=+0.009  n_a4=-0.007  slope16=-0.006  D_max=+0.006
+3x-1_n40     K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     last0=-0.023  contacts0=-0.018  contacts1=-0.014  logC_minus_S=-0.013  logZ=-0.013  lead1=+0.013
+3x-1_n60     K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     t11=+0.023  slope16_0=-0.020  D_mean=+0.017  logZ=-0.017  logC_minus_S=-0.017  argmax_D=-0.017
+3x-1_n100    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     n_a1=-0.016  n_a2=+0.014  t11=-0.013  D_max=-0.011  n_a4=-0.010  slope8=+0.009
+3x-1_n120    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     lead1=-0.010  slope8_0=+0.008  contacts0=+0.005  n_a4=+0.005  slope16=-0.005  n_a3=-0.005
+3x-1_n140    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     n_a2=+0.013  n_a1=-0.012  t11=-0.011  slope16=-0.008  slope8=-0.007  n_a3=-0.007
+3x-1_n150    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     run1_max=+0.010  slope32_0=-0.008  n_a2=+0.007  argmax_D=+0.007  n_a1=-0.006  slope8=-0.006
+3x-1_n200    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     slope16=+0.010  run1_max=+0.009  slope32=+0.008  slope32_0=+0.007  slope16_0=+0.006  lead1=-0.005
+5x+1_n20     K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     slope16=-0.010  run1_max=+0.007  D_max=+0.006  logZ=-0.006  t11=+0.006  argmax_D=+0.006
+5x+1_n40     K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     n_a4=-0.014  n_a5p=+0.010  last0=+0.009  slope32_0=+0.009  slope8=-0.009  contacts0=+0.008
+5x+1_n60     K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     argmax_D=+0.012  n_a3=+0.008  n_a1=-0.008  slope8_0=-0.007  n_a4=-0.007  t11=+0.006
+5x+1_n100    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     n_a2=-0.021  n_a1=+0.020  t11=+0.018  first0=-0.016  contacts0=+0.015  slope32=+0.014
+5x+1_n150    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     run1_max=+0.015  argmax_D=+0.014  n_a3=-0.014  slope32=-0.014  t11=+0.012  a0=-0.009
+5x+1_n200    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     slope16_0=-0.011  D_max=-0.009  logC_minus_S=-0.008  D_mean=-0.008  n_a5p=+0.008  argmax_D=-0.005
+5x-1_n20     K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     slope16=+0.010  run1_max=-0.007  D_max=-0.006  logZ=+0.006  t11=-0.006  argmax_D=-0.006
+5x-1_n40     K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     n_a4=+0.014  n_a5p=-0.010  last0=-0.009  slope8=+0.009  slope32_0=-0.009  contacts0=-0.008
+5x-1_n60     K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     argmax_D=-0.012  n_a3=-0.008  n_a1=+0.008  slope8_0=+0.007  n_a4=+0.007  t11=-0.006
+5x-1_n100    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     n_a2=+0.021  n_a1=-0.020  t11=-0.018  first0=+0.016  contacts0=-0.015  slope32=-0.014
+5x-1_n120    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     n_a1=-0.022  n_a3=+0.019  slope8=+0.015  t11=-0.014  n_a5p=-0.009  D_max=-0.008
+5x-1_n140    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     last0=+0.015  slope8_0=-0.014  contacts0=+0.012  slope16_0=-0.011  n_a4=-0.010  logZ=+0.009
+5x-1_n150    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     run1_max=-0.015  argmax_D=-0.014  n_a3=+0.014  slope32=+0.014  t11=-0.012  a0=+0.009
+5x-1_n200    K= 20000  SE=0.0071  4SE=0.0283   #|rho|>4SE = 0
+     slope16_0=+0.011  D_max=+0.009  logC_minus_S=+0.008  D_mean=+0.008  n_a5p=-0.008  argmax_D=+0.005
+

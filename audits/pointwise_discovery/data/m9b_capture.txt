@@ -1,0 +1,13 @@
+M9b - attribute the 5x-1 departure: is it cycle capture?
+
+Proposition (5x-1) proves that persistence forces m_n < m_0, so a persistent
+orbit is trapped in [1, m_0] and is eventually periodic.  If that is the whole
+story, the departure should vanish on the sub-cohort that has NOT yet repeated
+a value by depth n.
+
+5x-1, depth 140, every odd m < 2^32 that is 140-persistent: 406761 seeds
+   repeated an orbit value by depth 140:  140504  (34.54 %)
+   still injective at depth 140:          266257
+
+   captured           K= 140504   max |z| vs the exact law =  1167.89
+   not yet captured   K= 266257   max |z| vs the exact law =   177.68

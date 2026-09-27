@@ -1,0 +1,12 @@
+map         q   r  log2 q      rare side   cycles (min element, L, S, S/L)                     shelter?
+----------------------------------------------------------------------------------------------------------------------
+A  3x+1     3  +1  1.584963  S/L <= a   (1,1,2,2.0000)                                        predicted False observed False  OK
+B  3x-1     3  -1  1.584963  S/L <= a   (1,1,1,1.0000*) (5,2,3,1.5000*) (17,7,11,1.5714*)     predicted True  observed True   OK
+C  5x+1     5  +1  2.321928  S/L >= a   (1,2,5,2.5000*) (13,3,7,2.3333*) (17,3,7,2.3333*)     predicted True  observed True   OK
+D  5x-1     5  -1  2.321928  S/L >= a   (1,1,2,2.0000)                                        predicted False observed False  OK
+   3x+5     3  +5  1.584963  S/L <= a   (1,1,3,3.0000) (5,1,2,2.0000) (19,3,5,1.6667) (23,3,  predicted False observed False  OK
+   7x+1     7  +1  2.807355  S/L >= a   (1,1,3,3.0000*)                                       predicted True  observed True   OK
+   7x-1     7  -1  2.807355  S/L >= a                                                         predicted False observed False  OK
+
+* marks a cycle on the rare side.  'shelter' = some positive cycle sits on the rare side,
+predicted by sign(r) = sign(q-4).  Cycle search over odd seeds <= 20001.

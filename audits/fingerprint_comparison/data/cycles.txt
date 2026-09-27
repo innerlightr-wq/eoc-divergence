@@ -1,0 +1,16 @@
+A (3x+1)   log2 q = 1.5849625007   (rare side is BELOW the line, since E[a]=2)
+   cycle [1]                                          word [2]                      L=1 S=2  S/L=2.000000  ABOVE log2 q   
+
+B (3x-1)   log2 q = 1.5849625007   (rare side is BELOW the line, since E[a]=2)
+   cycle [1]                                          word [1]                      L=1 S=1  S/L=1.000000  BELOW log2 q   <== ON THE RARE SIDE
+   cycle [5, 7]                                       word [1, 2]                   L=2 S=3  S/L=1.500000  BELOW log2 q   <== ON THE RARE SIDE
+   cycle [17, 25, 37, 55, 41, 61, 91]                 word [1, 1, 1, 2, 1, 1, 4]    L=7 S=11  S/L=1.571429  BELOW log2 q   <== ON THE RARE SIDE
+
+C (5x+1)   log2 q = 2.3219280949   (rare side is ABOVE the line, since E[a]=2)
+   cycle [1, 3]                                       word [1, 4]                   L=2 S=5  S/L=2.500000  ABOVE log2 q   <== ON THE RARE SIDE
+   cycle [13, 33, 83]                                 word [1, 1, 5]                L=3 S=7  S/L=2.333333  ABOVE log2 q   <== ON THE RARE SIDE
+   cycle [17, 43, 27]                                 word [1, 3, 3]                L=3 S=7  S/L=2.333333  ABOVE log2 q   <== ON THE RARE SIDE
+
+Consequence: a permanently 'rare-side' positive seed exists for B and for C as an
+explicit cycle element, and cannot exist for A unless (DE) fails -- which is exactly
+why the record ladder of A is non-degenerate and those of B and C are not.

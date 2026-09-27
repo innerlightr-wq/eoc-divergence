@@ -1,0 +1,48 @@
+==============================================================================
+S1. Sign-label correction to my report
+==============================================================================
+  My numbers were net = (alpha*kappa-1) - kappa*Delta; my PROSE wrote it as
+  'Delta*kappa - (alpha*kappa-1)', which is the negative. Numbers right, label wrong.
+   kappa=0.65: alpha*k-1-k*Delta = -0.246340   k*Delta-(alpha*k-1) = +0.246340
+   kappa=0.8: alpha*k-1-k*Delta = -0.072419   k*Delta-(alpha*k-1) = +0.072419
+   kappa=0.9: alpha*k-1-k*Delta = +0.043529   k*Delta-(alpha*k-1) = -0.043529
+  Delta_0(alpha) via the general formula = 0.425485676  (endpoint case, cf 0.425486)
+
+==============================================================================
+S2. The entropy gap and gamma
+==============================================================================
+    delta  Delta_delta(alpha)   kappa ceiling 1/(a-D)  gamma(0.65,delta)
+     0.00      0.425485676199                0.862458     0.246340064061
+     0.01      0.363446470824                0.818655     0.206014580567
+     0.05      0.229810177718                0.737924     0.119150990048
+     0.10      0.130833546677                0.687697     0.054816179871
+  claimed: Delta_0.1(alpha)=0.130833546677096, gamma(0.65,0.1)=0.054816179871361
+  mine   : Delta_0.1(alpha)=0.130833546677096, gamma=0.054816179871361
+
+==============================================================================
+S3. Monotonicity: is theta = alpha the worst shell?
+==============================================================================
+  d/dtheta[theta-Delta_delta(theta)] = log2[ 2(theta-1)(theta-1/2-delta) / (theta(theta-1-delta)) ]
+  and numerator-denominator = (theta-1)^2 + delta(2-theta) > 0 on 1+delta<theta<=alpha.
+  algebraic identity and positivity checked at 399 points: violations = 0
+  theta - Delta_delta(theta) increasing on the range: True   (min 1.053614 at theta=1.1100, max 1.454129 at theta=1.5850)
+
+==============================================================================
+S4. EXACT finite evaluation of bound (2): q*N*T_delta / C(s-1,N-1)
+==============================================================================
+      B     N   max bound over unresolved shells  argmax s        claimed
+    100    65                           0.691825       103       0.691826   ratio 0.999999
+    200   130                          0.0375106       206      0.0375106   ratio 1.000000
+    320   208                         0.00016179       329     0.00016179   ratio 1.000002
+    640   416                        1.72629e-09       659    1.72629e-09   ratio 0.999997
+
+==============================================================================
+S5. Is the SUFFIX-side thin band empty for confined words at kappa=0.65?
+==============================================================================
+  prefix confinement a <= alpha*j forces (e-k)/N >= 1/kappa - (alpha+1)/2 for j=N/2.
+   kappa=0.65: (e-k)/N >= +0.245980   > delta=0.1 so suffix band EMPTY
+   kappa=0.7: (e-k)/N >= +0.136090   > delta=0.1 so suffix band EMPTY
+   kappa=0.8: (e-k)/N >= -0.042481   suffix band may be nonempty
+   kappa=0.9: (e-k)/N >= -0.181370   suffix band may be nonempty
+  => my 'symmetric extremes' claim was wrong for CONFINED words: the unrestricted
+     binomial envelope is symmetric, the confined family is not.  Corrected.

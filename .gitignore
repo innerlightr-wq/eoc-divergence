@@ -17,3 +17,24 @@
 # ...except the author's own technical notes, which ARE tracked.
 !audits/sturmian_irrationality/sources/A_*.pdf
 !audits/sturmian_irrationality/sources/B_*.pdf
+
+# --- 2026-09-27 hygiene pass -------------------------------------------------
+# Python bytecode.
+__pycache__/
+*.pyc
+
+# Compiled C scanners: rebuild from the .c source beside each one.
+/audits/cross_map/scripts/scan_rare
+/audits/fingerprint_comparison/scripts/orbits
+/audits/fingerprint_comparison/scripts/records
+/audits/fingerprint_comparison/scripts/records2
+
+# Empty run logs and completion markers from the cross-map scans.
+/audits/cross_map/data/scan_A.log
+/audits/cross_map/data/scan_D.log
+/audits/cross_map/data/scan_A_raw/DONE
+/audits/cross_map/data/scan_D_raw/DONE
+
+# latexmk auxiliary files.
+*.fdb_latexmk
+*.fls

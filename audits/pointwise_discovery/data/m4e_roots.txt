@@ -1,0 +1,47 @@
+M4e - the finite-height test with the known L1/L2 chain correlation removed.
+
+Confined integers come in backward chains (L1/L2): if m is n-confined and
+m == 2 (mod 3) then back(m) = (2m-1)/3 is smaller, (n+1)-confined, and its word
+is 1.word(m).  A chain therefore contributes several members with nearly the same
+word AND with bit lengths 0.585 apart, so it straddles bit-length strata and the
+nominal Welch t is anticonservative.
+
+Two corrections, both applied:
+ (a) restrict to chain roots (3 does not divide m+1), one member per chain;
+ (b) a chain-level bootstrap: resample whole chains, not individual seeds, and
+     read the SE off the resamples.
+
+Statistic: Spearman rho(word statistic, log2 m) over the n-confined cohort.
+Under H0 it is 0 for every statistic - the seed's size tells you nothing about
+its word.
+
+n = 140:  83587 integers, 55665 chain roots, 55665 distinct chains
+   naive SE (roots) = 0.0042;  chain-bootstrap SE for 'last0' = 0.0039  (inflation x0.9)
+   statistic       rho(all)  rho(roots)  z_naive   z_boot
+   last0             0.0077      0.0108     2.54     2.74
+   t11               0.0054      0.0084     1.99     2.15
+   n_a5p             0.0055      0.0082     1.94     2.10
+   contacts1         0.0076      0.0080     1.88     2.02
+   contacts0         0.0074      0.0079     1.87     2.02
+   D_max             0.0102      0.0078     1.85     1.99
+
+n = 160:  23528 integers, 15709 chain roots, 15709 distinct chains
+   naive SE (roots) = 0.0080;  chain-bootstrap SE for 'D_end' = 0.0077  (inflation x1.0)
+   statistic       rho(all)  rho(roots)  z_naive   z_boot
+   D_end             0.0151      0.0132     1.65     1.72
+   mean_a           -0.0151     -0.0132    -1.65    -1.72
+   S                -0.0151     -0.0132    -1.65    -1.72
+   D_max             0.0134      0.0128     1.60     1.66
+   lead1            -0.0154     -0.0126    -1.58    -1.64
+   n_a1              0.0036      0.0123     1.54     1.60
+
+n = 180:  6820 integers, 4602 chain roots, 4602 distinct chains
+   naive SE (roots) = 0.0147;  chain-bootstrap SE for 'n_a3' = 0.0156  (inflation x1.1)
+   statistic       rho(all)  rho(roots)  z_naive   z_boot
+   n_a3             -0.0346     -0.0312    -2.12    -2.00
+   D_max             0.0289      0.0312     2.12     2.00
+   slope32_0        -0.0280     -0.0296    -2.01    -1.89
+   run1_max          0.0401      0.0231     1.56     1.48
+   n_a1              0.0154      0.0193     1.31     1.23
+   t11               0.0129      0.0183     1.24     1.17
+

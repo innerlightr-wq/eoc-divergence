@@ -1,0 +1,8 @@
+3x+1, depth 140, all 83587 integers < 2^36 that are 140-confined:
+   orbits that repeat a value by depth 140: 0   (0 is forced: Divergence.not_zeroConfined_of_repeat)
+   orbits whose minimum through depth 140 is the seed itself: 83587 of 83587  (100.00 %)
+
+   Contrast with 5x-1, where persistence PROVES m_n < m_0 for every n>=1,
+   so the orbit is trapped in [1,m_0] and 34.5 % have already repeated by
+   depth 140.  For 3x+1 the rare side is the growth side, the trapping
+   constraint is empty, and the word law is generic.

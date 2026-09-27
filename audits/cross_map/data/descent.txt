@@ -1,0 +1,28 @@
+========================================================================================
+L2 analogue: the a=1 backward chain length equals v_q((q-2)m + r)
+========================================================================================
+  A 3x+1: invariant v_3((1)m +1);  odd m < 2*10^5 tested: 100000, mismatches 0, longest chain 10
+      backward fixed point (q-2)m + r = 0 at m = -1/1 -- not a positive integer
+  B 3x-1: invariant v_3((1)m -1);  odd m < 2*10^5 tested: 99999, mismatches 0, longest chain 10
+      backward fixed point (q-2)m + r = 0 at m = 1/1 -- the positive integer [1]
+  C 5x+1: invariant v_5((3)m +1);  odd m < 2*10^5 tested: 100000, mismatches 0, longest chain 7
+      backward fixed point (q-2)m + r = 0 at m = -1/3 -- not a positive integer
+  D 5x-1: invariant v_5((3)m -1);  odd m < 2*10^5 tested: 100000, mismatches 0, longest chain 7
+      backward fixed point (q-2)m + r = 0 at m = 1/3 -- not a positive integer
+
+========================================================================================
+L1 analogue: which backward letters preserve rare-side persistence, and the direction
+========================================================================================
+  A 3x+1: rare side lower;  a = 1 always works (prepending the smallest letter relaxes an upper bound)
+      minimal admissible backward letter a = 1; p/m -> 2^a/q = 0.666667  =>  the step DECREASES the seed
+  B 3x-1: rare side lower;  a = 1 always works (prepending the smallest letter relaxes an upper bound)
+      minimal admissible backward letter a = 1; p/m -> 2^a/q = 0.666667  =>  the step DECREASES the seed
+  C 5x+1: rare side upper;  needs a >= max_k (A[k]-A[k-1]) = 3 (prepending must beat a lower bound)
+      minimal admissible backward letter a = 3; p/m -> 2^a/q = 1.600000  =>  the step INCREASES the seed
+  D 5x-1: rare side upper;  needs a >= max_k (A[k]-A[k-1]) = 3 (prepending must beat a lower bound)
+      minimal admissible backward letter a = 3; p/m -> 2^a/q = 1.600000  =>  the step INCREASES the seed
+
+  So the well-ordering descent of L1 exists only on the lower side (q < 4).
+  For q > 4 the persistence-preserving backward move increases the integer,
+  and it is also NOT the move carrying the q-adic chain of L2 (that one is a = 1),
+  so for C and D the two halves of the descent machinery decouple.

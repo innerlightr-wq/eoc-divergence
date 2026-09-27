@@ -1,0 +1,16 @@
+D = 5x-1, upper side: 93 distinct record holders, deepest depth 459
+  holders: [5, 13, 21, 45, 77, 269, 349, 397, 509, 1205, 3021, 4061] ...
+  mod   4:  1/ 4 classes occupied  {1: 93}
+  mod   8:  1/ 8 classes occupied  {5: 93}
+  mod  16:  2/16 classes occupied  {5: 27, 13: 66}
+  mod  32:  4/32 classes occupied  {5: 1, 13: 38, 21: 26, 29: 28}
+  mod   3:  3/ 3 classes occupied  {0: 34, 1: 35, 2: 24}
+  mod   5:  5/ 5 classes occupied  {0: 16, 1: 22, 2: 20, 3: 16, 4: 19}
+  mod  12:  3/12 classes occupied  {1: 35, 5: 24, 9: 34}
+  mod  15: 15/15 classes occupied  {0: 8, 1: 5, 2: 5, 3: 3, 4: 9, 5: 4, 6: 12, 7: 10, 8: 6, 9: 6, 10: 4, 11: 5, 12: 5, 13: 7, 14: 4}
+  mod  20:  5/20 classes occupied  {1: 22, 5: 16, 9: 19, 13: 16, 17: 20}
+  mod  24:  3/24 classes occupied  {5: 24, 13: 35, 21: 34}
+  mod  40:  5/40 classes occupied  {5: 16, 13: 16, 21: 22, 29: 19, 37: 20}
+  over every N (mod 8): {5: 459}
+  over every N (mod 16): {5: 156, 13: 303}
+  over every N (mod 40): {5: 71, 13: 74, 21: 95, 29: 109, 37: 110}

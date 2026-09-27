@@ -1,0 +1,13 @@
+map A  CAPTURE  q=3 r=+1  X=4194305  odd seeds=2097152  budget=5000
+  captured within k steps:  k=10: 0.003963  k=20: 0.062679  k=30: 0.204171  k=40: 0.364468  k=50: 0.511039  k=60: 0.657645
+map B  CAPTURE  q=3 r=-1  X=4194305  odd seeds=2097152  budget=5000
+  captured within k steps:  k=10: 0.013848  k=20: 0.137119  k=30: 0.362430  k=40: 0.582608  k=50: 0.749762  k=60: 0.855158
+map A  CAPTURE  q=3 r=+1  X=67108865  odd seeds=33554432  budget=5000
+  captured within k steps:  k=10: 0.000703  k=20: 0.020876  k=30: 0.100736  k=40: 0.230720  k=50: 0.373990  k=60: 0.519753
+map B  CAPTURE  q=3 r=-1  X=67108865  odd seeds=33554432  budget=5000
+  captured within k steps:  k=10: 0.002711  k=20: 0.050417  k=30: 0.192606  k=40: 0.391070  k=50: 0.583289  k=60: 0.731940
+map A  CAPTURE  q=3 r=+1  X=268435457  odd seeds=134217728  budget=5000
+  captured within k steps:  k=10: 0.000284  k=20: 0.011443  k=30: 0.067193  k=40: 0.175456  k=50: 0.309475  k=60: 0.452245
+map B  CAPTURE  q=3 r=-1  X=268435457  odd seeds=134217728  budget=5000
+  captured within k steps:  k=10: 0.001144  k=20: 0.028934  k=30: 0.133292  k=40: 0.306442  k=50: 0.496628  k=60: 0.659061
+DONE

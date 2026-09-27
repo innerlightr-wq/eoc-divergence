@@ -1,0 +1,28 @@
+==============================================================================
+P1. Singleton characterisation: for ell>=3, |family|=1 iff b=ell
+==============================================================================
+  Proof: if b>ell the two words  (1^{ell-1}, b-ell+1)  and  (1^{ell-2}, 2, b-ell)  are
+  distinct, positive, total b, and both admissible: the only extra check for the second is
+  ell <= alpha(ell-1)+A, and ell/(ell-1) <= 3/2 < alpha for ell>=3.  b=ell forces all-ones.
+  (ell,b,A) cases with a nonempty family: 186   singletons: 35   mismatches with 'b=ell': 0
+  => |U_a|=1 (prefix, A=0) iff a=j ;  |V_a|=1 (suffix, A=alpha*j-a) iff b=N-j.
+     Both are the zero-excess endpoints k=0 and e-k=0, inside the band for every delta>=0.
+
+==============================================================================
+P2. The payoff arithmetic at tau=24/25, kappa=13/20
+==============================================================================
+  alpha*kappa-1            = 0.030225625468751
+  eta = (alpha*kappa-1)/25 = 0.001209025018750   (claimed 0.00120902501875)
+  exponent 1-I0*kappa+eta  = 0.949651926715094   (claimed 0.949651926715094)
+  baseline H2(1/alpha)     = 0.949955527188331   (claimed 0.949955527188331)
+  improvement              = 0.000303600473237   (claimed 0.000303600473237)
+  all four match to 4.79e-16
+  sanity: eta < I0*(kappa-1/alpha) = 0.001512625491987 ? True
+
+==============================================================================
+P3. Best finite diagnostic: min of BOTH valid bounds on EVERY class
+==============================================================================
+  kappa=0.65: best finite proved C = 2.0000   (was 29.52 when the band was given the trivial bound only)
+  kappa=0.90: best finite proved C = 3.0762   (was 29.52 when the band was given the trivial bound only)
+  The frozen band is for the asymptotic proof; the finite record keeps the smaller of the
+  two rigorous bounds on every class.  Neither settles the asymptotics.
