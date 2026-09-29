@@ -5,6 +5,9 @@ cross-program audit of this repository against
 [`innerlightr-wq/periodicity-conjecture-bridge`](https://github.com/innerlightr-wq/periodicity-conjecture-bridge)
 and `innerlightr-wq/eoc-lean-verification`.
 
+**Index:** this is one of three closed pointwise routes; the consolidated view, with a
+negative-results table, is [`CLOSED_POINTWISE_ROUTES_2026-09-29.md`](CLOSED_POINTWISE_ROUTES_2026-09-29.md).
+
 This note changes no conclusion of the programme. It records the exact reason **symbolic
 periodicity and repetition are not the missing pointwise separator**, so that the route is not
 re-opened.

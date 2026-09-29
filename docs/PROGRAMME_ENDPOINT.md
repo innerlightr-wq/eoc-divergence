@@ -141,6 +141,11 @@ third** of the offset at `k = 2, 3` and no more.
 
 Routes examined and closed, with the reason each closes.
 
+> **Index.** Three pointwise routes closed in September 2026 — symbolic periodicity,
+> drift/amortization, and the least-realizer deficit — are consolidated, with a negative-results
+> table and the exact scope of each closure, in
+> [`notes/CLOSED_POINTWISE_ROUTES_2026-09-29.md`](../notes/CLOSED_POINTWISE_ROUTES_2026-09-29.md).
+
 | Route | Finding | Status |
 |---|---|---|
 | Descent via inheritance + well-ordering | Sign-sensitive: the backward fixed point is `−1` for `3x+1` but `+1` for `3x−1`, so L1's strict decrease `p < m` is unconditional in the first case and fails at `m = 1` in the second. But **L7** shows forward motion cannot accumulate 3-adic budget — a `d = 1` step raises `v₃(m+1)` and the round-trip requirement by exactly one, and even `d` destroys the budget. Any descent statement over `Z` is moreover *equivalent* to (DE). | **STOP** |

@@ -102,7 +102,7 @@ and stated in the note as a **conjecture** (Sharp EOC), whose lower half is at l
 universal drift exit; it is not a proved conclusion. **The note proves neither the Collatz
 conjecture nor the exclusion of divergent orbits, and claims no progress toward either.**
 
-## Closed route: the periodicity-bridge handoff
+## Closed pointwise routes
 
 A cross-program audit (2026-09-29) tested whether the periodic-approximation and
 arithmetic-height mechanism of
@@ -117,10 +117,16 @@ audit adds the exact identity, the quantified obstruction and certified verifica
 
 Consequence recorded for the programme: the missing pointwise tool should **not** be sought as a
 low-complexity theorem, a generic long-repetition theorem, or a periodic-approximation surplus
-theorem. The remaining direction is height / amortization / arithmetic realizability. Nothing in
-this bears on the Collatz conjecture.
+theorem. Two follow-up audits then closed the drift/amortization coordinate and the
+least-realizer deficit `δ` as well, so the search should also avoid those. Nothing in this bears
+on the Collatz conjecture.
 
-Full record: [`notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md`](notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md).
+Three such routes are now closed — symbolic periodicity, drift/amortization, and the
+least-realizer deficit — with a compact negative-results table and the exact scope of each
+closure in
+**[`notes/CLOSED_POINTWISE_ROUTES_2026-09-29.md`](notes/CLOSED_POINTWISE_ROUTES_2026-09-29.md)**.
+Full record for the periodicity route:
+[`notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md`](notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md).
 
 ## Companion result (occupation side)
 
