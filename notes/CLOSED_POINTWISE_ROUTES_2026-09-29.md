@@ -229,10 +229,9 @@ representative to bound.
 
 **Theorem 1 decomposes into two things this programme already owns:** its 2-adic half is
 `EOC.residue_pinning` plus `A_k ≥ k`; its 3-adic half is the elementary growth bound
-`2^N(x_N+1) ≤ 3^N(x_0+1)` — the same lemma §2 uses to get `4^L ≤ 3^L(n₀+1)`, and the one missing
-`ℕ` lemma already listed in
-[`docs/CLOSED_ROUTES_FORMALIZATION.md`](https://github.com/innerlightr-wq/eoc-lean-verification/blob/main/docs/CLOSED_ROUTES_FORMALIZATION.md)
-§A.
+`2^N(x_N+1) ≤ 3^N(x_0+1)` — the same lemma §2 uses to get `4^L ≤ 3^L(n₀+1)`. That growth bound is
+now **machine-checked** as `Divergence.two_pow_mul_iterate_succ_le`
+([`Divergence/GrowthBound.lean`](../Divergence/GrowthBound.lean)).
 
 **Recorded observation about the source, conservatively.** Kramer's `r_k` is defined modulo
 `2^{A_k}` from `3^k x_0 + B_k ≡ 0`, which forces `x_k` to be an *integer* but not each `a_i` to be
@@ -327,6 +326,12 @@ Audit workspaces (not committed here; local scratch, each self-contained):
 All scripts are standard-library Python, every pass/fail decision is exact integer or `Fraction`
 arithmetic, and outputs are saved under each workspace's `data/`. Run any of them with
 `python3 <script>.py` from its own `scripts/` directory.
+
+The Archimedean lemma that four of these closures rest on is now formalized in this repository:
+`Divergence.two_pow_mul_iterate_succ_le` — `2^N(U^[N] n + 1) ≤ 3^N(n + 1)` — in
+[`Divergence/GrowthBound.lean`](../Divergence/GrowthBound.lean), together with the one-step form
+and the `max` form that a repetition argument consumes. All five statements depend only on
+`[propext, Quot.sound]`.
 
 In-repository sources the audits read:
 [`Divergence/Basic.lean`](../Divergence/Basic.lean) (`a`, `T`, `S`, `C`, `aggregate_identity`),
