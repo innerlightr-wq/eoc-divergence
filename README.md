@@ -117,13 +117,13 @@ audit adds the exact identity, the quantified obstruction and certified verifica
 
 Consequence recorded for the programme: the missing pointwise tool should **not** be sought as a
 low-complexity theorem, a generic long-repetition theorem, or a periodic-approximation surplus
-theorem. Two follow-up audits then closed the drift/amortization coordinate and the
-least-realizer deficit `δ` as well, so the search should also avoid those. Nothing in this bears
-on the Collatz conjecture.
+theorem. Three follow-up audits then closed the drift/amortization coordinate, the least-realizer
+deficit `δ`, and the cross-prime 2–3–∞ / 3-adic endpoint diagnostic as well, so the search should
+also avoid those. Nothing in this bears on the Collatz conjecture.
 
-Three such routes are now closed — symbolic periodicity, drift/amortization, and the
-least-realizer deficit — with a compact negative-results table and the exact scope of each
-closure in
+Four such routes are now closed — symbolic periodicity, drift/amortization, the least-realizer
+deficit, and the cross-prime 2–3–∞ / 3-adic endpoint diagnostic — with a compact
+negative-results table and the exact scope of each closure in
 **[`notes/CLOSED_POINTWISE_ROUTES_2026-09-29.md`](notes/CLOSED_POINTWISE_ROUTES_2026-09-29.md)**.
 Full record for the periodicity route:
 [`notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md`](notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md).

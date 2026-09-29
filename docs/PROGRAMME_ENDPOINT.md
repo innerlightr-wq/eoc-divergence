@@ -141,9 +141,10 @@ third** of the offset at `k = 2, 3` and no more.
 
 Routes examined and closed, with the reason each closes.
 
-> **Index.** Three pointwise routes closed in September 2026 — symbolic periodicity,
-> drift/amortization, and the least-realizer deficit — are consolidated, with a negative-results
-> table and the exact scope of each closure, in
+> **Index.** Four pointwise routes closed in September 2026 — symbolic periodicity,
+> drift/amortization, the least-realizer deficit, and the cross-prime 2–3–∞ / 3-adic endpoint
+> diagnostic — are consolidated, with a negative-results table and the exact scope of each
+> closure, in
 > [`notes/CLOSED_POINTWISE_ROUTES_2026-09-29.md`](../notes/CLOSED_POINTWISE_ROUTES_2026-09-29.md).
 
 | Route | Finding | Status |
