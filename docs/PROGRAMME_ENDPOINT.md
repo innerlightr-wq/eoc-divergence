@@ -153,6 +153,10 @@ The three results retained from the descent audit are formalized in the `Descent
 (L1, L2, L4, L7); the record-holder audit retains **L4′** and the signed marker **P1**, neither
 yet formalized.
 
+| Periodicity-bridge handoff — excluding divergence by forcing unbounded periodic-approximation surplus on the survivor word | On an integer-realizable zero-confined orbit the surplus **evaluates**: `S = log₂ h_eff − log₂ oddpart(m_n − m₀) ≤ log₂ m₀` (verified at 1 862 certified checkpoints), so `limsup S = +∞` is unsatisfiable, not merely unproved. The intermediate "long repetition" step is **equivalent to (DE)**: an initial square of half-length `L` in an integer's parity word forces `4^L ≤ 3^L(n₀+1)`. The bridge's headline class (CS Rote) has one-density `1/2` against the sector's `β = 0.63093`, so it is vacuous here. This is the exact form of **Observation 5.9** (Revision 7 §5.3), which already recorded the branch as vacuous; the audit adds the identity, the quantified obstruction and certified verification, not the qualitative observation. | **STOP** |
+
+Full record: [`notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md`](../notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md).
+
 **Optional follow-up, and what it would and would not do.** `r_min(N,0)` could be pushed past
 `N ≈ 390` by a search over the class tree instead of a linear scan (the scan doubles every
 `+12.3` in `N`, so `N ≈ 446` is already ~2.5 days). Roughly doubling the 24 distinct record

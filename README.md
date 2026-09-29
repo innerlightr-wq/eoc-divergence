@@ -102,6 +102,26 @@ and stated in the note as a **conjecture** (Sharp EOC), whose lower half is at l
 universal drift exit; it is not a proved conclusion. **The note proves neither the Collatz
 conjecture nor the exclusion of divergent orbits, and claims no progress toward either.**
 
+## Closed route: the periodicity-bridge handoff
+
+A cross-program audit (2026-09-29) tested whether the periodic-approximation and
+arithmetic-height mechanism of
+[`innerlightr-wq/periodicity-conjecture-bridge`](https://github.com/innerlightr-wq/periodicity-conjecture-bridge)
+can exclude the surviving divergence sector. **It cannot, and the route is closed.** On an
+integer-realizable zero-confined orbit the bridge surplus equals
+`log₂ h_eff − log₂ oddpart(m_n − m₀)` and is capped by `log₂ m₀`, so its criterion's hypothesis
+is unsatisfiable there; and the lemma the route would need is equivalent to (DE) itself. This is
+the exact form of Revision 7's Observation 5.9 — *"the separating invariant is height
+amortization, not symbolic complexity"* — which already recorded the closure qualitatively; the
+audit adds the exact identity, the quantified obstruction and certified verification.
+
+Consequence recorded for the programme: the missing pointwise tool should **not** be sought as a
+low-complexity theorem, a generic long-repetition theorem, or a periodic-approximation surplus
+theorem. The remaining direction is height / amortization / arithmetic realizability. Nothing in
+this bears on the Collatz conjecture.
+
+Full record: [`notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md`](notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md).
+
 ## Companion result (occupation side)
 
 A **separate** Lean library, `Occupation`, holds one occupation-side result:
