@@ -1,0 +1,143 @@
+==============================================================================
+fourier_diagnostics.py  --  [F] diagnostics, C_ET = 4 (stated parameter)
+==============================================================================
+
+[1] [F] DP vs brute-force enumeration (two independent routes)
+      N        M_N       max relative deviation
+     10        476                    8.287e-15
+     15      51033                    5.426e-13
+
+[2] [F] the forced peak: |F_N(Q/4)| = 1 identically  (r == 3 mod 4)
+      N        M_N     |F(Q/2)|     |F(Q/4)|     |F(Q/8)|       |F(1)|       M^-1/2
+     12       2652     1.000000     1.000000     0.604072    5.988e-03    1.942e-02
+     14      17637     1.000000     1.000000     0.615921    3.263e-03    7.530e-03
+     15      51033     1.000000     1.000000     0.620246    3.053e-03    4.427e-03
+     16     108950     1.000000     1.000000     0.625094    2.456e-03    3.030e-03
+    => sup_{h!=0} |F_N(h)| CANNOT decay.  'sup |F| -> 0' is not a usable test.
+
+[3] [F] mean |F_N(h)| over h = 1..1024 against M_N^(-1/2)
+      N    S                    M_N      M^-1/2     mean|F|      max|F|    mean/M^-1/2      B_N(K)
+     15   23                  51033   4.427e-03   2.497e-03   2.575e-02          0.564   1.766e-02
+     20   31                5936673   4.104e-04   2.016e-04   4.896e-03          0.491   2.133e-03
+     25   39              820236724   3.492e-05   1.371e-05   2.604e-04          0.393   1.086e-03
+     30   47            84141805077   3.447e-06   1.445e-06   1.812e-05          0.419   9.857e-04
+     40   63       2029460152095008   2.220e-08   6.129e-09   1.005e-07          0.276   9.766e-04
+     50   79   52028134169251235063   1.386e-10   2.713e-11   7.309e-10          0.196   9.766e-04
+
+    log2 of mean|F| and the slope against the square-root target -h/2 = -0.7528
+    N=15:-8.65, N=20:-12.28, N=25:-16.15, N=30:-19.40, N=40:-27.28, N=50:-35.10
+    slope over the last two depths: -0.7820   (target -0.7528)
+
+[3b] [F] mean |F_N(2^t u)| by 2-adic level t = v_2(h), u odd
+     the measured law is  |F_N(2^t u)| ~ max( M_N^(-1/2), 2^(-(S+1-t)/2) ),
+     with crossover at t* = S + 1 - log2(M_N)  (asymptotically I_0 * N).
+
+     N=20  S=31  M_N=5936673  M^-1/2=4.104e-04  predicted t* = 9.5
+        t      modulus      mean|F|   ratio/M^-1/2 2^(-(S+1-t)/2)       max|F|
+        0         2^32    2.655e-04          0.647      1.526e-05    1.141e-02
+        1         2^31    2.346e-04          0.572      2.158e-05    2.383e-03
+        2         2^30    1.237e-04          0.301      3.052e-05    6.933e-04
+        4         2^28    1.616e-04          0.394      6.104e-05    4.687e-03
+        6         2^26    3.145e-04          0.766      1.221e-04    5.436e-03
+        8         2^24    5.407e-04          1.317      2.441e-04    4.006e-03
+       12         2^20    1.798e-03          4.381      9.766e-04    1.620e-02
+       16         2^16    6.640e-03         16.180      3.906e-03    3.492e-02
+       20         2^12    2.626e-02         63.990      1.562e-02    1.192e-01
+       25          2^7    1.770e-01        431.182      8.839e-02    2.796e-01
+       27          2^5    3.743e-01        911.950      1.768e-01    4.061e-01
+       29          2^3    6.372e-01       1552.542      3.536e-01    6.372e-01
+       30          2^2    1.000e+00       2436.529      5.000e-01    1.000e+00
+
+     N=25  S=39  M_N=820236724  M^-1/2=3.492e-05  predicted t* = 10.4
+        t      modulus      mean|F|   ratio/M^-1/2 2^(-(S+1-t)/2)       max|F|
+        0         2^40    1.651e-05          0.473      9.537e-07    2.491e-04
+        1         2^39    1.646e-05          0.471      1.349e-06    1.576e-04
+        2         2^38    9.041e-06          0.259      1.907e-06    1.419e-04
+        4         2^36    1.284e-05          0.368      3.815e-06    1.336e-04
+        6         2^34    2.048e-05          0.587      7.629e-06    6.814e-04
+        8         2^32    3.529e-05          1.011      1.526e-05    4.214e-04
+       12         2^28    1.232e-04          3.527      6.104e-05    1.134e-03
+       16         2^24    4.377e-04         12.536      2.441e-04    3.757e-03
+       20         2^20    1.653e-03         47.331      9.766e-04    9.888e-03
+       33          2^7    1.864e-01       5337.387      8.839e-02    2.957e-01
+       35          2^5    3.833e-01      10976.931      1.768e-01    4.212e-01
+       37          2^3    6.465e-01      18515.882      3.536e-01    6.465e-01
+       38          2^2    1.000e+00      28639.775      5.000e-01    1.000e+00
+
+     N=30  S=47  M_N=84141805077  M^-1/2=3.447e-06  predicted t* = 11.7
+        t      modulus      mean|F|   ratio/M^-1/2 2^(-(S+1-t)/2)       max|F|
+        0         2^48    1.087e-06          0.315      5.960e-08    8.222e-06
+        1         2^47    1.297e-06          0.376      8.429e-08    2.164e-05
+        2         2^46    1.653e-06          0.480      1.192e-07    1.532e-05
+        4         2^44    7.971e-07          0.231      2.384e-07    7.447e-06
+        6         2^42    1.709e-06          0.496      4.768e-07    3.753e-05
+        8         2^40    2.576e-06          0.747      9.537e-07    3.746e-05
+       12         2^36    7.135e-06          2.070      3.815e-06    4.799e-05
+       16         2^32    3.742e-05         10.853      1.526e-05    1.018e-03
+       20         2^28    1.084e-04         31.442      6.104e-05    1.605e-03
+       41          2^7    1.934e-01      56099.680      8.839e-02    3.066e-01
+       43          2^5    3.898e-01     113071.869      1.768e-01    4.314e-01
+       45          2^3    6.528e-01     189363.094      3.536e-01    6.528e-01
+       46          2^2    1.000e+00     290072.069      5.000e-01    1.000e+00
+
+     => mean |F| stays at the square-root scale for t below t* and is
+        governed by 2^(-(S+1-t)/2) above it.  [F], sampled, not a proof.
+
+[4] [F] band-mean |F| (uniform random h per dyadic band, 128 probes)
+    sum_{h in [2^k,2^(k+1))} |F(h)|/h  ~  mean_k * ln2  (h log-uniform in band)
+    N=20  M_N=5936673  mean over all bands / M^-1/2 = 0.471
+    N=25  M_N=820236724  mean over all bands / M^-1/2 = 0.424
+    N=30  M_N=84141805077  mean over all bands / M^-1/2 = 0.390
+
+[5] [F] Erdos-Turan test.  H = 2^floor(cN), K* = ceil(Q/H), C_ET = 4
+      N      c              H          H/Q               K*         1/K*   est sum|F|/h to K*            verdict
+     20   0.90         262144    6.104e-05            16384    6.104e-05            1.790e-03      FAIL by 2^6.9
+     20   0.95         524288    1.221e-04             8192    1.221e-04            1.671e-03      FAIL by 2^5.9
+     20   0.99         524288    1.221e-04             8192    1.221e-04            1.671e-03      FAIL by 2^5.9
+     25   0.90        4194304    3.815e-06           262144    3.815e-06            2.038e-04      FAIL by 2^7.8
+     25   0.95        8388608    7.629e-06           131072    7.629e-06            1.953e-04      FAIL by 2^6.7
+     25   0.99       16777216    1.526e-05            65536    1.526e-05            1.857e-04      FAIL by 2^5.7
+     30   0.90      134217728    4.768e-07          2097152    4.768e-07            1.999e-05      FAIL by 2^7.4
+     30   0.95      268435456    9.537e-07          1048576    9.537e-07            1.911e-05      FAIL by 2^6.4
+     30   0.99      536870912    1.907e-06           524288    1.907e-06            1.798e-05      FAIL by 2^5.4
+
+[6] [F] why it fails: need log2(M_N)/N > 2(alpha - c).  alpha = 1.584963
+       N    log2(M_N)/N     2(a-c), c=0.90             c=0.95             c=0.99
+      15         1.0426     1.3699   SHORT     1.2699   SHORT     1.1899   SHORT
+      20         1.1251     1.3699   SHORT     1.2699   SHORT     1.1899   SHORT
+      25         1.1845     1.3699   SHORT     1.2699   SHORT     1.1899   SHORT
+      30         1.2097     1.3699   SHORT     1.2699   SHORT     1.1899      OK
+      40         1.2713     1.3699   SHORT     1.2699      OK     1.1899      OK
+      50         1.3099     1.3699   SHORT     1.2699      OK     1.1899      OK
+    the limit of log2(M_N)/N is h ~ 1.505644  ([D], external input), so the
+    asymptotic condition is  c > alpha - h/2 = 0.832141
+    and no equidistribution method of this kind can go below
+    alpha - h = I_0 ~ 0.079319
+
+[7] [F] projected first depth where the bound could hold  (EXTRAPOLATION)
+    using M_N ~ 0.4 * 2^(-3.28) * 2^(hN) * N^(-3/2), the fitted count
+    asymptotic of the synthesis note's Prop 4.7  ([D], external input)
+         c    alpha-c      first N           K* at that N
+      0.99     0.5950           92         2^55.7 ~ 10^17
+      0.95     0.6350          132         2^84.8 ~ 10^26
+      0.90     0.6850          254        2^175.0 ~ 10^53
+    => the hypothesis first bites where it ranges over 10^17-10^53
+       frequencies.  It is not numerically verifiable.  [F], extrapolated.
+
+[8] [V] EXACT direct interval-hit counts in the shell (integer counts)
+      N    S        M_N      min r      c            H     #r<H      uniform M*H/Q
+     14   22      17637        283   0.90         4096        5              8.612
+     14   22      17637        283   0.95         8192       15             17.224
+     14   22      17637        283   0.99         8192       15             17.224
+     15   23      51033        251   0.90         8192       18             24.918
+     15   23      51033        251   0.95        16384       46             49.837
+     15   23      51033        251   0.99        16384       46             49.837
+     16   25     108950        251   0.90        16384       21             26.599
+     16   25     108950        251   0.95        32768       57             53.198
+     16   25     108950        251   0.99        32768       57             53.198
+    => r_min(N,0) <= 2^(0.9N) for N = 14,15,16, as an EXACT finite fact.
+       Nothing asymptotic follows, and these hits certify neither the
+       Fourier estimate nor any statement for large N.
+
+==============================================================================
+diagnostics complete.  Float quantities above are [F]; section [8] is [V].

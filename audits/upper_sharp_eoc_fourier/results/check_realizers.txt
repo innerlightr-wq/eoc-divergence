@@ -1,0 +1,50 @@
+==============================================================================
+check_realizers.py  --  [V] exact realizer arithmetic, terminal shell
+==============================================================================
+
+[1-4] terminal shell S = A[N]: congruence, injectivity, mod 4, orbit replay
+      N    S       M_N          min r          max r  distinct  all=3 mod4  orbit-ok
+      5    7         7             47            251      True        True      True
+      6    9        12             63           1019      True        True      True
+      7   11        30            155           4079      True        True      True
+      8   12        85             63           8187      True        True      True
+      9   14       173            359          32671      True        True      True
+     10   15       476             91          65531      True        True      True
+     11   17       961            239         261871      True        True      True
+     12   19      2652            319        1048303      True        True      True
+     13   20      8045            283        2096287      True        True      True
+     14   22     17637            283        8388591      True        True      True
+     15   23     51033            251       16777199      True        True      True
+     16   25    108950            251       67106815      True        True      True
+
+[5] true r_min(N,0) = least odd m that is 0-confined for N steps (direct scan)
+    one scan of every odd m < 2^23 = 8388608
+      N       r_min(N,0)   expected  shell-min (S=A[N])     shell/r_min    #confined
+      1                3          3                None               -            1  ok
+      2                7          7                None               -            3  ok
+      3                7          7                None               -            4  ok
+      4               27         27                None               -           13  ok
+      5               27         27                  47           1.741           19  ok
+      6               27         27                  63           2.333           64  ok
+      7               27         27                 155           5.741          226  ok
+      8               27         27                  63           2.333          367  ok
+      9               27         27                 359          13.296         1295  ok
+     10               27         27                  91           3.370         2114  ok
+     11               27         27                 239           8.852         7495  ok
+     12               27         27                 319          11.815        27328  ok
+     13               27         27                 283          10.481        46611  ok
+     14               27         27                 283          10.481       168807  ok
+    worst shell-min / r_min overestimate on this range: 13.30x
+    => the terminal-shell minimum is an UPPER BOUND on r_min, not r_min.
+
+[6] mixed-shell weighting: sum_S |W(N,S)| * 2^(A[N]-S) == brute scan count
+    (a word of terminal sum S has 2^(A[N]-S) lifts mod 2^(A[N]+1);
+     one least realizer per word is NOT the uniform measure on survivors)
+      N   weighted sum    brute count
+      8            367            367  reference=367  ok
+     10           2114           2114  reference=2114  ok
+     12          27328          27328  reference=27328  ok
+     14         168807         168807  reference=168807  ok
+
+==============================================================================
+all exact checks passed   [V] for the finite ranges printed above

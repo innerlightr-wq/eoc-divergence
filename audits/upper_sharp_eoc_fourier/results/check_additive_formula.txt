@@ -1,0 +1,67 @@
+==============================================================================
+check_additive_formula.py  --  additive realizer formula [P] (PRIOR ART)
+==============================================================================
+
+  cited: Sturmian-Mahler Edge note, Lemma 2.1 + Definition 2.2 (local copy at
+         audits/sturmian_irrationality/sources/B_Sturmian_Mahler_Edge.pdf);
+         EOC Revision 8, Proposition 5.2, DOI 10.5281/zenodo.23146031.
+  new here: only its use as an O(N^2)-state DP over the confined ensemble.
+
+[1] additive formula vs least realizer, every terminal-shell word, exactly
+    r(D) == 3^(-N) 2^S - sum_{j<N} 3^(-(j+1)) 2^(s_j)   (mod 2^(S+1))
+      N      words   mismatches
+      5          7            0  ok
+      8         85            0  ok
+     11        961            0  ok
+     13       8045            0  ok
+
+[2] carry recursion (Divergence.C_succ) == closed form sum 3^(N-1-j) 2^(s_j)
+    agreement on every terminal-shell word for N in [5, 8, 11, 13]
+
+[3] the (1,2) and (2,1) valuation blocks, from the carry recursion
+        word    total S    carry prefix sums s_0,s_1,s_2
+      (1, 2)          3        5              (0, 1, 3)
+      (2, 1)          3        7              (0, 2, 3)
+    equal total valuation S = 3 : True
+    carries 5 and 7             : True
+    => same total valuation, DIFFERENT carries, hence different modular
+       phases.  [V] for the two carries and the equal total.  That different
+       phases can FORCE cancellation when both blocks carry comparable weight
+       is [D] -- reported from discussion, not re-checked here.
+
+[4] the two cited forms agree:  3^(-N) 2^S == 2^S  (mod 2^(S+1))
+    (3^(-N) is odd, so 3^(-N) = 1+2k and 3^(-N) 2^S = 2^S + 2^(S+1) k)
+      N      words         3^(-N)2^S == 2^S mod 2^(S+1)     mismatches
+      5          7                                 True              0  ok
+      8         85                                 True              0  ok
+     11        961                                 True              0  ok
+     13       8045                                 True              0  ok
+
+[5] Hensel-truncation reformulation
+    CITED [P]: Sturmian-Mahler Edge note, Proposition 7.1 ("Realizers are
+    Hensel truncations"): r(D_N) = sum_{j<=S_N} eps_j 2^j, the integer formed
+    by the first S_N+1 Hensel bits of the word's 2-adic point; it is odd
+    (eps_0 = 1); and if 2^k <= r(D_N) < 2^(k+1) then eps_{k+1} = ... = eps_{S_N}
+    = 0, a zero-run of length S_N - k below depth S_N + 1.  (The note states
+    it for the mechanical/Sturmian point Xi_{alpha,beta}; its proof uses only
+    the congruence and leastness, so the truncation statement is not special
+    to that case.  Stated here as cited, for the mechanical case.)
+
+    CONSEQUENCE, the restatement of the target:  r_min(N,0) <= 2^(cN) holds
+    exactly when some 0-confined word of length N has r(D) with Hensel bits
+    zero from position about cN up to S -- a zero-run of length about
+    (alpha - c) N.  Checked here [V] as the elementary bit identity
+        r < 2^k  <=>  bit_j(r) = 0 for every j in [k, S].
+
+      N    S      M_N      c      k     #r<2^k    max run         bit identity holds
+     14   22    17637   0.90     12          5         14                       True
+     14   22    17637   0.95     13         15         14                       True
+     15   23    51033   0.90     13         18         16                       True
+     15   23    51033   0.95     14         46         16                       True
+     16   25   108950   0.90     14         21         18                       True
+     16   25   108950   0.95     15         57         18                       True
+    (max run = S - floor(log2 r) for the smallest realizer in the shell;
+     needed for c is about (alpha - c) N, e.g. 0.685*16 ~ 11 at N=16, c=0.90)
+
+==============================================================================
+all exact checks passed   [V] for the finite ranges printed above

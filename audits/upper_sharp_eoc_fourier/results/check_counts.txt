@@ -1,0 +1,44 @@
+==============================================================================
+check_counts.py  --  [V] zero-confined positive word counts
+==============================================================================
+
+[0] A[k] = floor(k log2 3) via bit length, characterised exactly
+    2^A[k] <= 3^k < 2^(A[k]+1) verified for k = 0..40
+    A[k], k=0..30: [0, 1, 3, 4, 6, 7, 9, 11, 12, 14, 15, 17, 19, 20, 22, 23, 25, 26, 28, 30, 31, 33, 34, 36, 38, 39, 41, 42, 44, 45, 47]
+
+[1] counting DP cross-checked against direct word enumeration
+    N= 1  DP=       1  enum=       1  ok
+    N= 2  DP=       2  enum=       2  ok
+    N= 3  DP=       3  enum=       3  ok
+    N= 4  DP=       7  enum=       7  ok
+    N= 5  DP=      12  enum=      12  ok
+    N= 6  DP=      30  enum=      30  ok
+    N= 7  DP=      85  enum=      85  ok
+    N= 8  DP=     173  enum=     173  ok
+    N= 9  DP=     476  enum=     476  ok
+    N=10  DP=     961  enum=     961  ok
+    N=11  DP=    2652  enum=    2652  ok
+    N=12  DP=    8045  enum=    8045  ok
+
+[2] total zero-confined positive words of length N (all terminal sums)
+      N             computed            reference
+     15               108950               108950  ok
+     20             13472296             13472296  ok
+     25           1899474678           1899474678  ok
+     30         248369601964         248369601964  ok
+
+[3] terminal-shell size M_N = |W_0(N)| at S = A[N]   (Q = 2^(S+1))
+      N    S          Q                M_N    M_N/total
+     12   19       2^20               2652       0.3296
+     14   22       2^23              17637       0.3456
+     15   23       2^24              51033       0.4684
+     16   25       2^26             108950       0.3487
+     20   31       2^32            5936673       0.4407
+     25   39       2^40          820236724       0.4318
+     30   47       2^48        84141805077       0.3388
+
+[4] S = A[N] is the largest attainable terminal sum
+    max attainable terminal sum == A[N] for N in [12, 14, 15, 16, 20, 25, 30]
+
+==============================================================================
+all exact checks passed   [V] for the finite ranges printed above
