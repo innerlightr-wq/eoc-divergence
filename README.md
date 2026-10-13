@@ -128,6 +128,13 @@ negative-results table and the exact scope of each closure in
 Full record for the periodicity route:
 [`notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md`](notes/PERIODICITY_HANDOFF_ROUTE_CLOSED.md).
 
+A fifth round, on the **upper** half of Sharp EOC (Open Problem 8(4) — the existence of
+*small* zero-confined integers, which requires no progress on (DE)), is **paused, not
+closed**: the dyadic Fourier/discrepancy mechanism is neither refuted nor supported, and
+its best possible exponent is `c ≈ 0.832`, not `I₀`. Record, with exact-arithmetic scripts
+and the missing Lemma D1:
+**[`audits/upper_sharp_eoc_fourier/`](audits/upper_sharp_eoc_fourier/)**.
+
 ## Companion result (occupation side)
 
 A **separate** Lean library, `Occupation`, holds one occupation-side result:
