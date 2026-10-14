@@ -1,0 +1,58 @@
+==============================================================================
+check_zn.py  --  [V] validation of the Z_N construction and the exact window machinery
+==============================================================================
+
+[1] lift weighting identity vs independent brute orbit scan
+    sum_S |W(N,S)| * 2^(A[N]-S)  ==  #{odd m < 2^(A[N]+1) : 0-confined N steps}
+      N   A[N]       weighted          brute      reference
+      8     12            367            367            367  ok
+        elementwise equal=True  all odd=True  distinct=True  all < Q=True
+     10     15           2114           2114           2114  ok
+        elementwise equal=True  all odd=True  distinct=True  all < Q=True
+     12     19          27328          27328          27328  ok
+        elementwise equal=True  all odd=True  distinct=True  all < Q=True
+     14     22         168807         168807         168807  ok
+        elementwise equal=True  all odd=True  distinct=True  all < Q=True
+
+[2] min Z_N == r_min(N,0) by independent direct ascending orbit scan
+      N      min Z_N  direct scan     log2/N
+      8           27           27     0.5944  ok
+     10           27           27     0.4755  ok
+     12           27           27     0.3962  ok
+     14           27           27     0.3396  ok
+
+[3] window_hist: exact all-shift histogram vs brute all-y, and its invariants
+      N     H   segments   brute ok   sum counts      sum v*c
+      8    16          4       True         8192         5872
+      8    64          7       True         8192        23488
+     10    16          4       True        65536        33824
+     10    64          7       True        65536       135296
+     12    16          4       True      1048576       437248
+     12    64          7       True      1048576      1748992
+     14    16          4    skipped      8388608      2700912
+     14    64          7    skipped      8388608     10803648
+
+[4] pair_stats vs brute, and the exact identity sum_y X_y^2 == M*H + sum_{m!=m'}(H-d)_+
+      N      H      P_ordered        P brute          sum X^2     M*H+weighted
+      8     32            700            700            22600            22600  ok
+      9     32           2168           2168            75040            75040  ok
+     10     32           2818           2818           110984           110984  ok
+     11     32           8758           8758           374256           374256  ok
+     12     32          29026          29026          1317872          1317872  ok
+     13     32          41956        skipped          2129096          2129096  ok
+     14     32         136776        skipped          7478320          7478320  ok
+
+[5] [F] word-level Fourier DP vs direct exponential sums over Z_N (tolerance 1e-9)
+      N     #freqs      max |dev|        verdict
+      8        515      2.551e-16             ok
+     10        515      2.063e-16             ok
+
+[6] shell support: for ODD h, F(h) comes from the terminal shell S = A[N] alone
+    compared against the direct sum over Z_N, 128 odd h (tolerance 1e-9)
+      N      max |dev|      M_shell/M      verdict
+      8      6.853e-17       0.231608           ok
+     10      4.845e-17       0.225166           ok
+     12      6.911e-17       0.097043           ok
+
+==============================================================================
+all checks passed   [V] for the finite ranges printed above ([F] for sections 5-6)
