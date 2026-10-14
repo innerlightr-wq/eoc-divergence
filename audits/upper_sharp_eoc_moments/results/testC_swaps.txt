@@ -1,0 +1,47 @@
+==============================================================================================================
+Test C -- swap-only cancellation rate
+needed: 0.58496 bits/step to beat c = 1 (alpha - 1);  0.75282 for full square root (h/2, [D])
+==============================================================================================================
+
+[1] structural facts, exact (derivations in the module docstring)
+    phi_j is an odd multiple of 2^{-(S-s_j)}, S - s_j >= 3: never 0, never 1/2   [P]
+    one site can still give up to about (S - s_j) - log2 pi bits: NOT O(1)        [P]
+    at most 0.5 disjoint usable sites per step (disjointness)                     [P]
+    E[-log2|cos(pi phi)|] = 1 bit, median 0.5 bits, for phi uniform               [P]
+    => for equidistributed phases the mechanism gives about nu <= 0.5 bits/step
+       in the mean, against 0.58496 needed: short even at maximal density
+
+--------------------------------------------------------------------------------------------------------------
+[2] ensemble: terminal shell S = A[N]  (PRIMARY)
+    256 base words (seed 20261013); frequencies: 512 odd h <= 1024 plus 256 random odd h
+--------------------------------------------------------------------------------------------------------------
+   N  sites/word        nu  usable pairs      mean    median       p10       p90       max per-site med
+  20       3.891    0.1945         5.555    0.1910    0.1613    0.0324    0.3891    1.2874      0.5044
+  30       5.844    0.1948         8.484    0.1941    0.1742    0.0573    0.3574    0.9863      0.5032
+  40       7.570    0.1893        11.395    0.1886    0.1735    0.0706    0.3264    0.9081      0.5012
+
+--------------------------------------------------------------------------------------------------------------
+[2] ensemble: all terminal sums        (secondary)
+    256 base words (seed 20261013); frequencies: 512 odd h <= 1024 plus 256 random odd h
+--------------------------------------------------------------------------------------------------------------
+   N  sites/word        nu  usable pairs      mean    median       p10       p90       max per-site med
+  20       3.906    0.1953         5.633    0.1908    0.1613    0.0331    0.3872    1.3332      0.5047
+  30       5.879    0.1960         8.664    0.1940    0.1744    0.0571    0.3568    1.0958      0.5036
+  40       8.074    0.2019        12.027    0.1998    0.1850    0.0764    0.3426    0.9507      0.5005
+
+[3] GATE C -- preregistered: [R] iff the median bits/step < 0.3 at EVERY depth
+    (primary ensemble: the terminal shell, where the odd-frequency Fourier
+     coefficients of Z_N are supported -- see check_zn.py section 6)
+   N    median bits      vs gate 0.3    fraction of 0.58496    fraction of 0.75282
+  20         0.1613            below                 0.2758                 0.2143
+  30         0.1742            below                 0.2978                 0.2314
+  40         0.1735            below                 0.2966                 0.2305
+
+GATE C: [R] -- local swaps alone do NOT supply the needed cancellation.
+  The Tao-style swap mechanism is CLOSED as a sufficient route at every tested depth.
+  This does NOT refute Lemma D1; it refutes only this mechanism for it.
+
+==============================================================================================================
+Sampled statistics [F]: 256 base words per depth per ensemble (seed 20261013);
+512 odd h <= 1024 plus 256 random odd h < Q_S (seed 20261014).
+exact structural assertions passed; the statistics above are [F] sampled
