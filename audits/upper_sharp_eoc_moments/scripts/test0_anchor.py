@@ -34,10 +34,11 @@ PRIMARY = list(range(8, 19))        # preregistered fit set
 TRIM_FROM = 10                      # preregistered robustness refit
 EXTENSION = [19, 20]                # budget-conditional, excluded from all fits
 SLOPE_GATE = -0.02
-# Budget rule (PREREGISTRATION section 2 / section 7): the exact all-shift law needs arrays of
-# 2M int64 plus an argsort, so it is computed only when M <= HIST_CAP.  Above that only the
-# cheap exact quantities (r_min, M, X_0, rho_0) are reported, and the depth is still excluded
-# from every fit.
+# Budget rule (PREREGISTRATION section 2 / section 7): the exact all-shift law needs an int64
+# array of length 2M, so it is computed only when M <= HIST_CAP.  At the extension depths Z_N is
+# not built at all -- M comes from the counting DP and r_min / X_0 from direct orbit scans -- so
+# only the cheap exact quantities are reported there, and those depths stay excluded from every
+# fit.  Peak memory of the whole script is then set by N = 18.
 HIST_CAP = 8_000_000
 
 
@@ -68,12 +69,23 @@ def main(quick=False):
     print("%4s %6s %14s %10s %12s %10s" % ("N", "A[N]", "M = |Z_N|", "log2 M/N", "r_min(N,0)", "log2 r/N"))
     cache = {}
     for N in depths + ext:
-        Z, Q, AN = zn.build_Z(N)
-        M = Z.size
-        rmin = int(Z[0])
-        wexp = zn.M_from_words(N)
-        if wexp != M:
-            fail.append("M mismatch N=%d built=%d weighted=%d" % (N, M, wexp))
+        AN = zn.A(N)
+        Q = 1 << (AN + 1)
+        if N in ext:
+            # Extension depths: Z_N itself is over the memory budget, but M comes from the
+            # counting DP and r_min / X_0 from a direct orbit scan, so no set is built.
+            Z = None
+            M = zn.M_from_words(N)
+            rmin = zn.rmin_direct(N)
+        else:
+            Z, Q, AN = zn.build_Z(N)
+            M = Z.size
+            rmin = int(Z[0])
+            wexp = zn.M_from_words(N)
+            if wexp != M:
+                fail.append("M mismatch N=%d built=%d weighted=%d" % (N, M, wexp))
+            if rmin != zn.rmin_direct(N):
+                fail.append("r_min mismatch N=%d" % N)
         cache[N] = (Z, Q, AN, M, rmin)
         print("%4d %6d %14d %10.4f %12d %10.4f"
               % (N, AN, M, math.log2(M) / N, rmin, math.log2(rmin) / N))
@@ -93,9 +105,15 @@ def main(quick=False):
             if H > Q // 2:
                 print("  %4d %5.2f %6d %14d   (skipped: H > Q/2)" % (N, c, w, H))
                 continue
-            X0 = int(np.searchsorted(Z, H, side='left'))
+            if Z is None:
+                X0 = zn.count_confined_below(N, H)
+            else:
+                X0 = int(np.searchsorted(Z, H, side='left'))
+                # independent cross-check of X_0 by direct orbit scan  [V]
+                if X0 != zn.count_confined_below(N, H):
+                    fail.append("X_0 disagrees with the direct scan at N=%d c=%.2f" % (N, c))
             E = Fraction(M * H, Q)
-            if M > HIST_CAP:
+            if Z is None or M > HIST_CAP:
                 rho = Fraction(X0, 1) / E
                 rows[c].append((N, w, H, int(E.numerator), int(E.denominator), X0,
                                 float(rho), float('nan'), -1, -1))
@@ -128,7 +146,7 @@ def main(quick=False):
             Z, Q, AN, M, rmin = cache[N]
             w = int(math.floor(c * N))
             H = 1 << w
-            if 64 * H > Q:
+            if Z is None or 64 * H > Q:
                 continue
             E = Fraction(M * H, Q)
             ks = np.arange(64, dtype=np.int64) * H

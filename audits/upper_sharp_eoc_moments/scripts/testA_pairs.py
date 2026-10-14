@@ -30,6 +30,8 @@ import sys
 import math
 from fractions import Fraction
 
+import gc
+
 import numpy as np
 
 import zn
@@ -88,6 +90,9 @@ def main(quick=False):
                 fail.append("variance identity N=%d H=%d rel=%.3e" % (N, H, rel))
             print("%4d %6d %6d %22.6f %22.6f %12.3e %16.3e"
                   % (N, H, Q, float(lhs), rhs, rel, pars_dev))
+            del h, W2, vals, cnts
+        del Z, ind, Fh, p2
+        gc.collect()
 
     print("\n[2] DP vs FFT cross-validation of F(h) at low frequencies  ([F], tolerance 1e-9)")
     print("%4s %10s %14s" % ("N", "#h", "max |dev|"))
@@ -104,6 +109,8 @@ def main(quick=False):
         if dev > 1e-9:
             fail.append("DP vs FFT N=%d dev=%.3e" % (N, dev))
         print("%4d %10d %14.3e" % (N, K, dev))
+        del Z, ind, Fh, dp, hs
+        gc.collect()
 
     print("\n[3] R_2(N,K) = (M/K) sum_{0<h<=K} |F(h)|^2,  K = ceil(Q/H)   ([F] Fourier values)")
     print("    all h in (0,K] exactly (no subsampling needed: K <= 2^17 throughout)")
@@ -140,6 +147,8 @@ def main(quick=False):
             R2[c].append((N, K, r2))
             print("%4d %5.2f %6d %10d %16.6e %12.5f %12.3e %12.4f"
                   % (N, c, w, K, tot, r2, M / K, oddshare))
+        del Z, hs, F, p2
+        gc.collect()
 
     print("\n[4] exact pair counts and the dispersion index   (exact [V])")
     print("    ratio_P = P(N,H) / (M^2 (2H-1)/Q);  disp = mu_2/E  (= 1 for Poisson)")
@@ -169,6 +178,9 @@ def main(quick=False):
             ratP[c].append((N, ratio))
             print("%4d %5.2f %8d %16d %18.3f %18.6f %10.5f %10.3f"
                   % (N, c, H, P, float(pred), ratio, disp, float(E)))
+            del vals, cnts
+        del Z
+        gc.collect()
 
     print("\n[5] GATE A -- preregistered fits (slope gate %+.2f per step)" % SLOPE_GATE)
     print("%6s %16s %16s %16s" % ("c", "slope log2 R_2", "slope log2 ratio_P", "verdict(c)"))

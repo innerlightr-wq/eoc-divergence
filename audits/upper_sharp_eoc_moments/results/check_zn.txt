@@ -37,8 +37,8 @@ check_zn.py  --  [V] validation of the Z_N construction and the exact window mac
       8     32            700            700            22600            22600  ok
       9     32           2168           2168            75040            75040  ok
      10     32           2818           2818           110984           110984  ok
-     11     32           8758           8758           374256           374256  ok
-     12     32          29026          29026          1317872          1317872  ok
+     11     32           8758        skipped           374256           374256  ok
+     12     32          29026        skipped          1317872          1317872  ok
      13     32          41956        skipped          2129096          2129096  ok
      14     32         136776        skipped          7478320          7478320  ok
 

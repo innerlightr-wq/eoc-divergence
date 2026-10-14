@@ -74,30 +74,42 @@ def build_Z(N):
     pow2 = [1 << i for i in range(AN + 2)]
     caps = [A(j) for j in range(N + 1)]
 
-    bases = {}   # S -> list of r(D) mod 2^{S+1}
+    tab = shell_table(N)
+    M = sum(c * 2 ** (AN - S) for S, c in tab.items())
+
+    # residues are written straight into preallocated per-S int64 arrays: no Python int lists
+    res = {S: np.empty(c, dtype=np.int64) for S, c in tab.items()}
+    fill = {S: 0 for S in tab}
     stack = [(0, 0, 0)]
     # iterative DFS to avoid recursion limits at larger N
     while stack:
         j, s, acc = stack.pop()
         if j == N:
             mod = 1 << (s + 1)
-            bases.setdefault(s, []).append((pow2[s] - acc) % mod)
+            res[s][fill[s]] = (pow2[s] - acc) % mod
+            fill[s] += 1
             continue
         term = (acc + inv3[j + 1] * pow2[s]) % Q
         cap = caps[j + 1]
         for d in range(1, cap - s + 1):
             stack.append((j + 1, s + d, term))
+    for S in tab:
+        assert fill[S] == tab[S], "word count mismatch at S=%d" % S
 
-    parts = []
-    for S, lst in bases.items():
-        R = np.array(lst, dtype=np.int64)
-        L = 1 << (AN - S)
-        step = np.int64(1) << np.int64(S + 1)
-        if L == 1:
-            parts.append(R)
-        else:
-            parts.append((R[:, None] + step * np.arange(L, dtype=np.int64)).ravel())
-    Z = np.concatenate(parts)
+    # lifts written in place, one strided block per lift index: no large temporaries
+    Z = np.empty(M, dtype=np.int64)
+    off = 0
+    for S in sorted(tab):
+        R = res[S]
+        n = R.size
+        step = 1 << (S + 1)
+        for t in range(1 << (AN - S)):
+            Z[off:off + n] = R
+            if t:
+                Z[off:off + n] += step * t
+            off += n
+        res[S] = None
+    assert off == M, "lift expansion filled %d of %d" % (off, M)
     Z.sort()
     return Z, Q, AN
 
@@ -131,6 +143,29 @@ def brute_Z(N):
     return np.array(out, dtype=np.int64), Q
 
 
+def count_confined_below(N, limit):
+    """#{odd m < limit : m zero-confined through N steps}, by direct accelerated-orbit scan.
+
+    Independent of the word construction: this uses the actual map a(m) = v2(3m+1),
+    T(m) = (3m+1)/2^{a(m)} (Divergence.a / Divergence.T).  Exact integers, O(limit*N) time and
+    O(1) memory -- which is how the extension depths are reached without building Z_N at all.
+    """
+    pow3 = [3 ** j for j in range(N + 1)]
+    cnt = 0
+    for m in range(1, limit, 2):
+        x, s = m, 0
+        for j in range(N):
+            y = 3 * x + 1
+            a = v2(y)
+            x = y >> a
+            s += a
+            if (1 << s) > pow3[j + 1]:
+                break
+        else:
+            cnt += 1
+    return cnt
+
+
 def rmin_direct(N, cap=None):
     """r_min(N,0) by direct orbit scan over odd m, ascending.  Exact."""
     pow3 = [3 ** j for j in range(N + 1)]
@@ -159,49 +194,70 @@ def rmin_direct(N, cap=None):
 def window_hist(Z, Q, H):
     """Exact histogram of X_y = #(Z in [y, y+H) mod Q) over ALL y mod Q.
 
-    X_{y+1} - X_y = [ (y+H) mod Q in Z ] - [ y in Z ], so X is piecewise constant with at most
-    2M breakpoints.  Returns (values, counts) as int64 arrays with sum(counts) == Q, and
+    X_{y+1} - X_y = [ (y+H) mod Q in Z ] - [ y mod Q in Z ], so X is piecewise constant in y with
+    at most 2M breakpoints.  Returns (values, counts) as int64 arrays with sum(counts) == Q and
     sum(values*counts) == M*H.  Cost O(M log M), independent of Q.  Exact integers.
+
+    Memory: the breakpoints are carried in ONE int64 array of length 2M, holding the key
+    2*position + tag (tag 1 = an element enters at y+H, tag 0 = an element leaves at y), sorted
+    in place -- an argsort, or assembling per-segment start/end/value arrays, would cost several
+    more arrays of that length.  Buffers are released as soon as they are consumed, and the
+    histogram is assembled from DIFFERENCES of the breakpoint positions.
     """
     M = Z.size
     assert H <= Q // 2, "window_hist assumes H <= Q/2"
     X0 = int(np.searchsorted(Z, H, side='left'))          # window [0,H), no wrap
 
-    pos = np.concatenate([Z, (Z - H) % Q])
-    val = np.concatenate([-np.ones(M, dtype=np.int64), np.ones(M, dtype=np.int64)])
-    order = np.argsort(pos, kind='stable')
-    pos = pos[order]
-    val = val[order]
-    # aggregate equal positions
+    keys = np.empty(2 * M, dtype=np.int64)
+    keys[:M] = Z
+    keys[:M] <<= 1                                        # tag 0 -> delta -1
+    keys[M:] = Z
+    keys[M:] -= H
+    np.add(keys[M:], Q, out=keys[M:], where=keys[M:] < 0)  # (Z - H) mod Q
+    keys[M:] <<= 1
+    keys[M:] += 1                                         # tag 1 -> delta +1
+    keys.sort()
+
+    pos = keys >> 1
+    keys &= 1
+    keys <<= 1
+    keys -= 1                                             # keys is now the delta array
     first = np.empty(pos.size, dtype=bool)
     first[0] = True
     np.not_equal(pos[1:], pos[:-1], out=first[1:])
     idx = np.flatnonzero(first)
-    upos = pos[idx]
-    g = np.add.reduceat(val, idx)
+    del first
+    upos = pos[idx]                                       # distinct breakpoint positions
+    del pos
+    g = np.add.reduceat(keys, idx)                        # aggregated delta per position
+    del keys, idx
+    np.cumsum(g, out=g)
+    assert int(g[-1]) == 0, "total delta over a full cycle must vanish"
 
-    pref = np.cumsum(g)
-    assert pref[-1] == 0, "total delta over a full cycle must vanish"
-    vals = np.concatenate([[X0], X0 + pref[:-1]])          # value on each segment
-    starts = np.concatenate([[0], upos[:-1] + 1])
-    ends = np.concatenate([upos[:-1] + 1, [Q]])
-    # the segment starting at upos[-1]+1 wraps to y=0..; it carries value X0 again (pref[-1]==0),
-    # and is already covered by the first segment [0, upos[0]+1) only if upos[-1]+1 == Q.
-    if int(upos[-1]) + 1 != Q:
-        vals = np.concatenate([vals, [X0]])
-        starts = np.concatenate([starts, [int(upos[-1]) + 1]])
-        ends = np.concatenate([ends, [Q]])
-        ends[-2] = int(upos[-1]) + 1
-    lens = ends - starts
-    keep = lens > 0
-    vals, lens = vals[keep], lens[keep]
-    assert int(lens.sum()) == Q, "segment lengths must sum to Q"
-
-    vmax = int(vals.max())
-    counts = np.bincount(vals, weights=lens, minlength=vmax + 1).astype(np.int64)
+    n = upos.size
+    first_pos = int(upos[0])
+    last_pos = int(upos[-1])
+    # X = X0 on [0, upos[0]+1) and again on [upos[-1]+1, Q) (since the deltas sum to zero);
+    # on [upos[i]+1, upos[i+1]+1) it is X0 + cumsum(g)[i].
+    wrap = (first_pos + 1) + (Q - 1 - last_pos)
+    if n > 1:
+        seglen = np.diff(upos)
+        segval = g[:-1]
+        segval += X0
+        assert int(segval.min()) >= 0, "window count went negative"
+        counts = np.bincount(segval, weights=seglen,
+                             minlength=int(segval.max()) + 1)
+        del seglen, segval
+    else:
+        counts = np.zeros(X0 + 1, dtype=np.float64)
+    if counts.size <= X0:
+        counts = np.concatenate([counts, np.zeros(X0 + 1 - counts.size)])
+    counts[X0] += wrap
+    # every weight is an integer below 2^53, so the float64 accumulation above is exact
+    counts = np.rint(counts).astype(np.int64)
     values = np.flatnonzero(counts)
     counts = counts[values]
-    assert int(counts.sum()) == Q
+    assert int(counts.sum()) == Q, "segment lengths must sum to Q"
     assert int((values * counts).sum()) == M * H, "sum_y X_y must equal M*H"
     return values.astype(np.int64), counts
 
@@ -220,30 +276,43 @@ def central_moments(values, counts, M, H, Q, ks=(2, 4, 6)):
 
 # ------------------------------------------------------------------ exact pair statistics
 
-def pair_stats(Z, Q, H):
+def pair_stats(Z, Q, H, chunk=1 << 20):
     """Exact (P_ordered, weighted) where
 
       P_ordered = #{(m,m') in Z^2 : m != m', circular |m-m'| < H}
       weighted  = sum_{m != m'} (H - d(m,m'))_+        [ = sum_y X_y^2 - M*H ]
 
-    Valid for H <= Q/2: each unordered pair is seen once in the forward direction.
+    Valid for H <= Q/2: each unordered pair is seen once in the forward direction, so the ordered
+    count is twice the forward count.  Exact integers.
+
+    Streams over Z in chunks: the only full-length array held is the prefix-sum table, so peak
+    memory is O(M) once plus O(chunk), not O(M) a dozen times over.
     """
     M = Z.size
-    right = Z + H
-    lo = np.searchsorted(Z, Z + 1, side='left')
-    hi = np.searchsorted(Z, np.minimum(right, Q), side='left')
-    cnt = hi - lo
-    csum = np.concatenate([[0], np.cumsum(Z)])
-    ssum = csum[hi] - csum[lo]                      # sum of the m' in (m, m+H), no wrap
-    wrap_hi = np.where(right > Q, np.searchsorted(Z, np.maximum(right - Q, 0), side='left'), 0)
-    wcnt = wrap_hi
-    wsum = csum[wrap_hi]                            # sum of the wrapped m' in [0, m+H-Q)
+    assert H <= Q // 2, "pair_stats assumes H <= Q/2"
+    csum = np.empty(M + 1, dtype=np.int64)
+    csum[0] = 0
+    np.cumsum(Z, out=csum[1:])
 
-    fwd = int(cnt.sum()) + int(wcnt.sum())
-    # sum of (H - d) over forward pairs: d = m'-m (no wrap) or m'+Q-m (wrap)
-    w_nowrap = int((H * cnt - (ssum - cnt * Z)).sum())
-    w_wrap = int((H * wcnt - (wsum + (Q - Z) * wcnt)).sum())
-    return 2 * fwd, 2 * (w_nowrap + w_wrap)
+    fwd = 0
+    wtot = 0
+    for a in range(0, M, chunk):
+        z = Z[a:min(a + chunk, M)]
+        right = z + H
+        lo = np.searchsorted(Z, z + 1, side='left')
+        hi = np.searchsorted(Z, np.minimum(right, Q), side='left')
+        cnt = hi - lo
+        ssum = csum[hi] - csum[lo]                    # sum of the m' in (m, m+H), no wrap
+        fwd += int(cnt.sum())
+        wtot += int((H * cnt - (ssum - cnt * z)).sum())
+        over = right > Q
+        if over.any():
+            zo = z[over]
+            wh = np.searchsorted(Z, np.maximum(right[over] - Q, 0), side='left')
+            fwd += int(wh.sum())
+            # wrapped m' lie in [0, m+H-Q), at circular distance m' + Q - m
+            wtot += int((H * wh - (csum[wh] + (Q - zo) * wh)).sum())
+    return 2 * fwd, 2 * wtot
 
 
 # ------------------------------------------------------------------ Fourier, word-level DP  [F]

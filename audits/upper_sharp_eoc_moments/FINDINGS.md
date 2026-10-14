@@ -434,6 +434,29 @@ python3 rmin_orientation.py   # [V] exact r_min plateaux, orientation     (~0.2 
 
 Python 3 standard library plus `numpy` (1.26.4, already installed — nothing was installed). Each
 script takes `--quick`, prints to stdout only, writes nothing, and exits non-zero on any failed
-assertion. Peak memory is well under 1 GB; the all-shift histogram is computed only for
-`M <= 8e6`, which is the documented budget rule for the extension depths. Full transcripts:
-[`results/`](results/) — every number quoted above appears in one of them.
+assertion. Measured peak resident set (`/usr/bin/time -l`), all **under the 1 GB budget**:
+
+| script | time | peak RSS |
+|---|---|---|
+| `check_zn.py` | 2.0 s | 252 MB |
+| `test0_anchor.py` | 4.0 s | 691 MB |
+| `testA_pairs.py` | 10.1 s | 959 MB |
+| `testB_moments.py` | 6.7 s | 785 MB |
+| `testC_swaps.py` | 2.9 s | 145 MB |
+| `rmin_orientation.py` | 0.1 s | 32 MB |
+
+Reaching that needed three fixes made **after** the results were first produced; all of them are
+memory-only and **every transcript except `check_zn.txt` is byte-identical before and after**
+(`check_zn.txt` changed only because the brute `O(M^2)` pair check, which cost 6.9 GB at `N = 12`,
+was restricted to `M <= 2500`, i.e. to `N <= 10`, where it had already passed):
+`window_hist` now sorts one packed `position*2 + tag` array in place and assembles the histogram
+from position differences (1.35 GB → 0.2 GB at `N = 18`); `pair_stats` streams over `Z_N` in
+chunks instead of holding a dozen full-length arrays; and `build_Z` writes residues straight into
+preallocated per-shell arrays. The extension depths `N = 19, 20` never build `Z_N` at all —
+`M` comes from the counting DP and `X_0`, `r_min` from direct orbit scans, which also gives an
+**independent cross-check of `X_0` at every primary cell** (`test0_anchor.py` §2, passing).
+`window_hist` was re-verified against a brute all-`y` reference on every `(N, H)` with
+`N <= 12`, `H = 2^2…2^9`, after the rewrite.
+
+The all-shift histogram is computed only for `M <= 8e6`, the documented budget rule. Full
+transcripts: [`results/`](results/) — every number quoted above appears in one of them.

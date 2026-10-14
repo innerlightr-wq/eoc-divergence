@@ -26,6 +26,8 @@ import sys
 import math
 from fractions import Fraction
 
+import gc
+
 import numpy as np
 
 import zn
@@ -97,6 +99,9 @@ def main(quick=False):
                   % (N, w, H, Ef, tau[2], tau[4], tau[6], t4p, t6p, maxr, B, star))
             if w == best:
                 gate.append((N, w, H, Ef, tau, t4p, t6p, B, rmin, G))
+            del vals, cnts
+        del Z, gaps
+        gc.collect()
 
     print("\n[2] the gate series (E closest to 64), and the Poisson comparison")
     print("%4s %7s %10s %10s %10s %10s %12s %12s %10s %12s"

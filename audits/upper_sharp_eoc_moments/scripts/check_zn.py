@@ -11,7 +11,7 @@ gate is read.  Exact integer arithmetic except section 6 (Fourier, complex128, [
   (3) min Z_N == r_min(N,0) from an independent direct ascending orbit scan;
   (4) window_hist: exact all-shift histogram against a brute all-y computation at N = 8, 10,
       and its invariants sum(counts) == Q, sum(values*counts) == M*H at every depth;
-  (5) pair_stats: P_ordered and the weighted pair sum against brute O(M^2) at N = 8, 10, and the
+  (5) pair_stats: P_ordered against brute O(M^2) at the depths where M <= 2500, and the
       exact identity  sum_y X_y^2 == M*H + sum_{m!=m'} (H-d)_+  at every depth;
   (6) [F] the word-level Fourier DP against direct exponential sums over Z_N, N = 8, 10,
       all h <= 512 plus h = Q/8, Q/4, Q/2; preregistered tolerance 1e-9;
@@ -119,7 +119,7 @@ def main(quick=False):
             if not idok:
                 fail.append("pair identity N=%d H=%d sumX2=%d rhs=%d" % (N, H, sumX2, M * H + w))
             pb = "skipped"
-            if M <= 30000:
+            if M <= 2500:       # the brute O(M^2) difference matrix is the memory ceiling here
                 d = (Z[:, None] - Z[None, :]) % Q
                 dd = np.minimum(d, Q - d)
                 np.fill_diagonal(dd, Q)
