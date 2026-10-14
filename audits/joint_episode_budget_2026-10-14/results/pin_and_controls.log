@@ -1,0 +1,72 @@
+================================================================================================
+PROPOSITION J, exact integral form, at every re-entry
+================================================================================================
+  re-entries tested: 17;  violations: 0
+  (checks: ratio>=1, ratio<(9/4)B_a/m_0, (2/3)2^c<z_a<=2^c, B_a>=m_0,
+   and the exact identity 2^{A_a-(log2 m_0-c)} = 2^{E_a} 2^{2c_a})
+
+  the band, numerically (m_0=285175, c=1): floor = log2 m_0 - c = 17.121488
+  E_H = 0.153687, so for i>=1 all A_i lie in [17.1215, 18.4451]  (width 1.3236)
+     i=0 A_i=19.121488   <- initial episode, c_0=c, J does not apply
+     i=1 A_i=17.840309
+     i=2 A_i=17.689944
+     i=3 A_i=17.389226
+     i=4 A_i=17.774256
+     i=5 A_i=18.114112
+     i=6 A_i=17.473538
+
+================================================================================================
+CONTROLS
+================================================================================================
+A. least realizer vs larger lifts in the SAME exact realizer class.
+   The word, R-profile, episode structure, W_i and eta_i of the shared prefix
+   are class invariants; the absolute seed and entry heights are not.
+   prefix of 285175, N=12: word=(1, 1, 3, 2, 1, 1, 1, 2, 1, 1, 1, 1), S=16, class = 23031 mod 131072
+             lift  word matches  R-profile id    W over prefix  log2 m_0
+            23031          True          True      8.603527014   14.4913
+           154103          True          True      8.603527014   17.2335
+           285175          True          True      8.603527014   18.1215
+           416247          True          True      8.603527014   18.6671
+           547319          True          True      8.603527014   19.0620
+   => occupation/W/eta of the prefix are IDENTICAL across lifts while log2 m_0
+      grows without bound.  Any charge containing log2 m_0 is therefore not a
+      function of the prefix, which is precisely Remark 13.3's mechanism.
+
+B. long all-ones prefixes (zero-confined, positively realizable at finite depth).
+     k least realizer 2^(k+1)-1  #leading d=1       R_k   W over [0,k)    mean z
+     4                       31             4   -2.3399       2.407407  0.601852
+     8                      511             8   -4.6797       2.882945  0.360368
+    12                     8191            12   -7.0196       2.976878  0.248073
+    16                   131071            16   -9.3594       2.995433  0.187215
+    20                  2097151            20  -11.6993       2.999098  0.149955
+   => mean corridor weight stays O(1) while the least realizer is 2^{k+1}-1:
+      height is in the accounting, and small mean weight does not make an
+      episode cheap in seed scale.
+
+C. the Prop. 13.2 oscillator: digit 2 inside the corridor, digit 1 outside.
+   c=0: 1 episodes in [0,200), lengths [200], occupation 200, max gap 1
+   c=1: 1 episodes in [0,200), lengths [200], occupation 200, max gap 1
+   => many short episodes; episode COUNT is unbounded (Prop. 13.2) so no
+      bound of the form P <= const can exist.  Consistent with A above.
+
+D. the -1 all-ones trajectory (negative control).
+   -1 is a fixed point of T(x)=(3x+1)/2: d=1 forever, R_n = n(1-alpha) -> -inf,
+   so EVERY n is occupied for every c >= 0: one infinite episode, O_c = infinity.
+   It satisfies the corridor condition with no positivity: the hypothesis the
+   argument needs is m_n >= 1 (used in Bcal_a >= m_0 and in m_n >= m_0 2^-c),
+   i.e. POSITIVITY OF THE STATES, not positivity of the seed alone.
+
+E. affine recurrence over positive reals, no integer ray.
+   Fix the word of 285175 and run x_{n+1} = (3 x_n + 1)/2^{d_n} from real x_0:
+     x_0=   2.852e+05 -> x_40=        751841   (integer orbit m_40 = 751841)
+     x_0=         0.5 -> x_40=        43.034   (integer orbit m_40 = 751841)
+     x_0=       1e+06 -> x_40=   2.63632e+06   (integer orbit m_40 = 751841)
+     x_0=       1e-06 -> x_40=       41.7159   (integer orbit m_40 = 751841)
+   The R-profile is prescribed by the word, so corridor membership, W_i and
+   eta_i are IDENTICAL for every real x_0.  Any argument that never uses
+   integrality or m_n >= 1 is valid here too and therefore proves nothing
+   arithmetic.  Proposition J uses Bcal_a >= m_0 (i.e. C_a > 0), which holds
+   for every positive real start, and the entry lemma, which is purely
+   symbolic -- so J is NOT an integer obstruction.  Recorded as such.
+
+peak RSS 13.6 MiB

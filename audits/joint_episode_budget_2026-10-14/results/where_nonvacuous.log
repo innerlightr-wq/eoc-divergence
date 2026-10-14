@@ -1,0 +1,22 @@
+ON THE OSCILLATOR (bounded two-sided drift by construction):
+ c    N    P   O_c   pot=3(B_N-m_0)          RHS  P-1<RHS    slack  max R_n  min R_n
+ 0   60   26    35          58.1983      87.2974     True    3.492x   0.4150  -0.5684
+ 0  120   50    70         116.4756     174.7134     True    3.566x   0.4150  -0.5714
+ 0  200   84   117         193.1851     289.7776     True    3.491x   0.4150  -0.5745
+ 1   60   25    36         114.0633      85.5474     True    3.564x   1.4120   0.0000
+ 1  120   49    71         230.6178     172.9634     True    3.603x   1.4120   0.0000
+ 1  200   83   118         384.0368     288.0276     True    3.513x   1.4120   0.0000
+ 2   60   24    37         221.6450      83.1169     True    3.614x   2.4120   0.0000
+ 2  120   48    72         454.7541     170.5328     True    3.628x   2.4120   0.0000
+ 2  200   82   119         761.5922     285.5971     True    3.526x   2.4120   0.0000
+
+ON REAL SEEDS WHOSE DRIFT ESCAPES (the orbit reaches 1):
+       m_0  c    P              pot            RHS        slack   max R_n
+    285175  1    7          96168.4        72126.3      12021.1x    18.275
+    626331  1    5         257850.6       193387.9      48347.0x    19.442
+  63728127  1    3       35066746.9     26300060.2   13150030.1x    26.168
+
+READ-OFF: the candidate bound is tight-to-within-a-small-factor exactly where
+the drift is confined to a bounded two-sided window -- the sector already closed
+by BoundedDrift -- and loses 10^3..10^7 as soon as R_n is allowed to escape,
+because the pot then absorbs the exponentially large gap weights z_n = 2^{R_n}.

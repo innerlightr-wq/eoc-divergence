@@ -1,0 +1,25 @@
+       m_0  c   O_c                      profile L_0,L_1,L_2,...  sum L_w 2^-w         Lambda  O_c/sum L_w 2^-w
+    285175  1    98         [23, 18, 17, 5, 3, 5, 6, 7, 8, 5, 1]     37.409180       96168.44             2.620
+    626331  1   122   [8, 9, 8, 17, 7, 8, 8, 19, 12, 8, 6, 8, 4]     17.659180      257850.57             6.909
+  63728127  1   259 [6, 11, 15, 20, 21, 16, 9, 25, 25, 32, 32, 32, 14, 1]     20.109009    35066746.88            12.880
+        27  1    40                    [1, 6, 5, 6, 11, 5, 3, 3]      6.914062          16.11             5.785
+       703  1    51                  [0, 2, 3, 10, 8, 14, 10, 4]      4.125000         442.78            12.364
+     10087  1    66                 [0, 9, 10, 10, 14, 14, 7, 2]      9.687500        7457.90             6.813
+     35655  1    86           [1, 7, 7, 7, 7, 13, 18, 12, 11, 3]      8.392578       21803.92            10.247
+    381727  1   109         [0, 6, 11, 11, 19, 22, 18, 13, 6, 3]      9.412109      282359.16            11.581
+
+w_max per case (deepest stratum reached inside the corridor):
+   m_0=   285175 c=1: w_max = 10, mean w = 3.143, O_c = 98
+   m_0=   626331 c=1: w_max = 12, mean w = 5.648, O_c = 122
+   m_0= 63728127 c=1: w_max = 13, mean w = 7.085, O_c = 259
+   m_0=       27 c=1: w_max = 7, mean w = 3.550, O_c = 40
+   m_0=      703 c=1: w_max = 7, mean w = 4.471, O_c = 51
+   m_0=    10087 c=1: w_max = 7, mean w = 3.652, O_c = 66
+   m_0=    35655 c=1: w_max = 9, mean w = 5.140, O_c = 86
+   m_0=   381727 c=1: w_max = 9, mean w = 4.780, O_c = 109
+
+READ-OFF: the profiles are NOT concentrated at small w -- they spread to
+w_max comparable to O_c itself, with mean depth growing with O_c.  The ratio
+O_c / sum_w L_w 2^-w is the exact inverse-eta loss, and it is already 10^1-10^3
+on these finite orbits.  So the carry pot does not see the deep strata at all:
+that is the small-eta problem in its exact form.

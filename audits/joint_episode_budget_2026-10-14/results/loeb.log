@@ -1,0 +1,41 @@
+m_0 = 285175, c = 1
+first index with m_n = 1 : n_one = 138
+certified horizon        : H = 138  (for n >= n_one, R increases by 2-alpha
+                             each step, so no occupied index exists at or after H)
+occupied indices in [H, H+40): []  (must be empty)
+
+episodes (maximal occupied runs) in [0,138):
+   [0,15)  length 15
+   [16,20)  length 4
+   [21,27)  length 6
+   [31,95)  length 64
+   [98,99)  length 1
+   [100,105)  length 5
+   [108,111)  length 3
+lengths: 15 + 4 + 6 + 64 + 1 + 5 + 3 = 98
+
+REPLICATION:  O_1 = 98   (manuscript: 98)      match=True
+              L_1 = 14          (manuscript: 14)      match=True
+              tau_1 = 15      (manuscript: 15)      match=True
+              runs  = [(0, 15), (16, 20), (21, 27), (31, 95), (98, 99), (100, 105), (108, 111)]
+              target= [(0, 15), (16, 20), (21, 27), (31, 95), (98, 99), (100, 105), (108, 111)]
+              runs match = True
+              lengths match 15+4+6+64+1+5+3 = True
+
+ i        [a,b)  l_i    W_i (exact float)         3(B_b - B_a)        eta_i      z_{a_i}   (2/3)2^c
+ 0       [0,15)   15          9.823000525          9.823000525  0.327433351     1.000000   1.333333
+ 1      [16,20)    4          3.753093675          3.753093675  0.469136709     1.558977   1.333333
+ 2      [21,27)    6          6.603311633          6.603311633  0.550275969     1.642379   1.333333
+ 3      [31,95)   64         21.216813747         21.216813747  0.165756357     1.822808   1.333333
+ 4      [98,99)    1          1.595131021          1.595131021  0.797565511     1.595131   1.333333
+ 5    [100,105)    5          5.794111035          5.794111035  0.579411103     1.417894   1.333333
+ 6    [108,111)    3          4.524275794          4.524275794  0.754045966     1.770369   1.333333
+entry-toll violations (re-entries only): 0
+
+GLOBAL ACCOUNTING (gaps included; Bcal is not conserved):
+  sum_{n<H} z_n                 = 96168.440064502  = 3(Bcal_H - m_0)
+  occupied part (sum W_i)       = 53.309737429
+  gap part                      = 96115.130327073
+  occupied + gap == total       : True
+  Bcal_H = m_0 2^{E_H}           = 317231.146688,  2^{E_H} = 1.112408685
+peak RSS 12.5 MiB

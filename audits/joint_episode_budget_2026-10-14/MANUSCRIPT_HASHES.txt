@@ -1,0 +1,16 @@
+# Revision 8 of the manuscript, by sha256.  Identity resolved during the audit;
+# see PROVENANCE.md section 1.  Neither file is redistributed here.
+#
+# AUTHORITATIVE Revision 8 -- eoc-lean-verification, branch eoc-revision8
+#   = b2dcae22dbefe8af89c83f00ebd038d6b21c0304
+07c6610d633035e43b8a36905e0c58e517704ca12bb208e2340359dea30f294c  paper/eoc_rev8.pdf   (32 pp)
+d495c8bba270e1cbd7846f1446f25c7a25b7b6b3b2bd7136ef6eb3a1b581320b  paper/eoc_rev8.tex
+#
+# EARLIER DRAFT of Revision 8, dated 2026-10-04 14:53 -- DIFFERS from the above
+# (68 diff lines).  It lacks the episode decomposition 15+4+6+64+1+5+3=98, the
+# "83 of the 98 occupation times are separated returns" sentence, the sharpening
+# into Open Problem F, and the certified section 15 maximum.  NOT used.
+998686d23dbe0129891d931d2feeb46c52da3973abc4421c8da9c8a03081ef27  eoc_rev8.pdf (draft)
+30483cac01b5f28e0ea4af2178582d812a7378c96fbec4ac69c43ffac55f9977  eoc_rev8.tex (draft)
+#
+# This repository has docs/eoc_rev7.pdf only; there is no Revision 8 here.

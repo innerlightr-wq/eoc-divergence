@@ -1,0 +1,12 @@
+ c     N  #episodes P          episode lengths  occupation  #exits  least realizer bits  word reproduced
+ 0    60           26                   [1, 2]          35      25                   96             True
+ 0   200           84                   [1, 2]         117      83                  317             True
+ 1    60           25                [1, 2, 3]          36      24                   97             True
+ 1   200           83                [1, 2, 3]         118      82                  318             True
+ 2    60           24                [1, 2, 5]          37      23                   98             True
+ 2   200           82                [1, 2, 5]         119      81                  320             True
+
+=> episode COUNT grows linearly in N (P ~ N/3), so no bound P <= const(c,m_0)
+   can exist -- Prop. 13.2.  Every prefix is realized by a genuine positive odd
+   integer, whose bit length grows like S_N ~ 1.4 N: the realizer height is the
+   price, and it is exactly what Remark 13.3's charge re-levies at each episode.

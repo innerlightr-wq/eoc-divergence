@@ -1,0 +1,20 @@
+         m_0  c   O_c  log2 m_0  O_c/log2 m_0              pot   pot/m_0   pot/log2 m_0    scale gap
+      285175  1    98    18.121        5.4079          96168.4    0.3372         5306.9        981.3x
+      285175  2   110    18.121        6.0701          96168.4    0.3372         5306.9        874.3x
+      626331  1   122    19.257        6.3355         257850.6    0.4117        13390.3       2113.5x
+    63728127  1   259    25.925        9.9902       35066746.9    0.5503      1352600.6     135392.8x
+          27  1    40     4.755        8.4124             16.1    0.5965            3.4          0.4x
+         703  1    51     9.457        5.3926            442.8    0.6298           46.8          8.7x
+       10087  1    66    13.300        4.9623           7457.9    0.7394          560.7        113.0x
+       35655  1    86    15.122        5.6871          21803.9    0.6115         1441.9        253.5x
+      381727  1   109    18.542        5.8785         282359.2    0.7397        15227.9       2590.5x
+     2097151  1    44    21.000        2.0952        1134011.9    0.5407        54000.6      25773.0x
+  1234567891  1     5    30.201        0.1656      741530918.1    0.6006     24552899.0  148306183.6x
+
+The last column is the factor by which a PERFECT solution of the small-eta
+problem would still overshoot the actual occupation, i.e. the irreducible loss
+of the pot as a resource.  It grows like m_0/log m_0.
+
+For comparison, the certified EOC frontier (manuscript Sec.15, Revision 8):
+   max over odd 3 <= m < 2^33 of O_c/log2 m  =  11.3402  (attained at c=8),
+so the target constant is ~10, while pot/log2 m_0 above is 10^3..10^8.

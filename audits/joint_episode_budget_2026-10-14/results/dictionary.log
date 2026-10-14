@@ -1,0 +1,15 @@
+identity checks over all seeds and all n <= 60 (exact):
+  OK   C recurrence = closed form  (violations 0)
+  OK   z_n = 2^{S_n}/3^n  (violations 0)
+  OK   Bcal_n = m_n z_n = m_0 + C_n/3^n  (violations 0)
+  OK   Bcal_{n+1} - Bcal_n = z_n/3  (violations 0)
+  OK   2^{S_n} m_n = 3^n m_0 + C_n  (violations 0)
+  OK   Bcal_n = m_0 2^{E_n} (as a product)  (violations 0)
+  OK   block: (Bcal_b,z_b) = [[1,u],[0,v]](Bcal_a,z_a)  (violations 0)
+  OK   block: m_b = (m_a+u)/v  (violations 0)
+  OK   block: 2^s m_b = 3^t m_a + C_[a,b)  (violations 0)
+  OK   block composition u,v  (violations 0)
+  OK   terminal oddness mod 2^{s+1}  (violations 0)
+
+total violations: 0
+peak RSS 11.9 MiB

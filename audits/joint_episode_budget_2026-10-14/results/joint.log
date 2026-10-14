@@ -1,0 +1,73 @@
+====================================================================================================
+A. THE CANDIDATE BOUND  P - 1 < (9/2) 2^{-c} (Bcal_H - m_0) * 3 ... tested exactly
+====================================================================================================
+       m_0  c     H    P   O_c        sum W_i  toll (2/3)2^c (P-1)     pot 3(B_H-m_0)            RHS  holds      slack
+    285175  1   138    7    98      53.309737             8.000000          96168.440        72126.3   True    12021.1x
+    285175  2   138    4   110      87.279624             8.000000          96168.440        36063.2   True    12021.1x
+        27  1    41    1    40      10.037597             0.000000             16.107           12.1   True        infx
+       703  1    62    1    51       6.078821             0.000000            442.779          332.1   True        infx
+     10087  1    81    1    66      13.805562             0.000000           7457.899         5593.4   True        infx
+     35655  1   119    1    86      11.928665             0.000000          21803.922        16352.9   True        infx
+    381727  1   137    1   109      13.917694             0.000000         282359.160       211769.4   True        infx
+    626331  1   189    5   122      26.520977             5.333333         257850.566       193387.9   True    48347.0x
+  63728127  1   357    3   259      29.108173             2.666667       35066746.881     26300060.2   True 13150030.1x
+  63728127  2   357    2   262      36.249840             2.666667       35066746.881     13150030.1   True 13150030.1x
+
+The bound HOLDS everywhere and is VACUOUS everywhere (slack 1e3-1e8).
+Diagnosis, exactly: the pot sum_n z_n is dominated by the GAP times, where
+z_n = 2^{R_n} > 2^c and grows, while on the corridor z_n <= 2^c.  Split it:
+       m_0  c   occupied part           gap part  gap share
+    285175  1       53.309737          96115.130   0.999446
+    285175  2       87.279624          96081.160   0.999092
+        27  1       10.037597              6.069   0.376809
+       703  1        6.078821            436.700   0.986271
+     10087  1       13.805562           7444.093   0.998149
+     35655  1       11.928665          21791.993   0.999453
+
+So amortizing the episode toll against the global carry pot can only bound
+GAP time from above, i.e. it yields LOWER bounds on O_c, never upper ones.
+Explicitly, with G = H - O_c the gap-time count and z_n > 2^c on gaps:
+     2^c G  <  pot  ==>  O_c > H - 2^{-c} * pot    (a lower bound).
+   m_0=   285175 c=1: 2^c G =       80.0 < pot =      96168.4  => O_c >     -47946.2  (actual O_c = 98)
+   m_0=   285175 c=2: 2^c G =      112.0 < pot =      96168.4  => O_c >     -23904.1  (actual O_c = 110)
+   m_0=       27 c=1: 2^c G =        2.0 < pot =         16.1  => O_c >         32.9  (actual O_c = 40)
+   m_0=      703 c=1: 2^c G =       22.0 < pot =        442.8  => O_c >       -159.4  (actual O_c = 51)
+
+====================================================================================================
+B. THE AMORTIZATION HYPOTHESIS: is the single-window allowance CONSUMED?
+====================================================================================================
+   A_i = log2 m_{a_i} + c_i  (Remark 13.3's per-episode charge, up to K)
+   claim under test: A_i decreases, or at least does not grow, in i.
+  m_0 = 285175, c = 1:
+     i=0 a=   0 m_a=                285175 c_i= 1.000000  A_i= 19.121488  Bcal_a=   285175.0000  m_a >= m_0 2^-c : True
+     i=1 a=  16 m_a=                182927 c_i= 0.359400  A_i= 17.840309  Bcal_a=   285179.0538  m_a >= m_0 2^-c : True
+     i=2 a=  21 m_a=                173639 c_i= 0.284213  A_i= 17.689944  Bcal_a=   285181.1260  m_a >= m_0 2^-c : True
+     i=3 a=  31 m_a=                156455 c_i= 0.133838  A_i= 17.389226  Bcal_a=   285187.4000  m_a >= m_0 2^-c : True
+     i=4 a=  98 m_a=                178793 c_i= 0.326325  A_i= 17.774256  Bcal_a=   285198.2607  m_a >= m_0 2^-c : True
+     i=5 a= 100 m_a=                201143 c_i= 0.496250  A_i= 18.114112  Bcal_a=   285199.5013  m_a >= m_0 2^-c : True
+     i=6 a= 108 m_a=                161099 c_i= 0.175950  A_i= 17.473538  Bcal_a=   285204.6415  m_a >= m_0 2^-c : True
+     A_i non-decreasing in i : False   (min=17.3892, max=19.1215, log2 m_0 - c = 17.1215)
+  m_0 = 285175, c = 2:
+     i=0 a=   0 m_a=                285175 c_i= 2.000000  A_i= 20.121488  Bcal_a=   285175.0000  m_a >= m_0 2^-c : True
+     i=1 a=  30 m_a=                104303 c_i= 0.548875  A_i= 17.219296  Bcal_a=   285186.4886  m_a >= m_0 2^-c : True
+     i=2 a=  96 m_a=                 79463 c_i= 0.156400  A_i= 16.434396  Bcal_a=   285196.2668  m_a >= m_0 2^-c : True
+     i=3 a= 115 m_a=                 86021 c_i= 0.270688  A_i= 16.663089  Bcal_a=   285219.6196  m_a >= m_0 2^-c : True
+     A_i non-decreasing in i : False   (min=16.4344, max=20.1215, log2 m_0 - c = 16.1215)
+  m_0 = 27, c = 1:
+     i=0 a=   0 m_a=                    27 c_i= 1.000000  A_i=  5.754888  Bcal_a=       27.0000  m_a >= m_0 2^-c : True
+     A_i non-decreasing in i : True   (min=5.7549, max=5.7549, log2 m_0 - c = 3.7549)
+  m_0 = 703, c = 1:
+     i=0 a=   0 m_a=                   703 c_i= 1.000000  A_i= 10.457381  Bcal_a=      703.0000  m_a >= m_0 2^-c : True
+     A_i non-decreasing in i : True   (min=10.4574, max=10.4574, log2 m_0 - c = 8.4574)
+  m_0 = 10087, c = 1:
+     i=0 a=   0 m_a=                 10087 c_i= 1.000000  A_i= 14.300210  Bcal_a=    10087.0000  m_a >= m_0 2^-c : True
+     A_i non-decreasing in i : True   (min=14.3002, max=14.3002, log2 m_0 - c = 12.3002)
+  m_0 = 35655, c = 1:
+     i=0 a=   0 m_a=                 35655 c_i= 1.000000  A_i= 16.121817  Bcal_a=    35655.0000  m_a >= m_0 2^-c : True
+     A_i non-decreasing in i : True   (min=16.1218, max=16.1218, log2 m_0 - c = 14.1218)
+  m_0 = 381727, c = 1:
+     i=0 a=   0 m_a=                381727 c_i= 1.000000  A_i= 19.542182  Bcal_a=   381727.0000  m_a >= m_0 2^-c : True
+     A_i non-decreasing in i : True   (min=19.5422, max=19.5422, log2 m_0 - c = 17.5422)
+
+cases where A_i was NOT non-decreasing: 2 / 7
+peak RSS 13.6 MiB
