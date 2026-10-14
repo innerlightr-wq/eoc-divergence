@@ -231,6 +231,10 @@ Odd-`h` share of the mass: `0.07`–`0.24`, consistent with `M_shell/M` of §0c.
 
 `P(N,H) = #{(m,m') in Z_N^2, m != m', circular |m-m'| < H}` (ordered), against the preregistered
 independence prediction `M^2(2H-1)/Q`; and the dispersion index `mu_2/E` (`= 1` for Poisson).
+(The preregistered predictor is the brief's. The exact number of nonzero differences at circular
+distance `< H` is `2(H-1)`, not `2H-1`, so the predictor is high by a relative `1/(2H-1)` —
+`<= 1.5e-2` at the smallest `H` used and `<= 7.6e-6` at the largest. It is kept as preregistered;
+no verdict depends on it.)
 Exact integers / Fractions, all depths `N = 8…18`, all three `c` (`testA_pairs.py` §4):
 
 | quantity | range over the 33 `(N,c)` cells | at `N = 18` |
