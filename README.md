@@ -135,6 +135,16 @@ its best possible exponent is `c ≈ 0.832`, not `I₀`. Record, with exact-arit
 and the missing Lemma D1:
 **[`audits/upper_sharp_eoc_fourier/`](audits/upper_sharp_eoc_fourier/)**.
 
+A sixth round tested three successor ideas on the same upper half — second-moment / pair
+collisions, higher-moment localization at `c_k = α − kh/(k+2)`, and Tao-style local swaps — as a
+**preregistered falsification pilot**. Local swaps are **closed** (`[R]`: median `0.17` bits per
+step against the `0.585` needed merely to beat `c = 1`); the pair and higher-moment hypotheses are
+**unrefuted and positively supported at `N ≤ 18`** by exact all-shift computation, the seed set
+being mildly *underdispersed* rather than clustered. Two of the four preregistered gates turned out
+to be ill-posed and are reported as such, with labelled post-hoc variants. The recommendation is
+one moment bound, Lemma `M_k`, strictly weaker than Lemma D1. Record:
+**[`audits/upper_sharp_eoc_moments/`](audits/upper_sharp_eoc_moments/)**.
+
 ## Companion result (occupation side)
 
 A **separate** Lean library, `Occupation`, holds one occupation-side result:
