@@ -1,0 +1,6 @@
+# External source consumed by this audit, by sha256.  The PDF itself is NOT
+# redistributed here; only its hash, so the audit is checkable against a copy.
+#
+# "Nonuniqueness of percolation on nonamenable quasi-transitive graphs",
+# OpenAI, September 24 2026.  53 pp, A4, PDF 1.7, pdfTeX-1.40.29, 649525 bytes.
+46a78d044d2713e48cb3faa9b0b9d22da9480193e2202fe63d8e0daa7d8a3dbb  paper.pdf

@@ -1,0 +1,29 @@
+record seed  confinement depth (direct iteration)
+          3  1
+          7  3
+         27  36
+        703  50
+      10087  65
+      35655  84
+     381727  108
+
+   N   r_min(N)   rho(N)=2/p(N,0)  rho/r_min
+   4         27              9.85     0.3647
+   8         27             22.32     0.8267
+  12         27             38.37     1.4211
+  16         27             64.69     2.3960
+  20         27            103.87     3.8472
+  24         27            152.22     5.6379
+  28         27            228.48     8.4622
+  32         27            337.42    12.4970
+  36         27            468.22    17.3414
+  40        703            669.76     0.9527
+  48        703           1282.78     1.8247
+  56      10087           2434.40     0.2413
+  64      10087           4463.12     0.4425
+  72      35655           7927.09     0.2223
+  80      35655          14331.16     0.4019
+
+largest observed rho/r_min over this range: 17.3414
+NOTE: r_min(N) here is the minimum over the record ladder only, so it is an
+UPPER bound on the true r_min(N); the ratio is therefore a LOWER bound.

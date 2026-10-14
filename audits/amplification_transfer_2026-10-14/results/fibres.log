@@ -1,0 +1,19 @@
+  N      n_N       #I_N   I_N/n_N  log2 n/N  log2 I/N   delta   maxfib  log2 maxfib/N   meanfib
+  3        3          2     0.667   0.52832   0.33333 -0.19499        2        0.33333     2.000
+  4        7          9     1.286   0.70184   0.79248 0.09064        4        0.50000     2.250
+  5       12         18     1.500   0.71699   0.83399 0.11699        6        0.51699     3.600
+  6       30         65     2.167   0.81782   1.00373 0.18591        9        0.52832     3.611
+  7       85        252     2.965   0.91563   1.13961 0.22398       13        0.52863     4.582
+  8      173        562     3.249   0.92933   1.14180 0.21247       17        0.51093     6.386
+  9      476       1895     3.981   0.98831   1.20978 0.22146       22        0.49549     6.254
+ 10      961       4075     4.240   0.99084   1.19926 0.20842       27        0.47549     8.402
+ 11     2652      13171     4.966   1.03390   1.24410 0.21020       33        0.45858     7.789
+ 12     8045      46723     5.808   1.08116   1.29265 0.21150       40        0.44349     8.664
+ 13    17637     107700     6.106   1.08510   1.28590 0.20080       47        0.42728    11.228
+ 14    51033     350347     6.865   1.11708   1.31560 0.19852       55        0.41295    10.491
+
+READ-OFF:  delta = (log2 #I_N - log2 n_N)/N  is the index-set surplus per step,
+and log2(maxfib)/N is the fibre cost per step.  (AMP*) needs the first
+positive and the second -> 0.  They are the SAME number here, identically:
+   #I_N = sum over y of fibre(y)  <=  n_N * maxfib ,  so  delta <= log2(maxfib)/N .
+That inequality is an identity of the counting, not a property of Collatz.

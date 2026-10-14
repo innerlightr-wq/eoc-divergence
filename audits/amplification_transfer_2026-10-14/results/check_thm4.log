@@ -1,0 +1,15 @@
+N=10: measured max fibre = 27  (argmax (1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+        sum_j (sN(j+1) - S_j) at the argmax, local constraint only = 27
+        claimed (alpha-1)N(N+1)/2 = 32.17
+        max over all y of the local sum = 27
+
+N=12: measured max fibre = 40  (argmax (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+        sum_j (sN(j+1) - S_j) at the argmax, local constraint only = 40
+        claimed (alpha-1)N(N+1)/2 = 45.63
+        max over all y of the local sum = 40
+
+N=14: measured max fibre = 55  (argmax (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+        sum_j (sN(j+1) - S_j) at the argmax, local constraint only = 55
+        claimed (alpha-1)N(N+1)/2 = 61.42
+        max over all y of the local sum = 55
+

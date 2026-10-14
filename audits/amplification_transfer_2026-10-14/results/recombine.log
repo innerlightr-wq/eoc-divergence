@@ -1,0 +1,18 @@
+  N  #conf words   #nodes  down-shifts tried  survive    rate |  up-shifts tried  survive    rate  max defect
+  3            3        2                  2        2  1.0000 |                3        2  0.6667           1
+  4            7        5                  9        9  1.0000 |               13        9  0.6923           1
+  5           12        9                 18       18  1.0000 |               33       18  0.5455           2
+  6           30       21                 65       65  1.0000 |              117       65  0.5556           2
+  7           85       51                252      252  1.0000 |              454      252  0.5551           3
+  8          173      106                562      562  1.0000 |             1194      562  0.4707           4
+  9          476      279               1895     1895  1.0000 |             4086     1895  0.4638           4
+ 10          961      582               4075     4075  1.0000 |            10026     4075  0.4064           5
+ 11         2652     1543              13171    13171  1.0000 |            32690    13171  0.4029           5
+ 12         8045     4195              46723    46723  1.0000 |           115897    46723  0.4031           6
+
+Phi is a PARTIAL map into the confined set.  Key questions:
+  * is the image ever larger than the domain?  (it cannot be: Theorem 3)
+  * does the survivor RATE stay bounded away from 0 uniformly in N?
+
+N=4: the 7 0-confined words: [(1, 1, 1, 1), (1, 1, 1, 2), (1, 1, 1, 3), (1, 1, 2, 1), (1, 1, 2, 2), (1, 2, 1, 1), (1, 2, 1, 2)]
+  root children: {1: 7}
