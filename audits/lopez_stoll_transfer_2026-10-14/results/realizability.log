@@ -1,0 +1,28 @@
+(1) all-ones prefix length vs v_2(m_0+1)
+        m0  v2(m0+1)-1  #leading d_j=1  equal
+         1           0               0   True
+         3           1               1   True
+         5           0               0   True
+         7           2               2   True
+        15           3               3   True
+        31           4               4   True
+        63           5               5   True
+       127           6               6   True
+       255           7               7   True
+      1023           9               9   True
+      4095          11              11   True
+     65535          15              15   True
+        27           1               1   True
+       703           5               5   True
+     10087           2               2   True
+violations: 0
+
+  So the INFINITE all-ones word -- 0-confined, Delta_N = (alpha-1)N -> infinity --
+  is realizable by NO positive integer: every positive m_0 leaves it after
+  v_2(m_0+1) - 1 steps.  Its only 2-adic realizer is -1 = 111..., with T(-1) = -1.
+  This is the brief's warning control: a 0-confined symbolic word with
+  arbitrarily large linear deficit need not come from a positive seed at all.
+
+(2) least realizer from the carry, vs direct iteration
+    r = unique odd x < 2^{S_N+1} with 3^N x + q_N = 2^{S_N} (mod 2^{S_N+1})
+                  word  S_N  least realizer  reproduces word

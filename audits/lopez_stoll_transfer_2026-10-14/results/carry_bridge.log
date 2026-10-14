@@ -1,0 +1,30 @@
+CLAIM 1+2: q_N recurrence = closed form;  Phi_R(u^(S_N)) = -q_N/3^N;
+           2^{S_N} m_N = 3^N m_0 + q_N;  sum_{i<N} 2^{-D_i} = 3(2^{-D_N}m_N - m_0)
+
+  m0 =       3: all four identities hold for N = 1..40 : True
+  m0 =       7: all four identities hold for N = 1..40 : True
+  m0 =      27: all four identities hold for N = 1..40 : True
+  m0 =      31: all four identities hold for N = 1..40 : True
+  m0 =     703: all four identities hold for N = 1..40 : True
+  m0 =   10087: all four identities hold for N = 1..40 : True
+  m0 =   35655: all four identities hold for N = 1..40 : True
+  m0 =  381727: all four identities hold for N = 1..40 : True
+total violations: 0
+
+CLAIM 3, numerically: the four equivalent quantities along real orbits
+      m0    N     sum 2^-D_i   3(2^-D_N m_N - m_0)   m_0(2^{E_N}-1)*3   max D_i
+      27   10     4.73652390            4.73652390         4.73652390    2.5098
+      27   30     6.60158128            6.60158128         6.60158128    6.3790
+      27   60 22885.00754937        22885.00754937     22885.00754937    6.7188
+     703   10     3.40644211            3.40644211         3.40644211    3.8496
+     703   30     4.90882335            4.90882335         4.90882335    5.5489
+     703   60   223.48514173          223.48514173       223.48514173    6.8887
+   10087   10     3.78483971            3.78483971         3.78483971    4.2647
+   10087   30     4.92979052            4.92979052         4.92979052    6.3594
+   10087   60    11.54529053           11.54529053        11.54529053    6.3594
+   35655   10     5.88045522            5.88045522         5.88045522    1.5098
+   35655   30     8.14579675            8.14579675         8.14579675    7.5489
+   35655   60     8.71370361            8.71370361         8.71370361    8.5880
+  381727   10     5.07935782            5.07935782         5.07935782    2.3399
+  381727   30     6.46770157            6.46770157         6.46770157    7.7940
+  381727   60     9.10525178            9.10525178         9.10525178    7.7940

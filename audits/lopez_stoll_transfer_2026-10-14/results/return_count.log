@@ -1,0 +1,22 @@
+3 e^(7/9) = 6.529890   (the repo's constant in logFloor_window_bound')
+
+      m0  Ninj     N    sum 2^-D_i   3m0(2^E_N-1)   3e^(7/9)m0 N^(1/9)   ok |  #D<=0  #D<=1  #D<=2   bound w=2   ok
+       3     3     2      1.666667       1.666667                21.16 True |      1      2      2        6.67 True
+       7     6     5      4.283951       4.283951                54.66 True |      2      4      5       17.14 True
+      27    42    41     16.106770      16.106770               266.36 True |      3      8     13       64.43 True
+      31    40    39     16.245116      16.245116               304.13 True |      3      7     12       64.98 True
+     703    63    62    442.778617     442.778617              7261.32 True |     12     13     16     1771.11 True
+   10087    82    81   7457.898943    7457.898943            107330.16 True |     16     24     34    29831.60 True
+   35655   120   119  21803.921572   21803.921572            395952.07 True |     35     41     48    87215.69 True
+  381727   138   137 282359.160097  282359.160097           4305981.18 True |     29     34     45  1129436.64 True
+  626331   190   189 257850.566035  257850.566035           7322341.16 True |     76     84     92  1031402.26 True
+
+violations: 0
+
+CONTROL: drop the injectivity hypothesis and the bound must fail.
+  m0=   27 N=  41 (injective through 42) sum=         16.11 bound=   266.36  holds=True
+  m0=   27 N=  62 (injective through 42) sum=      40747.46 bound=   278.88  holds=False
+  m0=   27 N=  82 (injective through 42) sum=   12874636.51 bound=   287.68  holds=False
+  m0=  703 N=  62 (injective through 63) sum=        442.78 bound=  7261.32  holds=True
+  m0=  703 N=  83 (injective through 63) sum=    1070784.13 bound=  7500.53  holds=False
+  m0=  703 N= 103 (injective through 63) sum=  338320635.16 bound=  7682.63  holds=False

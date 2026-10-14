@@ -1,0 +1,12 @@
+# External sources consumed by this audit, by sha256.  The PDFs are NOT
+# redistributed here; only their hashes, so the audit is checkable.
+#
+# [2009] J. Lopez, P. Stoll, "The 3x+1 conjugacy map over a Sturmian word",
+#        INTEGERS 9 (2009), 141-162, #A13.  DOI 10.1515/INTEG.2009.014.
+#        REFEREED.  22 pp, 610903 bytes.
+e6901bbe7b84af724575afd8d1b21674df3ced39c70f8c2aef6ac312d5dedf0b  j13.pdf
+#
+# [2021] J. Lopez, P. Stoll, "The 3x+1 periodicity conjecture in R",
+#        arXiv:2101.12747v1 [math.NT], 29 Jan 2021.  PREPRINT v1.
+#        51 pp, 3711557 bytes.
+e4c5bccec262d8fdb001d7970dee56c347c03d789796c165e79a18dc2d584b9a  2101.12747v1.pdf

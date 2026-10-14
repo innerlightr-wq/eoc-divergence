@@ -1,0 +1,37 @@
+=== W1: all ones.  A holds, Delta grows LINEARLY. ===
+  d_j = 1
+     N=3000  0-confined (exact) = True   min Delta = 0.5850
+     Delta_N/N      : liminf 0.584963   limsup 0.584963
+     Delta_N/log2 N : max 151.922      max Delta_N = 1754.89
+     => A does NOT imply D, E, F or G.  (liminf Delta/N = alpha-1 > 0.)
+
+=== W2: geometric climb/descend stages.  D holds, E FAILS. ===
+  climb/descend stages
+     N=6000  0-confined (exact) = True   min Delta = 0.0090
+     Delta_N/N      : liminf 0.000093   limsup 0.209963
+     Delta_N/log2 N : max 84.995      max Delta_N = 1066.78
+     => D holds (liminf -> 0) but E FAILS (limsup Delta/N stays positive),
+        so D does NOT imply E.  F and G fail a fortiori.
+
+=== W3: Delta_N ~ sqrt(N).  E holds, F FAILS. ===
+  Delta ~ sqrt N
+     N=4000  0-confined (exact) = True   min Delta = 0.5850
+     Delta_N/N      : liminf 0.015713   limsup 0.099814
+     Delta_N/log2 N : max 5.322      max Delta_N = 63.68
+     => E holds but F FAILS, so E does NOT imply F.  In particular
+        liminf Delta_N/N = 0 gives NO O(log N) or O(sqrt N) corridor.
+
+=== W4: Delta_N bounded (G).  Exists symbolically. ===
+  greedy d=2 when allowed
+     N=4000  0-confined (exact) = True   min Delta = 0.0001
+     Delta_N/N      : liminf 0.000000   limsup 0.008386
+     Delta_N/log2 N : max 0.137      max Delta_N = 1.00
+     => G holds symbolically (bounded Delta).  This word is NOT excluded
+        symbolically; it is excluded for positive-integer orbits by the
+        repository's bounded-drift theorems (see PRIOR_DETERMINISTIC_BARRIERS.md).
+
+=== two-clock check on each word: liminf ordinary density vs 1/limsup(S_N/N) ===
+  W1: ordinary liminf h/l = 1.000000000   endpoint min N/S_N = 1.000000000   1/limsup(S_N/N) = 1.000000000   equal = True
+  W2: ordinary liminf h/l = 0.630952381   endpoint min N/S_N = 0.630952381   1/limsup(S_N/N) = 0.630952381   equal = True
+  W3: ordinary liminf h/l = 0.645109135   endpoint min N/S_N = 0.645109135   1/limsup(S_N/N) = 0.645109135   equal = True
+  W4: ordinary liminf h/l = 0.630929791   endpoint min N/S_N = 0.630929791   1/limsup(S_N/N) = 0.630929791   equal = True

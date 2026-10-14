@@ -1,0 +1,38 @@
+alpha = 1.584962500721   beta = 1/alpha = 0.630929753571   J(alpha) = I0 = 0.079318612775
+
+(A1) within one accelerated block the ordinary density h/l DECREASES,
+     so its infimum over the block is attained at the block END l = S_j:
+        liminf_l h/l = liminf_N N/S_N = 1/limsup_N (S_N/N) ,
+        limsup_l h/l = limsup_N N/(S_{N-1}+1) .
+
+  all ones (S_N = N)           endpoint min N/S_N = 1.000000   ordinary liminf = 1.000000  limsup = 1.000000
+  period 12 (S=2N)             endpoint min N/S_N = 0.500000   ordinary liminf = 0.500000  limsup = 1.000000
+  critical-ish 1,2,2,1,2,...   endpoint min N/S_N = 0.600000   ordinary liminf = 0.600000  limsup = 1.000000
+
+(A2) COUNTEREXAMPLES to the invalid implications among A..G.
+     Words are admissible valuation words (every d_j >= 1); confinement
+     is tested exactly.  Delta_N = alpha N - S_N.
+  word_D_not_E: confined(Delta>=0) = False;  min Delta = -443.5321
+     liminf Delta_N/N over N<=4000 = -0.172484  (approaches 0)   limsup = 0.003263  (stays positive)
+     max Delta_N = 1.62  at N = 3350;  Delta_N/log2(N) max = 0.16
+     => D holds, E FAILS (Delta_N/N does not tend to 0), and F,G fail badly.
+
+  word_E_not_F (Delta ~ sqrt N): min Delta = 0.5850  max Delta/sqrt(N) = 1.1699
+     max Delta_N/N = 0.072647 -> 0 : E holds
+     Delta_N/log2 N at N=3000 = 4.752 -> infinity : F FAILS
+     => E holds, F FAILS.  And F => G fails likewise (Delta unbounded).
+
+  A (S_N <= alpha N for all N) holds for the all-ones word with
+     Delta_N = (alpha-1)N -> infinity LINEARLY: so A does NOT give D, E, F or G.
+     all-ones: confined = True, Delta_N/N = 0.584963 = alpha-1 = 0.584963 constant.
+
+(B) endpoint rate:  #{words of length N with S_N = s} = C(s-1,N-1), weight 2^-s,
+    so P(S_N <= sN) = sum_{t<=sN} C(t-1,N-1) 2^{-t}.  Check -log2 P /N -> J(s).
+     s         J(s)       N=50      N=150      N=400     N=1000
+1.1000  0.616553314   0.662490   0.637012   0.625978   0.620982
+1.2000  0.419973094   0.471215   0.442211   0.430066   0.424669
+1.3000  0.286845212   0.339146   0.309392   0.297047   0.291584
+1.4000  0.191631204   0.242985   0.213776   0.201670   0.196303
+1.5850  0.079318613   0.127834   0.101663   0.089627   0.084074 <- alpha
+1.7000  0.038389710   0.079226   0.056272   0.046694   0.042343
+1.9000  0.003798321   0.031054   0.015313   0.009175   0.006435

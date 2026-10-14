@@ -1,0 +1,34 @@
+Theorem S, checked against real orbits: measured max return gap G_meas
+vs the largest G that Theorem S permits at the observed injective depth.
+
+      m0  Ninj  w  #returns  G_meas    N^(8/9)  3e^(7/9)m0 2^w G_meas  S holds
+      27    42  0         3      37      27.14                6523.36     True
+      27    42  2        13      26      27.14               18335.93     True
+      31    40  0         3      35      25.96                7084.93     True
+      31    40  2        12      26      25.96               21052.36     True
+     703    63  0        12      51      39.20              234116.14     True
+     703    63  2        16      31      39.20              569223.55     True
+   10087    82  0        16      66      49.71             4347221.89     True
+   10087    82  2        34      41      49.71            10802187.73     True
+   35655   120  0        35      85      69.97            19789973.75     True
+   35655   120  2        48      67      69.97            62396623.13     True
+  381727   138  0        29     109      79.31           271697241.36     True
+  381727   138  2        45      51      79.31           508497589.33     True
+  626331   190  0        76     111     105.57           453975836.99     True
+  626331   190  2        92      96     105.57          1570511003.63     True
+
+violations of the inequality: 0
+
+Reading: for every real seed tested the inequality is satisfied with room,
+i.e. Theorem S is consistent with the data and its content is a CAP on how
+long an orbit with regular narrow returns can stay injective:
+      m0  w    G    N_max = (3e^(7/9) m0 2^w G)^(9/8)
+      27  0    1                                336.6
+      27  0    5                               2057.8
+      27  2    5                               9788.4
+     703  0    1                              13170.2
+     703  0    5                              80525.8
+     703  2    5                             383047.4
+   10087  0    1                             263634.0
+   10087  0    5                            1611916.8
+   10087  2    5                            7667611.5
