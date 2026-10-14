@@ -1,0 +1,143 @@
+====================================================================================================
+Test 0 -- the anchor gate: is the window at zero typical?
+Exact over ALL shifts at every depth (event method); no sampling anywhere in this test.
+====================================================================================================
+
+[1] per depth: r_min(N,0), M, Q  (exact [V])
+   N   A[N]      M = |Z_N|   log2 M/N   r_min(N,0)   log2 r/N
+   8     12            367     1.0650           27     0.5944
+   9     14           1295     1.1487           27     0.5283
+  10     15           2114     1.1046           27     0.4755
+  11     17           7495     1.1702           27     0.4323
+  12     19          27328     1.2282           27     0.3962
+  13     20          46611     1.1930           27     0.3658
+  14     22         168807     1.2404           27     0.3396
+  15     23         286581     1.2086           27     0.3170
+  16     25        1037374     1.2490           27     0.2972
+  17     26        1762293     1.2205           27     0.2797
+  18     28        6385637     1.2559           27     0.2642
+  19     30       23642078     1.2892           27     0.2503
+  20     31       41347483     1.2651           27     0.2377
+
+[2] the window at zero against the exact all-shift law
+    rho_0 = X_0/E;  pct = exact percentile of X_0 in the all-shift distribution;
+    P(X=0) = (#bad shifts)/Q;  med/mean/max are of X_y over all y mod Q
+
+  c = 0.70
+     N     c      w              H            E        X_0     rho_0      pct   median      max     P(X=0)
+     8  0.70      5             32       1.4336          2    1.3951   0.7268        1        4  1.187e-01
+     9  0.70      6             64       2.5293          4    1.5815   0.8872        2        6  2.710e-02
+    10  0.70      7            128       4.1289          8    1.9376   0.9946        4       10  1.404e-03
+    11  0.70      7            128       3.6597          8    2.1860   0.9975        4       10  4.929e-03
+    12  0.70      8            256       6.6719         13    1.9485   0.9989        7       15  0.000e+00
+    13  0.70      9            512      11.3796         15    1.3181   0.9326       11       21  0.000e+00
+    14  0.70      9            512      10.3032         15    1.4559   0.9757       10       20  0.000e+00
+    15  0.70     10           1024      17.4915         20    1.1434   0.8038       17       31  0.000e+00
+    16  0.70     11           2048      31.6581         30    0.9476   0.3349       32       51  0.000e+00
+    17  0.70     11           2048      26.8905         27    1.0041   0.5150       27       45  0.000e+00
+    18  0.70     12           4096      48.7185         49    1.0058   0.5227       49       73  0.000e+00
+    19  0.70     13           8192      90.1874         93    1.0312        -        -        - over budget
+    20  0.70     14          16384     157.7281        161    1.0207        -        -        - over budget
+
+  c = 0.80
+     N     c      w              H            E        X_0     rho_0      pct   median      max     P(X=0)
+     8  0.80      6             64       2.8672          4    1.3951   0.8247        3        6  1.123e-02
+     9  0.80      7            128       5.0586          8    1.5815   0.9695        5       10  0.000e+00
+    10  0.80      8            256       8.2578         14    1.6954   0.9974        8       15  0.000e+00
+    11  0.80      8            256       7.3193         14    1.9127   0.9991        7       15  0.000e+00
+    12  0.80      9            512      13.3438         18    1.3489   0.9734       13       21  0.000e+00
+    13  0.80     10           1024      22.7593         25    1.0985   0.7603       23       36  0.000e+00
+    14  0.80     11           2048      41.2126         42    1.0191   0.5799       41       59  0.000e+00
+    15  0.80     12           4096      69.9661         68    0.9719   0.3461       70       93  0.000e+00
+    16  0.80     12           4096      63.3163         60    0.9476   0.2561       63       87  0.000e+00
+    17  0.80     13           8192     107.5618        105    0.9762   0.3537      108      140  0.000e+00
+    18  0.80     14          16384     194.8742        192    0.9853   0.3808      195      241  0.000e+00
+    19  0.80     15          32768     360.7495        358    0.9924        -        -        - over budget
+    20  0.80     16          65536     630.9125        633    1.0033        -        -        - over budget
+
+  c = 0.90
+     N     c      w              H            E        X_0     rho_0      pct   median      max     P(X=0)
+     8  0.90      7            128       5.7344          9    1.5695   0.9836        6       10  0.000e+00
+     9  0.90      8            256      10.1172         14    1.3838   0.9726       10       16  0.000e+00
+    10  0.90      9            512      16.5156         21    1.2715   0.9851       17       22  0.000e+00
+    11  0.90      9            512      14.6387         20    1.3662   0.9897       15       22  0.000e+00
+    12  0.90     10           1024      26.6875         31    1.1616   0.9088       27       39  0.000e+00
+    13  0.90     11           2048      45.5186         47    1.0325   0.6460       46       62  0.000e+00
+    14  0.90     12           4096      82.4253         81    0.9827   0.3821       82      103  0.000e+00
+    15  0.90     13           8192     139.9321        133    0.9505   0.1622      140      167  0.000e+00
+    16  0.90     14          16384     253.2651        248    0.9792   0.2939      253      295  0.000e+00
+    17  0.90     15          32768     430.2473        426    0.9901   0.3802      430      483  0.000e+00
+    18  0.90     16          65536     779.4967        776    0.9955   0.4300      779      858  0.000e+00
+    19  0.90     17         131072    1442.9979       1432    0.9924        -        -        - over budget
+    20  0.90     18         262144    2523.6501       2537    1.0053        -        -        - over budget
+
+[3] small aligned windows near zero: X_{kH}, k = 0..63  (exact [V])
+    reported as the multiset summary of the 64 counts, against E
+   N     c            E      min   median     mean      max      #zero
+   8  0.70       1.4336        0      1.0    1.422        4          9
+   8  0.80       2.8672        0      3.0    2.891        5          1
+   8  0.90       5.7344        3      5.5    5.734        9          0
+   9  0.70       2.5293        0      2.0    2.484        5          1
+   9  0.80       5.0586        2      5.0    5.031        8          0
+   9  0.90      10.1172        7      9.5   10.047       15          0
+  10  0.70       4.1289        1      4.0    4.094        8          0
+  10  0.80       8.2578        4      8.0    8.250       14          0
+  10  0.90      16.5156       10     17.0   16.531       21          0
+  11  0.70       3.6597        0      3.5    3.594        8          2
+  11  0.80       7.3193        3      7.0    7.250       14          0
+  11  0.90      14.6387        9     14.5   14.578       20          0
+  12  0.70       6.6719        3      6.0    6.359       13          0
+  12  0.80      13.3438        7     13.0   13.016       18          0
+  12  0.90      26.6875       19     26.0   26.188       34          0
+  13  0.70      11.3796        7     11.0   11.250       16          0
+  13  0.80      22.7593       15     23.0   22.281       30          0
+  13  0.90      45.5186       37     45.5   44.844       54          0
+  14  0.70      10.3032        6     10.0   10.266       16          0
+  14  0.80      41.2126       31     41.0   40.594       49          0
+  14  0.90      82.4253       71     82.0   82.031       93          0
+  15  0.70      17.4915       12     17.0   17.156       23          0
+  15  0.80      69.9661       60     70.0   69.781       79          0
+  15  0.90     139.9321      126    139.0  139.781      162          0
+  16  0.70      31.6581       23     31.0   31.156       44          0
+  16  0.80      63.3163       53     63.0   63.078       75          0
+  16  0.90     253.2651      227    255.0  253.438      279          0
+  17  0.70      26.8905       17     27.0   26.531       36          0
+  17  0.80     107.5618       91    108.5  108.188      123          0
+  17  0.90     430.2473      393    429.5  428.344      456          0
+  18  0.70      48.7185       37     49.0   48.938       60          0
+  18  0.80     194.8742      176    192.0  194.188      215          0
+  18  0.90     779.4967      729    781.0  779.234      816          0
+
+[4] GATE 0 -- preregistered fit of log2 rho_0 against N
+    slope gate: -0.02 per step; FAIL requires every c <= gate in BOTH fits
+     c   slope 8-18  slope 10-18     #X_0=0  max|log2|   verdict(c)
+  0.70     -0.09425     -0.15727          0     1.1283     depleted
+  0.80     -0.09244     -0.12065          0     0.9356     depleted
+  0.90     -0.06940     -0.05697          0     0.6503     depleted
+
+GATE 0: FAIL -- the window at zero is SYSTEMATICALLY DEPLETED
+  [R] for 'the window at zero is typical'.  Verdict for r_min on all moment
+  routes: STOP.  Tests A and B become moot for r_min.
+
+[5] POST-HOC VARIANT -- NOT PREREGISTERED.  Added after seeing the data because the
+    preregistered Gate 0 is ill-posed for the shape the data actually has: rho_0 starts
+    ABOVE 1 (1.40-1.95 at N=8..12) and RELAXES TO 1, and an OLS slope over a window
+    containing that transient cannot distinguish 'relaxes to 1 from above' from
+    'decays exponentially'.  Both give a negative slope.  The preregistered verdict
+    above stands as recorded; this variant is reported alongside it, never instead.
+    Post-hoc criteria, stated before being read: (a) slope over the last five primary
+    depths N=14..18; (b) |log2 rho_0| at N=16,17,18; (c) rho_0 at the extension depths
+    N=19,20, which are excluded from every fit.
+     c    slope 14-18 max|log2| N>=16          rho_0 at N=16,17,18       rho_0 at N=19,20
+  0.70       -0.12546         0.0776       0.9476, 1.0041, 1.0058         1.0312, 1.0207
+  0.80       -0.00911         0.0776       0.9476, 0.9762, 0.9853         0.9924, 1.0033
+  0.90       +0.00963         0.0303       0.9792, 0.9901, 0.9955         0.9924, 1.0053
+
+    Reading of the post-hoc variant [F]: at the three largest primary depths rho_0 lies
+    within 0.95-1.00 for every c, the exact percentile of X_0 has fallen from ~0.98 to
+    0.33-0.52, and the two extension depths give rho_0 = 0.992-1.005.  At these depths
+    the window at zero is TYPICAL, not depleted.  This is a finite-range observation at
+    N <= 20; it is not an asymptotic statement and does not refute depletion at large N.
+
+====================================================================================================
+exact checks passed   [V] for the finite ranges printed above
