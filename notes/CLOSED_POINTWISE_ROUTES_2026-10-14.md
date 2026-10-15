@@ -288,3 +288,54 @@ Prop. 4.10 a divergent orbit is **one infinite episode** of exactly this type,
 and an infinite episode provably has infinitely many turns, so `F_k` is silent
 there.
 
+---
+
+## 5. An unconditional two-run least-realizer floor
+
+Full package: [`audits/two_run_floor_2026-10-14/`](../audits/two_run_floor_2026-10-14/).
+
+**Scope.** How much joint `×2, ×3` input is needed for a nontrivial exponential
+lower bound on the least realizer of a two-run word `1^u q 1^v`?
+
+**Answer: none.** From §4's Theorem D the realizing set is a single residue
+class, `r = 2^{u+1}A* − 1` with `A*` the least positive residue of
+`3^{−(u+1)}c` mod `2^{n+1}`, `n = q+v`, `c = 1 − 2^{q−1} + 2^n`. Two elementary
+consequences suffice: `A*` is odd, so `log₂(r+1) ≥ u+1`; and `3^{u+1}A* ≥ c`
+because `0 < c < 2^{n+1}`, while `q ≤ n` gives `c > 2^{n−1}`, so
+`log₂(r+1) > S − (u+1)log₂3`. The first increases and the second decreases in
+`u`, hence with `S = u+n`
+
+```
+   r(1^u q 1^v) + 1  ≥  2^{S/(1+log₂3)}  =  2^{(log₆2)·S} ,   log₆2 = 0.38685280723… ,
+```
+
+with **no error term and no hypothesis**. Verified on 2912 triples, 0 violations;
+worst observed ratio `0.400000`.
+
+**Where input is needed.** Only on the band `u+1 ≍ 0.39S`, `n ≍ 0.61S`, and only
+as a **pointwise** lower bound on that residue along a diagonal `u, n → ∞`. An
+exponent `ε` follows from `A* ≥ 2^{n+1}3^{−κS−C}` as `ε = 1 − κ log₂3`,
+nontrivial exactly while `κ < 1/log₂3 = log₃2 = 0.63093`. Available `×2,×3`
+methods are measure-theoretic or exceptional-set in form, so they bound the set
+of bad exponents rather than the value at the specific `(u,n)` a word generates —
+**population sparsity is not pointwise extremal placement**, and no averaged
+statement is promoted here.
+
+**Two warnings, both verified.** (i) For fixed `(q,v)` the sequence `u ↦ A*_u`
+is periodic with period `2^{n−1}` and dips to `O(1)` every period (`min A* = 5`
+at four tested `(q,v)`), so **no hypothesis may be phrased as "`A*` is large"** —
+it must be relative to the modulus, with `n` growing. (ii) Corridor confinement
+of the block at level `c` is the **single** inequality `q ≤ c + α + (α−1)u`
+(exactly `2^{u+q} ≤ 2^c·3^{u+1}`) with **`v` unrestricted**, so `q = 2` works for
+every `u ≥ 0` at `c = 1` and the critical band is fully admissible: **corridor
+structure does not weaken the required input.**
+
+**The ladder does not close above this.** All confined words (equivalently
+`L_c(m) = O(log m)` by Rev 8 Prop. 6.4) needs the **moving-anchor** theorem of
+Rev 8 Remark 5.8 — Open Problem C/D — and the two-run result does not reduce it,
+because the bit count composes while the placement does not. Exclusion of one
+infinite zero-confined orbit admits **no clean formulation**: by
+`residue_pinning` such a seed is the least realizer of its own word at every
+depth, so any sufficient statement is a transcription of `r(D_N) → ∞`, the
+conclusion itself. And full EOC additionally needs the amortization theorem that
+§3 shows has no available resource.
