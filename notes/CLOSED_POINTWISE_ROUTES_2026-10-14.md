@@ -226,3 +226,65 @@ rounds, and every Lean reference is source-backed by reading the named file.
 External results (Monks–Yazinski 2004, Lagarias, García–Tal 1999, Curry 2026, and
 the percolation preprint) are **source-reported, not independently read**, and are
 cited only where a dependency is actually used.
+
+---
+
+## 4. Episode classification by drift-direction runs
+
+Full package: [`audits/episode_classification_2026-10-14/`](../audits/episode_classification_2026-10-14/).
+
+**Scope.** Classify the corridor episodes of §3 by their internal
+drift-direction runs (`s_n = 0` iff `d_n = 1`, `k` the number of changes, `F_k`
+the blocks with at most `k` changes) and ask whether the hierarchy yields
+arithmetic control.
+
+**The engine.** `d_n = 1 ⟺ v₂(m_n+1) ≥ 2`; a `d=1` step sends
+`v₂(m+1) ↦ v₂(m+1) − 1` exactly; so the **maximal `d=1` run from `x` has length
+exactly `v₂(x+1) − 1`**. The ones-run length is a 2-adic resource, spent one unit
+per step and **regenerated to an unbounded new value by every `d ≥ 2` step**.
+Verified over all odd `3 ≤ m₀ ≤ 60001`, 0 violations. There is no conservation
+law, which is why every chaining bound compounds.
+
+**The baseline.** For a prefix of length `N` with at most `k` direction changes
+and all states `> 1`, `N ≤ F(k)·log₂(m₀+1)` with
+`F(k) = (α^{⌈(k+1)/2⌉} + α − 2)/((α−1)(2−α))` — no corridor hypothesis needed.
+Only the ones-runs compound, and there are about `k/2` of them; coefficients
+`4.82, 8.64, 14.69, 39.49` at `j = 1,2,3,5`. Inverting, the number of direction
+changes must grow at least like `3.0100·log₂(N/L)` — **not** divergence
+exclusion.
+
+**The hierarchy adds no control, and the measurement is the reason.** Over all
+odd `3 ≤ m₀ < 60001` at `c = 1`, across 7301 complete episodes of length `≥ 10`:
+`mean k/ℓ = 0.4537`, `max ℓ with k ≤ 2 = 15`, `max ℓ with k ≤ 4 = 22`; the Loeb
+episodes of §3 have `k = 7, 1, 3, 25, 0, 3, 1`, the length-`64` one lying in
+`F₂₅`. **`k` is linear in `ℓ`**, so a fixed-`k` class contains only
+bounded-length episodes and the baseline is astronomically vacuous where the
+population lives (at the Loeb seed's own `j = 28` it reads `N ≤ 2.98×10⁷` against
+`N = 138`).
+
+**The main attempt returned a negative answer, proved.** For `1^u q 1^v` with
+both ones-runs maximal, the word is realized **iff** `x+1 = 2^{u+1}A` with `A`
+odd in the single class `A ≡ 3^{−(u+1)}(1 − 2^{q−1}) (mod 2^{q+v})`. So
+`r+1 = 2^{u+1}A_min` with `A_min < 2^{q+v+1}`, and the minimum-seed cost
+**factors** as (first-run 2-adic cost) × (second-run congruence cost) **with no
+cross term** — the two growth runs do not force a combined cost beyond charging
+each separately. Verified against brute force on all 60 triples tested.
+
+**It also corrects §3 of this document.** The family `D_L = (3, 1^L, L+2)` at
+`c = 1`, verified at `L = 1..16` by exact realizer congruence and direct
+iteration, has `ℓ = L`, `w_max = (α−1)(L+1) − 1`,
+`W_L = (16/3)(1 − (2/3)^L) < 16/3` exactly, and seed condition
+`2^{L+4} | m₀+3`. So `w_max ≤ K log₂ℓ + C` is **false** for complete finite
+positive-orbit episodes: **the (DEPTH–DURATION) lemma proposed in §3 is
+refuted.** The cost does not vanish — it moves into the seed, linearly in the
+depth. It does **not** refute the version restricted to globally divergent
+orbits, since every `D_L` seed reaches `1` and so has `R → +∞` by Rev 8
+Lemma 4.2.
+
+**Residual.** Infinitely many internal direction changes with positive-integer
+realization at every depth — not assumed Sturmian, periodic, typical or
+low-complexity, and consistent with the measured `k/ℓ ≈ 0.45`. By Rev 8
+Prop. 4.10 a divergent orbit is **one infinite episode** of exactly this type,
+and an infinite episode provably has infinitely many turns, so `F_k` is silent
+there.
+

@@ -1,0 +1,111 @@
+==============================================================================================
+CONTROL D_L = (3, 1^L, L+2) at c = 1 -- verified independently from exact arithmetic
+==============================================================================================
+  L      episode    l  w_max pred  w_max obs    W_L pred     W_L obs  2^(L+4)|m0+3                least r  word ok
+  1 [(0, 1), (2, 3)]    1    0.169925   0.169925   1.7777778   1.7777778          True                    221     True
+  2 [(0, 1), (2, 4)]    2    0.754888   0.754888   2.9629630   2.9629630          True                    573     True
+  3 [(0, 1), (2, 5)]    3    1.339850   1.339850   3.7530864   3.7530864          True                   1405     True
+  5 [(0, 1), (2, 7)]    5    2.509775   2.509775   4.6310014   4.6310014          True                  50685     True
+  8 [(0, 1), (2, 10)]    8    4.264663   4.264663   5.1252350   5.1252350          True                3772413     True
+ 12 [(0, 1), (2, 14)]   12    6.604513   6.604513   5.2922275   5.2922275          True              516489213     True
+ 16 [(0, 1), (2, 18)]   16    8.944363   8.944363   5.3252137   5.3252137          True            13145997309     True
+PASS  D_L: episode [2,L+2), l=L, w_max=(alpha-1)(L+1)-1, W_L=(16/3)(1-(2/3)^L) exact, 2^(L+4)|m_0+3 (0 failures)
+
+  CONSEQUENCE.  w_max grows LINEARLY in l = L while W_L stays below 16/3, so a
+  seed-independent bound  w_max <= K log2(l) + C  is FALSE for complete finite
+  positive-orbit episodes.  This REFUTES the (DEPTH-DURATION) lemma proposed at
+  the end of the previous round.  The cost appears instead in the seed:
+  m_0 >= 2^{L+4} - 3, i.e. log2 m_0 >= L + 4 - o(1) -- linear in the depth.
+  It does NOT refute the statement restricted to globally divergent orbits:
+  these seeds reach 1, so by Rev 8 Lemma 4.2 their drift tends to +infinity.
+
+==============================================================================================
+MAIN ATTEMPT: the class 1^u q 1^v -- does the factorisation hold?
+==============================================================================================
+  u   q   v        A_min       x=2^(u+1)A_min-1  word ok    brute-force min x  equal  2^(u+1)-1 <= x
+  1   2   1           15                     59     True                   59   True            True
+  1   2   2           23                     91     True                   91   True            True
+  1   2   3           39                    155     True                  155   True            True
+  1   2   5           71                    283     True                  283   True            True
+  1   3   1            5                     19     True                   19   True            True
+  1   3   2           53                    211     True                  211   True            True
+  1   3   3           21                     83     True                   83   True            True
+  1   3   5           85                    339     True                  339   True            True
+  1   4   1           17                     67     True                   67   True            True
+  1   4   2           49                    195     True                  195   True            True
+  1   4   3          241                    963     True                  963   True            True
+  1   4   5          625                   2499     True                 2499   True            True
+  2   2   1            5                     39     True                   39   True            True
+  2   2   2           29                    231     True                  231   True            True
+  2   2   3           13                    103     True                  103   True            True
+  2   2   5          109                    871     True                  871   True            True
+  2   3   1           23                    183     True                  183   True            True
+  2   3   2           39                    311     True                  311   True            True
+  2   3   3            7                     55     True                   55   True            True
+  2   3   5          199                   1591     True                 1591   True            True
+  2   4   1           27                    215     True                  215   True            True
+  2   4   2           59                    471     True                  471   True            True
+  2   4   3          251                   2007     True                 2007   True            True
+  2   4   5          891                   7127     True                 7127   True            True
+  3   2   1            7                    111     True                  111   True            True
+  3   2   2           31                    495     True                  495   True            True
+  3   2   3           47                    751     True                  751   True            True
+  3   2   5          207                   3311     True                 3311   True            True
+  3   3   1           29                    463     True                  463   True            True
+  3   3   2           13                    207     True                  207   True            True
+  3   3   3           45                    719     True                  719   True            True
+  3   3   5          237                   3791     True                 3791   True            True
+  3   4   1            9                    143     True                  143   True            True
+  3   4   2          105                   1679     True                 1679   True            True
+  3   4   3          169                   2703     True                 2703   True            True
+  3   4   5          297                   4751     True                 4751   True            True
+  5   2   1           15                    959     True                  959   True            True
+  5   2   2            7                    447     True                  447   True            True
+  5   2   3           55                   3519     True                 3519   True            True
+  5   2   5           23                   1471     True                 1471   True            True
+  5   3   1           21                   1343     True                 1343   True            True
+  5   3   2           37                   2367     True                 2367   True            True
+  5   3   3            5                    319     True                  319   True            True
+  5   3   5          197                  12607     True                12607   True            True
+  5   4   1            1                     63     True                   63   True            True
+  5   4   2           97                   6207     True                 6207   True            True
+  5   4   3          161                  10303     True                10303   True            True
+  5   4   5           33                   2111     True                 2111   True            True
+  8   2   1           13                   6655     True                 6655   True            True
+  8   2   2            5                   2559     True                 2559   True            True
+  8   2   3           21                  10751     True                10751   True            True
+  8   2   5          181                  92671     True                92671   True            True
+  8   3   1           15                   7679     True                 7679   True            True
+  8   3   2           63                  32255     True                32255   True            True
+  8   3   3           95                  48639     True                48639   True            True
+  8   3   5          159                  81407     True                81407   True            True
+  8   4   1           19                   9727     True                 9727   True            True
+  8   4   2           51                  26111     True                26111   True            True
+  8   4   3          243                 124415     True               124415   True            True
+  8   4   5          115                  58879     True                58879   True            True
+PASS  factorisation x+1 = 2^(u+1) A_min is EXACT and minimal on 60 (u,q,v) triples (0 failures)
+
+  So the realising set of 1^u q 1^v is  { x : x+1 = 2^{u+1} A,  A odd,
+  A == 3^{-(u+1)}(1-2^{q-1}) mod 2^{q+v} }, and
+        2^{u+1} - 1  <=  r(1^u q 1^v)  <  2^{u+q+v+2} .
+  The two run costs MULTIPLY and there is no cross term: the first run
+  contributes the factor 2^{u+1} and the second contributes a residue class
+  mod 2^{q+v}.  ANSWER TO THE PRIMARY QUESTION: NO extra joint cost.
+
+  When is the lower bound 2^{u+1}-1 attained?  Exactly when A_min = 1, i.e.
+  3^{u+1} == 1 - 2^{q-1} mod 2^{q+v}, i.e. when x = 2^{u+1}-1 is itself the
+  realiser -- the Mersenne/all-ones-prefix seeds, for which q and v are
+  DETERMINED by u:
+    u    x=2^(u+1)-1   q   v  v2(3^(u+1)-1)  A_min(u,q,v)
+    1              3   4   0              3             1
+    2              7   2   0              1             1
+    3             15   5   0              4             1
+    4             31   2   0              1             1
+    5             63   4   1              3             1
+    7            255   6   0              5             1
+    8            511   2   0              1             1
+   11           4095   5   5              4             1
+   15          65535   7   0              6             1
+
+ALL PASS
+peak RSS 11.8 MiB

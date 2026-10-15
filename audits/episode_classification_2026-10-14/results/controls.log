@@ -1,0 +1,70 @@
+================================================================================================
+THE CLASSIFIER ON THE LOEB BENCHMARK  m_0 = 285175, c = 1
+================================================================================================
+PASS  the seven occupied runs replicate
+PASS  O_1 = 98
+
+ i        [a,b)    l                     block D_I = (d_a..d_(b-1))     direction word   k             runs (sym,len) F_k class
+ 0       [0,15)   15                           (1,1,...,1,4) len 15    001100010000101   7 [(0, 2), (1, 2), (0, 3)]... F_7
+ 1      [16,20)    4                                   (1, 1, 1, 4)               0001   1           [(0, 3), (1, 1)] F_1
+ 2      [21,27)    6                             (1, 1, 2, 2, 1, 3)             001101   3 [(0, 2), (1, 2), (0, 1), (1, 1)] F_3
+ 3      [31,95)   64                           (1,1,...,5,4) len 64        00101000...  25 [(0, 2), (1, 1), (0, 1)]... F_25
+ 4      [98,99)    1                                           (2,)                  1   0                   [(1, 1)] F_0
+ 5    [100,105)    5                                (1, 1, 3, 1, 3)              00101   3 [(0, 2), (1, 1), (0, 1), (1, 1)] F_3
+ 6    [108,111)    3                                      (1, 2, 5)                011   1           [(0, 1), (1, 2)] F_1
+
+  Note the boundary convention at work: D_I includes d_{b-1}, the outgoing
+  transition, so the LAST symbol of every complete episode's direction word is
+  the one that carries R above c.  The entry transition d_{a-1} is excluded and
+  stored separately: d_{a-1} = 1 at every re-entry (Rev 8 Prop. 13.1).
+PASS  d_(a-1) = 1 at all 6 re-entries: [1, 1, 1, 1, 1, 1]
+
+================================================================================================
+CONTROLS
+================================================================================================
+A. least realizer vs larger lifts of the SAME word.
+   The word, direction runs, k, episode structure and W are class invariants;
+   the absolute seed is not.  So a bound on the LEAST realizer is not obtained
+   by making some realizer large, and vice versa.
+   word (3, 1, 1, 1, 1, 1, 1, 1, 1, 10): least r = 3772413, class r mod 2^22 = 3772413 mod 4194304
+             lift  word reproduced   k       episodes (c=1)
+          3772413             True   2    [(0, 1), (2, 10)]
+          7966717             True   2    [(0, 1), (2, 10)]
+         12161021             True   2    [(0, 1), (2, 10)]
+         16355325             True   2    [(0, 1), (2, 10)]
+PASS  every lift in the class reproduces the word, k and the episodes
+
+B. long all-ones (Mersenne) prefixes: the ones-run is maximal at length u =
+   v2(m_0+1)-1, and q is then DETERMINED, so (u,q,v) is not free here.
+     u          m_0  max ones-run  v2(m0+1)-1  then q
+     3           15             3           3       5
+     7          255             7           7       6
+    11         4095            11          11       5
+    15        65535            15          15       7
+    19      1048575            19          19       5
+PASS  Mersenne: maximal ones-run = v2(m_0+1)-1 = u
+
+C. the Prop. 13.2 oscillator: short episodes, k small INSIDE each episode but
+   the episode COUNT unbounded -- a per-episode bound on k bounds nothing global.
+   c=0: 84 episodes, max internal k = 0, global k over [0,200) = 166
+   c=1: 83 episodes, max internal k = 0, global k over [0,200) = 164
+   => internal k <= 1 while the global change count grows linearly in N.
+
+D. eventual fixed-point tail.  At m = 1, d = 2 and R rises by 2-alpha per step,
+   so after arrival the orbit leaves every corridor and never returns.
+   orbit of 1: m = [1, 1, 1, 1, 1, 1], d = [2, 2, 2, 2, 2, 2], R_n - R_0 = [0.0, 0.415, 0.8301, 1.2451, 1.6601, 2.0752]
+PASS  at m=1 every valuation is 2
+
+E. prescribed word over positive reals, no integer ray.  Fix the word of 285175
+   and run x -> (3x+1)/2^{d_n} from several real x_0 > 0.
+   x_0 =         285175  ->  x_40 =           751841   (integer orbit m_40 = 751841)
+   x_0 =       0.142857  ->  x_40 =          42.0925   (integer orbit m_40 = 751841)
+   x_0 =          1e+09  ->  x_40 =      2.63627e+09   (integer orbit m_40 = 751841)
+   The R-profile, the episodes, k and the run structure are PRESCRIBED by the
+   word, so they are identical for every real x_0 > 0.  Everything that
+   distinguishes seeds -- the 2^{u+1} | x+1 condition of Lemma A, the residue
+   class of Theorem D -- comes from INTEGRALITY alone.  A positive-real
+   trajectory has no minimum-seed cost at all.
+
+ALL PASS
+peak RSS 11.7 MiB
