@@ -1,0 +1,24 @@
+==================================================================================================
+P8-CORRECTED.  My first P8 asked whether the bit above the Lemma-T block is 'balanced'.
+It is not: measured P(bit=1) = 0.0000 at i=0 and 1.0000 at i=1, |z| = 152.8.  That
+printed conclusion ('balanced within noise') was WRONG and is retracted.  The bit is
+DETERMINED, and so is every bit below it -- which is the stronger true statement:
+==================================================================================================
+
+  LEMMA T+ (full closed form).  For the S_N-preserving swap (i,k), with
+      V_{i,k} = sum_{j=i+1}^{k} 3^{N-1-j} 2^{S_j - S_{i+1}}      (odd, since the j=i+1 term is odd),
+  one has, as residues mod 2^{S_N},
+      Delta r_N == -2^{S_{i+1}} V_{i,k} 3^{-N} ,
+  so the intrinsic odd part u = (Delta r_N / 2^{S_{i+1}}) mod 2^{S_N - S_{i+1}} satisfies
+      u == -V_{i,k} 3^{-N}   (mod 2^{S_N - S_{i+1}}) ,   EXACTLY.
+  There is no residual component: u is a closed form in (N, i, k, d_{i+1..k-1}).
+  Lemma T is its first block: V == 3^{N-2-i} (mod 2^{d_{i+1}}).
+
+  u == -V_{i,k} 3^{-N} (mod 2^{S_N-S_{i+1}}) verified on 36712 swaps: OK -- NO RESIDUAL
+
+  >>> ANSWER TO THE PRIMARY QUESTION.  For the only comparison with a common modulus,
+      the difference of realizers has an exact closed form.  The 'residual odd
+      component beyond the 2-adic valuation' does not exist: once v_2 = S_{i+1} is
+      removed, what remains is -V 3^{-N}, an explicit function of the word.
+      Temporal position enters ONLY through which digits appear in V -- i.e. through
+      the index range of a sum, not through any new arithmetic.

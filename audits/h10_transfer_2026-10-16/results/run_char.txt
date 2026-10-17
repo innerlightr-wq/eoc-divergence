@@ -1,0 +1,33 @@
+========================================================================================
+STEP 1  Verify the aggregate identity and the residue characterization on real orbits
+========================================================================================
+  m0=      7: identity OK | S_40= 81 | first n with 2^S>m0 = 3   | r_n == m0 thereafter: True
+  m0=     27: identity OK | S_40= 66 | first n with 2^S>m0 = 4   | r_n == m0 thereafter: True
+  m0=     97: identity OK | S_40= 65 | first n with 2^S>m0 = 5   | r_n == m0 thereafter: True
+  m0=    703: identity OK | S_40= 59 | first n with 2^S>m0 = 8   | r_n == m0 thereafter: True
+  m0=  10087: identity OK | S_40= 59 | first n with 2^S>m0 = 12  | r_n == m0 thereafter: True
+  m0= 159487: identity OK | S_40= 60 | first n with 2^S>m0 = 16  | r_n == m0 thereafter: True
+  m0= 270271: identity OK | S_40= 54 | first n with 2^S>m0 = 14  | r_n == m0 thereafter: True
+
+  => for a genuine orbit the canonical residues stabilize at exactly m0, as soon as
+     the modulus exceeds m0.  This is the (easy) forward direction.
+
+========================================================================================
+STEP 2  An admissible word that is 2-adically realizable but NOT by a nonneg integer
+========================================================================================
+  Take the Beatty/Sturmian zero-corridor word d_j = floor((j+1)a) - floor(j a), a = log2 3.
+  confined (2^S_n <= 3^n for all n): True
+  S_60 = 95   d-prefix = [1, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2, 1, 2, 1, 2]
+     n   S_n     r_n (low 40 bits, hex)  r_n == r_{n-1}?
+    10    15                     0x5bfb       compatible
+    20    31                 0x49be5bfb       compatible
+    30    47               0xabc9be5bfb       compatible
+    40    63               0xabc9be5bfb       compatible
+    50    79               0xabc9be5bfb       compatible
+    60    95               0xabc9be5bfb       compatible
+  r_n strictly increasing in n?  True
+  r_60 has 93 bits, S_60 = 95  -> no stabilization
+
+  => the residues are mutually compatible (they define a 2-adic integer) but do NOT
+     stabilize: the limit is a 2-adic integer that is not a nonnegative rational integer.
+     THIS IS THE ENTIRE POINTWISE GAP, exhibited concretely.

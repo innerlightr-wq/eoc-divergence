@@ -1,0 +1,20 @@
+================================================================================================
+RETRACTION of L3, and the CORRECTED statement
+================================================================================================
+  WRONG (mine, above): "r_n is the least residue, so 2^{S_n} exactly divides 3^n r_n + C_n,
+  hence m_n is odd."  Being least mod 2^{S_n} says nothing about divisibility by 2^{S_n+1}.
+  m_n is frequently EVEN.  Minimal counterexample, by exhaustive search:
+    word d=[1], n=0: r_n=0, m_n=0 (EVEN)
+    then 3m_n+1=1 is odd, v_2=0 < d_n=1, so b_n != 0 by L2.
+    check: b_0 = 1 != 0  -> True
+
+  CORRECTED L3'.  [PROVED, verified below]
+     (i)  m_n even        =>  v_2(3m_n+1) = 0 < d_n  =>  b_n != 0  (for every d_n >= 1).
+     (ii) m_n odd, d_n=1  =>  v_2(3m_n+1) >= 1 = d_n =>  b_n = 0.
+     So the lift indicator is   l_n = [m_n even]  OR  [m_n odd AND v_2(3m_n+1) < d_n].
+    (i)  on 18010 positions: OK
+    (ii) on 18010 positions: OK
+
+  CONSEQUENCE for the intended Theorem A' (J(N) <= S_N - N):  WITHDRAWN.
+  It rested on L3.  With L3' the d_n=1 positions only force b_n=0 when m_n is ODD,
+  and m_n is even about half the time, so no such upper bound follows.

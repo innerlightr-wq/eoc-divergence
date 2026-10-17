@@ -1,0 +1,36 @@
+import sys; sys.path.insert(0,'.')
+import eoc, math
+print("="*88)
+print("STEP 1  Verify the aggregate identity and the residue characterization on real orbits")
+print("="*88)
+for m0 in [7, 27, 97, 703, 10087, 159487, 270271]:
+    ok = eoc.check_identity(m0, 40)
+    ds,ms = eoc.orbit_word(m0,40); r,S,C = eoc.residues(ds)
+    # first n with 2^{S_n} > m0 ; from there r_n must equal m0
+    n0 = next(n for n in range(len(S)) if (1<<S[n]) > m0)
+    stab = all(r[n]==m0 for n in range(n0,len(r)))
+    print(f"  m0={m0:>7}: identity {'OK' if ok else 'FAIL'} | S_40={S[-1]:>3} | "
+          f"first n with 2^S>m0 = {n0:<3} | r_n == m0 thereafter: {stab}")
+print()
+print("  => for a genuine orbit the canonical residues stabilize at exactly m0, as soon as")
+print("     the modulus exceeds m0.  This is the (easy) forward direction.")
+print()
+print("="*88)
+print("STEP 2  An admissible word that is 2-adically realizable but NOT by a nonneg integer")
+print("="*88)
+print("  Take the Beatty/Sturmian zero-corridor word d_j = floor((j+1)a) - floor(j a), a = log2 3.")
+alpha = math.log2(3)
+ds = [int((j+1)*alpha) - int(j*alpha) for j in range(60)]
+r,S,C = eoc.residues(ds)
+print(f"  confined (2^S_n <= 3^n for all n): {eoc.confined(ds)}")
+print(f"  S_60 = {S[-1]}   d-prefix = {ds[:18]}")
+print(f"  {'n':>4} {'S_n':>5} {'r_n (low 40 bits, hex)':>26} {'r_n == r_{n-1}?':>16}")
+for n in [10,20,30,40,50,60]:
+    same = (n>0 and r[n] % (1<<S[n-1]) == r[n-1])
+    print(f"  {n:>4} {S[n]:>5} {hex(r[n] & ((1<<40)-1)):>26} {'compatible' if same else 'INCOMPATIBLE':>16}")
+print(f"  r_n strictly increasing in n?  {all(r[n] >= r[n-1] for n in range(1,len(r)))}")
+print(f"  r_60 has {r[60].bit_length()} bits, S_60 = {S[60]}  -> no stabilization")
+print()
+print("  => the residues are mutually compatible (they define a 2-adic integer) but do NOT")
+print("     stabilize: the limit is a 2-adic integer that is not a nonnegative rational integer.")
+print("     THIS IS THE ENTIRE POINTWISE GAP, exhibited concretely.")

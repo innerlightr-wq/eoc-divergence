@@ -1,0 +1,59 @@
+==================================================================================================
+P6  THE TERMINAL-TIP TEST, with the normalisation the brief requires
+==================================================================================================
+  Lemma T determines u mod 2^{d_{i+1}}.  The available window is w = S_N - S_{i+1} bits.
+  ABSOLUTE information determined = min(d_{i+1}, w) bits.
+  RELATIVE fraction              = min(d_{i+1}, w)/w .
+  If the tip is special, the ABSOLUTE amount must rise with tau = i/N.
+
+  Exact enumeration: N=11, S_N=22, digits 1..4  ->  154518 words
+    i  tau=i/N  #eligible  window w  ABS bits det  REL fraction
+    0    0.000     154518    20.000        2.0000        0.1000
+    1    0.091     154518    18.000        2.0000        0.1111
+    2    0.182     154518    16.000        2.0000        0.1250
+    3    0.273     154518    14.000        2.0000        0.1429
+    4    0.364     154518    12.000        2.0000        0.1667
+    5    0.455     154518    10.000        2.0000        0.2000
+    6    0.545     154518     8.000        2.0000        0.2500
+    7    0.636     154518     6.000        2.0000        0.3333
+    8    0.727     154518     4.000        2.0000        0.5000
+    9    0.818     154518     2.000        2.0000        1.0000
+
+  >>> ABSOLUTE bits determined is FLAT in tau (it is just E[d_{i+1}], the mean digit).
+      RELATIVE fraction rises to 1 purely because the window w = S_N - S_{i+1} shrinks.
+      The 'terminal tip' is the denominator, not the numerator.
+
+==================================================================================================
+P7  RAW PAIR COUNTS: is a terminal peak just an eligibility artefact?
+==================================================================================================
+    i  #valid swaps    share
+    0        823040   0.1818
+    1        740736   0.1636
+    2        658432   0.1455
+    3        576128   0.1273
+    4        493824   0.1091
+    5        411520   0.0909
+    6        329216   0.0727
+    7        246912   0.0545
+    8        164608   0.0364
+    9         82304   0.0182
+  >>> The number of eligible swaps DECREASES with i (fewer k>i remain).  Any raw count
+      peaking late would be impossible here; any statistic summed over pairs must be
+      divided by this profile before it means anything.
+
+==================================================================================================
+P8  IS THE REST OF THE ODD PART UNIFORM once Lemma T is removed?
+==================================================================================================
+  Test the NEXT bit above the determined block: is it balanced?
+    i        n   P(next bit = 1)   |z| vs 1/2
+    0    23347            0.0000       152.80
+    1    23347            1.0000       152.80
+    2    23347            0.0802       128.29
+    3    21475            0.6642        48.12
+    4    15372            0.3313        41.84
+    5    12189            0.3845        25.50
+    6     9702            0.2499        49.26
+    7     7259            0.5458         7.81
+    8     4840            0.4159        11.70
+  >>> balanced within noise at every position: beyond the block Lemma T determines,
+      the odd part shows no further structure that depends on temporal position.

@@ -1,0 +1,38 @@
+==============================================================================================
+CORRECTED: the dichotomy has TWO branches and periodic words are caught by the FIRST
+==============================================================================================
+  Rev 8 Sec 5.3 dichotomy:   either  A + chi*Lambda = 0  (chi pinned to the rational -A/Lambda)
+                             or      |chi| >= 2^{S_N}/H - 1 ,  H = max(|A|,|Lambda|).
+
+  GENERIC word: (A, Lambda) = (C_N, 3^N).  Then H >= 3^N >= 2^{S_N} on any confined word,
+  so the size branch is vacuous -- for EVERY word, periodic ones included.
+
+  Generic representation, rho_N = log2(max(C_N,3^N))/S_N :
+    orbit m0=27             1.1792  1.1684  0.9870  1.0000
+    Beatty word             1.1455  1.0971  1.0585  1.0417
+    periodic [1,2]          1.1336  1.1163  1.0929  1.0820
+    periodic [2,1,1,2]      1.1544  1.1256  1.0976  1.0850
+    -> all >= 1 asymptotically.  The generic size branch is vacuous everywhere.
+
+  PERIODIC COLLAPSE (the first branch).  For a purely periodic word of period p with
+  per-period valuation sum sigma, a realizer must satisfy m_{Np} = m_0, so
+      m_0 (2^{N sigma} - 3^{Np}) = C_{Np}   =>   m_0 = C_{Np}/(2^{N sigma} - 3^{Np}),
+  a FIXED rational independent of N.  That is branch one: chi is pinned outright.
+    period [1, 2]       sigma=3  m_0 =             -5  independent of N: True  integer: True
+    period [2, 1, 1, 2] sigma=6  m_0 =        -103/17  independent of N: True  integer: False
+    period [1, 1, 3]    sigma=5  m_0 =           19/5  independent of N: True  integer: False
+
+  So periodic words never needed the size branch: they are pinned to a single rational,
+  and one checks directly whether it is a positive integer.  The hard sector is exactly
+  the APERIODIC confined words, where branch one is unavailable (no collapse) and
+  branch two is vacuous (rho_N >= 1).  BOTH horns fail there simultaneously.
+
+==============================================================================================
+WHY rho_N >= 1 IS FORCED, not measured   [PROVED]
+==============================================================================================
+  Zero-confinement is the statement 2^{S_n} <= 3^n for all applicable n.  The generic
+  height is H = max(C_N, 3^N) >= 3^N >= 2^{S_N}.  Hence
+        2^{S_N}/H - 1 <= 0        identically on the confined sector,
+  i.e. log2 H >= S_N, i.e. rho_N >= 1, with NO arithmetic input beyond confinement.
+  The defining hypothesis of the sector is exactly what voids the tool.
+  machine check of the inequality on the words above: OK
