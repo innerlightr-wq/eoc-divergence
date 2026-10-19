@@ -1,0 +1,5 @@
+# Third-party papers are NOT redistributed from this public repository.
+# SOURCES.md records where each was obtained; REPORT.md quotes only the
+# passages it discusses.
+*.pdf
+*.txt
