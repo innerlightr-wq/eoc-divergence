@@ -1,0 +1,42 @@
+tree conservation -- C(w) partitioned by the next valuation
+  728 nodes at M=1e4,1e6: 0 partition failures
+
+precision / multiplicity duality -- sum_a mu(wa) = mu(w)
+  255 words: 0 failures (exact truncated geometric sum)
+  precision lost per step = a_n = log2(1 / relative child mass).
+
+exponent identity
+  h  = alpha H2(1/alpha)       = 1.5056439
+  I0 = alpha (1 - H2(1/alpha)) = 0.0793186
+  h + I0 = alpha               = 1.5849625
+  the union bound adds 1 per confined word and so fails by 2^{h n}.
+
+selection ratio  A_{N,M} = Q_{N,M} O_M p_N   (O_M = #odd m <= M)
+    B    N    A_(N,M)       O_M p_N        Q
+   16    8       2936      2936.000   1.0000
+   16   16        996      1013.061   0.9832
+   16   24        436       430.529   1.0127
+   16   32        192       194.227   0.9885
+   16   40         96        97.850   0.9811
+   16   48         26        51.089   0.5089
+   20    8      46976     46976.000   1.0000
+   20   16      16220     16208.969   1.0007
+   20   24       6720      6888.458   0.9755
+   20   32       2950      3107.638   0.9493
+   20   40       1483      1565.593   0.9472
+   20   48        752       817.425   0.9200
+   22    8     187904    187904.000   1.0000
+   22   16      64848     64835.875   1.0002
+   22   24      27113     27553.832   0.9840
+   22   32      12139     12430.550   0.9765
+   22   40       6102      6262.370   0.9744
+   22   48       3080      3269.699   0.9420
+
+3x-1 control -- same alpha, same p_N, but m=1 is a confined positive fixed point
+      N   A(3x+1)   A(3x-1)     O_M p_N   Q(3x+1)    Q(3x-1)
+     48        26        66   5.109e+01     0.509      1.292
+     80         2         4   4.573e+00     0.437      0.875
+    100         0         3   1.131e+00     0.000      2.653
+    140         0         3   7.955e-02     0.000     37.712
+    180         0         3   6.410e-03     0.000    467.992
+  3x+1 extinct at N=84;  3x-1 alive at N=190
