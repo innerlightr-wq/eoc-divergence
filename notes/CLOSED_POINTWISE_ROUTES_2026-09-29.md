@@ -348,3 +348,34 @@ and `EOC/Realizer.lean`, `EOC/Carry.lean` in `eoc-lean-verification`.
 
 Formalization targets for these closures:
 [`docs/CLOSED_ROUTES_FORMALIZATION.md`](https://github.com/innerlightr-wq/eoc-lean-verification/blob/main/docs/CLOSED_ROUTES_FORMALIZATION.md).
+
+## Why `GrowthBound` is not an orphan: the classical (word, height) mechanism
+
+`two_pow_mul_iterate_succ_le` (`2^N (U^[N] n + 1) ≤ 3^N (n + 1)`) is the *growth*
+half of the only classical pointwise mechanism linking a word to a height, the
+one Dubickas uses for symbolic complexity (Glasgow Math. J. **51** (2009),
+243–252, Thm 5). In his positive-integer form it reads `x_n < (3/2)^n (x_0 + 1)`;
+the `ℕ`-exact statement here is the same bound without the division.
+
+The *separation* half is already in this repository and already on `main`:
+`modEq_of_parityPrefix_eq` in [`Divergence/RawMap.lean`](../Divergence/RawMap.lean)
+gives `parityPrefix N n = parityPrefix N n' → n ≡ n' [MOD 2^N]`, i.e. distinct
+residues mod `2^N` have distinct length-`N` parity factors (Bernstein–Lagarias).
+It is *not* in `Descent` or any `GlobalSeparation` module — anyone looking there
+will not find it.
+
+With both halves in Lean, the pigeonhole that yields the complexity slope is
+short: `p(L) > (L − 1 − log₂(x₀+1)) / log₂(3/2)`, hence
+`liminf p(L)/L ≥ 1/log₂(3/2) = 1.7095112913515…` for the parity word of any
+divergent (or merely eventually aperiodic) orbit. That is the cleanest statement
+of why word-class arguments alone cannot reach divergent orbits: the word of a
+divergent orbit is already forced to be complex, so no complexity *lower* bound
+separates it from anything.
+
+Note the arithmetic coincidence is an identity, not an accident: `α − 1 =
+log₂(3/2)`, so the Dubickas slope `1/log₂(3/2) = 1.70951…` and the windowed base
+`α/(α−1) = 2.70951…` of `WindowedSparsity`/`Summable` differ by exactly `1`.
+
+Status: the two Lean halves are present; the pigeonhole step is **not**
+formalized. Dubickas Thm 5 itself is external and was read first-hand
+(see `DUBICKAS_TRANSFER.md` in `collatz-symbolic-periodicity`).
