@@ -1,0 +1,34 @@
+================================================================================================
+P3  S_N-PRESERVING SWAP: the only comparison with a common modulus
+================================================================================================
+  Bumping d_i changes S_N too, so r and r' live in DIFFERENT moduli and their difference
+  is not intrinsic.  The matched comparison is the swap  d_i -> d_i+1, d_k -> d_k-1 (k>i,
+  d_k>=2), which preserves S_N.  Then only S_j for i<j<=k change (each by +1), so
+        Delta C_N = W_{i,k} := sum_{j=i+1}^{k} 3^{N-1-j} 2^{S_j} .
+  Delta C_N = W_{i,k} verified exactly on 19774 swaps: OK
+
+  Since S_j is STRICTLY increasing (d_j >= 1), the j=i+1 term has strictly least
+  2-valuation, so   v_2(W_{i,k}) = S_{i+1}   exactly.
+  v_2(W) = S_{i+1} verified exactly on 19751 swaps: OK
+
+================================================================================================
+P4  THE ODD PART -- and the representative trap the brief warns about
+================================================================================================
+  Delta r_N := r(d') - r(d) as integers in [0,2^{S_N}) is only defined mod 2^{S_N}.
+  v_2 is well defined (since v_2 = S_{i+1} < S_N), but the ODD PART IS NOT: oddpart(x) and
+  oddpart(x - 2^{S_N}) differ.  The intrinsic object is
+        u := (Delta r_N / 2^{S_{i+1}})  mod  2^{S_N - S_{i+1}} ,   an odd residue.
+  example d=[2, 1, 3, 1, 2, 2, 1, 3], i=1, k=5: Delta r_N = 5032, v_2 = 3 (= S_{i+1} = 3)
+     oddpart(Delta)          = 629
+     oddpart(Delta - 2^S_N)  = -3467   <- different integer, same class
+     intrinsic u mod 2^(S_N-S_i+1) = 629  (both agree) 
+
+================================================================================================
+P5  CANDIDATE LEMMA T:  the low bits of the odd part ARE determined by i alone
+================================================================================================
+  W = 2^{S_{i+1}} V,  V = 3^{N-2-i} + sum_{j=i+2}^{k} 3^{N-1-j} 2^{S_j - S_{i+1}} ,
+  and the first omitted term has valuation S_{i+2}-S_{i+1} = d_{i+1}.  Since
+  Delta r_N == -W 3^{-N} (mod 2^{S_N}),
+        u == -3^{-(i+2)}   (mod 2^{d_{i+1}}) ,
+  independent of N, S_N, k, and of every digit except d_{i+1}.
+  u == -3^{-(i+2)} (mod 2^{d_{i+1}}) verified on 22456 swaps: OK

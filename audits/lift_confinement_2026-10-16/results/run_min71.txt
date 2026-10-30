@@ -1,0 +1,41 @@
+==================================================================================================
+CORRECTION: why r_N = 71 for every minimiser, and why some minimisers are NOT orbit words
+==================================================================================================
+  The congruence r_n ≡ -C_n 3^{-n} only forces  2^{d_j} | 3 m_j + 1, i.e. v_2 >= d_j.
+  Equality is NOT forced.  When v_2(3 m_j+1) > d_j the next iterate m_{j+1} is EVEN and the
+  word is a CONGRUENCE word, not an ORBIT word.  So 'least congruence realizer' and 'orbit
+  prefix' are different notions, and my earlier sentence conflated them.  Retracted.
+
+  71's accelerated orbit and its confinement:
+    j        m_j  d_j  S_{j+1}  2^S <= 3^(j+1)?
+    0         71    1        1             True
+    1        107    1        2             True
+    2        161    2        4             True
+    3        121    2        6             True
+    4         91    1        7             True
+    5        137    2        9             True
+    6        103    1       10             True
+    7        155    1       11             True
+    8        233    2       13             True
+    9        175    1       14             True
+   10        263    1       15             True
+   11        395    1       16             True
+   12        593    2       18             True
+   13        445    3       21             True
+  71's word (14 steps): [1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 1, 1, 2, 3]
+
+  Minimisers at each N, with whether each is an ORBIT word of its own r_N:
+    N  #min    r_N  orbit word?  all m_j odd?
+    7     3     71          2/3           0/3
+    8     3     71          2/3           0/3
+    9     3     71          2/3           0/3
+   10     3     71          2/3           0/3
+   11     2     71          2/2           0/2
+   12     2     71          2/2           0/2
+   13     4     71          2/4           0/4
+
+  CORRECTED STATEMENT.  All minimisers share r_N = 71; only SOME are orbit words of 71.
+  The rest are congruence words that undershoot a valuation (some m_j is even).
+  What is actually true, and is the point:  min J(N) is pinned by the SMALLEST integer
+  admitting a length-N confined congruence word, and that integer does not grow over the
+  enumerable range -- it is 71 from N=7 to N=13.

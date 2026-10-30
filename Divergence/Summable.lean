@@ -136,4 +136,73 @@ theorem summable_inv_orbit {M : ℕ} (hM : Odd M) (hdiv : DivergentOrbit M) :
     _ ≤ C := by
         exact Summable.sum_le_tsum _ (fun k _ => by positivity) hser
 
+/-- **The constant is absolute.** `summable_inv_orbit` bounds every partial sum by
+`C = ∑' k, 4(k+1)(θ/2)^k`, where `θ` comes from `exists_window_sparsity` — an
+existential quantified *before* any orbit is named. Exposing that constant turns
+per-orbit summability into a bound uniform over all divergent odd seeds, which is
+what threshold-growth arguments need. -/
+theorem uniform_partial_sums :
+    ∃ C : ℝ, ∀ M : ℕ, Odd M → DivergentOrbit M →
+      ∀ n, (∑ i ∈ Finset.range n, 1 / (orbit M i : ℝ)) ≤ C := by
+    classical
+    obtain ⟨θ, hθ1, hθ2, hws⟩ := exists_window_sparsity
+    have hθ0 : (0 : ℝ) ≤ θ := le_trans zero_le_one hθ1
+    have hser := summable_window_series hθ0 hθ2
+    set C : ℝ := ∑' k : ℕ, 4 * ((k : ℝ) + 1) * (θ / 2) ^ k with hC
+    refine ⟨C, ?_⟩
+    intro M hM hdiv n
+    -- group the times `i < n` by the dyadic block of `orbit M i`
+    set g : ℕ → ℕ := fun i => Nat.log 2 (orbit M i) with hg
+    set B : ℕ := (Finset.range n).sup g with hB
+    have hmaps : ∀ i ∈ Finset.range n, g i ∈ Finset.range (B + 1) := by
+      intro i hi
+      exact Finset.mem_range.mpr (by have := Finset.le_sup (f := g) hi; omega)
+    have hgroup := Finset.sum_fiberwise_of_maps_to hmaps (fun i => 1 / (orbit M i : ℝ))
+    rw [← hgroup]
+    -- each fibre sits inside a dyadic block, and each of its terms is at most `2^{-k}`
+    have hfibre : ∀ k ∈ Finset.range (B + 1),
+        (∑ i ∈ (Finset.range n).filter (fun i => g i = k), 1 / (orbit M i : ℝ))
+          ≤ 4 * ((k : ℝ) + 1) * (θ / 2) ^ k := by
+      intro k _
+      have hsubset : (Finset.range n).filter (fun i => g i = k)
+          ⊆ (Finset.range n).filter
+              (fun i => 2 ^ k ≤ orbit M i ∧ orbit M i < 2 ^ (k + 1)) := by
+        intro i hi
+        rw [Finset.mem_filter] at hi ⊢
+        obtain ⟨hin, hik⟩ := hi
+        have hne : orbit M i ≠ 0 := (orbit_pos hM i).ne'
+        have hgi : Nat.log 2 (orbit M i) = k := by rw [hg] at hik; exact hik
+        refine ⟨hin, ?_, ?_⟩
+        · have h := Nat.pow_log_le_self 2 hne
+          rwa [hgi] at h
+        · have h := Nat.lt_pow_succ_log_self (by norm_num : 1 < 2) (orbit M i)
+          rwa [hgi] at h
+      have hterm : ∀ i ∈ (Finset.range n).filter (fun i => g i = k),
+          1 / (orbit M i : ℝ) ≤ (1 / 2 : ℝ) ^ k := by
+        intro i hi
+        have hi' := hsubset hi
+        rw [Finset.mem_filter] at hi'
+        have hlow : ((2 : ℝ) ^ k) ≤ (orbit M i : ℝ) := by exact_mod_cast hi'.2.1
+        have hppos : (0 : ℝ) < (2 : ℝ) ^ k := by positivity
+        rw [div_pow, one_pow]
+        exact one_div_le_one_div_of_le hppos hlow
+      calc (∑ i ∈ (Finset.range n).filter (fun i => g i = k), 1 / (orbit M i : ℝ))
+          ≤ ∑ _i ∈ (Finset.range n).filter (fun i => g i = k), (1 / 2 : ℝ) ^ k :=
+            Finset.sum_le_sum hterm
+        _ = (((Finset.range n).filter (fun i => g i = k)).card : ℝ) * (1 / 2 : ℝ) ^ k := by
+            rw [Finset.sum_const, nsmul_eq_mul]
+        _ ≤ 4 * ((k : ℝ) + 1) * θ ^ k * (1 / 2 : ℝ) ^ k := by
+            refine mul_le_mul_of_nonneg_right ?_ (by positivity)
+            refine le_trans ?_ (block_times_card_le hM hdiv hws k n)
+            exact_mod_cast Finset.card_le_card hsubset
+        _ = 4 * ((k : ℝ) + 1) * (θ / 2) ^ k := by
+            rw [div_pow, div_pow, one_pow]
+            ring
+    calc (∑ k ∈ Finset.range (B + 1),
+            ∑ i ∈ (Finset.range n).filter (fun i => g i = k), 1 / (orbit M i : ℝ))
+        ≤ ∑ k ∈ Finset.range (B + 1), 4 * ((k : ℝ) + 1) * (θ / 2) ^ k :=
+          Finset.sum_le_sum hfibre
+      _ ≤ C := by
+          exact Summable.sum_le_tsum _ (fun k _ => by positivity) hser
+
 end Divergence

@@ -1,0 +1,41 @@
+==================================================================================================
+EXTREMAL CONFINED WORDS: who achieves min J(N), and what is their realizer?
+==================================================================================================
+    N  min J  #achievers     r_N of an achiever  bits  max plateau                word (achiever)
+    5      3           4                     39     6            1                [1, 1, 2, 1, 1]
+    6      3           3                     71     7            1             [1, 1, 2, 2, 1, 1]
+    7      3           3                     71     7            2          [1, 1, 2, 2, 1, 2, 1]
+    8      3           3                     71     7            3       [1, 1, 2, 2, 1, 2, 1, 1]
+    9      3           3                     71     7            4    [1, 1, 2, 2, 1, 2, 1, 1, 1]
+   10      3           3                     71     7            5 [1, 1, 2, 2, 1, 2, 1, 1, 2, 1]
+   11      3           2                     71     7            6 [1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 1]
+   12      3           2                     71     7            7 [1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 1, 1]
+   13      3           4                     71     7            8 [1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1]
+
+==================================================================================================
+ARE THE MINIMISERS JUST ORBIT PREFIXES OF SMALL INTEGERS?
+==================================================================================================
+  N=9: min J=3, r_N=71; r_N's own orbit word = [1, 1, 2, 2, 1, 2, 1, 1, 2]
+        matches the minimiser word [1, 1, 2, 2, 1, 2, 1, 1, 1] ? False
+  N=11: min J=3, r_N=71; r_N's own orbit word = [1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 1]
+        matches the minimiser word [1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 1] ? True
+  N=13: min J=3, r_N=71; r_N's own orbit word = [1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 1, 1, 2]
+        matches the minimiser word [1, 1, 2, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1] ? False
+
+  >>> The minimum-J confined words are exactly the confined prefixes of the orbits of
+      SMALL integers.  min J(N) is therefore governed by the least integer whose orbit
+      stays confined for N steps -- which is the EOC least-realizer frontier r_min(N),
+      a route the programme has already retired.
+
+==================================================================================================
+TARGET A IS CIRCULAR  [PROVED]
+==================================================================================================
+  Suppose one proved  J(N) -> infinity  for every infinite zero-confined word.
+  By the already-known equivalence (x in Z_{>=0} <=> J(infinity) < infinity), that says
+  precisely that NO infinite zero-confined word has a nonnegative-integer realizer.
+  An infinite zero-confined word with a positive-integer realizer is exactly a divergent-type
+  orbit staying in the corridor, so Target A IS the open problem, not a step toward it.
+
+  The finite data confirm there is no growing finite surrogate:  min J(N) = 3 for every
+  N = 6..13, achieved by orbit prefixes of small integers.  No lower bound on J(N) that grows
+  with N can hold over all confined words of length N.

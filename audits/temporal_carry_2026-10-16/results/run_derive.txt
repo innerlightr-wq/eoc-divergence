@@ -1,0 +1,30 @@
+==============================================================================================
+P0  model self-check: two independent implementations of C_N, and the identity
+==============================================================================================
+  C_N closed form == recurrence : OK
+  2^{S_N} m_N = 3^N m_0 + C_N   : OK
+
+==============================================================================================
+P1  SINGLE PERTURBATION    d_i -> d_i + eps
+==============================================================================================
+     C_N = sum_{j<=i} 3^{N-1-j}2^{S_j}  +  sum_{j>i} 3^{N-1-j}2^{S_j}
+     bumping d_i multiplies every S_j with j>i by 2^eps, so
+         Delta_i C_N = (2^eps - 1) * T_i ,      T_i = sum_{j>i} 3^{N-1-j} 2^{S_j}.
+  verified exactly on 15000 (word,i,eps) triples: OK
+
+==============================================================================================
+P2  SECOND DIFFERENCE  (the 'nonlinear interaction')
+==============================================================================================
+     With A = sum_{j<=i}, B = sum_{i<j<=k}, D = sum_{j>k}:
+         C_N(e_i,e_k) = A + 2^{e_i} B + 2^{e_i+e_k} D ,  so
+         Delta_i Delta_k C_N = (2^{e_i}-1)(2^{e_k}-1) * T_k .
+  verified exactly on 66600 (word,i,k,eps) tuples: OK
+
+  CONSEQUENCE (exact, no asymptotics):
+      Delta_i Delta_k C_N  =  Delta_i C_N * Delta_k C_N / T_i .
+  verified exactly on 7200 (word,i,k) pairs: OK
+
+  >>> The interaction term is NONZERO but MULTIPLICATIVELY SEPARABLE.  It is the
+      identity 2^{a+b} = 2^a 2^b and nothing more.  The second difference is a
+      FUNCTION of the two first differences and the tail T_i; it carries no
+      information absent from them.

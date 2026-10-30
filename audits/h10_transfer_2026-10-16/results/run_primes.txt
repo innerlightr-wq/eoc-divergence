@@ -1,0 +1,43 @@
+============================================================================================
+H10's ENGINE NEEDS MANY PRIMES.  Does a Collatz word constrain any prime but 2?
+============================================================================================
+  In H10 the height estimate is  h(s) <= H * M(s)^c ,  M(s) = product of the CONTACT PRIMES
+  (nonexceptional primes where one of five fixed linear forms has odd valuation).  M(s) varies
+  with s and can be large; that is exactly what converts divisibility into a height bound.
+
+  In Collatz the realizer condition is a single congruence modulo 2^{S_N}.  The realizers are
+      { r_N + k*2^{S_N} : k >= 0 } ,
+  so for any odd modulus q the realizers hit EVERY residue class mod q (gcd(2,q)=1, CRT).
+  The word therefore imposes NO condition at any prime other than 2.
+
+  Beatty confined word, N=40, modulus 2^63.  Residue classes hit by r_N + k*2^S:
+        q  classes hit  q itself   all?
+        3            3         3    YES
+        9            9         9    YES
+       27           27        27    YES
+       81           81        81    YES
+        5            5         5    YES
+        7            7         7    YES
+       11           11        11    YES
+       13           13        13    YES
+      243          243       243    YES
+
+  => M(s) has no Collatz analogue.  There is one prime, one modulus, and the odd part
+     of the problem is completely unconstrained.  This is the repo's own Sec 4b finding
+     ('a code imposes no 3-adic condition on its start'), reproved here in one line.
+
+============================================================================================
+AND THE SECOND INGREDIENT: H10 closes with a QUADRATIC height.  Collatz has none.
+============================================================================================
+  H10's endgame:   h(x(eta(a_j) P)) <<_f B      (linear, from the contact-prime bound)
+                   h^(nP) ~ c n^2                (quadratic, canonical height on E)
+                   => B^2 <<_f B  => B = O(1)   => nonstandard forced to standard.
+
+  The quadratic comes from the Neron-Tate canonical height, a positive-definite QUADRATIC
+  FORM on a finitely generated abelian group.  The Collatz realizer structure is the affine
+  map m_0 |-> (m_0 mod 2^{S_n}); the only group in sight is Z_2 under addition, which carries
+  no positive-definite quadratic form with respect to which the residues grow.  Every
+  comparison available (S_n vs n log2 3, log m_0 vs S_n) is LINEAR in the exponent.
+
+  Without a quadratic-vs-linear squeeze there is no forcing step, and the H10 architecture
+  has no endgame in this setting.

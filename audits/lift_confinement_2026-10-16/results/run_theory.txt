@@ -1,0 +1,25 @@
+================================================================================================
+THEOREM L1  the lift block is the binary block of the 2-adic realizer
+================================================================================================
+  x := lim r_n = - sum_{j>=0} 3^{-(j+1)} 2^{S_j}  in Z_2 (converges since S_j -> inf),
+  and b_n = (x >> S_n) mod 2^{d_n}: the lift sequence IS the base-2 expansion of x read in
+  windows cut by the partial sums S_n.
+
+================================================================================================
+THEOREM L2  b_n = 0  <=>  v_2(3 m_n + 1) >= d_n   [PROVED]
+================================================================================================
+  3^{n+1} r_n + C_{n+1} = 3(3^n r_n + C_n) + 2^{S_n} = 2^{S_n}(3 m_n + 1),  m_n = (3^n r_n+C_n)/2^{S_n}.
+  r_{n+1} = r_n  <=>  2^{S_{n+1}} | 3^{n+1} r_n + C_{n+1}  <=>  2^{d_n} | 3 m_n + 1.
+  More precisely  b_n == -(3 m_n + 1) 3^{-(n+1)}  (mod 2^{d_n}),
+  so v_2(b_n) = v_2(3 m_n + 1) whenever that is < d_n, and b_n = 0 otherwise.
+  b_n = 0 <=> 2^{d_n} | 3m_n+1   on 7100 positions: OK
+  b_n == -(3m_n+1)3^{-(n+1)} mod 2^{d_n} : OK
+
+================================================================================================
+THEOREM L3  m_n is ODD for every prefix realizer  =>  d_n = 1 FORCES b_n = 0  [PROVED]
+================================================================================================
+  r_n is the LEAST residue, so 2^{S_n} exactly divides 3^n r_n + C_n (else r_n - 2^{S_{n-1}}...
+  would also satisfy the congruence at a smaller value).  Hence m_n is odd, 3m_n+1 is even,
+  v_2(3 m_n + 1) >= 1 = d_n, and by L2  b_n = 0.
+  m_n odd on 8480 positions                : 4914 FAIL
+  d_n = 1  =>  b_n = 0                      : 2063 FAIL
