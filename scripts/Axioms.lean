@@ -26,6 +26,13 @@ import Divergence
 #print axioms Divergence.orbit_range_subset
 #print axioms Divergence.raw_injective_of_divergent
 
+-- The raw growth bound (Archimedean half of the audited route-closures).
+#print axioms Divergence.two_mul_U_succ_le
+#print axioms Divergence.two_pow_mul_iterate_succ_le
+#print axioms Divergence.two_pow_mul_succ_le
+#print axioms Divergence.two_pow_mul_max_succ_le
+#print axioms Divergence.iterate_lt_three_pow_mul_succ
+
 -- M3: the binomial tail and the certified base.
 #print axioms Divergence.tail_mul_le
 #print axioms Divergence.card_subsets_card_ge

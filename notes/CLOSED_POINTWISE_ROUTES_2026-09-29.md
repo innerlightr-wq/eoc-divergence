@@ -229,10 +229,9 @@ representative to bound.
 
 **Theorem 1 decomposes into two things this programme already owns:** its 2-adic half is
 `EOC.residue_pinning` plus `A_k ≥ k`; its 3-adic half is the elementary growth bound
-`2^N(x_N+1) ≤ 3^N(x_0+1)` — the same lemma §2 uses to get `4^L ≤ 3^L(n₀+1)`, and the one missing
-`ℕ` lemma already listed in
-[`docs/CLOSED_ROUTES_FORMALIZATION.md`](https://github.com/innerlightr-wq/eoc-lean-verification/blob/main/docs/CLOSED_ROUTES_FORMALIZATION.md)
-§A.
+`2^N(x_N+1) ≤ 3^N(x_0+1)` — the same lemma §2 uses to get `4^L ≤ 3^L(n₀+1)`. That growth bound is
+now **machine-checked** as `Divergence.two_pow_mul_iterate_succ_le`
+([`Divergence/GrowthBound.lean`](../Divergence/GrowthBound.lean)).
 
 **Recorded observation about the source, conservatively.** Kramer's `r_k` is defined modulo
 `2^{A_k}` from `3^k x_0 + B_k ≡ 0`, which forces `x_k` to be an *integer* but not each `a_i` to be
@@ -328,6 +327,12 @@ All scripts are standard-library Python, every pass/fail decision is exact integ
 arithmetic, and outputs are saved under each workspace's `data/`. Run any of them with
 `python3 <script>.py` from its own `scripts/` directory.
 
+The Archimedean lemma that four of these closures rest on is now formalized in this repository:
+`Divergence.two_pow_mul_iterate_succ_le` — `2^N(U^[N] n + 1) ≤ 3^N(n + 1)` — in
+[`Divergence/GrowthBound.lean`](../Divergence/GrowthBound.lean), together with the one-step form
+and the `max` form that a repetition argument consumes. All five statements depend only on
+`[propext, Quot.sound]`.
+
 In-repository sources the audits read:
 [`Divergence/Basic.lean`](../Divergence/Basic.lean) (`a`, `T`, `S`, `C`, `aggregate_identity`),
 [`Divergence/CycleDrift.lean`](../Divergence/CycleDrift.lean) (`ZeroConfined`),
@@ -343,3 +348,34 @@ and `EOC/Realizer.lean`, `EOC/Carry.lean` in `eoc-lean-verification`.
 
 Formalization targets for these closures:
 [`docs/CLOSED_ROUTES_FORMALIZATION.md`](https://github.com/innerlightr-wq/eoc-lean-verification/blob/main/docs/CLOSED_ROUTES_FORMALIZATION.md).
+
+## Why `GrowthBound` is not an orphan: the classical (word, height) mechanism
+
+`two_pow_mul_iterate_succ_le` (`2^N (U^[N] n + 1) ≤ 3^N (n + 1)`) is the *growth*
+half of the only classical pointwise mechanism linking a word to a height, the
+one Dubickas uses for symbolic complexity (Glasgow Math. J. **51** (2009),
+243–252, Thm 5). In his positive-integer form it reads `x_n < (3/2)^n (x_0 + 1)`;
+the `ℕ`-exact statement here is the same bound without the division.
+
+The *separation* half is already in this repository and already on `main`:
+`modEq_of_parityPrefix_eq` in [`Divergence/RawMap.lean`](../Divergence/RawMap.lean)
+gives `parityPrefix N n = parityPrefix N n' → n ≡ n' [MOD 2^N]`, i.e. distinct
+residues mod `2^N` have distinct length-`N` parity factors (Bernstein–Lagarias).
+It is *not* in `Descent` or any `GlobalSeparation` module — anyone looking there
+will not find it.
+
+With both halves in Lean, the pigeonhole that yields the complexity slope is
+short: `p(L) > (L − 1 − log₂(x₀+1)) / log₂(3/2)`, hence
+`liminf p(L)/L ≥ 1/log₂(3/2) = 1.7095112913515…` for the parity word of any
+divergent (or merely eventually aperiodic) orbit. That is the cleanest statement
+of why word-class arguments alone cannot reach divergent orbits: the word of a
+divergent orbit is already forced to be complex, so no complexity *lower* bound
+separates it from anything.
+
+Note the arithmetic coincidence is an identity, not an accident: `α − 1 =
+log₂(3/2)`, so the Dubickas slope `1/log₂(3/2) = 1.70951…` and the windowed base
+`α/(α−1) = 2.70951…` of `WindowedSparsity`/`Summable` differ by exactly `1`.
+
+Status: the two Lean halves are present; the pigeonhole step is **not**
+formalized. Dubickas Thm 5 itself is external and was read first-hand
+(see `DUBICKAS_TRANSFER.md` in `collatz-symbolic-periodicity`).
